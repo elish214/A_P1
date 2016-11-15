@@ -53,6 +53,6 @@ istream &operator>>(istream &is, Point &point) {
 }
 
 ostream &operator<<(ostream &os, const Point &point) {
-    os << "x: " << point.x << " y: " << point.y;
+    os << "(" << point.x << "," << point.y << ")";
     return os;
 }
