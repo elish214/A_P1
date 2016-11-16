@@ -6,15 +6,22 @@
 #define A_P1_GRID_H
 
 #include <array>
-#include "Location.h"
+#include "Location.h" // call location header...
 
 using namespace std;
 
 class Grid {
 private:
     Location** matrix;
+    int rows;
+    int cols;
 public:
-    Location** getMatrix;
+    Grid(int rows, int cols);
+
+    Location **getMatrix() const;
+
+    void setMatrix(Location **matrix);
+
 };
 
 
