@@ -8,10 +8,10 @@
 
 #include "Point.h"
 #include "Node.h"
-#include "Grid.h"
-// doesnt call grid header cause already defined, so doesnt recognize it's constructor.....
 
 using namespace std;
+
+class Grid;
 
 class Location: public Node {
 private:
@@ -21,7 +21,9 @@ private:
 public:
     Location();
 
-    const Point &getP() const;
+    virtual ~Location();
+
+    const Point &getPoint() const;
 
     void setPoint(const Point &p);
 

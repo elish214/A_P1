@@ -6,22 +6,36 @@
 #define A_P1_GRID_H
 
 #include <array>
-#include "Location.h" // call location header...
+#include <ostream>
+#include "Location.h"
 
 using namespace std;
 
 class Grid {
 private:
-    Location** matrix;
+    Location **matrix;
     int rows;
     int cols;
 public:
     Grid(int rows, int cols);
 
+    Grid(Point p) : Grid(p.getY(), p.getX()) {}
+
+    virtual ~Grid();
+
     Location **getMatrix() const;
 
     void setMatrix(Location **matrix);
 
+    int getRows() const;
+
+    int getCols() const;
+
+    Location get(int x, int y);
+
+    Location get(Point p);
+
+    friend istream &operator>>(istream &is, Grid &grid);
 };
 
 

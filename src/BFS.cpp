@@ -7,7 +7,6 @@
 #include <list>
 #include <stack>
 #include "BFS.h"
-#include "Node.h"
 
 using namespace std;
 
@@ -28,7 +27,8 @@ stack<Node> BFS::run(Node start, Node end) {
         current = q.front();
         q.pop();
         for(Node n : current.neighbors()){
-            if(dist.find(n) == nullptr || dist.find(n)->second > dist.find(current)->second + 1){
+            if (dist.find(n) == nullptr ||
+                dist.find(n)->second > dist.find(current)->second + 1) {
                 dist.insert({n, (dist.find((current))->second) + 1});
                 parents.insert({n,current});
                 q.push(n);
