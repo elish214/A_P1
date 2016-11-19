@@ -20,7 +20,7 @@ Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
 Grid::~Grid() {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            delete getMatrix()[i][j];
+            delete &getMatrix()[i][j];
         }
         delete getMatrix()[i];
     }
@@ -43,11 +43,11 @@ int Grid::getCols() const {
     return cols;
 }
 
-Location Grid::get(int x, int y) {
+Location& Grid::get(int x, int y) {
     return getMatrix()[y][x];
 }
 
-Location Grid::get(Point p) {
+Location& Grid::get(Point p) {
     return get(p.getX(), p.getY());
 }
 

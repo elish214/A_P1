@@ -6,7 +6,8 @@
 #define A_P1_GRID_H
 
 #include <array>
-#include <ostream>
+#include <iostream>
+#include <string>
 #include "Location.h"
 
 using namespace std;
@@ -31,9 +32,9 @@ public:
 
     int getCols() const;
 
-    Location get(int x, int y);
+    Location& get(int x, int y);
 
-    Location get(Point p);
+    Location& get(Point p);
 
     friend istream &operator>>(istream &is, Grid &grid);
 };

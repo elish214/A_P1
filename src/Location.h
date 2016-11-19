@@ -6,6 +6,8 @@
 #define A_P1_LOCATION_H
 
 
+#include <iostream>
+#include <string>
 #include "Point.h"
 #include "Node.h"
 
@@ -31,7 +33,9 @@ public:
 
     void setGrid(Grid *grid);
 
-    list<Node> neighbors();
+    list<Node*> neighbors();
+
+    friend ostream &operator<<(ostream &os, const Location &location);
 
 };
 

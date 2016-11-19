@@ -35,6 +35,8 @@ public:
     friend istream &operator>>(istream &os, Point &point);
 
     friend ostream &operator<<(ostream &os, const Point &point);
+
+    virtual ~Point();
 };
 
 
