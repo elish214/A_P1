@@ -18,7 +18,7 @@ using namespace std;
  */
 class Grid {
 private:
-    Location **matrix;
+    Location ***matrix;
     int rows;
     int cols;
 public:
@@ -28,9 +28,9 @@ public:
 
     virtual ~Grid();
 
-    Location **getMatrix() const;
+    Location ***getMatrix() const;
 
-    void setMatrix(Location **matrix);
+    void setMatrix(Location ***matrix);
 
     int getRows() const;
 

@@ -18,12 +18,38 @@ using namespace std;
  */
 class Node {
 public:
-    Node(){}
-    virtual ~Node(){}
-    virtual list<Node*> neighbors() = 0;
+    Node() {}
+
+    virtual ~Node() {}
+
+    virtual list<Node *> neighbors() = 0;
     //virtual int distance(Node n) = 0;
 
-    friend ostream &operator<<(ostream &os, const Node &node);
+    /**
+    * method overloading for operator '=='.
+    *
+    * @param rhs another node.
+    * @return whether it equals to current node or not.
+    */
+    bool operator==(const Node &rhs) const {
+        return this == &rhs;
+    }
+
+    /**
+    * method overloading for operator '!='.
+    *
+    * @param rhs another node.
+    * @return whether it isn't equals to current node or not.
+    */
+    bool operator!=(const Node &rhs) const {
+        return this != &rhs;
+    }
+
+    friend ostream &operator<<(ostream &os, const Node &node) {
+        return node.toString(os);
+    }
+
+    virtual ostream &toString(ostream &os) const = 0;
 };
 
 

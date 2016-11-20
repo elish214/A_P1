@@ -41,6 +41,11 @@ public:
 
     friend ostream &operator<<(ostream &os, const Location &location);
 
+    bool operator==(const Location &rhs) const;
+
+    bool operator!=(const Location &rhs) const;
+
+    ostream &toString(ostream &os) const;
 };
 
 

@@ -91,3 +91,18 @@ ostream &operator<<(ostream &os, const Location &location) {
     return os;
 }
 
+bool Location::operator==(const Location &rhs) const {
+    return this == &rhs &&
+           p == rhs.p &&
+           grid == rhs.grid;
+}
+
+bool Location::operator!=(const Location &rhs) const {
+    return !(rhs == *this);
+}
+
+ostream &Location::toString(ostream &os) const {
+    os << p;
+    return os;
+}
+

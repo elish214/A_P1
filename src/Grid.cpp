@@ -12,14 +12,15 @@
  * @return a grid.
  */
 Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
-    Location** matrix = new Location*[rows];
+    matrix = new Location **[rows];
     for (int i = 0; i < rows; ++i)
-        matrix[i] = new Location[cols];
+        matrix[i] = new Location *[cols];
 
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < cols; j++) {
-            matrix[i][j].setGrid(this);
-            matrix[i][j].setPoint(Point(i, j));
+            matrix[i][j] = new Location();
+            matrix[i][j]->setGrid(this);
+            matrix[i][j]->setPoint(Point(i, j));
         }
     }
 }
@@ -42,7 +43,7 @@ Grid::~Grid() {
  *
  * @return grid's matrix.
  */
-Location **Grid::getMatrix() const {
+Location ***Grid::getMatrix() const {
     return matrix;
 }
 
@@ -51,7 +52,7 @@ Location **Grid::getMatrix() const {
  *
  * @param matrix a location's matrix.
  */
-void Grid::setMatrix(Location **matrix) {
+void Grid::setMatrix(Location ***matrix) {
     Grid::matrix = matrix;
 }
 
@@ -81,7 +82,7 @@ int Grid::getCols() const {
  * @return specific location on grid.
  */
 Location& Grid::get(int x, int y) {
-    return getMatrix()[y][x];
+    return *(matrix[y][x]);
 }
 
 /**
