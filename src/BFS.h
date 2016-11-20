@@ -10,6 +10,11 @@
 
 using namespace std;
 
+/**
+ * BFS represent Breadth-first search.
+ * is an algorithm for traversing or searching tree or graph.
+ * Node class keeps as generic as possible.
+ */
 class BFS {
 public:
     stack<Node*> run(Node &start, Node &end);

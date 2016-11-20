@@ -10,6 +10,13 @@
 
 using namespace std;
 
+/**
+ * runs the algorithem.
+ *
+ * @param start a starting point.
+ * @param end an ending point.
+ * @return a stack of nodes which is the optimal route.
+ */
 stack<Node*> BFS::run(Node &start, Node &end) {
     map<Node*,Node*> parents;
     map<Node*,int> dist;
@@ -18,10 +25,9 @@ stack<Node*> BFS::run(Node &start, Node &end) {
     stack<Node*> route;
     Node *p;
 
-    parents.insert({&start, NULL});
+    parents.insert({&start, nullptr});
     dist.insert({&start, 0});
     q.push(&start);
-
 
     while(!q.empty()){
         current = q.front();

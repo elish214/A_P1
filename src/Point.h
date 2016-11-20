@@ -9,6 +9,10 @@
 
 using namespace std;
 
+/**
+ * Point represent a 2-dimensional point.
+ * it has x axes and a y axes integer values.
+ */
 class Point {
 private:
     int x;

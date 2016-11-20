@@ -12,6 +12,10 @@
 
 using namespace std;
 
+/**
+ * Grid represent the 'map' on which the BFS search for the best route.
+ * in our case it's a matrix of locations.
+ */
 class Grid {
 private:
     Location **matrix;

@@ -15,6 +15,10 @@ using namespace std;
 
 class Grid;
 
+/**
+ * Location represent a node on the grid.
+ * in our case, location is a coordinae in the matrix.
+ */
 class Location: public Node {
 private:
     Point p;

@@ -11,6 +11,11 @@
 
 using namespace std;
 
+/**
+ * Node represent an abstract class.
+ * node is a coordinate in the space on which the BFS algorithem run.
+ * keeps it generic as possible.
+ */
 class Node {
 public:
     Node(){}

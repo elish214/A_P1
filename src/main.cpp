@@ -8,9 +8,14 @@
 
 using namespace std;
 
-char* parser(string s, int &a, int &c);
+void parser(string s, int &a, int &c);
 void printRoute(stack<Node*> route);
 
+/**
+ * entry point.
+ *
+ * @return 0.
+ */
 int main() {
     stack<Node*> route;
     BFS bfs;
@@ -43,16 +48,29 @@ int main() {
 // get information from user, parse it and create grid. get shortest lane.
 
     delete grid;
+    return 0;
 }
 
-char* parser(string s, int &a, int &b){
+/**
+ * parsing a string into two integers.
+ *
+ * @param s a string.
+ * @param a first integer.
+ * @param b second integer.
+ */
+void parser(string s, int &a, int &b){
     a = stoi(s.substr(0,'_'));
     b = stoi(s.substr('_', s.size()));
 }
 
+/**
+ * printing a route.
+ *
+ * @param route a stuck of nodes.
+ */
 void printRoute(stack<Node*> route){
     while (!route.empty()){
-        cout << route.top();
+        cout << route.top() << endl;
         route.pop();
     }
 }
