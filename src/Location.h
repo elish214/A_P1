@@ -24,7 +24,11 @@ private:
     Point p;
     Grid* grid;
 
+protected:
+    ostream &toString(ostream &os) const;
+
 public:
+
     Location();
 
     virtual ~Location();
@@ -44,8 +48,6 @@ public:
     bool operator==(const Location &rhs) const;
 
     bool operator!=(const Location &rhs) const;
-
-    ostream &toString(ostream &os) const;
 };
 
 

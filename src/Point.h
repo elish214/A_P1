@@ -20,6 +20,8 @@ private:
 public:
     Point(int x = 0, int y = 0);
 
+    virtual ~Point();
+
     int getX() const;
 
     void setX(int x);
@@ -39,8 +41,6 @@ public:
     friend istream &operator>>(istream &os, Point &point);
 
     friend ostream &operator<<(ostream &os, const Point &point);
-
-    virtual ~Point();
 };
 
 

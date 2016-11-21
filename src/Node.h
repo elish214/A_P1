@@ -17,13 +17,18 @@ using namespace std;
  * keeps it generic as possible.
  */
 class Node {
+protected:
+
+    virtual ostream &toString(ostream &os) const = 0;
+
 public:
+
     Node() {}
 
     virtual ~Node() {}
 
-    virtual list<Node *> neighbors() = 0;
     //virtual int distance(Node n) = 0;
+    virtual list<Node *> neighbors() = 0;
 
     /**
     * method overloading for operator '=='.
@@ -48,8 +53,6 @@ public:
     friend ostream &operator<<(ostream &os, const Node &node) {
         return node.toString(os);
     }
-
-    virtual ostream &toString(ostream &os) const = 0;
 };
 
 

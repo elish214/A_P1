@@ -26,7 +26,7 @@ const Point &Location::getPoint() const {
  * destructor.
  */
 Location::~Location() {
-    delete &p;
+
 }
 
 /**
@@ -65,18 +65,18 @@ list<Node*> Location::neighbors(){
     int x = getPoint().getX();
     int y = getPoint().getY();
 
-    std::list<Node*> neighbor;
+    std::list<Node *> neighbors;
 
     if (x > 0) //left
-        neighbor.emplace_back(&getGrid()->get(x - 1, y));
+        neighbors.emplace_back(&getGrid()->get(x - 1, y));
     if (y < getGrid()->getCols() - 1) //up
-        neighbor.emplace_back(&getGrid()->get(x, y + 1));
+        neighbors.emplace_back(&getGrid()->get(x, y + 1));
     if (x < getGrid()->getRows() - 1) //right
-        neighbor.emplace_back(&getGrid()->get(x + 1, y));
+        neighbors.emplace_back(&getGrid()->get(x + 1, y));
     if (y > 0) //down
-        neighbor.emplace_back(&getGrid()->get(x, y - 1));
+        neighbors.emplace_back(&getGrid()->get(x, y - 1));
 
-    return neighbor;
+    return neighbors;
 }
 
 /**
@@ -87,20 +87,35 @@ list<Node*> Location::neighbors(){
  * @return output stream.
  */
 ostream &operator<<(ostream &os, const Location &location) {
-    os << location.p;
+    os << location.getPoint();
     return os;
 }
 
+/**
+ * == operator
+ * @param rhs to compare
+ * @return true/false
+ */
 bool Location::operator==(const Location &rhs) const {
     return this == &rhs &&
            p == rhs.p &&
            grid == rhs.grid;
 }
 
+/**
+ * != operator
+ * @param rhs to compare
+ * @return true/false
+ */
 bool Location::operator!=(const Location &rhs) const {
     return !(rhs == *this);
 }
 
+/**
+ * << for sub class.
+ * @param os ostream
+ * @return ostream with location
+ */
 ostream &Location::toString(ostream &os) const {
     os << p;
     return os;

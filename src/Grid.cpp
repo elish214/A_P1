@@ -20,7 +20,7 @@ Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
         for(int j = 0; j < cols; j++) {
             matrix[i][j] = new Location();
             matrix[i][j]->setGrid(this);
-            matrix[i][j]->setPoint(Point(i, j));
+            matrix[i][j]->setPoint(Point(j, i));
         }
     }
 }
@@ -31,11 +31,11 @@ Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
 Grid::~Grid() {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            delete &getMatrix()[i][j];
+            delete matrix[i][j];
         }
-        delete getMatrix()[i];
+        delete[] matrix[i];
     }
-    delete getMatrix();
+    delete[] matrix;
 }
 
 /**

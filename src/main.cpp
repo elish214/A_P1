@@ -18,7 +18,6 @@ void printRoute(stack<Node *> route);
  * @return 0.
  */
 int main() {
-    stack<Node *> route;
     BFS bfs;
     Grid *grid;
     int x, y;
@@ -44,9 +43,9 @@ int main() {
     grid = new Grid(rows, cols);
 
     printRoute(bfs.run(grid->get(start), grid->get(end)));
-// get information from user, parse it and create grid. get shortest lane.
 
     delete grid;
+
     return 0;
 }
 
@@ -71,7 +70,7 @@ void parser(string s, int &a, int &b) {
  */
 void printRoute(stack<Node *> route) {
     while (!route.empty()) {
-        cout << route.top() << endl;
+        cout << *(route.top()) << endl;
         route.pop();
     }
 }
