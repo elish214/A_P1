@@ -61,22 +61,29 @@ void Location::setGrid(Grid *grid) {
  *
  * @return location's neighbors.
  */
-list<Node*> Location::neighbors(){
+Node** Location::neighbors(){
+    Node** nei = new Node*[4];
+
+    for (int i = 0; i < 4; ++i) {
+        nei[i] = NULL;
+    }
+
     int x = getPoint().getX();
     int y = getPoint().getY();
 
-    std::list<Node *> neighbors;
-
     if (x > 0) //left
-        neighbors.emplace_back(&getGrid()->get(x - 1, y));
-    if (y < getGrid()->getCols() - 1) //up
-        neighbors.emplace_back(&getGrid()->get(x, y + 1));
-    if (x < getGrid()->getRows() - 1) //right
-        neighbors.emplace_back(&getGrid()->get(x + 1, y));
-    if (y > 0) //down
-        neighbors.emplace_back(&getGrid()->get(x, y - 1));
+        nei[0] = (&getGrid()->get(x - 1, y));
 
-    return neighbors;
+    if (y < getGrid()->getCols() - 1) //up
+        nei[1] = (&getGrid()->get(x, y + 1));
+
+    if (x < getGrid()->getRows() - 1) //right
+        nei[2] = (&getGrid()->get(x + 1, y));
+
+    if (y > 0) //down
+        nei[3] = (&getGrid()->get(x, y - 1));
+
+    return nei;
 }
 
 /**

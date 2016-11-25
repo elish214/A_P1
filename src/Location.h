@@ -41,7 +41,7 @@ public:
 
     void setGrid(Grid *grid);
 
-    list<Node*> neighbors();
+    Node** neighbors();
 
     friend ostream &operator<<(ostream &os, const Location &location);
 

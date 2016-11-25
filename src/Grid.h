@@ -5,7 +5,7 @@
 #ifndef A_P1_GRID_H
 #define A_P1_GRID_H
 
-#include <array>
+#include <stdlib.h>
 #include <iostream>
 #include <string>
 #include "Location.h"
@@ -24,7 +24,7 @@ private:
 public:
     Grid(int rows, int cols);
 
-    Grid(Point p) : Grid(p.getY(), p.getX()) {}
+    Grid(Point p) { Grid(p.getY(), p.getX()); }
 
     virtual ~Grid();
 

@@ -2,6 +2,7 @@
 // Created by raz on 14/11/16.
 //
 #include <iostream>
+#include <stdlib.h>
 #include "Point.h"
 
 using namespace std;
@@ -108,9 +109,9 @@ istream &operator>>(istream &is, Point &point) {
     string s;
 
     getline(is, s, '_');
-    point.x = stoi(s);
+    point.x = atoi(s.c_str());
     getline(is, s, '\n');
-    point.y = stoi(s);
+    point.y = atoi(s.c_str());
 
     return is;
 }

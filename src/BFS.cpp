@@ -25,7 +25,7 @@ stack<Node*> BFS::run(Node &start, Node &end) {
     stack<Node*> route;
     Node *p;
 
-    parents.insert({&start, nullptr});
+    parents.insert({&start, NULL});
     dist.insert({&start, 0});
     q.push(&start);
 
@@ -34,14 +34,17 @@ stack<Node*> BFS::run(Node &start, Node &end) {
         q.pop();
         std::map<Node *, int>::iterator itCurrent = dist.find(current);
 
-        for(Node *n : current->neighbors()){
-            std::map<Node *, int>::iterator itN = dist.find(n);
+        for (int i = 0; i < 4; i++) {
+            if(current->neighbors()[i] == NULL){// no neighbor.
+                continue;
+            }
+            std::map<Node *, int>::iterator itN = dist.find(current->neighbors()[i]);
 
             if (itN == dist.end() ||
                 itN->second > itCurrent->second + 1) {
-                dist.insert({n, itCurrent->second + 1});
-                parents.insert({n,current});
-                q.push(n);
+                dist.insert({current->neighbors()[i], itCurrent->second + 1});
+                parents.insert({current->neighbors()[i],current});
+                q.push(current->neighbors()[i]);
             }
         }
     }

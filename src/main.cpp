@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <stack>
+#include <stdlib.h>
 #include "BFS.h"
 #include "Grid.h"
 
@@ -59,8 +60,8 @@ int main() {
 void parser(string s, int &a, int &b) {
     unsigned long i = s.find('_');
 
-    a = stoi(s.substr(0, i));
-    b = stoi(s.substr(i + 1, s.size() - i - 1));
+    a = atoi(s.substr(0,i).c_str());
+    b = atoi(s.substr(i + 1, s.size() - i - 1).c_str());
 }
 
 /**

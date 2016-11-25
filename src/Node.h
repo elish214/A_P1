@@ -18,17 +18,31 @@ using namespace std;
  */
 class Node {
 protected:
-
+    /**
+     * returns an output stream.
+     *
+     * @param os an output stream.
+     * @return output stream.
+     */
     virtual ostream &toString(ostream &os) const = 0;
 
 public:
-
+    /**
+     * constructor.
+     */
     Node() {}
 
+    /**
+    * distructor
+    */
     virtual ~Node() {}
 
-    //virtual int distance(Node n) = 0;
-    virtual list<Node *> neighbors() = 0;
+    /**
+     * returns node's neighbors.
+     *
+     * @return node's neighbors.
+     */
+    virtual Node** neighbors() = 0;
 
     /**
     * method overloading for operator '=='.
@@ -50,6 +64,13 @@ public:
         return this != &rhs;
     }
 
+    /**
+     * method overloading for operator '<<'.
+    *
+    * @param os output stream.
+    * @param point a node.
+    * @return output stream.
+    */
     friend ostream &operator<<(ostream &os, const Node &node) {
         return node.toString(os);
     }
