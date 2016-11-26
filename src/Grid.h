@@ -36,9 +36,9 @@ public:
 
     int getCols() const;
 
-    Location& get(int x, int y);
+    Location *get(int x, int y);
 
-    Location& get(Point p);
+    Location *get(Point p);
 
     friend istream &operator>>(istream &is, Grid &grid);
 };

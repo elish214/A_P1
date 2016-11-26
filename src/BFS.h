@@ -17,7 +17,7 @@ using namespace std;
  */
 class BFS {
 public:
-    stack<Node*> run(Node &start, Node &end);
+    stack<Node *> run(Node *start, Node *end);
 };
 
 

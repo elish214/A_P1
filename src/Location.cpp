@@ -18,7 +18,7 @@ Location::Location() {}
  *
  * @return a constant point.
  */
-const Point &Location::getPoint() const {
+const Point *Location::getPoint() const {
     return p;
 }
 
@@ -26,7 +26,7 @@ const Point &Location::getPoint() const {
  * destructor.
  */
 Location::~Location() {
-
+    delete p;
 }
 
 /**
@@ -34,7 +34,7 @@ Location::~Location() {
  *
  * @param p a constant point.
  */
-void Location::setPoint(const Point &p) {
+void Location::setPoint(Point *p) {
     Location::p = p;
 }
 
@@ -68,20 +68,20 @@ Node** Location::neighbors(){
         nei[i] = NULL;
     }
 
-    int x = getPoint().getX();
-    int y = getPoint().getY();
+    int x = getPoint()->getX();
+    int y = getPoint()->getY();
 
     if (x > 0) //left
-        nei[0] = (&getGrid()->get(x - 1, y));
+        nei[0] = getGrid()->get(x - 1, y);
 
-    if (y < getGrid()->getCols() - 1) //up
-        nei[1] = (&getGrid()->get(x, y + 1));
+    if (y < getGrid()->getRows() - 1) //up
+        nei[1] = getGrid()->get(x, y + 1);
 
-    if (x < getGrid()->getRows() - 1) //right
-        nei[2] = (&getGrid()->get(x + 1, y));
+    if (x < getGrid()->getCols() - 1) //right
+        nei[2] = getGrid()->get(x + 1, y);
 
     if (y > 0) //down
-        nei[3] = (&getGrid()->get(x, y - 1));
+        nei[3] = getGrid()->get(x, y - 1);
 
     return nei;
 }
@@ -124,7 +124,7 @@ bool Location::operator!=(const Location &rhs) const {
  * @return ostream with location
  */
 ostream &Location::toString(ostream &os) const {
-    os << p;
+    os << *p;
     return os;
 }
 

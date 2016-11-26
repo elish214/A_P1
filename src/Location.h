@@ -21,7 +21,7 @@ class Grid;
  */
 class Location: public Node {
 private:
-    Point p;
+    Point *p;
     Grid* grid;
 
 protected:
@@ -33,9 +33,9 @@ public:
 
     virtual ~Location();
 
-    const Point &getPoint() const;
+    const Point *getPoint() const;
 
-    void setPoint(const Point &p);
+    void setPoint(Point *p);
 
     Grid *getGrid() const;
 

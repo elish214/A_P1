@@ -13,14 +13,14 @@
  */
 Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
     matrix = new Location **[rows];
-    for (int i = 0; i < rows; ++i)
+    for (int i = 0; i < rows; i++)
         matrix[i] = new Location *[cols];
 
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < cols; j++) {
             matrix[i][j] = new Location();
             matrix[i][j]->setGrid(this);
-            matrix[i][j]->setPoint(Point(j, i));
+            matrix[i][j]->setPoint(new Point(j, i));
         }
     }
 }
@@ -81,8 +81,8 @@ int Grid::getCols() const {
  * @param y an integer.
  * @return specific location on grid.
  */
-Location& Grid::get(int x, int y) {
-    return *(matrix[y][x]);
+Location *Grid::get(int x, int y) {
+    return matrix[y][x];
 }
 
 /**
@@ -91,7 +91,7 @@ Location& Grid::get(int x, int y) {
  * @param p a point.
  * @return specific location on grid.
  */
-Location& Grid::get(Point p) {
+Location *Grid::get(Point p) {
     return get(p.getX(), p.getY());
 }
 

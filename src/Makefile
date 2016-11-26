@@ -6,20 +6,20 @@
 a.out: main.o BFS.o Grid.o Location.o Point.o
 	g++ main.o BFS.o Grid.o Location.o Point.o
 
-main.o: src/main.cpp src/Node.h
-	g++ -c src/main.cpp
+main.o: main.cpp Node.h
+	g++ -c main.cpp
 
-BFS.o: src/BFS.cpp src/BFS.h
-	g++ -c src/BFS.cpp
+BFS.o: BFS.cpp BFS.h
+	g++ -c BFS.cpp
 
-Grid.o: src/Grid.cpp src/Grid.h
-	g++ -c src/Grid.cpp
+Grid.o: Grid.cpp Grid.h
+	g++ -c Grid.cpp
 
-Location.o: src/Location.cpp src/Location.h
-	g++ -c src/Location.cpp
+Location.o: Location.cpp Location.h
+	g++ -c Location.cpp
 
-Point.o: src/Point.cpp src/Point.h
-	g++ -c src/Point.cpp
+Point.o: Point.cpp Point.h
+	g++ -c Point.cpp
 
 clean: 
 	rm -f *.o a.out
