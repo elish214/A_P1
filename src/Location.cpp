@@ -2,7 +2,7 @@
 // Created by elish on 16/11/16.
 //
 
-#include <list>
+#include <vector>
 #include "Grid.h"
 
 using namespace std;
@@ -62,11 +62,11 @@ void Location::setGrid(Grid *grid) {
  *
  * @return location's neighbors.
  */
-list<Node*> Location::neighbors(){
+vector<Node *> Location::neighbors() {
         int x = getPoint()->getX();
         int y = getPoint()->getY();
 
-        std::list<Node *> neighbors;
+    vector<Node *> neighbors;
 
         if (x > 0) //left
             neighbors.push_back(getGrid()->get(x - 1, y));

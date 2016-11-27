@@ -19,7 +19,7 @@ using namespace std;
 stack<Node *> BFS::run(Node *start, Node *end) {
     map<Node *, Node *> parents;
     map<Node *, int> dist;
-    std::list<Node*> nei;
+    vector<Node *> nei;
     queue<Node *> q;
     Node *current;
     stack<Node *> route;
@@ -35,14 +35,14 @@ stack<Node *> BFS::run(Node *start, Node *end) {
         map<Node *, int>::iterator itCurrent = dist.find(current);
         nei = itCurrent->first->neighbors();
 
-        for (Node *n : nei) {
-            std::map<Node *, int>::iterator itN = dist.find(n);
+        for (unsigned long i = 0; i < nei.size(); ++i) {
+            std::map<Node *, int>::iterator itN = dist.find(nei.at(i));
 
             if (itN == dist.end() ||
                 itN->second > itCurrent->second + 1) {
-                dist.insert(make_pair(n, itCurrent->second + 1));
-                parents.insert(make_pair(n,current));
-                q.push(n);
+                dist.insert(make_pair(nei.at(i), itCurrent->second + 1));
+                parents.insert(make_pair(nei.at(i), current));
+                q.push(nei.at(i));
             }
         }
     }

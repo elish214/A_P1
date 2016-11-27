@@ -5,7 +5,7 @@
 #ifndef A_P1_NODE_H
 #define A_P1_NODE_H
 
-#include <list>
+#include <vector>
 #include <iostream>
 #include <string>
 
@@ -42,7 +42,7 @@ public:
      *
      * @return node's neighbors.
      */
-    virtual list<Node*> neighbors() = 0;
+    virtual vector<Node *> neighbors() = 0;
 
     /**
     * method overloading for operator '=='.
