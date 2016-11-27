@@ -35,7 +35,7 @@ stack<Node *> BFS::run(Node *start, Node *end) {
         map<Node *, int>::iterator itCurrent = dist.find(current);
         nei = itCurrent->first->neighbors();
 
-        for(Node *n : current->neighbors()){
+        for (Node *n : nei) {
             std::map<Node *, int>::iterator itN = dist.find(n);
 
             if (itN == dist.end() ||

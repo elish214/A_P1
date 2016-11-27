@@ -70,9 +70,9 @@ list<Node*> Location::neighbors(){
 
         if (x > 0) //left
             neighbors.push_back(getGrid()->get(x - 1, y));
-        if (y < getGrid()->getCols() - 1) //up
+    if (y < getGrid()->getRows() - 1) //up
             neighbors.push_back(getGrid()->get(x, y + 1));
-        if (x < getGrid()->getRows() - 1) //right
+    if (x < getGrid()->getCols() - 1) //right
             neighbors.push_back(getGrid()->get(x + 1, y));
         if (y > 0) //down
             neighbors.push_back(getGrid()->get(x, y - 1));
