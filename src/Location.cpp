@@ -18,7 +18,7 @@ Location::Location() {}
  *
  * @return a constant point.
  */
-const Point *Location::getPoint() const {
+Point *Location::getPoint() {
     return p;
 }
 
@@ -27,6 +27,7 @@ const Point *Location::getPoint() const {
  */
 Location::~Location() {
     delete p;
+
 }
 
 /**
@@ -61,30 +62,24 @@ void Location::setGrid(Grid *grid) {
  *
  * @return location's neighbors.
  */
-Node** Location::neighbors(){
-    Node** nei = new Node*[4];
+list<Node*> Location::neighbors(){
+        int x = getPoint()->getX();
+        int y = getPoint()->getY();
 
-    for (int i = 0; i < 4; ++i) {
-        nei[i] = NULL;
+        std::list<Node *> neighbors;
+
+        if (x > 0) //left
+            neighbors.push_back(getGrid()->get(x - 1, y));
+        if (y < getGrid()->getCols() - 1) //up
+            neighbors.push_back(getGrid()->get(x, y + 1));
+        if (x < getGrid()->getRows() - 1) //right
+            neighbors.push_back(getGrid()->get(x + 1, y));
+        if (y > 0) //down
+            neighbors.push_back(getGrid()->get(x, y - 1));
+
+        return neighbors;
     }
 
-    int x = getPoint()->getX();
-    int y = getPoint()->getY();
-
-    if (x > 0) //left
-        nei[0] = getGrid()->get(x - 1, y);
-
-    if (y < getGrid()->getRows() - 1) //up
-        nei[1] = getGrid()->get(x, y + 1);
-
-    if (x < getGrid()->getCols() - 1) //right
-        nei[2] = getGrid()->get(x + 1, y);
-
-    if (y > 0) //down
-        nei[3] = getGrid()->get(x, y - 1);
-
-    return nei;
-}
 
 /**
  * method overloading for operator '<<'.
@@ -93,7 +88,7 @@ Node** Location::neighbors(){
  * @param location a constant location.
  * @return output stream.
  */
-ostream &operator<<(ostream &os, const Location &location) {
+ostream &operator<<(ostream &os, Location &location) {
     os << location.getPoint();
     return os;
 }

@@ -33,7 +33,7 @@ public:
 
     virtual ~Location();
 
-    const Point *getPoint() const;
+    Point *getPoint() ;
 
     void setPoint(Point *p);
 
@@ -41,9 +41,9 @@ public:
 
     void setGrid(Grid *grid);
 
-    Node** neighbors();
+    list<Node*> neighbors();
 
-    friend ostream &operator<<(ostream &os, const Location &location);
+    friend ostream &operator<<(ostream &os, Location &location);
 
     bool operator==(const Location &rhs) const;
 

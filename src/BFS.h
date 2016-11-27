@@ -6,6 +6,7 @@
 #define A_P1_BFS_H
 
 #include <stack>
+#include <list>
 #include "Node.h"
 
 using namespace std;

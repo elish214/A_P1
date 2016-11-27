@@ -42,7 +42,7 @@ public:
      *
      * @return node's neighbors.
      */
-    virtual Node** neighbors() = 0;
+    virtual list<Node*> neighbors() = 0;
 
     /**
     * method overloading for operator '=='.
