@@ -273,13 +273,13 @@ class GTestXMLOutputUnitTest(gtest_xml_test_utils.GTestXMLTestCase):
             gtest_prog_name)
 
         command = (
-        [gtest_prog_path, '%s=xml:%s' % (GTEST_OUTPUT_FLAG, xml_path)] +
-        extra_args)
+            [gtest_prog_path, '%s=xml:%s' % (GTEST_OUTPUT_FLAG, xml_path)] +
+            extra_args)
         p = gtest_test_utils.Subprocess(command)
         if p.terminated_by_signal:
             self.assert_(False,
                          '%s was killed by signal %d' % (
-                         gtest_prog_name, p.signal))
+                             gtest_prog_name, p.signal))
         else:
             self.assert_(p.exited)
             self.assertEquals(expected_exit_code, p.exit_code,

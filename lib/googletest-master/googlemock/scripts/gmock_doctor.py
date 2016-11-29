@@ -597,8 +597,8 @@ def main():
 
     if sys.stdin.isatty():
         print (
-        'Please copy and paste the compiler errors here.  Press c-D when '
-        'you are done:')
+            'Please copy and paste the compiler errors here.  Press c-D when '
+            'you are done:')
     else:
         print ('Waiting for compiler errors on stdin . . .')
 

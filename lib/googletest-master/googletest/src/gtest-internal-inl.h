@@ -1230,7 +1230,7 @@ namespace testing {
 
             string FormatBool(bool value) { return value ? "1" : "0"; }
 
-            const scoped_ptr <AbstractSocketWriter> socket_writer_;
+            const scoped_ptr<AbstractSocketWriter> socket_writer_;
 
             GTEST_DISALLOW_COPY_AND_ASSIGN_(StreamingListener);
         };  // class StreamingListener

@@ -503,7 +503,7 @@ namespace testing {
                                   "bar",
                           FilePath("foo"
                                   GTEST_PATH_SEP_
-                                  GTEST_PATH_SEP_
+                                          GTEST_PATH_SEP_
                                   "bar").string());
                 EXPECT_EQ("foo"
                                   GTEST_PATH_SEP_
@@ -529,7 +529,7 @@ namespace testing {
                                   "bar",
                           FilePath(GTEST_PATH_SEP_
                                   GTEST_PATH_SEP_
-                                  GTEST_PATH_SEP_
+                                          GTEST_PATH_SEP_
                                   "bar").string());
             }
 
@@ -548,7 +548,7 @@ namespace testing {
                                   GTEST_PATH_SEP_,
                           FilePath("foo"
                                   GTEST_PATH_SEP_
-                                  GTEST_PATH_SEP_
+                                          GTEST_PATH_SEP_
                                   GTEST_PATH_SEP_).string());
             }
 

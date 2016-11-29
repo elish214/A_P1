@@ -2695,8 +2695,8 @@ TEST(StringTest, AnsiAndUtf16ConvertPathChars) {
                              "Which is: L\"haystack\"",
                      IsSubstring(
                              "needle_expr", "haystack_expr",
-                             ::std::wstring(L"needle"),
-                             L"haystack").failure_message());
+                                     ::std::wstring(L"needle"),
+                                     L"haystack").failure_message());
     }
 
 #endif  // GTEST_HAS_STD_WSTRING
@@ -2726,7 +2726,7 @@ TEST(StringTest, AnsiAndUtf16ConvertPathChars) {
                              "Which is: L\"two needles\"",
                      IsNotSubstring(
                              "needle_expr", "haystack_expr",
-                             L"needle", L"two needles").failure_message());
+                                     L"needle", L"two needles").failure_message());
     }
 
 // Tests that IsNotSubstring returns the correct result when the input
@@ -2745,8 +2745,8 @@ TEST(StringTest, AnsiAndUtf16ConvertPathChars) {
                              "Which is: \"two needles\"",
                      IsNotSubstring(
                              "needle_expr", "haystack_expr",
-                             ::std::string("needle"),
-                             "two needles").failure_message());
+                                     ::std::string("needle"),
+                                     "two needles").failure_message());
     }
 
 #if GTEST_HAS_STD_WSTRING
