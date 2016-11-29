@@ -76,6 +76,7 @@ if SUPPORTS_SEH_EXCEPTIONS:
 EX_BINARY_OUTPUT = gtest_test_utils.Subprocess(
     [EX_EXE_PATH], env=environ).output
 
+
 # The tests.
 if SUPPORTS_SEH_EXCEPTIONS:
     # pylint:disable-msg=C6302

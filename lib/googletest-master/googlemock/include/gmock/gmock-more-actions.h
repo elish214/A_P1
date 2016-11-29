@@ -234,7 +234,6 @@ namespace testing {
 # endif
 
     ACTION_P(Throw, exception) { throw exception; }
-
 # ifdef _MSC_VER
 #  pragma warning(pop)           // Restores the warning state.
 # endif

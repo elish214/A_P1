@@ -19,6 +19,7 @@
 
 __author__ = 'nnorwitz@google.com (Neal Norwitz)'
 
+
 # TODO:
 #  * Tokens should never be exported, need to convert to Nodes
 #    (return types, parameters, etc.)
@@ -45,6 +46,7 @@ from cpp import keywords
 from cpp import tokenize
 from cpp import utils
 
+
 if not hasattr(builtins, 'reversed'):
     # Support Python 2.3 and earlier.
     def reversed(seq):
@@ -55,6 +57,7 @@ if not hasattr(builtins, 'next'):
     # Support Python 2.5 and earlier.
     def next(obj):
         return obj.next()
+
 
 VISIBILITY_PUBLIC, VISIBILITY_PROTECTED, VISIBILITY_PRIVATE = range(3)
 
@@ -454,6 +457,7 @@ class Type(_GenericDeclaration):
 
 
 class TypeConverter(object):
+
     def __init__(self, namespace_stack):
         self.namespace_stack = namespace_stack
 
@@ -669,7 +673,6 @@ class TypeConverter(object):
                 break
             end -= 1
         return start, end + 1
-
 
 class AstBuilder(object):
     def __init__(self, token_stream, filename, in_class='', visibility=None,

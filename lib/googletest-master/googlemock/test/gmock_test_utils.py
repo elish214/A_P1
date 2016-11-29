@@ -36,6 +36,7 @@ __author__ = 'wan@google.com (Zhanyong Wan)'
 import os
 import sys
 
+
 # Determines path to gtest_test_utils and imports it.
 SCRIPT_DIR = os.path.dirname(__file__) or '.'
 
@@ -101,7 +102,6 @@ TestCase = gtest_test_utils.TestCase
 environ = gtest_test_utils.environ
 SetEnvVar = gtest_test_utils.SetEnvVar
 PREMATURE_EXIT_FILE_ENV_VAR = gtest_test_utils.PREMATURE_EXIT_FILE_ENV_VAR
-
 
 # pylint: enable-msg=C6409
 

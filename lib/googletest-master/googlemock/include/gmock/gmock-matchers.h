@@ -53,9 +53,7 @@
 #include "gtest/gtest.h"
 
 #if GTEST_HAS_STD_INITIALIZER_LIST_
-
 # include <initializer_list>  // NOLINT -- must be after gtest.h
-
 #endif
 
 namespace testing {
@@ -1636,7 +1634,6 @@ class GTEST_API_ Matcher<StringPiece>
         };
 
 #if GTEST_LANG_CXX11
-
 // MatcherList provides mechanisms for storing a variable number of matchers in
 // a list structure (ListType) and creating a combining matcher from such a
 // list.
@@ -3886,7 +3883,6 @@ class GTEST_API_ Matcher<StringPiece>
     ElementsAreArray(::std::initializer_list<T> xs) {
         return ElementsAreArray(xs.begin(), xs.end());
     }
-
 #endif
 
 // UnorderedElementsAreArray(first, last)
@@ -3931,7 +3927,6 @@ class GTEST_API_ Matcher<StringPiece>
     UnorderedElementsAreArray(::std::initializer_list<T> xs) {
         return UnorderedElementsAreArray(xs.begin(), xs.end());
     }
-
 #endif
 
 // _ is a matcher that matches anything of any type.
@@ -3944,7 +3939,6 @@ class GTEST_API_ Matcher<StringPiece>
 //      so it's OK to create global variables of this type.
 //   3. c-style has approved of using _ in this case.
     const internal::AnythingMatcher _ = {};
-
 // Creates a matcher that matches any value of the given type T.
     template<typename T>
     inline Matcher<T> A() {
@@ -4600,7 +4594,6 @@ class GTEST_API_ Matcher<StringPiece>
     }
 
 #if GTEST_LANG_CXX11
-
 // Define variadic matcher versions. They are overloaded in
 // gmock-generated-matchers.h for the cases supported by pre C++11 compilers.
     template<typename... Args>
@@ -4640,5 +4633,4 @@ class GTEST_API_ Matcher<StringPiece>
 // We must include this header at the end to make sure it can use the
 // declarations from this file.
 #include "gmock/internal/custom/gmock-matchers.h"
-
 #endif  // GMOCK_INCLUDE_GMOCK_GMOCK_MATCHERS_H_

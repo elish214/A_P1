@@ -46,11 +46,8 @@
 #endif  // GTEST_IMPLEMENTATION_
 
 #ifndef _WIN32_WCE
-
 # include <errno.h>
-
 #endif  // !_WIN32_WCE
-
 #include <stddef.h>
 #include <stdlib.h>  // For strtoll/_strtoul64/malloc/free.
 #include <string.h>  // For memmove.
@@ -62,10 +59,8 @@
 #include "gtest/internal/gtest-port.h"
 
 #if GTEST_CAN_STREAM_RESULTS_
-
 # include <arpa/inet.h>  // NOLINT
 # include <netdb.h>  // NOLINT
-
 #endif
 
 #if GTEST_OS_WINDOWS
@@ -703,7 +698,6 @@ namespace testing {
             parameterized_test_registry() {
                 return parameterized_test_registry_;
             }
-
 #endif  // GTEST_HAS_PARAM_TEST
 
             // Sets the TestCase object for the test that's currently running.
@@ -809,7 +803,6 @@ namespace testing {
             void SuppressTestEventsIfInSubprocess();
 
             friend class ReplaceDeathTestFactory;
-
 #endif  // GTEST_HAS_DEATH_TEST
 
             // Initializes the event listener performing XML output as specified by
@@ -821,7 +814,6 @@ namespace testing {
             // Initializes the event listener for streaming test results to a socket.
             // Must not be called before InitGoogleTest.
             void ConfigureStreamingOutput();
-
 #endif
 
             // Performs initialization dependent upon flag values obtained in
@@ -1051,7 +1043,6 @@ namespace testing {
             }
             return false;
         }
-
 #endif  // GTEST_HAS_DEATH_TEST
 
 // TestResult contains some private methods that should be hidden from
@@ -1230,7 +1221,7 @@ namespace testing {
 
             string FormatBool(bool value) { return value ? "1" : "0"; }
 
-            const scoped_ptr<AbstractSocketWriter> socket_writer_;
+            const scoped_ptr <AbstractSocketWriter> socket_writer_;
 
             GTEST_DISALLOW_COPY_AND_ASSIGN_(StreamingListener);
         };  // class StreamingListener

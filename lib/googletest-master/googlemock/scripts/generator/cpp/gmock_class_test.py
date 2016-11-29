@@ -19,6 +19,7 @@
 
 __author__ = 'nnorwitz@google.com (Neal Norwitz)'
 
+
 import os
 import sys
 import unittest
@@ -441,7 +442,6 @@ void(const FooType& test_arg));
 """
         self.assertEqualIgnoreLeadingWhitespace(
             expected, self.GenerateMocks(source))
-
 
 if __name__ == '__main__':
     unittest.main()

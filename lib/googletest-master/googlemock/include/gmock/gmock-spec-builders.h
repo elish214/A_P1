@@ -67,9 +67,7 @@
 #include <vector>
 
 #if GTEST_HAS_EXCEPTIONS
-
 # include <stdexcept>  // NOLINT
-
 #endif
 
 #include "gmock/gmock-actions.h"

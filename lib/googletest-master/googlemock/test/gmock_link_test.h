@@ -117,9 +117,7 @@
 #include "gmock/gmock.h"
 
 #if !GTEST_OS_WINDOWS_MOBILE
-
 # include <errno.h>
-
 #endif
 
 #include "gmock/internal/gmock-port.h"
@@ -216,27 +214,44 @@ class Mock : public Interface {
 public:
     Mock() {}
 
-    MOCK_METHOD1(VoidFromString, void(char * str));
+    MOCK_METHOD1(VoidFromString,
+    void(
+    char *str
+    ));
+    MOCK_METHOD1(StringFromString,
+    char*(
+    char *str
+    ));
+    MOCK_METHOD1(IntFromString,
+    int(
+    char *str
+    ));
+    MOCK_METHOD1(IntRefFromString,
+    int&(
+    char *str
+    ));
+    MOCK_METHOD1(VoidFromFunc,
+    void(
 
-    MOCK_METHOD1(StringFromString, char*(
-            char *str));
+    void (*func)(char *str)
 
-    MOCK_METHOD1(IntFromString, int(char * str));
-
-    MOCK_METHOD1(IntRefFromString, int & (char * str));
-
-    MOCK_METHOD1(VoidFromFunc, void(void(*func)
-            (char * str)));
-
-    MOCK_METHOD1(VoidFromIntRef, void(int & n));  // NOLINT
-    MOCK_METHOD1(VoidFromFloat, void(float
-            n));
-
-    MOCK_METHOD1(VoidFromDouble, void(double
-            n));
-
-    MOCK_METHOD1(VoidFromVector, void(
-            const std::vector<int> &v));
+    ));
+    MOCK_METHOD1(VoidFromIntRef,
+    void(
+    int &n
+    ));  // NOLINT
+    MOCK_METHOD1(VoidFromFloat,
+    void(
+    float n
+    ));
+    MOCK_METHOD1(VoidFromDouble,
+    void(
+    double n
+    ));
+    MOCK_METHOD1(VoidFromVector,
+    void(
+    const std::vector<int> &v
+    ));
 
 private:
     GTEST_DISALLOW_COPY_AND_ASSIGN_(Mock);
@@ -442,7 +457,6 @@ TEST(LinkTest, TestThrow) {
     EXPECT_CALL(mock, VoidFromString(_)).WillOnce(Throw(42));
     EXPECT_THROW(mock.VoidFromString(NULL), int);
 }
-
 #endif  // GTEST_HAS_EXCEPTIONS
 
 // The ACTION*() macros trigger warning C4100 (unreferenced formal
@@ -457,7 +471,7 @@ TEST(LinkTest, TestThrow) {
 
 // Tests the linkage of actions created using ACTION macro.
 namespace {
-    ACTION(Return1) { return 1; }
+    ACTION(Return1) {return 1;}
 }
 
 TEST(LinkTest, TestActionMacro) {
@@ -469,7 +483,11 @@ TEST(LinkTest, TestActionMacro) {
 
 // Tests the linkage of actions created using ACTION_P macro.
 namespace {
-    ACTION_P(ReturnArgument, ret_value) { return ret_value; }
+    ACTION_P(ReturnArgument, ret_value
+    ) {
+    return
+    ret_value;
+}
 }
 
 TEST(LinkTest, TestActionPMacro) {
@@ -481,9 +499,11 @@ TEST(LinkTest, TestActionPMacro) {
 
 // Tests the linkage of actions created using ACTION_P2 macro.
 namespace {
-    ACTION_P2(ReturnEqualsEitherOf, first, second) {
-        return arg0 == first || arg0 == second;
-    }
+    ACTION_P2(ReturnEqualsEitherOf, first, second
+    ) {
+    return arg0 == first || arg0 ==
+    second;
+}
 }
 
 #ifdef _MSC_VER

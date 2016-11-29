@@ -73,9 +73,7 @@ TEST(CommandLineFlagsTest, CanBeAccessedInCodeOnceGTestHIsIncluded) {
 // prevent a user from accidentally including gtest-internal-inl.h in
 // his code.
 #define GTEST_IMPLEMENTATION_ 1
-
 #include "src/gtest-internal-inl.h"
-
 #undef GTEST_IMPLEMENTATION_
 
 namespace testing {
@@ -1920,7 +1918,6 @@ TEST(StringTest, AnsiAndUtf16ConvertPathChars) {
         EXPECT_TRUE(ShouldShard(total_var_, index_var_, false));
         EXPECT_FALSE(ShouldShard(total_var_, index_var_, true));
     }
-
 #endif  // !GTEST_OS_WINDOWS_MOBILE
 
 // Tests that we exit in error if the sharding values are not valid.
@@ -2695,8 +2692,8 @@ TEST(StringTest, AnsiAndUtf16ConvertPathChars) {
                              "Which is: L\"haystack\"",
                      IsSubstring(
                              "needle_expr", "haystack_expr",
-                                     ::std::wstring(L"needle"),
-                                     L"haystack").failure_message());
+                                     ::std::wstring(
+                                             L"needle"), L"haystack").failure_message());
     }
 
 #endif  // GTEST_HAS_STD_WSTRING
@@ -2745,8 +2742,8 @@ TEST(StringTest, AnsiAndUtf16ConvertPathChars) {
                              "Which is: \"two needles\"",
                      IsNotSubstring(
                              "needle_expr", "haystack_expr",
-                                     ::std::string("needle"),
-                                     "two needles").failure_message());
+                                     ::std::string(
+                                             "needle"), "two needles").failure_message());
     }
 
 #if GTEST_HAS_STD_WSTRING
@@ -3981,7 +3978,6 @@ TEST(StringTest, AnsiAndUtf16ConvertPathChars) {
         Uncopyable y(-1);
         ASSERT_PRED1(IsPositiveUncopyable, y);
     }
-
 // A subroutine used by the following test.
     void TestAssertEqualsUncopyable() {
         Uncopyable x(5);
@@ -6693,7 +6689,6 @@ TEST_F(InitGoogleTestTest, WideStrings) {
 
         GTEST_TEST_PARSING_FLAGS_(argv, argv2, expected_flags, false);
     }
-
 #endif  // GTEST_USE_OWN_FLAGFILE_FLAG_
 
 // Tests current_test_info() in UnitTest.

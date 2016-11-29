@@ -46,9 +46,7 @@
 # include <limits.h>
 
 # if GTEST_OS_LINUX
-
 #  include <signal.h>
-
 # endif  // GTEST_OS_LINUX
 
 # include <stdarg.h>
@@ -56,10 +54,8 @@
 # if GTEST_OS_WINDOWS
 #  include <windows.h>
 # else
-
 #  include <sys/mman.h>
 #  include <sys/wait.h>
-
 # endif  // GTEST_OS_WINDOWS
 
 # if GTEST_OS_QNX
@@ -77,9 +73,7 @@
 // prevent the accidental inclusion of gtest-internal-inl.h in the
 // user's code.
 #define GTEST_IMPLEMENTATION_ 1
-
 #include "src/gtest-internal-inl.h"
-
 #undef GTEST_IMPLEMENTATION_
 
 namespace testing {
@@ -173,7 +167,6 @@ namespace testing {
     }
 
 # if !GTEST_OS_WINDOWS
-
 // KilledBySignal constructor.
     KilledBySignal::KilledBySignal(int signum) : signum_(signum) {
     }
@@ -190,7 +183,6 @@ namespace testing {
 #  endif  // defined(GTEST_KILLED_BY_SIGNAL_OVERRIDE_)
         return WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == signum_;
     }
-
 # endif  // !GTEST_OS_WINDOWS
 
     namespace internal {
@@ -230,7 +222,6 @@ namespace testing {
         }
 
 # if !GTEST_OS_WINDOWS
-
 // Generates a textual failure message when a death test finds more than
 // one thread running, or cannot determine the number of threads, prior
 // to executing the given statement.  It is the responsibility of the
@@ -246,7 +237,6 @@ namespace testing {
                 msg << "detected " << thread_count << " threads.";
             return msg.GetString();
         }
-
 # endif  // !GTEST_OS_WINDOWS
 
 // Flag characters for reporting a death test that did not die.
@@ -1006,11 +996,9 @@ namespace testing {
         extern "C" char **environ;
 
         inline char **GetEnviron() { return environ; }
-
 #  endif  // GTEST_OS_MAC
 
 #  if !GTEST_OS_QNX
-
 // The main function for a threadsafe-style death test child process.
 // This function is called in a clone()-ed process and thus must avoid
 // any potentially unsafe operations like malloc or libc functions.
@@ -1043,7 +1031,6 @@ namespace testing {
                     GetLastErrnoDescription());
             return EXIT_FAILURE;
         }
-
 #  endif  // !GTEST_OS_QNX
 
 // Two utility routines that together determine the direction the stack

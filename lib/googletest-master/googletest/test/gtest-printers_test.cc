@@ -59,9 +59,7 @@
 #endif  // GTEST_HAS_HASH_SET_
 
 #if GTEST_HAS_STD_FORWARD_LIST_
-
 # include <forward_list> // NOLINT
-
 #endif  // GTEST_HAS_STD_FORWARD_LIST_
 
 // Some user-defined types for testing the universal value printer.
@@ -752,7 +750,6 @@ namespace testing {
                       Print(::std::wstring(L"NOM\x6" L"BANANA")));
             EXPECT_EQ("L\"!\\x5-!\"", Print(::std::wstring(L"!\x5-!")));
         }
-
 #endif  // GTEST_HAS_STD_WSTRING
 
 // Tests printing types that support generic streaming (i.e. streaming

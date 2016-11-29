@@ -79,7 +79,6 @@ namespace testing {
         GetRawPointer(const Pointer &p) {
             return p.get();
         }
-
 // This overloaded version is for the raw pointer case.
         template<typename Element>
         inline Element *GetRawPointer(Element *p) { return p; }

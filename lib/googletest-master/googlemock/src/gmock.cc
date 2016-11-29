@@ -37,16 +37,17 @@ namespace testing {
 // TODO(wan@google.com): support using environment variables to
 // control the flag values, like what Google Test does.
 
-    GMOCK_DEFINE_bool_(catch_leaked_mocks, true,
-                       "true iff Google Mock should report leaked mock objects "
-                               "as failures.");
+    GMOCK_DEFINE_bool_(catch_leaked_mocks,
+    true,
+    "true iff Google Mock should report leaked mock objects "
+    "as failures.");
 
     GMOCK_DEFINE_string_(verbose, internal::kWarningVerbosity,
-                         "Controls how verbose Google Mock's output is."
-                                 "  Valid values:\n"
-                                 "  info    - prints all messages.\n"
-                                 "  warning - prints warnings and errors.\n"
-                                 "  error   - prints errors only.");
+    "Controls how verbose Google Mock's output is."
+    "  Valid values:\n"
+    "  info    - prints all messages.\n"
+    "  warning - prints warnings and errors.\n"
+    "  error   - prints errors only.");
 
     namespace internal {
 

@@ -46,9 +46,7 @@
 
 // To include gtest-internal-inl.h.
 # define GTEST_IMPLEMENTATION_ 1
-
 # include "src/gtest-internal-inl.h"  // for UnitTestOptions
-
 # undef GTEST_IMPLEMENTATION_
 
 # include "test/gtest-param-test_test.h"
@@ -703,7 +701,6 @@ protected:
 private:
     GTEST_DISALLOW_COPY_AND_ASSIGN_(TestGenerationTest);
 };
-
 vector<int> TestGenerationTest::collected_parameters_;
 
 TEST_P(TestGenerationTest, TestsExpandedAndRun) {
@@ -711,7 +708,6 @@ TEST_P(TestGenerationTest, TestsExpandedAndRun) {
     EXPECT_EQ(current_parameter_, GetParam());
     collected_parameters_.push_back(GetParam());
 }
-
 INSTANTIATE_TEST_CASE_P(TestExpansionModule, TestGenerationTest,
                         ValuesIn(test_generation_params));
 
@@ -734,13 +730,11 @@ public:
 private:
     static int param_value_;
 };
-
 int GeneratorEvaluationTest::param_value_ = 0;
 
 TEST_P(GeneratorEvaluationTest, GeneratorsEvaluatedInMain) {
     EXPECT_EQ(1, GetParam());
 }
-
 INSTANTIATE_TEST_CASE_P(GenEvalModule,
                         GeneratorEvaluationTest,
                         Values(GeneratorEvaluationTest::param_value()));
@@ -751,13 +745,11 @@ extern ParamGenerator<int> extern_gen;
 
 class ExternalGeneratorTest : public TestWithParam<int> {
 };
-
 TEST_P(ExternalGeneratorTest, ExternalGenerator) {
     // Sequence produced by extern_gen contains only a single value
     // which we verify here.
     EXPECT_EQ(GetParam(), 33);
 }
-
 INSTANTIATE_TEST_CASE_P(ExternalGeneratorModule,
                         ExternalGeneratorTest,
                         extern_gen);
@@ -774,12 +766,9 @@ TEST_P(ExternalInstantiationTest, IsMultipleOf33) {
 // generators.
 class MultipleInstantiationTest : public TestWithParam<int> {
 };
-
 TEST_P(MultipleInstantiationTest, AllowsMultipleInstances) {
 }
-
 INSTANTIATE_TEST_CASE_P(Sequence1, MultipleInstantiationTest, Values(1, 2));
-
 INSTANTIATE_TEST_CASE_P(Sequence2, MultipleInstantiationTest, Range(3, 5));
 
 // Tests that a parameterized test case can be instantiated
@@ -790,7 +779,6 @@ INSTANTIATE_TEST_CASE_P(Sequence2, MultipleInstantiationTest, Range(3, 5));
 TEST_P(InstantiationInMultipleTranslaionUnitsTest, IsMultipleOf42) {
     EXPECT_EQ(0, GetParam() % 42);
 }
-
 INSTANTIATE_TEST_CASE_P(Sequence1,
                         InstantiationInMultipleTranslaionUnitsTest,
                         Values(42, 42 * 2));
@@ -813,14 +801,12 @@ protected:
     int count_;
     static int global_count_;
 };
-
 int SeparateInstanceTest::global_count_ = 0;
 
 TEST_P(SeparateInstanceTest, TestsRunInSeparateInstances) {
     EXPECT_EQ(0, count_++);
     global_count_++;
 }
-
 INSTANTIATE_TEST_CASE_P(FourElemSequence, SeparateInstanceTest, Range(1, 4));
 
 // Tests that all instantiations of a test have named appropriately. Test
@@ -852,7 +838,6 @@ INSTANTIATE_TEST_CASE_P(ZeroToFiveSequence, NamingTest, Range(0, 5));
 // uses work correctly.
 class CustomFunctorNamingTest : public TestWithParam<std::string> {
 };
-
 TEST_P(CustomFunctorNamingTest, CustomTestNames) {}
 
 struct CustomParamNameFunctor {
@@ -880,7 +865,6 @@ inline std::string CustomParamNameFunction(
 
 class CustomFunctionNamingTest : public TestWithParam<std::string> {
 };
-
 TEST_P(CustomFunctionNamingTest, CustomTestNames) {}
 
 INSTANTIATE_TEST_CASE_P(CustomParamNameFunction,
@@ -894,7 +878,6 @@ INSTANTIATE_TEST_CASE_P(CustomParamNameFunction,
 
 class CustomLambdaNamingTest : public TestWithParam<std::string> {
 };
-
 TEST_P(CustomLambdaNamingTest, CustomTestNames) {}
 
 INSTANTIATE_TEST_CASE_P(CustomParamNameLambda,

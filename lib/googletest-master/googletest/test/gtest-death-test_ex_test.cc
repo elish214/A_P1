@@ -73,7 +73,6 @@ TEST(CxxExceptionDeathTest, PrintsMessageForStdExceptions) {
     EXPECT_NONFATAL_FAILURE(EXPECT_DEATH(throw TestException(), ""),
                             "gtest-death-test_ex_test.cc");
 }
-
 # endif  // GTEST_HAS_EXCEPTIONS
 
 # if GTEST_HAS_SEH

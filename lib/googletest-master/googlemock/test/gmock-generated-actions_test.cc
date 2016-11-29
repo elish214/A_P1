@@ -635,7 +635,7 @@ namespace testing {
 
 // Tests that ACTION() can define an action that doesn't reference the
 // mock function arguments.
-        ACTION(Return5) { return 5; }
+        ACTION(Return5) {return 5;}
 
         TEST(ActionMacroTest, WorksWhenNotReferencingArguments) {
             Action<double()> a1 = Return5();
@@ -646,7 +646,7 @@ namespace testing {
         }
 
 // Tests that ACTION() can define an action that returns void.
-        ACTION(IncrementArg1) { (*arg1)++; }
+        ACTION(IncrementArg1) {(*arg1)++;}
 
         TEST(ActionMacroTest, WorksWhenReturningVoid) {
             Action<void(int, int *)> a1 = IncrementArg1();
@@ -658,9 +658,9 @@ namespace testing {
 // Tests that the body of ACTION() can reference the type of the
 // argument.
         ACTION(IncrementArg2) {
-            StaticAssertTypeEq<int *, arg2_type>();
-            arg2_type temp = arg2;
-            (*temp)++;
+                StaticAssertTypeEq<int *, arg2_type>();
+                arg2_type temp = arg2;
+                (*temp)++;
         }
 
         TEST(ActionMacroTest, CanReferenceArgumentType) {
@@ -673,9 +673,9 @@ namespace testing {
 // Tests that the body of ACTION() can reference the argument tuple
 // via args_type and args.
         ACTION(Sum2) {
-            StaticAssertTypeEq<tuple<int, char, int *>, args_type>();
-            args_type args_copy = args;
-            return get<0>(args_copy) + get<1>(args_copy);
+                StaticAssertTypeEq<tuple<int, char, int *>, args_type>();
+                args_type args_copy = args;
+                return get<0>(args_copy) + get<1>(args_copy);
         }
 
         TEST(ActionMacroTest, CanReferenceArgumentTuple) {
@@ -689,9 +689,9 @@ namespace testing {
         int Dummy(bool flag) { return flag ? 1 : 0; }
 
         ACTION(InvokeDummy) {
-            StaticAssertTypeEq<int(bool), function_type>();
-            function_type *fp = &Dummy;
-            return (*fp)(true);
+                StaticAssertTypeEq<int(bool), function_type>();
+                function_type* fp = &Dummy;
+                return (*fp)(true);
         }
 
         TEST(ActionMacroTest, CanReferenceMockFunctionType) {
@@ -703,9 +703,9 @@ namespace testing {
 // Tests that the body of ACTION() can reference the mock function's
 // return type.
         ACTION(InvokeDummy2) {
-            StaticAssertTypeEq<int, return_type>();
-            return_type result = Dummy(true);
-            return result;
+                StaticAssertTypeEq<int, return_type>();
+                return_type result = Dummy(true);
+                return result;
         }
 
         TEST(ActionMacroTest, CanReferenceMockFunctionReturnType) {
@@ -716,8 +716,8 @@ namespace testing {
 
 // Tests that ACTION() works for arguments passed by const reference.
         ACTION(ReturnAddrOfConstBoolReferenceArg) {
-            StaticAssertTypeEq<const bool &, arg1_type>();
-            return &arg1;
+                StaticAssertTypeEq<const bool &, arg1_type>();
+                return &arg1;
         }
 
         TEST(ActionMacroTest, WorksForConstReferenceArg) {
@@ -729,8 +729,8 @@ namespace testing {
 
 // Tests that ACTION() works for arguments passed by non-const reference.
         ACTION(ReturnAddrOfIntReferenceArg) {
-            StaticAssertTypeEq<int &, arg0_type>();
-            return &arg0;
+                StaticAssertTypeEq<int &, arg0_type>();
+                return &arg0;
         }
 
         TEST(ActionMacroTest, WorksForNonConstReferenceArg) {
@@ -741,7 +741,7 @@ namespace testing {
 
 // Tests that ACTION() can be used in a namespace.
         namespace action_test {
-            ACTION(Sum) { return arg0 + arg1; }
+            ACTION(Sum) {return arg0 + arg1;}
         }  // namespace action_test
 
         TEST(ActionMacroTest, WorksInNamespace) {
@@ -751,7 +751,7 @@ namespace testing {
 
 // Tests that the same ACTION definition works for mock functions with
 // different argument numbers.
-        ACTION(PlusTwo) { return arg0 + 2; }
+        ACTION(PlusTwo) {return arg0 + 2;}
 
         TEST(ActionMacroTest, WorksForDifferentArgumentNumbers) {
             Action<int(int)> a1 = PlusTwo();
@@ -763,534 +763,627 @@ namespace testing {
         }
 
 // Tests that ACTION_P can define a parameterized action.
-        ACTION_P(Plus, n) { return arg0 + n; }
+        ACTION_P(Plus, n
+        ) {
+        return arg0 +
+        n;
+    }
 
-        TEST(ActionPMacroTest, DefinesParameterizedAction) {
-            Action<int(int m, bool t)> a1 = Plus(9);
-            EXPECT_EQ(10, a1.Perform(make_tuple(1, true)));
-        }
+    TEST(ActionPMacroTest, DefinesParameterizedAction) {
+        Action<int(int m, bool t)> a1 = Plus(9);
+        EXPECT_EQ(10, a1.Perform(make_tuple(1, true)));
+    }
 
 // Tests that the body of ACTION_P can reference the argument types
 // and the parameter type.
-        ACTION_P(TypedPlus, n) {
-            arg0_type t1 = arg0;
-            n_type t2 = n;
-            return t1 + t2;
-        }
+    ACTION_P(TypedPlus, n
+    ) {
+    arg0_type t1 = arg0;
+    n_type t2 = n;
+    return t1 +
+    t2;
+}
 
-        TEST(ActionPMacroTest, CanReferenceArgumentAndParameterTypes) {
-            Action<int(char m, bool t)> a1 = TypedPlus(9);
-            EXPECT_EQ(10, a1.Perform(make_tuple(Char(1), true)));
-        }
+TEST(ActionPMacroTest, CanReferenceArgumentAndParameterTypes) {
+    Action<int(char m, bool t)> a1 = TypedPlus(9);
+    EXPECT_EQ(10, a1.Perform(make_tuple(Char(1), true)));
+}
 
 // Tests that a parameterized action can be used in any mock function
 // whose type is compatible.
-        TEST(ActionPMacroTest, WorksInCompatibleMockFunction) {
-            Action<std::string(const std::string &s)> a1 = Plus("tail");
-            const std::string re = "re";
-            EXPECT_EQ("retail", a1.Perform(tuple<const std::string &>(re)));
-        }
+TEST(ActionPMacroTest, WorksInCompatibleMockFunction) {
+    Action<std::string(const std::string &s)> a1 = Plus("tail");
+    const std::string re = "re";
+    EXPECT_EQ("retail", a1.Perform(tuple<const std::string &>(re)));
+}
 
 // Tests that we can use ACTION*() to define actions overloaded on the
 // number of parameters.
 
-        ACTION(OverloadedAction) { return arg0 ? arg1 : "hello"; }
+ACTION(OverloadedAction) {return arg0 ? arg1 : "hello";}
 
-        ACTION_P(OverloadedAction, default_value) {
-            return arg0 ? arg1 : default_value;
-        }
+ACTION_P(OverloadedAction, default_value
+) {
+return arg0 ?
+arg1 : default_value;
+}
 
-        ACTION_P2(OverloadedAction, true_value, false_value) {
-            return arg0 ? true_value : false_value;
-        }
+ACTION_P2(OverloadedAction, true_value, false_value
+) {
+return arg0 ?
+true_value : false_value;
+}
 
-        TEST(ActionMacroTest, CanDefineOverloadedActions) {
-            typedef Action<const char *(bool, const char *)> MyAction;
+TEST(ActionMacroTest, CanDefineOverloadedActions) {
+    typedef Action<const char *(bool, const char *)> MyAction;
 
-            const MyAction a1 = OverloadedAction();
-            EXPECT_STREQ("hello",
-                         a1.Perform(make_tuple(false, CharPtr("world"))));
-            EXPECT_STREQ("world",
-                         a1.Perform(make_tuple(true, CharPtr("world"))));
+    const MyAction a1 = OverloadedAction();
+    EXPECT_STREQ("hello", a1.Perform(make_tuple(false, CharPtr("world"))));
+    EXPECT_STREQ("world", a1.Perform(make_tuple(true, CharPtr("world"))));
 
-            const MyAction a2 = OverloadedAction("hi");
-            EXPECT_STREQ("hi", a2.Perform(make_tuple(false, CharPtr("world"))));
-            EXPECT_STREQ("world",
-                         a2.Perform(make_tuple(true, CharPtr("world"))));
+    const MyAction a2 = OverloadedAction("hi");
+    EXPECT_STREQ("hi", a2.Perform(make_tuple(false, CharPtr("world"))));
+    EXPECT_STREQ("world", a2.Perform(make_tuple(true, CharPtr("world"))));
 
-            const MyAction a3 = OverloadedAction("hi", "you");
-            EXPECT_STREQ("hi", a3.Perform(make_tuple(true, CharPtr("world"))));
-            EXPECT_STREQ("you",
-                         a3.Perform(make_tuple(false, CharPtr("world"))));
-        }
+    const MyAction a3 = OverloadedAction("hi", "you");
+    EXPECT_STREQ("hi", a3.Perform(make_tuple(true, CharPtr("world"))));
+    EXPECT_STREQ("you", a3.Perform(make_tuple(false, CharPtr("world"))));
+}
 
 // Tests ACTION_Pn where n >= 3.
 
-        ACTION_P3(Plus, m, n, k) { return arg0 + m + n + k; }
+ACTION_P3(Plus, m, n, k
+) {
+return arg0 + m + n +
+k;
+}
 
-        TEST(ActionPnMacroTest, WorksFor3Parameters) {
-            Action<double(int m, bool t)> a1 = Plus(100, 20, 3.4);
-            EXPECT_DOUBLE_EQ(3123.4, a1.Perform(make_tuple(3000, true)));
+TEST(ActionPnMacroTest, WorksFor3Parameters) {
+    Action<double(int m, bool t)> a1 = Plus(100, 20, 3.4);
+    EXPECT_DOUBLE_EQ(3123.4, a1.Perform(make_tuple(3000, true)));
 
-            Action<std::string(const std::string &s)> a2 = Plus("tail", "-",
-                                                                ">");
-            const std::string re = "re";
-            EXPECT_EQ("retail->", a2.Perform(tuple<const std::string &>(re)));
-        }
+    Action<std::string(const std::string &s)> a2 = Plus("tail", "-", ">");
+    const std::string re = "re";
+    EXPECT_EQ("retail->", a2.Perform(tuple<const std::string &>(re)));
+}
 
-        ACTION_P4(Plus, p0, p1, p2, p3) { return arg0 + p0 + p1 + p2 + p3; }
+ACTION_P4(Plus, p0, p1, p2, p3
+) {
+return arg0 + p0 + p1 + p2 +
+p3;
+}
 
-        TEST(ActionPnMacroTest, WorksFor4Parameters) {
-            Action<int(int)> a1 = Plus(1, 2, 3, 4);
-            EXPECT_EQ(10 + 1 + 2 + 3 + 4, a1.Perform(make_tuple(10)));
-        }
+TEST(ActionPnMacroTest, WorksFor4Parameters) {
+    Action<int(int)> a1 = Plus(1, 2, 3, 4);
+    EXPECT_EQ(10 + 1 + 2 + 3 + 4, a1.Perform(make_tuple(10)));
+}
 
-        ACTION_P5(Plus, p0, p1, p2, p3, p4) {
-            return arg0 + p0 + p1 + p2 + p3 + p4;
-        }
+ACTION_P5(Plus, p0, p1, p2, p3, p4
+) {
+return arg0 + p0 + p1 + p2 + p3 +
+p4;
+}
 
-        TEST(ActionPnMacroTest, WorksFor5Parameters) {
-            Action<int(int)> a1 = Plus(1, 2, 3, 4, 5);
-            EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5, a1.Perform(make_tuple(10)));
-        }
+TEST(ActionPnMacroTest, WorksFor5Parameters) {
+    Action<int(int)> a1 = Plus(1, 2, 3, 4, 5);
+    EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5, a1.Perform(make_tuple(10)));
+}
 
-        ACTION_P6(Plus, p0, p1, p2, p3, p4, p5) {
-            return arg0 + p0 + p1 + p2 + p3 + p4 + p5;
-        }
+ACTION_P6(Plus, p0, p1, p2, p3, p4, p5
+) {
+return arg0 + p0 + p1 + p2 + p3 + p4 +
+p5;
+}
 
-        TEST(ActionPnMacroTest, WorksFor6Parameters) {
-            Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6);
-            EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6, a1.Perform(make_tuple(10)));
-        }
+TEST(ActionPnMacroTest, WorksFor6Parameters) {
+    Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6);
+    EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6, a1.Perform(make_tuple(10)));
+}
 
-        ACTION_P7(Plus, p0, p1, p2, p3, p4, p5, p6) {
-            return arg0 + p0 + p1 + p2 + p3 + p4 + p5 + p6;
-        }
+ACTION_P7(Plus, p0, p1, p2, p3, p4, p5, p6
+) {
+return arg0 + p0 + p1 + p2 + p3 + p4 + p5 +
+p6;
+}
 
-        TEST(ActionPnMacroTest, WorksFor7Parameters) {
-            Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6, 7);
-            EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6 + 7,
-                      a1.Perform(make_tuple(10)));
-        }
+TEST(ActionPnMacroTest, WorksFor7Parameters) {
+    Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6, 7);
+    EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6 + 7, a1.Perform(make_tuple(10)));
+}
 
-        ACTION_P8(Plus, p0, p1, p2, p3, p4, p5, p6, p7) {
-            return arg0 + p0 + p1 + p2 + p3 + p4 + p5 + p6 + p7;
-        }
+ACTION_P8(Plus, p0, p1, p2, p3, p4, p5, p6, p7
+) {
+return arg0 + p0 + p1 + p2 + p3 + p4 + p5 + p6 +
+p7;
+}
 
-        TEST(ActionPnMacroTest, WorksFor8Parameters) {
-            Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6, 7, 8);
-            EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8,
-                      a1.Perform(make_tuple(10)));
-        }
+TEST(ActionPnMacroTest, WorksFor8Parameters) {
+    Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6, 7, 8);
+    EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8, a1.Perform(make_tuple(10)));
+}
 
-        ACTION_P9(Plus, p0, p1, p2, p3, p4, p5, p6, p7, p8) {
-            return arg0 + p0 + p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8;
-        }
+ACTION_P9(Plus, p0, p1, p2, p3, p4, p5, p6, p7, p8
+) {
+return arg0 + p0 + p1 + p2 + p3 + p4 + p5 + p6 + p7 +
+p8;
+}
 
-        TEST(ActionPnMacroTest, WorksFor9Parameters) {
-            Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6, 7, 8, 9);
-            EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9,
-                      a1.Perform(make_tuple(10)));
-        }
+TEST(ActionPnMacroTest, WorksFor9Parameters) {
+    Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9,
+              a1.Perform(make_tuple(10)));
+}
 
-        ACTION_P10(Plus, p0, p1, p2, p3, p4, p5, p6, p7, p8, last_param) {
-            arg0_type t0 = arg0;
-            last_param_type t9 = last_param;
-            return t0 + p0 + p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + t9;
-        }
+ACTION_P10(Plus, p0, p1, p2, p3, p4, p5, p6, p7, p8, last_param
+) {
+arg0_type t0 = arg0;
+last_param_type t9 = last_param;
+return t0 + p0 + p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 +
+t9;
+}
 
-        TEST(ActionPnMacroTest, WorksFor10Parameters) {
-            Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-            EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10,
-                      a1.Perform(make_tuple(10)));
-        }
+TEST(ActionPnMacroTest, WorksFor10Parameters) {
+    Action<int(int)> a1 = Plus(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    EXPECT_EQ(10 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10,
+              a1.Perform(make_tuple(10)));
+}
 
 // Tests that the action body can promote the parameter types.
 
-        ACTION_P2(PadArgument, prefix, suffix) {
-            // The following lines promote the two parameters to desired types.
-            std::string prefix_str(prefix);
-            char suffix_char = static_cast<char>(suffix);
-            return prefix_str + arg0 + suffix_char;
-        }
+ACTION_P2(PadArgument, prefix, suffix
+) {
+// The following lines promote the two parameters to desired types.
+std::string prefix_str(prefix);
+char suffix_char = static_cast<char>(suffix);
+return prefix_str + arg0 +
+suffix_char;
+}
 
-        TEST(ActionPnMacroTest, SimpleTypePromotion) {
-            Action<std::string(const char *)> no_promo =
-                    PadArgument(std::string("foo"), 'r');
-            Action<std::string(const char *)> promo =
-                    PadArgument("foo", static_cast<int>('r'));
-            EXPECT_EQ("foobar", no_promo.Perform(make_tuple(CharPtr("ba"))));
-            EXPECT_EQ("foobar", promo.Perform(make_tuple(CharPtr("ba"))));
-        }
+TEST(ActionPnMacroTest, SimpleTypePromotion) {
+    Action<std::string(const char *)> no_promo =
+            PadArgument(std::string("foo"), 'r');
+    Action<std::string(const char *)> promo =
+            PadArgument("foo", static_cast<int>('r'));
+    EXPECT_EQ("foobar", no_promo.Perform(make_tuple(CharPtr("ba"))));
+    EXPECT_EQ("foobar", promo.Perform(make_tuple(CharPtr("ba"))));
+}
 
 // Tests that we can partially restrict parameter types using a
 // straight-forward pattern.
 
 // Defines a generic action that doesn't restrict the types of its
 // parameters.
-        ACTION_P3(ConcatImpl, a, b, c) {
-            std::stringstream ss;
-            ss << a << b << c;
-            return ss.str();
-        }
+ACTION_P3(ConcatImpl, a, b, c
+) {
+std::stringstream ss;
+ss << a << b <<
+c;
+return ss.
+
+str();
+
+}
 
 // Next, we try to restrict that either the first parameter is a
 // string, or the second parameter is an int.
 
 // Defines a partially specialized wrapper that restricts the first
 // parameter to std::string.
-        template<typename T1, typename T2>
+template<typename T1, typename T2>
 // ConcatImplActionP3 is the class template ACTION_P3 uses to
 // implement ConcatImpl.  We shouldn't change the name as this
 // pattern requires the user to use it directly.
-        ConcatImplActionP3<std::string, T1, T2>
-        Concat(const std::string &a, T1 b, T2 c) {
-            GTEST_INTENTIONAL_CONST_COND_PUSH_()
-            if (true) {
-                GTEST_INTENTIONAL_CONST_COND_POP_()
-                // This branch verifies that ConcatImpl() can be invoked without
-                // explicit template arguments.
-                return ConcatImpl(a, b, c);
-            } else {
-                // This branch verifies that ConcatImpl() can also be invoked with
-                // explicit template arguments.  It doesn't really need to be
-                // executed as this is a compile-time verification.
-                return ConcatImpl<std::string, T1, T2>(a, b, c);
-            }
-        }
+ConcatImplActionP3 <std::string, T1, T2>
+Concat(const std::string &a, T1 b, T2 c) {
+    GTEST_INTENTIONAL_CONST_COND_PUSH_()
+    if (true) {
+        GTEST_INTENTIONAL_CONST_COND_POP_()
+        // This branch verifies that ConcatImpl() can be invoked without
+        // explicit template arguments.
+        return ConcatImpl(a, b, c);
+    } else {
+        // This branch verifies that ConcatImpl() can also be invoked with
+        // explicit template arguments.  It doesn't really need to be
+        // executed as this is a compile-time verification.
+        return ConcatImpl < std::string, T1, T2 > (a, b, c);
+    }
+}
 
 // Defines another partially specialized wrapper that restricts the
 // second parameter to int.
-        template<typename T1, typename T2>
-        ConcatImplActionP3<T1, int, T2>
-        Concat(T1 a, int b, T2 c) {
-            return ConcatImpl(a, b, c);
-        }
+template<typename T1, typename T2>
+ConcatImplActionP3<T1, int, T2>
+Concat(T1 a, int b, T2 c) {
+    return ConcatImpl(a, b, c);
+}
 
-        TEST(ActionPnMacroTest, CanPartiallyRestrictParameterTypes) {
-            Action<const std::string()> a1 = Concat("Hello", "1", 2);
-            EXPECT_EQ("Hello12", a1.Perform(make_tuple()));
+TEST(ActionPnMacroTest, CanPartiallyRestrictParameterTypes) {
+    Action<const std::string()> a1 = Concat("Hello", "1", 2);
+    EXPECT_EQ("Hello12", a1.Perform(make_tuple()));
 
-            a1 = Concat(1, 2, 3);
-            EXPECT_EQ("123", a1.Perform(make_tuple()));
-        }
+    a1 = Concat(1, 2, 3);
+    EXPECT_EQ("123", a1.Perform(make_tuple()));
+}
 
 // Verifies the type of an ACTION*.
 
-        ACTION(DoFoo) {}
+ACTION(DoFoo) {}
+ACTION_P(DoFoo, p
+) {
+}
+ACTION_P2(DoFoo, p0, p1
+) {
+}
 
-        ACTION_P(DoFoo, p) {}
+TEST(ActionPnMacroTest, TypesAreCorrect) {
+    // DoFoo() must be assignable to a DoFooAction variable.
+    DoFooAction a0 = DoFoo();
 
-        ACTION_P2(DoFoo, p0, p1) {}
+    // DoFoo(1) must be assignable to a DoFooActionP variable.
+    DoFooActionP<int> a1 = DoFoo(1);
 
-        TEST(ActionPnMacroTest, TypesAreCorrect) {
-            // DoFoo() must be assignable to a DoFooAction variable.
-            DoFooAction a0 = DoFoo();
+    // DoFoo(p1, ..., pk) must be assignable to a DoFooActionPk
+    // variable, and so on.
+    DoFooActionP2<int, char> a2 = DoFoo(1, '2');
+    PlusActionP3<int, int, char> a3 = Plus(1, 2, '3');
+    PlusActionP4<int, int, int, char> a4 = Plus(1, 2, 3, '4');
+    PlusActionP5<int, int, int, int, char> a5 = Plus(1, 2, 3, 4, '5');
+    PlusActionP6<int, int, int, int, int, char> a6 = Plus(1, 2, 3, 4, 5, '6');
+    PlusActionP7<int, int, int, int, int, int, char> a7 =
+            Plus(1, 2, 3, 4, 5, 6, '7');
+    PlusActionP8<int, int, int, int, int, int, int, char> a8 =
+            Plus(1, 2, 3, 4, 5, 6, 7, '8');
+    PlusActionP9<int, int, int, int, int, int, int, int, char> a9 =
+            Plus(1, 2, 3, 4, 5, 6, 7, 8, '9');
+    PlusActionP10<int, int, int, int, int, int, int, int, int, char> a10 =
+            Plus(1, 2, 3, 4, 5, 6, 7, 8, 9, '0');
 
-            // DoFoo(1) must be assignable to a DoFooActionP variable.
-            DoFooActionP<int> a1 = DoFoo(1);
-
-            // DoFoo(p1, ..., pk) must be assignable to a DoFooActionPk
-            // variable, and so on.
-            DoFooActionP2<int, char> a2 = DoFoo(1, '2');
-            PlusActionP3<int, int, char> a3 = Plus(1, 2, '3');
-            PlusActionP4<int, int, int, char> a4 = Plus(1, 2, 3, '4');
-            PlusActionP5<int, int, int, int, char> a5 = Plus(1, 2, 3, 4, '5');
-            PlusActionP6<int, int, int, int, int, char> a6 = Plus(1, 2, 3, 4, 5,
-                                                                  '6');
-            PlusActionP7<int, int, int, int, int, int, char> a7 =
-                    Plus(1, 2, 3, 4, 5, 6, '7');
-            PlusActionP8<int, int, int, int, int, int, int, char> a8 =
-                    Plus(1, 2, 3, 4, 5, 6, 7, '8');
-            PlusActionP9<int, int, int, int, int, int, int, int, char> a9 =
-                    Plus(1, 2, 3, 4, 5, 6, 7, 8, '9');
-            PlusActionP10<int, int, int, int, int, int, int, int, int, char> a10 =
-                    Plus(1, 2, 3, 4, 5, 6, 7, 8, 9, '0');
-
-            // Avoid "unused variable" warnings.
-            (void) a0;
-            (void) a1;
-            (void) a2;
-            (void) a3;
-            (void) a4;
-            (void) a5;
-            (void) a6;
-            (void) a7;
-            (void) a8;
-            (void) a9;
-            (void) a10;
-        }
+    // Avoid "unused variable" warnings.
+    (void) a0;
+    (void) a1;
+    (void) a2;
+    (void) a3;
+    (void) a4;
+    (void) a5;
+    (void) a6;
+    (void) a7;
+    (void) a8;
+    (void) a9;
+    (void) a10;
+}
 
 // Tests that an ACTION_P*() action can be explicitly instantiated
 // with reference-typed parameters.
 
-        ACTION_P(Plus1, x) { return x; }
+ACTION_P(Plus1, x
+) {
+return
+x;
+}
+ACTION_P2(Plus2, x, y
+) {
+return x +
+y;
+}
+ACTION_P3(Plus3, x, y, z
+) {
+return x + y +
+z;
+}
+ACTION_P10(Plus10, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9
+) {
+return a0 + a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 +
+a9;
+}
 
-        ACTION_P2(Plus2, x, y) { return x + y; }
+TEST(ActionPnMacroTest, CanExplicitlyInstantiateWithReferenceTypes) {
+    int x = 1, y = 2, z = 3;
+    const tuple<> empty = make_tuple();
 
-        ACTION_P3(Plus3, x, y, z) { return x + y + z; }
+    Action<int()> a = Plus1 < int &>(x);
+    EXPECT_EQ(1, a.Perform(empty));
 
-        ACTION_P10(Plus10, a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
-            return a0 + a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9;
-        }
+    a = Plus2 <
+    const int&, int &>(x, y);
+    EXPECT_EQ(3, a.Perform(empty));
 
-        TEST(ActionPnMacroTest, CanExplicitlyInstantiateWithReferenceTypes) {
-            int x = 1, y = 2, z = 3;
-            const tuple<> empty = make_tuple();
+    a = Plus3 < int &,
+    const int&, int &>(x, y, z);
+    EXPECT_EQ(6, a.Perform(empty));
 
-            Action<int()> a = Plus1<int &>(x);
-            EXPECT_EQ(1, a.Perform(empty));
+    int n[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    a = Plus10 <
+    const int&, int & ,
+    const int&, int & ,
+    const int&, int & ,
+    const int&,
+    int & ,
+    const int&, int &>(n[0], n[1], n[2], n[3], n[4], n[5], n[6], n[7],
+            n[8], n[9]);
+    EXPECT_EQ(55, a.Perform(empty));
+}
 
-            a = Plus2<const int &, int &>(x, y);
-            EXPECT_EQ(3, a.Perform(empty));
+class NullaryConstructorClass {
+public:
+    NullaryConstructorClass() : value_(123) {}
 
-            a = Plus3<int &, const int &, int &>(x, y, z);
-            EXPECT_EQ(6, a.Perform(empty));
-
-            int n[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-            a = Plus10<const int &, int &, const int &, int &, const int &, int &, const int &,
-                    int &, const int &, int &>(n[0], n[1], n[2], n[3], n[4],
-                                               n[5], n[6], n[7],
-                                               n[8], n[9]);
-            EXPECT_EQ(55, a.Perform(empty));
-        }
-
-        class NullaryConstructorClass {
-        public:
-            NullaryConstructorClass() : value_(123) {}
-
-            int value_;
-        };
+    int value_;
+};
 
 // Tests using ReturnNew() with a nullary constructor.
-        TEST(ReturnNewTest, NoArgs) {
-            Action<NullaryConstructorClass *()> a = ReturnNew<NullaryConstructorClass>();
-            NullaryConstructorClass *c = a.Perform(make_tuple());
-            EXPECT_EQ(123, c->value_);
-            delete c;
-        }
+TEST(ReturnNewTest, NoArgs) {
+    Action<NullaryConstructorClass *()> a = ReturnNew<NullaryConstructorClass>();
+    NullaryConstructorClass *c = a.Perform(make_tuple());
+    EXPECT_EQ(123, c->value_);
+    delete c;
+}
 
-        class UnaryConstructorClass {
-        public:
-            explicit UnaryConstructorClass(int value) : value_(value) {}
+class UnaryConstructorClass {
+public:
+    explicit UnaryConstructorClass(int value) : value_(value) {}
 
-            int value_;
-        };
+    int value_;
+};
 
 // Tests using ReturnNew() with a unary constructor.
-        TEST(ReturnNewTest, Unary) {
-            Action<UnaryConstructorClass *()> a = ReturnNew<UnaryConstructorClass>(
-                    4000);
-            UnaryConstructorClass *c = a.Perform(make_tuple());
-            EXPECT_EQ(4000, c->value_);
-            delete c;
-        }
+TEST(ReturnNewTest, Unary) {
+    Action<UnaryConstructorClass *()> a = ReturnNew<UnaryConstructorClass>(
+            4000);
+    UnaryConstructorClass *c = a.Perform(make_tuple());
+    EXPECT_EQ(4000, c->value_);
+    delete c;
+}
 
-        TEST(ReturnNewTest, UnaryWorksWhenMockMethodHasArgs) {
-            Action<UnaryConstructorClass *(bool, int)> a =
-                    ReturnNew<UnaryConstructorClass>(4000);
-            UnaryConstructorClass *c = a.Perform(make_tuple(false, 5));
-            EXPECT_EQ(4000, c->value_);
-            delete c;
-        }
+TEST(ReturnNewTest, UnaryWorksWhenMockMethodHasArgs) {
+    Action<UnaryConstructorClass *(bool, int)> a =
+            ReturnNew<UnaryConstructorClass>(4000);
+    UnaryConstructorClass *c = a.Perform(make_tuple(false, 5));
+    EXPECT_EQ(4000, c->value_);
+    delete c;
+}
 
-        TEST(ReturnNewTest, UnaryWorksWhenMockMethodReturnsPointerToConst) {
-            Action<const UnaryConstructorClass *()> a =
-                    ReturnNew<UnaryConstructorClass>(4000);
-            const UnaryConstructorClass *c = a.Perform(make_tuple());
-            EXPECT_EQ(4000, c->value_);
-            delete c;
-        }
+TEST(ReturnNewTest, UnaryWorksWhenMockMethodReturnsPointerToConst) {
+    Action<const UnaryConstructorClass *()> a =
+            ReturnNew<UnaryConstructorClass>(4000);
+    const UnaryConstructorClass *c = a.Perform(make_tuple());
+    EXPECT_EQ(4000, c->value_);
+    delete c;
+}
 
-        class TenArgConstructorClass {
-        public:
-            TenArgConstructorClass(int a1, int a2, int a3, int a4, int a5,
-                                   int a6, int a7, int a8, int a9, int a10)
-                    : value_(a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10) {
-            }
+class TenArgConstructorClass {
+public:
+    TenArgConstructorClass(int a1, int a2, int a3, int a4, int a5,
+                           int a6, int a7, int a8, int a9, int a10)
+            : value_(a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10) {
+    }
 
-            int value_;
-        };
+    int value_;
+};
 
 // Tests using ReturnNew() with a 10-argument constructor.
-        TEST(ReturnNewTest, ConstructorThatTakes10Arguments) {
-            Action<TenArgConstructorClass *()> a =
-                    ReturnNew<TenArgConstructorClass>(1000000000, 200000000,
-                                                      30000000,
-                                                      4000000, 500000, 60000,
-                                                      7000, 800, 90, 0);
-            TenArgConstructorClass *c = a.Perform(make_tuple());
-            EXPECT_EQ(1234567890, c->value_);
-            delete c;
-        }
+TEST(ReturnNewTest, ConstructorThatTakes10Arguments) {
+    Action<TenArgConstructorClass *()> a =
+            ReturnNew<TenArgConstructorClass>(1000000000, 200000000, 30000000,
+                                              4000000, 500000, 60000,
+                                              7000, 800, 90, 0);
+    TenArgConstructorClass *c = a.Perform(make_tuple());
+    EXPECT_EQ(1234567890, c->value_);
+    delete c;
+}
 
 // Tests that ACTION_TEMPLATE works when there is no value parameter.
-        ACTION_TEMPLATE(CreateNew,
-                        HAS_1_TEMPLATE_PARAMS(typename, T),
-                        AND_0_VALUE_PARAMS()) {
-            return new T;
-        }
+ACTION_TEMPLATE(CreateNew,
+        HAS_1_TEMPLATE_PARAMS(typename, T
+),
 
-        TEST(ActionTemplateTest, WorksWithoutValueParam) {
-            const Action<int *()> a = CreateNew<int>();
-            int *p = a.Perform(make_tuple());
-            delete p;
-        }
+AND_0_VALUE_PARAMS()
+
+) {
+return new
+T;
+}
+
+TEST(ActionTemplateTest, WorksWithoutValueParam) {
+    const Action<int *()> a = CreateNew < int > ();
+    int *p = a.Perform(make_tuple());
+    delete p;
+}
 
 // Tests that ACTION_TEMPLATE works when there are value parameters.
-        ACTION_TEMPLATE(CreateNew,
-                        HAS_1_TEMPLATE_PARAMS(typename, T),
-                        AND_1_VALUE_PARAMS(a0)) {
-            return new T(a0);
-        }
+ACTION_TEMPLATE(CreateNew,
+        HAS_1_TEMPLATE_PARAMS(typename, T
+),
+AND_1_VALUE_PARAMS(a0)
+) {
+return new
+T(a0);
+}
 
-        TEST(ActionTemplateTest, WorksWithValueParams) {
-            const Action<int *()> a = CreateNew<int>(42);
-            int *p = a.Perform(make_tuple());
-            EXPECT_EQ(42, *p);
-            delete p;
-        }
+TEST(ActionTemplateTest, WorksWithValueParams) {
+    const Action<int *()> a = CreateNew < int > (42);
+    int *p = a.Perform(make_tuple());
+    EXPECT_EQ(42, *p);
+    delete p;
+}
 
 // Tests that ACTION_TEMPLATE works for integral template parameters.
-        ACTION_TEMPLATE(MyDeleteArg,
-                        HAS_1_TEMPLATE_PARAMS(int, k),
-                        AND_0_VALUE_PARAMS()) {
-            delete get<k>(args);
-        }
+ACTION_TEMPLATE(MyDeleteArg,
+        HAS_1_TEMPLATE_PARAMS(int, k),
+        AND_0_VALUE_PARAMS()
+) {
+delete
+get<k>(args);
+}
 
 // Resets a bool variable in the destructor.
-        class BoolResetter {
-        public:
-            explicit BoolResetter(bool *value) : value_(value) {}
+class BoolResetter {
+public:
+    explicit BoolResetter(bool *value) : value_(value) {}
 
-            ~BoolResetter() { *value_ = false; }
+    ~BoolResetter() { *value_ = false; }
 
-        private:
-            bool *value_;
-        };
+private:
+    bool *value_;
+};
 
-        TEST(ActionTemplateTest, WorksForIntegralTemplateParams) {
-            const Action<void(int *, BoolResetter *)> a = MyDeleteArg<1>();
-            int n = 0;
-            bool b = true;
-            BoolResetter *resetter = new BoolResetter(&b);
-            a.Perform(make_tuple(&n, resetter));
-            EXPECT_FALSE(b);  // Verifies that resetter is deleted.
-        }
+TEST(ActionTemplateTest, WorksForIntegralTemplateParams) {
+    const Action<void(int *, BoolResetter *)> a = MyDeleteArg < 1 > ();
+    int n = 0;
+    bool b = true;
+    BoolResetter *resetter = new BoolResetter(&b);
+    a.Perform(make_tuple(&n, resetter));
+    EXPECT_FALSE(b);  // Verifies that resetter is deleted.
+}
 
 // Tests that ACTION_TEMPLATES works for template template parameters.
-        ACTION_TEMPLATE(ReturnSmartPointer,
-                        HAS_1_TEMPLATE_PARAMS(
-                                template<typename Pointee>
-                                class,
-                                Pointer),
-                        AND_1_VALUE_PARAMS(pointee)) {
-            return Pointer<pointee_type>(new pointee_type(pointee));
-        }
+ACTION_TEMPLATE(ReturnSmartPointer,
+        HAS_1_TEMPLATE_PARAMS(
 
-        TEST(ActionTemplateTest, WorksForTemplateTemplateParameters) {
-            using ::testing::internal::linked_ptr;
-            const Action<linked_ptr<int>()> a = ReturnSmartPointer<linked_ptr>(
-                    42);
-            linked_ptr<int> p = a.Perform(make_tuple());
-            EXPECT_EQ(42, *p);
-        }
+template<typename Pointee> class
+
+,
+Pointer),
+AND_1_VALUE_PARAMS(pointee)
+) {
+return Pointer<pointee_type>(new
+pointee_type(pointee)
+);
+}
+
+TEST(ActionTemplateTest, WorksForTemplateTemplateParameters) {
+    using ::testing::internal::linked_ptr;
+    const Action<linked_ptr<int>()> a = ReturnSmartPointer < linked_ptr > (42);
+    linked_ptr<int> p = a.Perform(make_tuple());
+    EXPECT_EQ(42, *p);
+}
 
 // Tests that ACTION_TEMPLATE works for 10 template parameters.
-        template<typename T1, typename T2, typename T3, int k4, bool k5,
-                unsigned int k6, typename T7, typename T8, typename T9>
-        struct GiantTemplate {
-        public:
-            explicit GiantTemplate(int a_value) : value(a_value) {}
+template<typename T1, typename T2, typename T3, int k4, bool k5,
+        unsigned int k6, typename T7, typename T8, typename T9>
+struct GiantTemplate {
+public:
+    explicit GiantTemplate(int a_value) : value(a_value) {}
 
-            int value;
-        };
+    int value;
+};
 
-        ACTION_TEMPLATE(ReturnGiant,
-                        HAS_10_TEMPLATE_PARAMS(
-                                typename, T1,
-                                typename, T2,
-                                typename, T3,
-                                int, k4,
-                                bool, k5,
-                                unsigned
-                                int, k6,
-                                class, T7,
-                                class, T8,
-                                class, T9,
-                                template <typename T> class, T10),
-                        AND_1_VALUE_PARAMS(value)) {
-            return GiantTemplate<T10<T1>, T2, T3, k4, k5, k6, T7, T8, T9>(
-                    value);
-        }
+ACTION_TEMPLATE(ReturnGiant,
+        HAS_10_TEMPLATE_PARAMS(
+        typename, T1,
+typename, T2,
+typename, T3,
+int, k4,
+bool, k5,
+unsigned int, k6,
 
-        TEST(ActionTemplateTest, WorksFor10TemplateParameters) {
-            using ::testing::internal::linked_ptr;
-            typedef GiantTemplate<linked_ptr<int>, bool, double, 5,
-                    true, 6, char, unsigned, int> Giant;
-            const Action<Giant()> a = ReturnGiant<
-                    int, bool, double, 5, true, 6, char, unsigned, int, linked_ptr>(
-                    42);
-            Giant giant = a.Perform(make_tuple());
-            EXPECT_EQ(42, giant.value);
-        }
+class
+
+, T7,
+
+class
+
+, T8,
+
+class
+
+, T9,
+
+template<typename T> class
+
+, T10),
+AND_1_VALUE_PARAMS(value)
+) {
+return GiantTemplate<T10 < T1>, T2, T3, k4, k5, k6, T7, T8, T9>(value);
+}
+
+TEST(ActionTemplateTest, WorksFor10TemplateParameters) {
+    using ::testing::internal::linked_ptr;
+    typedef GiantTemplate<linked_ptr<int>, bool, double, 5,
+            true, 6, char, unsigned, int> Giant;
+    const Action<Giant()> a = ReturnGiant <
+    int, bool, double, 5, true, 6, char, unsigned, int, linked_ptr > (42);
+    Giant giant = a.Perform(make_tuple());
+    EXPECT_EQ(42, giant.value);
+}
 
 // Tests that ACTION_TEMPLATE works for 10 value parameters.
-        ACTION_TEMPLATE(ReturnSum,
-                        HAS_1_TEMPLATE_PARAMS(typename, Number),
-                        AND_10_VALUE_PARAMS(v1, v2, v3, v4, v5, v6, v7, v8, v9,
-                                            v10)) {
-            return static_cast<Number>(v1) + v2 + v3 + v4 + v5 + v6 + v7 + v8 +
-                   v9 + v10;
-        }
+ACTION_TEMPLATE(ReturnSum,
+        HAS_1_TEMPLATE_PARAMS(typename, Number
+),
+AND_10_VALUE_PARAMS(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10
+)) {
+return static_cast
+<Number>(v1)
++ v2 + v3 + v4 + v5 + v6 + v7 + v8 + v9 +
+v10;
+}
 
-        TEST(ActionTemplateTest, WorksFor10ValueParameters) {
-            const Action<int()> a = ReturnSum<int>(1, 2, 3, 4, 5, 6, 7, 8, 9,
-                                                   10);
-            EXPECT_EQ(55, a.Perform(make_tuple()));
-        }
+TEST(ActionTemplateTest, WorksFor10ValueParameters) {
+    const Action<int()> a = ReturnSum < int > (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    EXPECT_EQ(55, a.Perform(make_tuple()));
+}
 
 // Tests that ACTION_TEMPLATE and ACTION/ACTION_P* can be overloaded
 // on the number of value parameters.
 
-        ACTION(ReturnSum) { return 0; }
+ACTION(ReturnSum) {return 0;}
 
-        ACTION_P(ReturnSum, x) { return x; }
+ACTION_P(ReturnSum, x
+) {
+return
+x;
+}
 
-        ACTION_TEMPLATE(ReturnSum,
-                        HAS_1_TEMPLATE_PARAMS(typename, Number),
-                        AND_2_VALUE_PARAMS(v1, v2)) {
-            return static_cast<Number>(v1) + v2;
-        }
+ACTION_TEMPLATE(ReturnSum,
+        HAS_1_TEMPLATE_PARAMS(typename, Number
+),
+AND_2_VALUE_PARAMS(v1, v2
+)) {
+return static_cast
+<Number>(v1)
++
+v2;
+}
 
-        ACTION_TEMPLATE(ReturnSum,
-                        HAS_1_TEMPLATE_PARAMS(typename, Number),
-                        AND_3_VALUE_PARAMS(v1, v2, v3)) {
-            return static_cast<Number>(v1) + v2 + v3;
-        }
+ACTION_TEMPLATE(ReturnSum,
+        HAS_1_TEMPLATE_PARAMS(typename, Number
+),
+AND_3_VALUE_PARAMS(v1, v2, v3
+)) {
+return static_cast
+<Number>(v1)
++ v2 +
+v3;
+}
 
-        ACTION_TEMPLATE(ReturnSum,
-                        HAS_2_TEMPLATE_PARAMS(typename, Number, int, k),
-                        AND_4_VALUE_PARAMS(v1, v2, v3, v4)) {
-            return static_cast<Number>(v1) + v2 + v3 + v4 + k;
-        }
+ACTION_TEMPLATE(ReturnSum,
+        HAS_2_TEMPLATE_PARAMS(typename, Number,
+int, k),
+AND_4_VALUE_PARAMS(v1, v2, v3, v4
+)) {
+return static_cast
+<Number>(v1)
++ v2 + v3 + v4 +
+k;
+}
 
-        TEST(ActionTemplateTest, CanBeOverloadedOnNumberOfValueParameters) {
-            const Action<int()> a0 = ReturnSum();
-            const Action<int()> a1 = ReturnSum(1);
-            const Action<int()> a2 = ReturnSum<int>(1, 2);
-            const Action<int()> a3 = ReturnSum<int>(1, 2, 3);
-            const Action<int()> a4 = ReturnSum<int, 10000>(2000, 300, 40, 5);
-            EXPECT_EQ(0, a0.Perform(make_tuple()));
-            EXPECT_EQ(1, a1.Perform(make_tuple()));
-            EXPECT_EQ(3, a2.Perform(make_tuple()));
-            EXPECT_EQ(6, a3.Perform(make_tuple()));
-            EXPECT_EQ(12345, a4.Perform(make_tuple()));
-        }
+TEST(ActionTemplateTest, CanBeOverloadedOnNumberOfValueParameters) {
+    const Action<int()> a0 = ReturnSum();
+    const Action<int()> a1 = ReturnSum(1);
+    const Action<int()> a2 = ReturnSum < int > (1, 2);
+    const Action<int()> a3 = ReturnSum < int > (1, 2, 3);
+    const Action<int()> a4 = ReturnSum < int,
+    10000 > (2000, 300, 40, 5);
+    EXPECT_EQ(0, a0.Perform(make_tuple()));
+    EXPECT_EQ(1, a1.Perform(make_tuple()));
+    EXPECT_EQ(3, a2.Perform(make_tuple()));
+    EXPECT_EQ(6, a3.Perform(make_tuple()));
+    EXPECT_EQ(12345, a4.Perform(make_tuple()));
+}
 
 #ifdef _MSC_VER
 # pragma warning(pop)
 #endif
 
-    }  // namespace gmock_generated_actions_test
+}  // namespace gmock_generated_actions_test
 }  // namespace testing

@@ -51,9 +51,7 @@
 // prevent a user from accidentally including gtest-internal-inl.h in
 // his code.
 #define GTEST_IMPLEMENTATION_ 1
-
 #include "src/gtest-internal-inl.h"
-
 #undef GTEST_IMPLEMENTATION_
 
 #if GTEST_OS_CYGWIN
@@ -216,7 +214,8 @@ namespace testing {
                 EXPECT_TRUE((LosslessArithmeticConvertible<bool, char>::value));
                 EXPECT_TRUE((LosslessArithmeticConvertible<bool, int>::value));
                 EXPECT_TRUE(
-                        (LosslessArithmeticConvertible<bool, unsigned long>::value));  // NOLINT
+                        (LosslessArithmeticConvertible < bool, unsigned
+                        long > ::value));  // NOLINT
             }
 
             TEST(LosslessArithmeticConvertibleTest, BoolToFloatingPoint) {
@@ -227,50 +226,59 @@ namespace testing {
             }
 
             TEST(LosslessArithmeticConvertibleTest, IntegerToBool) {
-                EXPECT_FALSE(
-                        (LosslessArithmeticConvertible<unsigned char, bool>::value));
+                EXPECT_FALSE((LosslessArithmeticConvertible < unsigned
+                                     char, bool > ::value));
                 EXPECT_FALSE((LosslessArithmeticConvertible<int, bool>::value));
             }
 
             TEST(LosslessArithmeticConvertibleTest, IntegerToInteger) {
                 // Unsigned => larger signed is fine.
-                EXPECT_TRUE(
-                        (LosslessArithmeticConvertible<unsigned char, int>::value));
+                EXPECT_TRUE((LosslessArithmeticConvertible < unsigned
+                                    char, int > ::value));
 
                 // Unsigned => larger unsigned is fine.
                 EXPECT_TRUE(
-                        (LosslessArithmeticConvertible<unsigned short, UInt64>::value)); // NOLINT
+                        (LosslessArithmeticConvertible < unsigned
+                        short, UInt64 > ::value)); // NOLINT
 
                 // Signed => unsigned is not fine.
                 EXPECT_FALSE(
                         (LosslessArithmeticConvertible<short, UInt64>::value)); // NOLINT
-                EXPECT_FALSE((LosslessArithmeticConvertible<
-                        signed char, unsigned int>::value));  // NOLINT
+                EXPECT_FALSE((LosslessArithmeticConvertible <
+                              signed
+                                     char, unsigned
+                                     int > ::value));  // NOLINT
 
                 // Same size and same signedness: fine too.
-                EXPECT_TRUE((LosslessArithmeticConvertible<
-                        unsigned char, unsigned char>::value));
+                EXPECT_TRUE((LosslessArithmeticConvertible <
+                             unsigned
+                                    char, unsigned
+                                    char > ::value));
                 EXPECT_TRUE((LosslessArithmeticConvertible<int, int>::value));
                 EXPECT_TRUE(
                         (LosslessArithmeticConvertible<wchar_t, wchar_t>::value));
-                EXPECT_TRUE((LosslessArithmeticConvertible<
-                        unsigned long, unsigned long>::value));  // NOLINT
+                EXPECT_TRUE((LosslessArithmeticConvertible <
+                             unsigned
+                                    long, unsigned
+                                    long > ::value));  // NOLINT
 
                 // Same size, different signedness: not fine.
-                EXPECT_FALSE((LosslessArithmeticConvertible<
-                        unsigned char, signed char>::value));
-                EXPECT_FALSE(
-                        (LosslessArithmeticConvertible<int, unsigned int>::value));
+                EXPECT_FALSE((LosslessArithmeticConvertible <
+                              unsigned
+                                     char, signed
+                                     char > ::value));
+                EXPECT_FALSE((LosslessArithmeticConvertible < int, unsigned
+                                     int > ::value));
                 EXPECT_FALSE(
                         (LosslessArithmeticConvertible<UInt64, Int64>::value));
 
                 // Larger size => smaller size is not fine.
                 EXPECT_FALSE(
                         (LosslessArithmeticConvertible<long, char>::value));  // NOLINT
-                EXPECT_FALSE(
-                        (LosslessArithmeticConvertible<int, signed char>::value));
-                EXPECT_FALSE(
-                        (LosslessArithmeticConvertible<Int64, unsigned int>::value));
+                EXPECT_FALSE((LosslessArithmeticConvertible < int, signed
+                                     char > ::value));
+                EXPECT_FALSE((LosslessArithmeticConvertible < Int64, unsigned
+                                     int > ::value));
             }
 
             TEST(LosslessArithmeticConvertibleTest, IntegerToFloatingPoint) {
@@ -280,8 +288,9 @@ namespace testing {
                         (LosslessArithmeticConvertible<char, float>::value));
                 EXPECT_FALSE(
                         (LosslessArithmeticConvertible<int, double>::value));
-                EXPECT_FALSE((LosslessArithmeticConvertible<
-                        short, long double>::value));  // NOLINT
+                EXPECT_FALSE((LosslessArithmeticConvertible <
+                              short, long
+                                     double > ::value));  // NOLINT
             }
 
             TEST(LosslessArithmeticConvertibleTest, FloatingPointToBool) {
@@ -296,8 +305,8 @@ namespace testing {
                         (LosslessArithmeticConvertible<float, long>::value));  // NOLINT
                 EXPECT_FALSE(
                         (LosslessArithmeticConvertible<double, Int64>::value));
-                EXPECT_FALSE(
-                        (LosslessArithmeticConvertible<long double, int>::value));
+                EXPECT_FALSE((LosslessArithmeticConvertible < long
+                                     double, int > ::value));
             }
 
             TEST(LosslessArithmeticConvertibleTest,
@@ -305,10 +314,10 @@ namespace testing {
                 // Smaller size => larger size is fine.
                 EXPECT_TRUE(
                         (LosslessArithmeticConvertible<float, double>::value));
-                EXPECT_TRUE(
-                        (LosslessArithmeticConvertible<float, long double>::value));
-                EXPECT_TRUE(
-                        (LosslessArithmeticConvertible<double, long double>::value));
+                EXPECT_TRUE((LosslessArithmeticConvertible < float, long
+                                    double > ::value));
+                EXPECT_TRUE((LosslessArithmeticConvertible < double, long
+                                    double > ::value));
 
                 // Same size: fine.
                 EXPECT_TRUE(
@@ -324,11 +333,11 @@ namespace testing {
                     GTEST_INTENTIONAL_CONST_COND_POP_()
                     // In some implementations (e.g. MSVC), double and long double
                     // have the same size.
-                    EXPECT_TRUE(
-                            (LosslessArithmeticConvertible<long double, double>::value));
+                    EXPECT_TRUE((LosslessArithmeticConvertible < long
+                                        double, double > ::value));
                 } else {
-                    EXPECT_FALSE(
-                            (LosslessArithmeticConvertible<long double, double>::value));
+                    EXPECT_FALSE((LosslessArithmeticConvertible < long
+                                         double, double > ::value));
                 }
             }
 
@@ -342,7 +351,7 @@ namespace testing {
             }
 
             TEST(TupleMatchesTest, WorksForSize1) {
-                tuple<Matcher<int> > matchers(Eq(1));
+                tuple<Matcher < int> > matchers(Eq(1));
                 tuple<int> values1(1),
                         values2(2);
 
@@ -351,7 +360,8 @@ namespace testing {
             }
 
             TEST(TupleMatchesTest, WorksForSize2) {
-                tuple<Matcher<int>, Matcher<char> > matchers(Eq(1), Eq('a'));
+                tuple<Matcher < int>, Matcher < char > >
+                                      matchers(Eq(1), Eq('a'));
                 tuple<int, char> values1(1, 'a'),
                         values2(1, 'b'),
                         values3(2, 'a'),
@@ -364,8 +374,9 @@ namespace testing {
             }
 
             TEST(TupleMatchesTest, WorksForSize5) {
-                tuple<Matcher<int>, Matcher<char>, Matcher<bool>, Matcher<long>,  // NOLINT
-                        Matcher<string> >
+                tuple<Matcher < int>, Matcher < char >, Matcher < bool >,
+                        Matcher < long >,  // NOLINT
+                        Matcher < string > >
                         matchers(Eq(1), Eq('a'), Eq(true), Eq(2L), Eq("hi"));
                 tuple<int, char, bool, long, string>  // NOLINT
                         values1(1, 'a', true, 2L, "hi"),
@@ -620,10 +631,12 @@ namespace testing {
 
             class DummyMock {
             public:
-                MOCK_METHOD0(TestMethod, void());
-
-                MOCK_METHOD1(TestMethodArg, void(int
-                        dummy));
+                MOCK_METHOD0(TestMethod,
+                void());
+                MOCK_METHOD1(TestMethodArg,
+                void(
+                int dummy
+                ));
             };
 
             void ExpectCallLogger() {
@@ -723,12 +736,13 @@ namespace testing {
                         StlContainerView<int[2]>::const_reference>();
 
                 int a1[3] = {0, 1, 2};
-                NativeArray<int> a2 = StlContainerView<int[3]>::ConstReference(
-                        a1);
+                NativeArray<int> a2 =
+                        StlContainerView < int[3]>::ConstReference(a1);
                 EXPECT_EQ(3U, a2.size());
                 EXPECT_EQ(a1, a2.begin());
 
-                const NativeArray<int> a3 = StlContainerView<int[3]>::Copy(a1);
+                const NativeArray<int> a3 = StlContainerView < int[3]>::Copy(
+                        a1);
                 ASSERT_EQ(3U, a3.size());
                 EXPECT_EQ(0, a3.begin()[0]);
                 EXPECT_EQ(1, a3.begin()[1]);

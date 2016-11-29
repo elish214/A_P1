@@ -123,18 +123,14 @@
 #endif  // GTEST_OS_LINUX
 
 #if GTEST_HAS_EXCEPTIONS
-
 # include <stdexcept>
-
 #endif
 
 #if GTEST_CAN_STREAM_RESULTS_
-
 # include <arpa/inet.h>  // NOLINT
 # include <netdb.h>  // NOLINT
 # include <sys/socket.h>  // NOLINT
 # include <sys/types.h>  // NOLINT
-
 #endif
 
 // Indicates that this translation unit is part of Google Test's
@@ -143,9 +139,7 @@
 // prevent a user from accidentally including gtest-internal-inl.h in
 // his code.
 #define GTEST_IMPLEMENTATION_ 1
-
 #include "src/gtest-internal-inl.h"
-
 #undef GTEST_IMPLEMENTATION_
 
 #if GTEST_OS_WINDOWS
@@ -992,14 +986,12 @@ const char* String::Utf16ToAnsi(LPCWSTR utf16_str)  {
     }
 
 #if GTEST_HAS_STD_WSTRING
-
 // Converts the given wide string to a narrow string using the UTF-8
 // encoding, and streams the result to this Message object.
     Message &Message::operator<<(const ::std::wstring &wstr) {
         internal::StreamWideCharsToMessage(wstr.c_str(), wstr.length(), this);
         return *this;
     }
-
 #endif  // GTEST_HAS_STD_WSTRING
 
 #if GTEST_HAS_GLOBAL_WSTRING
@@ -1714,7 +1706,6 @@ AssertionResult CmpHelper##op_name(const char* expr1, const char* expr2, \
         return IsSubstringImpl(false, needle_expr, haystack_expr, needle,
                                haystack);
     }
-
 #endif  // GTEST_HAS_STD_WSTRING
 
     namespace internal {
@@ -2678,7 +2669,6 @@ static std::string* FormatSehExceptionMessage(DWORD exception_code,
                                        code_location.line).c_str(),
                     errors.GetString().c_str());
         }
-
 #endif  // GTEST_HAS_PARAM_TEST
 
     }  // namespace internal
@@ -3435,7 +3425,7 @@ WORD GetColorAttribute(GTestColor color) {
         };
 
         TestEventRepeater::~TestEventRepeater() {
-            ForEach(listeners_, Delete < TestEventListener > );
+            ForEach(listeners_, Delete<TestEventListener>);
         }
 
         void TestEventRepeater::Append(TestEventListener *listener) {
@@ -4512,7 +4502,6 @@ void TestEventRepeater::Name(const Type& parameter) { \
     int UnitTest::random_seed() const { return impl_->random_seed(); }
 
 #if GTEST_HAS_PARAM_TEST
-
 // Returns ParameterizedTestCaseRegistry object used to keep track of
 // value-parameterized tests and instantiate and register them.
     internal::ParameterizedTestCaseRegistry &
@@ -4520,7 +4509,6 @@ void TestEventRepeater::Name(const Type& parameter) { \
     GTEST_LOCK_EXCLUDED_(mutex_) {
         return impl_->parameterized_test_registry();
     }
-
 #endif  // GTEST_HAS_PARAM_TEST
 
 // Creates an empty UnitTest.
@@ -4618,14 +4606,12 @@ void TestEventRepeater::Name(const Type& parameter) { \
         }
 
 #if GTEST_HAS_DEATH_TEST
-
 // Disables event forwarding if the control is currently in a death test
 // subprocess. Must not be called before InitGoogleTest.
         void UnitTestImpl::SuppressTestEventsIfInSubprocess() {
             if (internal_run_death_test_flag_.get() != NULL)
                 listeners()->SuppressEventForwarding();
         }
-
 #endif  // GTEST_HAS_DEATH_TEST
 
 // Initializes event listeners performing XML output as specified by
@@ -4644,7 +4630,6 @@ void TestEventRepeater::Name(const Type& parameter) { \
         }
 
 #if GTEST_CAN_STREAM_RESULTS_
-
 // Initializes event listeners for streaming test results in string form.
 // Must not be called before InitGoogleTest.
         void UnitTestImpl::ConfigureStreamingOutput() {
@@ -4662,7 +4647,6 @@ void TestEventRepeater::Name(const Type& parameter) { \
                 }
             }
         }
-
 #endif  // GTEST_CAN_STREAM_RESULTS_
 
 // Performs initialization dependent upon flag values obtained in
@@ -5545,7 +5529,6 @@ void TestEventRepeater::Name(const Type& parameter) { \
                     g_help_flag = true;
             }
         }
-
 #endif  // GTEST_USE_OWN_FLAGFILE_FLAG_
 
 // Parses the command line for Google Test flags, without initializing
