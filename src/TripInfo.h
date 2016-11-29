@@ -6,7 +6,7 @@
 #define A_P1_TRIPINFO_H
 
 
-#include "Point.h"
+#include "navigation/Point.h"
 #include "Passenger.h"
 
 class TripInfo {
