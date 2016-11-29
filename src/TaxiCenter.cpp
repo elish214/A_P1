@@ -8,11 +8,11 @@ void TaxiCenter::addDriver(Driver driver) {
 
 }
 
-void TaxiCenter::addTaxi(Taxi taxi) {
+void TaxiCenter::addTaxi(Taxi *taxi) {
 
 }
 
-void TaxiCenter::connect(Driver, Taxi) {
+void TaxiCenter::connect(Driver driver, Taxi *taxi) {
 
 }
 

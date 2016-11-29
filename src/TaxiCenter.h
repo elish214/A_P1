@@ -12,14 +12,14 @@
 class TaxiCenter {
 private:
     vector<Driver> employees;
-    vector<Taxi> cabs;
+    vector<Taxi *> cabs;
     queue<TripInfo> trips;
 public:
     void addDriver(Driver driver);
 
-    void addTaxi(Taxi taxi);
+    void addTaxi(Taxi *taxi);
 
-    void connect(Driver, Taxi);
+    void connect(Driver driver, Taxi *taxi);
 
     void answer(Passenger passenger);
 };

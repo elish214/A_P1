@@ -20,10 +20,10 @@ void Driver::notifyAllEndTrip() {
 
 }
 
-void Driver::addListener(EndTripListener listener) {
+void Driver::addListener(EndTripListener *listener) {
 
 }
 
-void Driver::removeListener(EndTripListener listener) {
+void Driver::removeListener(EndTripListener *listener) {
 
 }

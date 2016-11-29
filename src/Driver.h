@@ -22,7 +22,7 @@ private:
     Satisfaction satisfaction;
     Taxi *taxi;
     Location location;
-    vector<EndTripListener> endTripListeners;
+    vector<EndTripListener *> endTripListeners;
 public:
     void setTaxi(Taxi *taxi);
 
@@ -32,9 +32,9 @@ public:
 
     void notifyAllEndTrip();
 
-    void addListener(EndTripListener listener);
+    void addListener(EndTripListener *listener);
 
-    void removeListener(EndTripListener listener);
+    void removeListener(EndTripListener *listener);
 };
 
 
