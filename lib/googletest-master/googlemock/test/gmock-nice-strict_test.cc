@@ -42,8 +42,7 @@ class Mock {
 public:
     Mock() {}
 
-    MOCK_METHOD0(DoThis,
-    void());
+    MOCK_METHOD0(DoThis, void());
 
 private:
     GTEST_DISALLOW_COPY_AND_ASSIGN_(Mock);
@@ -81,12 +80,10 @@ namespace testing {
 
             void Delete() { delete this; }
 
-            MOCK_METHOD0(DoThis,
-            void());
-            MOCK_METHOD1(DoThat,
-            int(
-            bool flag
-            ));
+            MOCK_METHOD0(DoThis, void());
+
+            MOCK_METHOD1(DoThat, int(bool
+                    flag));
 
         private:
             GTEST_DISALLOW_COPY_AND_ASSIGN_(MockFoo);
@@ -107,10 +104,9 @@ namespace testing {
 
             const string &str() const { return str_; }
 
-            MOCK_METHOD0(This,
-            int());
-            MOCK_METHOD2(That, string(int, bool)
-            );
+            MOCK_METHOD0(This, int());
+
+            MOCK_METHOD2(That, string(int, bool));
 
         private:
             string str_;

@@ -134,71 +134,48 @@ namespace testing {
             MockFoo() {}
 
             // Makes sure that a mock function parameter can be named.
-            MOCK_METHOD1(VoidReturning,
-            void(
-            int n
-            ));  // NOLINT
+            MOCK_METHOD1(VoidReturning, void(int
+                    n));  // NOLINT
 
-            MOCK_METHOD0(Nullary,
-            int());  // NOLINT
+            MOCK_METHOD0(Nullary, int());  // NOLINT
 
             // Makes sure that a mock function parameter can be unnamed.
-            MOCK_METHOD1(Unary,
-            bool(
-            int));  // NOLINT
-            MOCK_METHOD2(Binary,
-            long(
-            short, int));  // NOLINT
+            MOCK_METHOD1(Unary, bool(int));  // NOLINT
+            MOCK_METHOD2(Binary, long(short, int));  // NOLINT
             MOCK_METHOD10(Decimal,
-            int(
-            bool, char, short, int, long, float,  // NOLINT
-            double, unsigned, char*,
-            const string &str
-            ));
+                          int(bool, char, short, int, long, float,  // NOLINT
+                              double, unsigned, char * ,
+                                  const string &str));
 
-            MOCK_METHOD1(TakesNonConstReference,
-            bool(
-            int&));  // NOLINT
-            MOCK_METHOD1(TakesConstReference, string(const int &)
-            );
+            MOCK_METHOD1(TakesNonConstReference, bool(int & ));  // NOLINT
+            MOCK_METHOD1(TakesConstReference, string(
+                    const int&));
 
 #ifdef GMOCK_ALLOWS_CONST_PARAM_FUNCTIONS
-            MOCK_METHOD1(TakesConst,
-            bool(
-            const int));  // NOLINT
+
+            MOCK_METHOD1(TakesConst, bool(
+                    const int));  // NOLINT
 #endif
 
             // Tests that the function return type can contain unprotected comma.
-            MOCK_METHOD0(ReturnTypeWithComma, std::map<int, string>()
-            );
+            MOCK_METHOD0(ReturnTypeWithComma, std::map<int, string>());
+
             MOCK_CONST_METHOD1(ReturnTypeWithComma,
-                    std::map<int, string>(int)
-            );  // NOLINT
+                               std::map<int, string>(int));  // NOLINT
 
-            MOCK_METHOD0(OverloadedOnArgumentNumber,
-            int());  // NOLINT
-            MOCK_METHOD1(OverloadedOnArgumentNumber,
-            int(
-            int));  // NOLINT
+            MOCK_METHOD0(OverloadedOnArgumentNumber, int());  // NOLINT
+            MOCK_METHOD1(OverloadedOnArgumentNumber, int(int));  // NOLINT
 
-            MOCK_METHOD1(OverloadedOnArgumentType,
-            int(
-            int));  // NOLINT
-            MOCK_METHOD1(OverloadedOnArgumentType,
-            char(
-            char));  // NOLINT
+            MOCK_METHOD1(OverloadedOnArgumentType, int(int));  // NOLINT
+            MOCK_METHOD1(OverloadedOnArgumentType, char(char));  // NOLINT
 
-            MOCK_METHOD0(OverloadedOnConstness,
-            int());  // NOLINT
-            MOCK_CONST_METHOD0(OverloadedOnConstness,
-            char());  // NOLINT
+            MOCK_METHOD0(OverloadedOnConstness, int());  // NOLINT
+            MOCK_CONST_METHOD0(OverloadedOnConstness, char());  // NOLINT
 
-            MOCK_METHOD1(TypeWithHole,
-            int(
-            int (*)()));  // NOLINT
-            MOCK_METHOD1(TypeWithComma,
-            int(
-            const std::map<int, string>&));  // NOLINT
+            MOCK_METHOD1(TypeWithHole, int(int(*)
+                    ()));  // NOLINT
+            MOCK_METHOD1(TypeWithComma, int(
+                    const std::map<int, string>&));  // NOLINT
 
 #if GTEST_OS_WINDOWS
             MOCK_METHOD0_WITH_CALLTYPE(STDMETHODCALLTYPE, CTNullary, int());
@@ -396,8 +373,7 @@ namespace testing {
         public:
             MockB() {}
 
-            MOCK_METHOD0(DoB,
-            void());
+            MOCK_METHOD0(DoB, void());
 
         private:
             GTEST_DISALLOW_COPY_AND_ASSIGN_(MockB);
@@ -445,22 +421,19 @@ namespace testing {
         public:
             MockStack() {}
 
-            MOCK_METHOD1_T(Push,
-            void(
-            const T &elem
-            ));
-            MOCK_METHOD0_T(Pop,
-            void());
-            MOCK_CONST_METHOD0_T(GetSize,
-            int());  // NOLINT
-            MOCK_CONST_METHOD0_T(GetTop,
-            const T&());
+            MOCK_METHOD1_T(Push, void(
+                    const T &elem));
+
+            MOCK_METHOD0_T(Pop, void());
+
+            MOCK_CONST_METHOD0_T(GetSize, int());  // NOLINT
+            MOCK_CONST_METHOD0_T(GetTop, const T&());
 
             // Tests that the function return type can contain unprotected comma.
-            MOCK_METHOD0_T(ReturnTypeWithComma, std::map<int, int>()
-            );
-            MOCK_CONST_METHOD1_T(ReturnTypeWithComma, std::map<int, int>(int)
-            );  // NOLINT
+            MOCK_METHOD0_T(ReturnTypeWithComma, std::map<int, int>());
+
+            MOCK_CONST_METHOD1_T(ReturnTypeWithComma,
+                                 std::map<int, int>(int));  // NOLINT
 
         private:
             GTEST_DISALLOW_COPY_AND_ASSIGN_(MockStack);

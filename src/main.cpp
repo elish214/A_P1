@@ -3,8 +3,7 @@
 //
 #include <iostream>
 #include <stack>
-#include "BFS.h"
-#include "Grid.h"
+#include "navigation/Node.h"
 
 using namespace std;
 
@@ -17,7 +16,7 @@ void printRoute(stack<Node *> route);
  *
  * @return 0.
  */
-int main() {
+int main_1() {
     //BFS bfs;
     //Grid *grid;
     //int x, y;

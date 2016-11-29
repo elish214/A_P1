@@ -54,8 +54,7 @@ namespace {
     public:
         MockFoo() {}
 
-        MOCK_METHOD0(Bar,
-        int());  // NOLINT
+        MOCK_METHOD0(Bar, int());  // NOLINT
 
     private:
         GTEST_DISALLOW_COPY_AND_ASSIGN_(MockFoo);

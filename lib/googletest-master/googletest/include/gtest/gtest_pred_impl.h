@@ -285,6 +285,7 @@ AssertionResult AssertPred4Helper(const char *pred_text,
   GTEST_PRED4_(pred, v1, v2, v3, v4, GTEST_FATAL_FAILURE_)
 
 
+
 // Helper function for implementing {EXPECT|ASSERT}_PRED5.  Don't use
 // this in your code.
 template<typename Pred,

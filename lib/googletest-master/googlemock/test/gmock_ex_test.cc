@@ -49,8 +49,7 @@ namespace {
     public:
         // A mock method that returns a user-defined type.  Google Mock
         // doesn't know what the default value for this type is.
-        MOCK_METHOD0(GetNonDefaultConstructible, NonDefaultConstructible()
-        );
+        MOCK_METHOD0(GetNonDefaultConstructible, NonDefaultConstructible());
     };
 
 #if GTEST_HAS_EXCEPTIONS

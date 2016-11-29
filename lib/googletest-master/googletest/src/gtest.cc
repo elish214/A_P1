@@ -3425,7 +3425,7 @@ WORD GetColorAttribute(GTestColor color) {
         };
 
         TestEventRepeater::~TestEventRepeater() {
-            ForEach(listeners_, Delete<TestEventListener>);
+            ForEach(listeners_, Delete < TestEventListener > );
         }
 
         void TestEventRepeater::Append(TestEventListener *listener) {
