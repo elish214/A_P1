@@ -6,7 +6,7 @@
 #define A_P1_PASSENGER_H
 
 
-#include "Point.h"
+#include "navigation/Point.h"
 
 class Passenger {
 private:

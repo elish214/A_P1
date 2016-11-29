@@ -6,12 +6,12 @@
 #define A_P1_DRIVER_H
 
 
-#include "MaritalStatus.h"
+#include "enums/MaritalStatus.h"
 #include "Satisfaction.h"
-#include "Location.h"
-#include "EndTripListener.h"
+#include "navigation/Location.h"
+#include "listeners/EndTripListener.h"
 #include "TripInfo.h"
-#include "Taxi.h"
+#include "taxi/Taxi.h"
 
 class Driver {
 private:
@@ -22,7 +22,7 @@ private:
     Satisfaction satisfaction;
     Taxi *taxi;
     Location location;
-    vector<EndTripListener> endTripListeners;
+    vector<EndTripListener *> endTripListeners;
 public:
     void setTaxi(Taxi *taxi);
 
@@ -32,9 +32,9 @@ public:
 
     void notifyAllEndTrip();
 
-    void addListener(EndTripListener listener);
+    void addListener(EndTripListener *listener);
 
-    void removeListener(EndTripListener listener);
+    void removeListener(EndTripListener *listener);
 };
 
 

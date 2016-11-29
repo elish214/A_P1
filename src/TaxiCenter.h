@@ -17,9 +17,9 @@ private:
 public:
     void addDriver(Driver driver);
 
-    void addTaxi(Taxi taxi);
+    void addTaxi(Taxi *taxi);
 
-    void connect(Driver, Taxi);
+    void connect(Driver driver, Taxi *taxi);
 
     void answer(Passenger passenger);
 };
