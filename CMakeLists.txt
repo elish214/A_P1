@@ -3,6 +3,6 @@ project(A_P1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES src/main.cpp src/Point.cpp src/BFS.cpp src/Grid.cpp src/Location.cpp src/Node.h src/EndTripListener.h src/SatisfactionListener.cpp src/SatisfactionListener.h src/AvailabilityListener.cpp src/AvailabilityListener.h src/Satisfaction.cpp src/Satisfaction.h src/Passenger.cpp src/Passenger.h src/TripInfo.cpp src/TripInfo.h src/Driver.cpp src/Driver.h src/MaritalStatus.h)
+set(SOURCE_FILES src/main.cpp src/Point.cpp src/BFS.cpp src/Grid.cpp src/Location.cpp src/Node.h src/EndTripListener.h src/SatisfactionListener.cpp src/SatisfactionListener.h src/AvailabilityListener.cpp src/AvailabilityListener.h src/Satisfaction.cpp src/Satisfaction.h src/Passenger.cpp src/Passenger.h src/TripInfo.cpp src/TripInfo.h src/Driver.cpp src/Driver.h src/MaritalStatus.h src/Color.h src/CarManufacturer.h src/Taxi.cpp src/Taxi.h src/StandardTaxi.cpp src/StandardTaxi.h src/LuxuryTaxi.cpp src/LuxuryTaxi.h src/TaxiCenter.cpp src/TaxiCenter.h)
 
 add_executable(A_P1 ${SOURCE_FILES})

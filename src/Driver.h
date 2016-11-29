@@ -10,6 +10,8 @@
 #include "Satisfaction.h"
 #include "Location.h"
 #include "EndTripListener.h"
+#include "TripInfo.h"
+#include "Taxi.h"
 
 class Driver {
 private:
@@ -18,11 +20,21 @@ private:
     MaritalStatus status;
     int experience;
     Satisfaction satisfaction;
-    //taxi
+    Taxi *taxi;
     Location location;
     vector<EndTripListener> endTripListeners;
 public:
+    void setTaxi(Taxi *taxi);
 
+    void start(TripInfo trip);
+
+    void drive(vector<Point>);
+
+    void notifyAllEndTrip();
+
+    void addListener(EndTripListener listener);
+
+    void removeListener(EndTripListener listener);
 };
 
 

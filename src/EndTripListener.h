@@ -8,7 +8,7 @@
 
 class EndTripListener {
 public:
-    virtual void endEvent();
+    virtual void endEvent() = 0;
 };
 
 
