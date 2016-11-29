@@ -283,8 +283,8 @@ class AbstractRpcServer(object):
                     break
                 if e.reason == "ServiceDisabled":
                     print >> sys.stderr, (
-                        "The user's access to the service has been "
-                        "disabled.")
+                    "The user's access to the service has been "
+                    "disabled.")
                     break
                 if e.reason == "ServiceUnavailable":
                     print >> sys.stderr, "The service is not available; try again later."
@@ -547,7 +547,6 @@ def GetContentType(filename):
 # Use a shell for subcommands on Windows to get a PATH search.
 use_shell = sys.platform.startswith("win")
 
-
 def RunShellWithReturnCode(command, print_output=False,
                            universal_newlines=True):
     """Executes a command and returns the output from stdout and the return code.
@@ -681,15 +680,15 @@ class VersionControlSystem(object):
                 type = "current"
             if len(content) > MAX_UPLOAD_SIZE:
                 print (
-                    "Not uploading the %s file for %s because it's too large." %
-                    (type, filename))
+                "Not uploading the %s file for %s because it's too large." %
+                (type, filename))
                 file_too_large = True
                 content = ""
             checksum = md5.new(content).hexdigest()
             if options.verbose > 0 and not file_too_large:
                 print "Uploading %s file for %s" % (type, filename)
             url = "/%d/upload_content/%d/%d" % (
-                int(issue), int(patchset), file_id)
+            int(issue), int(patchset), file_id)
             form_fields = [("filename", filename),
                            ("status", status),
                            ("checksum", checksum),
@@ -962,7 +961,7 @@ class SubversionVCS(VersionControlSystem):
                             new_content = self.ReadFile(filename)
                         else:
                             url = "%s/%s@%s" % (
-                                self.svn_base, filename, self.rev_end)
+                            self.svn_base, filename, self.rev_end)
                             new_content = RunShell(["svn", "cat", url],
                                                    universal_newlines=True,
                                                    silent_ok=True)
@@ -991,7 +990,7 @@ class SubversionVCS(VersionControlSystem):
                     args = []
                     if self.rev_start:
                         url = "%s/%s@%s" % (
-                            self.svn_base, filename, self.rev_start)
+                        self.svn_base, filename, self.rev_start)
                     else:
                         url = filename
                         args += ["-r", "BASE"]

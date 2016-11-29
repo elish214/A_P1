@@ -44,9 +44,7 @@
 #include "gmock/internal/gmock-internal-utils.h"
 
 #if GTEST_HAS_STD_FUNCTION_
-
 # include <functional>
-
 #endif
 
 namespace testing {
@@ -926,7 +924,6 @@ namespace testing {
                 return this->Call();
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -947,7 +944,6 @@ namespace testing {
                 return this->Call(a0);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -968,7 +964,6 @@ namespace testing {
                 return this->Call(a0, a1);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -989,7 +984,6 @@ namespace testing {
                 return this->Call(a0, a1, a2);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -1010,7 +1004,6 @@ namespace testing {
                 return this->Call(a0, a1, a2, a3);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -1032,7 +1025,6 @@ namespace testing {
                 return this->Call(a0, a1, a2, a3, a4);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -1054,7 +1046,6 @@ namespace testing {
                 return this->Call(a0, a1, a2, a3, a4, a5);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -1077,7 +1068,6 @@ namespace testing {
                 return this->Call(a0, a1, a2, a3, a4, a5, a6);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -1100,7 +1090,6 @@ namespace testing {
                 return this->Call(a0, a1, a2, a3, a4, a5, a6, a7);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -1124,7 +1113,6 @@ namespace testing {
                 return this->Call(a0, a1, a2, a3, a4, a5, a6, a7, a8);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:
@@ -1150,7 +1138,6 @@ namespace testing {
                 return this->Call(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
             };
         }
-
 #endif  // GTEST_HAS_STD_FUNCTION_
 
     private:

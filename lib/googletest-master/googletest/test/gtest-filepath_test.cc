@@ -47,9 +47,7 @@
 // prevent a user from accidentally including gtest-internal-inl.h in
 // his code.
 #define GTEST_IMPLEMENTATION_ 1
-
 #include "src/gtest-internal-inl.h"
-
 #undef GTEST_IMPLEMENTATION_
 
 #if GTEST_OS_WINDOWS_MOBILE
@@ -480,8 +478,8 @@ namespace testing {
 #if GTEST_OS_WINDOWS  // We are on Windows.
 # ifndef _WIN32_CE  // Windows CE doesn't have a current directory.
 
-                EXPECT_TRUE(FilePath(".").DirectoryExists());
-                EXPECT_TRUE(FilePath(".\\").DirectoryExists());
+  EXPECT_TRUE(FilePath(".").DirectoryExists());
+  EXPECT_TRUE(FilePath(".\\").DirectoryExists());
 
 # endif  // _WIN32_CE
 #else
@@ -503,7 +501,7 @@ namespace testing {
                                   "bar",
                           FilePath("foo"
                                   GTEST_PATH_SEP_
-                                          GTEST_PATH_SEP_
+                                  GTEST_PATH_SEP_
                                   "bar").string());
                 EXPECT_EQ("foo"
                                   GTEST_PATH_SEP_
@@ -529,7 +527,7 @@ namespace testing {
                                   "bar",
                           FilePath(GTEST_PATH_SEP_
                                   GTEST_PATH_SEP_
-                                          GTEST_PATH_SEP_
+                                  GTEST_PATH_SEP_
                                   "bar").string());
             }
 
@@ -548,7 +546,7 @@ namespace testing {
                                   GTEST_PATH_SEP_,
                           FilePath("foo"
                                   GTEST_PATH_SEP_
-                                          GTEST_PATH_SEP_
+                                  GTEST_PATH_SEP_
                                   GTEST_PATH_SEP_).string());
             }
 

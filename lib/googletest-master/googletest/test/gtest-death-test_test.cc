@@ -43,10 +43,8 @@ using testing::internal::AlwaysTrue;
 # if GTEST_OS_WINDOWS
 #  include <direct.h>          // For chdir().
 # else
-
 #  include <unistd.h>
 #  include <sys/wait.h>        // For waitpid.
-
 # endif  // GTEST_OS_WINDOWS
 
 # include <limits.h>
@@ -54,9 +52,7 @@ using testing::internal::AlwaysTrue;
 # include <stdio.h>
 
 # if GTEST_OS_LINUX
-
 #  include <sys/time.h>
-
 # endif  // GTEST_OS_LINUX
 
 # include "gtest/gtest-spi.h"
@@ -67,9 +63,7 @@ using testing::internal::AlwaysTrue;
 // prevent a user from accidentally including gtest-internal-inl.h in
 // his code.
 # define GTEST_IMPLEMENTATION_ 1
-
 # include "src/gtest-internal-inl.h"
-
 # undef GTEST_IMPLEMENTATION_
 
 namespace posix = ::testing::internal::posix;

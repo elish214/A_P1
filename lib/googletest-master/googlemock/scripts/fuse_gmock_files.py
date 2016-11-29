@@ -73,7 +73,6 @@ DEFAULT_GMOCK_ROOT_DIR = os.path.join(os.path.dirname(__file__), '..')
 # We need to call into googletest/scripts/fuse_gtest_files.py.
 sys.path.append(os.path.join(DEFAULT_GMOCK_ROOT_DIR, '../googletest/scripts'))
 import fuse_gtest_files
-
 gtest = fuse_gtest_files
 
 # Regex for matching '#include "gmock/..."'.

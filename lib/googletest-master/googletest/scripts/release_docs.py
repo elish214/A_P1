@@ -118,8 +118,8 @@ class WikiBrancher(object):
         """Returns a list of .wiki file names that need to be branched."""
 
         unversioned_wikis = (
-            GTEST_UNVERSIONED_WIKIS if self.project == 'googletest'
-            else GMOCK_UNVERSIONED_WIKIS)
+        GTEST_UNVERSIONED_WIKIS if self.project == 'googletest'
+        else GMOCK_UNVERSIONED_WIKIS)
         return [f for f in os.listdir(self.wiki_dir)
                 if (f.endswith('.wiki') and
                     not re.match(r'^V\d',

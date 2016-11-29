@@ -104,9 +104,7 @@
 #include "gtest/internal/gtest-internal.h"
 
 #if GTEST_HAS_STD_TUPLE_
-
 # include <tuple>
-
 #endif
 
 namespace testing {
@@ -344,7 +342,6 @@ namespace testing {
         GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(wchar_t, ::std::wstring);
 
         GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(const wchar_t, ::std::wstring);
-
 #endif
 
 #undef GTEST_IMPL_FORMAT_C_STRING_AS_STRING_
@@ -556,7 +553,6 @@ namespace testing {
         inline void PrintTo(wchar_t *s, ::std::ostream *os) {
             PrintTo(ImplicitCast_<const wchar_t *>(s), os);
         }
-
 #endif
 
 // Overload for C arrays.  Multi-dimensional arrays are printed
@@ -604,16 +600,13 @@ namespace testing {
         inline void PrintTo(const ::std::wstring &s, ::std::ostream *os) {
             PrintWideStringTo(s, os);
         }
-
 #endif  // GTEST_HAS_STD_WSTRING
 
 #if GTEST_HAS_TR1_TUPLE || GTEST_HAS_STD_TUPLE_
-
 // Helper function for printing a tuple.  T must be instantiated with
 // a tuple type.
         template<typename T>
         void PrintTupleTo(const T &t, ::std::ostream *os);
-
 #endif  // GTEST_HAS_TR1_TUPLE || GTEST_HAS_STD_TUPLE_
 
 #if GTEST_HAS_TR1_TUPLE
@@ -693,7 +686,6 @@ namespace testing {
                 ::std::ostream *os) {
             PrintTupleTo(t, os);
         }
-
 #endif  // GTEST_HAS_TR1_TUPLE
 
 #if GTEST_HAS_STD_TUPLE_
@@ -702,7 +694,6 @@ namespace testing {
         void PrintTo(const ::std::tuple<Types...> &t, ::std::ostream *os) {
             PrintTupleTo(t, os);
         }
-
 #endif  // GTEST_HAS_STD_TUPLE_
 
 // Overload for std::pair.
@@ -869,7 +860,6 @@ namespace testing {
                 }
             }
         };
-
 #endif
 
         template<>
@@ -956,7 +946,6 @@ namespace testing {
 #endif  // GTEST_HAS_STD_TUPLE_
 
 #if GTEST_HAS_TR1_TUPLE || GTEST_HAS_STD_TUPLE_
-
 // This helper template allows PrintTo() for tuples and
 // UniversalTersePrintTupleFieldsToStrings() to be defined by
 // induction on the number of tuple fields.  The idea is that
@@ -1026,7 +1015,6 @@ namespace testing {
             TersePrintPrefixToStrings(value, &result);
             return result;
         }
-
 #endif  // GTEST_HAS_TR1_TUPLE || GTEST_HAS_STD_TUPLE_
 
     }  // namespace internal

@@ -111,8 +111,10 @@ namespace {
     public:
         // This line verifies that a mock method can take a by-reference
         // argument of an incomplete type.
-        MOCK_METHOD1(ByRefFunc, void(
-                const Incomplete &x));
+        MOCK_METHOD1(ByRefFunc,
+        void(
+        const Incomplete &x
+        ));
     };
 
 // Tells Google Mock how to print a value of type Incomplete.
@@ -147,21 +149,24 @@ namespace {
     public:
         MockA() {}
 
-        MOCK_METHOD1(DoA, void(int
-                n));
-
-        MOCK_METHOD1(ReturnResult, Result(int
-                n));
-
-        MOCK_METHOD0(ReturnNonDefaultConstructible, NonDefaultConstructible());
-
-        MOCK_METHOD2(Binary, bool(int
-                x, int
-                y));
-
-        MOCK_METHOD2(ReturnInt, int(int
-                x, int
-                y));
+        MOCK_METHOD1(DoA,
+        void(
+        int n
+        ));
+        MOCK_METHOD1(ReturnResult, Result(int n)
+        );
+        MOCK_METHOD0(ReturnNonDefaultConstructible, NonDefaultConstructible()
+        );
+        MOCK_METHOD2(Binary,
+        bool(
+        int x,
+        int y
+        ));
+        MOCK_METHOD2(ReturnInt,
+        int(
+        int x,
+        int y
+        ));
 
     private:
         GTEST_DISALLOW_COPY_AND_ASSIGN_(MockA);
@@ -171,9 +176,12 @@ namespace {
     public:
         MockB() {}
 
-        MOCK_CONST_METHOD0(DoB, int());  // NOLINT
-        MOCK_METHOD1(DoB, int(int
-                n));  // NOLINT
+        MOCK_CONST_METHOD0(DoB,
+        int());  // NOLINT
+        MOCK_METHOD1(DoB,
+        int(
+        int n
+        ));  // NOLINT
 
     private:
         GTEST_DISALLOW_COPY_AND_ASSIGN_(MockB);
@@ -183,8 +191,9 @@ namespace {
     public:
         ReferenceHoldingMock() {}
 
-        MOCK_METHOD1(AcceptReference, void(linked_ptr<MockA>
-                *));
+        MOCK_METHOD1(AcceptReference,
+        void(linked_ptr<MockA>
+        *));
 
     private:
         GTEST_DISALLOW_COPY_AND_ASSIGN_(ReferenceHoldingMock);
@@ -208,7 +217,8 @@ namespace {
     public:
         MockCC() {}
 
-        MOCK_METHOD0(Method, int());
+        MOCK_METHOD0(Method,
+        int());
 
     private:
         GTEST_DISALLOW_COPY_AND_ASSIGN_(MockCC);
@@ -1859,815 +1869,821 @@ namespace {
 # pragma warning(disable:4100)
 #endif
 
-    ACTION_P(Delete, ptr) { delete ptr; }
+    ACTION_P(Delete, ptr
+    ) {
+    delete
+    ptr;
+}
 
 #ifdef _MSC_VER
 # pragma warning(pop)
 #endif
 
-    TEST(DeletingMockEarlyTest, CanDeleteSelfInActionReturningVoid) {
-        MockA *const a = new MockA;
-        EXPECT_CALL(*a, DoA(_)).WillOnce(Delete(a));
-        a->DoA(42);  // This will cause a to be deleted.
-    }
+TEST(DeletingMockEarlyTest, CanDeleteSelfInActionReturningVoid) {
+    MockA *const a = new MockA;
+    EXPECT_CALL(*a, DoA(_)).WillOnce(Delete(a));
+    a->DoA(42);  // This will cause a to be deleted.
+}
 
-    TEST(DeletingMockEarlyTest, CanDeleteSelfInActionReturningValue) {
-        MockA *const a = new MockA;
-        EXPECT_CALL(*a, ReturnResult(_))
-                .WillOnce(DoAll(Delete(a), Return(Result())));
-        a->ReturnResult(42);  // This will cause a to be deleted.
-    }
-
-// Tests that calls that violate the original spec yield failures.
-    TEST(DeletingMockEarlyTest, Failure1) {
-        MockB *const b1 = new MockB;
-        MockA *const a = new MockA;
-        MockB *const b2 = new MockB;
-
-        {
-            InSequence dummy;
-            EXPECT_CALL(*b1, DoB(_))
-                    .WillOnce(Return(1));
-            EXPECT_CALL(*a, Binary(_, _))
-                    .Times(AnyNumber());
-            EXPECT_CALL(*b2, DoB(_))
-                    .Times(AnyNumber())
-                    .WillRepeatedly(Return(2));
-        }
-
-        delete a;  // a is trivially satisfied.
-        EXPECT_NONFATAL_FAILURE({
-                                    b2->DoB(2);
-                                }, "Unexpected mock function call");
-        EXPECT_EQ(1, b1->DoB(1));
-        delete b1;
-        delete b2;
-    }
+TEST(DeletingMockEarlyTest, CanDeleteSelfInActionReturningValue) {
+    MockA *const a = new MockA;
+    EXPECT_CALL(*a, ReturnResult(_))
+            .WillOnce(DoAll(Delete(a), Return(Result())));
+    a->ReturnResult(42);  // This will cause a to be deleted.
+}
 
 // Tests that calls that violate the original spec yield failures.
-    TEST(DeletingMockEarlyTest, Failure2) {
-        MockB *const b1 = new MockB;
-        MockA *const a = new MockA;
-        MockB *const b2 = new MockB;
+TEST(DeletingMockEarlyTest, Failure1) {
+    MockB *const b1 = new MockB;
+    MockA *const a = new MockA;
+    MockB *const b2 = new MockB;
 
-        {
-            InSequence dummy;
-            EXPECT_CALL(*b1, DoB(_));
-            EXPECT_CALL(*a, Binary(_, _))
-                    .Times(AnyNumber());
-            EXPECT_CALL(*b2, DoB(_))
-                    .Times(AnyNumber());
-        }
-
-        EXPECT_NONFATAL_FAILURE(delete b1,
-                                "Actual: never called");
-        EXPECT_NONFATAL_FAILURE(a->Binary(0, 1),
-                                "Unexpected mock function call");
-        EXPECT_NONFATAL_FAILURE(b2->DoB(1),
-                                "Unexpected mock function call");
-        delete a;
-        delete b2;
-    }
-
-    class EvenNumberCardinality : public CardinalityInterface {
-    public:
-        // Returns true iff call_count calls will satisfy this cardinality.
-        virtual bool IsSatisfiedByCallCount(int call_count) const {
-            return call_count % 2 == 0;
-        }
-
-        // Returns true iff call_count calls will saturate this cardinality.
-        virtual bool IsSaturatedByCallCount(int /* call_count */) const {
-            return false;
-        }
-
-        // Describes self to an ostream.
-        virtual void DescribeTo(::std::ostream *os) const {
-            *os << "called even number of times";
-        }
-    };
-
-    Cardinality EvenNumber() {
-        return Cardinality(new EvenNumberCardinality);
-    }
-
-    TEST(ExpectationBaseTest,
-         AllPrerequisitesAreSatisfiedWorksForNonMonotonicCardinality) {
-        MockA *a = new MockA;
-        Sequence s;
-
-        EXPECT_CALL(*a, DoA(1))
-                .Times(EvenNumber())
-                .InSequence(s);
-        EXPECT_CALL(*a, DoA(2))
-                .Times(AnyNumber())
-                .InSequence(s);
-        EXPECT_CALL(*a, DoA(3))
+    {
+        InSequence dummy;
+        EXPECT_CALL(*b1, DoB(_))
+                .WillOnce(Return(1));
+        EXPECT_CALL(*a, Binary(_, _))
                 .Times(AnyNumber());
-
-        a->DoA(3);
-        a->DoA(1);
-        EXPECT_NONFATAL_FAILURE(a->DoA(2), "Unexpected mock function call");
-        EXPECT_NONFATAL_FAILURE(delete a, "to be called even number of times");
+        EXPECT_CALL(*b2, DoB(_))
+                .Times(AnyNumber())
+                .WillRepeatedly(Return(2));
     }
+
+    delete a;  // a is trivially satisfied.
+    EXPECT_NONFATAL_FAILURE({
+                                b2->DoB(2);
+                            }, "Unexpected mock function call");
+    EXPECT_EQ(1, b1->DoB(1));
+    delete b1;
+    delete b2;
+}
+
+// Tests that calls that violate the original spec yield failures.
+TEST(DeletingMockEarlyTest, Failure2) {
+    MockB *const b1 = new MockB;
+    MockA *const a = new MockA;
+    MockB *const b2 = new MockB;
+
+    {
+        InSequence dummy;
+        EXPECT_CALL(*b1, DoB(_));
+        EXPECT_CALL(*a, Binary(_, _))
+                .Times(AnyNumber());
+        EXPECT_CALL(*b2, DoB(_))
+                .Times(AnyNumber());
+    }
+
+    EXPECT_NONFATAL_FAILURE(delete b1,
+                            "Actual: never called");
+    EXPECT_NONFATAL_FAILURE(a->Binary(0, 1),
+                            "Unexpected mock function call");
+    EXPECT_NONFATAL_FAILURE(b2->DoB(1),
+                            "Unexpected mock function call");
+    delete a;
+    delete b2;
+}
+
+class EvenNumberCardinality : public CardinalityInterface {
+public:
+    // Returns true iff call_count calls will satisfy this cardinality.
+    virtual bool IsSatisfiedByCallCount(int call_count) const {
+        return call_count % 2 == 0;
+    }
+
+    // Returns true iff call_count calls will saturate this cardinality.
+    virtual bool IsSaturatedByCallCount(int /* call_count */) const {
+        return false;
+    }
+
+    // Describes self to an ostream.
+    virtual void DescribeTo(::std::ostream *os) const {
+        *os << "called even number of times";
+    }
+};
+
+Cardinality EvenNumber() {
+    return Cardinality(new EvenNumberCardinality);
+}
+
+TEST(ExpectationBaseTest,
+     AllPrerequisitesAreSatisfiedWorksForNonMonotonicCardinality) {
+    MockA *a = new MockA;
+    Sequence s;
+
+    EXPECT_CALL(*a, DoA(1))
+            .Times(EvenNumber())
+            .InSequence(s);
+    EXPECT_CALL(*a, DoA(2))
+            .Times(AnyNumber())
+            .InSequence(s);
+    EXPECT_CALL(*a, DoA(3))
+            .Times(AnyNumber());
+
+    a->DoA(3);
+    a->DoA(1);
+    EXPECT_NONFATAL_FAILURE(a->DoA(2), "Unexpected mock function call");
+    EXPECT_NONFATAL_FAILURE(delete a, "to be called even number of times");
+}
 
 // The following tests verify the message generated when a mock
 // function is called.
 
-    struct Printable {
-    };
+struct Printable {
+};
 
-    inline void operator<<(::std::ostream &os, const Printable &) {
-        os << "Printable";
+inline void operator<<(::std::ostream &os, const Printable &) {
+    os << "Printable";
+}
+
+struct Unprintable {
+    Unprintable() : value(0) {}
+
+    int value;
+};
+
+class MockC {
+public:
+    MockC() {}
+
+    MOCK_METHOD6(VoidMethod,
+    void(
+    bool cond,
+    int n, string
+    s,
+    void *p,
+    const Printable &x, Unprintable
+    y));
+    MOCK_METHOD0(NonVoidMethod,
+    int());  // NOLINT
+
+private:
+    GTEST_DISALLOW_COPY_AND_ASSIGN_(MockC);
+};
+
+class VerboseFlagPreservingFixture : public testing::Test {
+protected:
+    VerboseFlagPreservingFixture()
+            : saved_verbose_flag_(GMOCK_FLAG(verbose)) {}
+
+    ~VerboseFlagPreservingFixture() {
+        GMOCK_FLAG(verbose) = saved_verbose_flag_;
     }
 
-    struct Unprintable {
-        Unprintable() : value(0) {}
+private:
+    const string saved_verbose_flag_;
 
-        int value;
-    };
-
-    class MockC {
-    public:
-        MockC() {}
-
-        MOCK_METHOD6(VoidMethod, void(bool
-                cond, int
-                n, string
-                s, void * p,
-                const Printable &x, Unprintable
-                y));
-
-        MOCK_METHOD0(NonVoidMethod, int());  // NOLINT
-
-    private:
-        GTEST_DISALLOW_COPY_AND_ASSIGN_(MockC);
-    };
-
-    class VerboseFlagPreservingFixture : public testing::Test {
-    protected:
-        VerboseFlagPreservingFixture()
-                : saved_verbose_flag_(GMOCK_FLAG(verbose)) {}
-
-        ~VerboseFlagPreservingFixture() {
-            GMOCK_FLAG(verbose) = saved_verbose_flag_;
-        }
-
-    private:
-        const string saved_verbose_flag_;
-
-        GTEST_DISALLOW_COPY_AND_ASSIGN_(VerboseFlagPreservingFixture);
-    };
+    GTEST_DISALLOW_COPY_AND_ASSIGN_(VerboseFlagPreservingFixture);
+};
 
 #if GTEST_HAS_STREAM_REDIRECTION
 
 // Tests that an uninteresting mock function call on a naggy mock
 // generates a warning without the stack trace when
 // --gmock_verbose=warning is specified.
-    TEST(FunctionCallMessageTest,
-         UninterestingCallOnNaggyMockGeneratesNoStackTraceWhenVerboseWarning) {
-        GMOCK_FLAG(verbose) = kWarningVerbosity;
-        NaggyMock<MockC> c;
-        CaptureStdout();
-        c.VoidMethod(false, 5, "Hi", NULL, Printable(), Unprintable());
-        const std::string output = GetCapturedStdout();
-        EXPECT_PRED_FORMAT2(IsSubstring, "GMOCK WARNING", output);
-        EXPECT_PRED_FORMAT2(IsNotSubstring, "Stack trace:", output);
-    }
+TEST(FunctionCallMessageTest,
+     UninterestingCallOnNaggyMockGeneratesNoStackTraceWhenVerboseWarning) {
+    GMOCK_FLAG(verbose) = kWarningVerbosity;
+    NaggyMock<MockC> c;
+    CaptureStdout();
+    c.VoidMethod(false, 5, "Hi", NULL, Printable(), Unprintable());
+    const std::string output = GetCapturedStdout();
+    EXPECT_PRED_FORMAT2(IsSubstring, "GMOCK WARNING", output);
+    EXPECT_PRED_FORMAT2(IsNotSubstring, "Stack trace:", output);
+}
 
 // Tests that an uninteresting mock function call on a naggy mock
 // generates a warning containing the stack trace when
 // --gmock_verbose=info is specified.
-    TEST(FunctionCallMessageTest,
-         UninterestingCallOnNaggyMockGeneratesFyiWithStackTraceWhenVerboseInfo) {
-        GMOCK_FLAG(verbose) = kInfoVerbosity;
-        NaggyMock<MockC> c;
-        CaptureStdout();
-        c.VoidMethod(false, 5, "Hi", NULL, Printable(), Unprintable());
-        const std::string output = GetCapturedStdout();
-        EXPECT_PRED_FORMAT2(IsSubstring, "GMOCK WARNING", output);
-        EXPECT_PRED_FORMAT2(IsSubstring, "Stack trace:", output);
+TEST(FunctionCallMessageTest,
+     UninterestingCallOnNaggyMockGeneratesFyiWithStackTraceWhenVerboseInfo) {
+    GMOCK_FLAG(verbose) = kInfoVerbosity;
+    NaggyMock<MockC> c;
+    CaptureStdout();
+    c.VoidMethod(false, 5, "Hi", NULL, Printable(), Unprintable());
+    const std::string output = GetCapturedStdout();
+    EXPECT_PRED_FORMAT2(IsSubstring, "GMOCK WARNING", output);
+    EXPECT_PRED_FORMAT2(IsSubstring, "Stack trace:", output);
 
 # ifndef NDEBUG
 
-        // We check the stack trace content in dbg-mode only, as opt-mode
-        // may inline the call we are interested in seeing.
+    // We check the stack trace content in dbg-mode only, as opt-mode
+    // may inline the call we are interested in seeing.
 
-        // Verifies that a void mock function's name appears in the stack
-        // trace.
-        EXPECT_PRED_FORMAT2(IsSubstring, "VoidMethod(", output);
+    // Verifies that a void mock function's name appears in the stack
+    // trace.
+    EXPECT_PRED_FORMAT2(IsSubstring, "VoidMethod(", output);
 
-        // Verifies that a non-void mock function's name appears in the
-        // stack trace.
-        CaptureStdout();
-        c.NonVoidMethod();
-        const std::string output2 = GetCapturedStdout();
-        EXPECT_PRED_FORMAT2(IsSubstring, "NonVoidMethod(", output2);
+    // Verifies that a non-void mock function's name appears in the
+    // stack trace.
+    CaptureStdout();
+    c.NonVoidMethod();
+    const std::string output2 = GetCapturedStdout();
+    EXPECT_PRED_FORMAT2(IsSubstring, "NonVoidMethod(", output2);
 
 # endif  // NDEBUG
-    }
+}
 
 // Tests that an uninteresting mock function call on a naggy mock
 // causes the function arguments and return value to be printed.
-    TEST(FunctionCallMessageTest,
-         UninterestingCallOnNaggyMockPrintsArgumentsAndReturnValue) {
-        // A non-void mock function.
-        NaggyMock<MockB> b;
-        CaptureStdout();
-        b.DoB();
-        const std::string output1 = GetCapturedStdout();
-        EXPECT_PRED_FORMAT2(
-                IsSubstring,
-                "Uninteresting mock function call - returning default value.\n"
-                        "    Function call: DoB()\n"
-                        "          Returns: 0\n", output1.c_str());
-        // Makes sure the return value is printed.
+TEST(FunctionCallMessageTest,
+     UninterestingCallOnNaggyMockPrintsArgumentsAndReturnValue) {
+    // A non-void mock function.
+    NaggyMock<MockB> b;
+    CaptureStdout();
+    b.DoB();
+    const std::string output1 = GetCapturedStdout();
+    EXPECT_PRED_FORMAT2(
+            IsSubstring,
+            "Uninteresting mock function call - returning default value.\n"
+                    "    Function call: DoB()\n"
+                    "          Returns: 0\n", output1.c_str());
+    // Makes sure the return value is printed.
 
-        // A void mock function.
-        NaggyMock<MockC> c;
-        CaptureStdout();
-        c.VoidMethod(false, 5, "Hi", NULL, Printable(), Unprintable());
-        const std::string output2 = GetCapturedStdout();
-        EXPECT_THAT(output2.c_str(),
-                    ContainsRegex(
-                            "Uninteresting mock function call - returning directly\\.\n"
-                                    "    Function call: VoidMethod"
-                                    "\\(false, 5, \"Hi\", NULL, @.+ "
-                                    "Printable, 4-byte object <00-00 00-00>\\)"));
-        // A void function has no return value to print.
-    }
+    // A void mock function.
+    NaggyMock<MockC> c;
+    CaptureStdout();
+    c.VoidMethod(false, 5, "Hi", NULL, Printable(), Unprintable());
+    const std::string output2 = GetCapturedStdout();
+    EXPECT_THAT(output2.c_str(),
+                ContainsRegex(
+                        "Uninteresting mock function call - returning directly\\.\n"
+                                "    Function call: VoidMethod"
+                                "\\(false, 5, \"Hi\", NULL, @.+ "
+                                "Printable, 4-byte object <00-00 00-00>\\)"));
+    // A void function has no return value to print.
+}
 
 // Tests how the --gmock_verbose flag affects Google Mock's output.
 
-    class GMockVerboseFlagTest : public VerboseFlagPreservingFixture {
-    public:
-        // Verifies that the given Google Mock output is correct.  (When
-        // should_print is true, the output should match the given regex and
-        // contain the given function name in the stack trace.  When it's
-        // false, the output should be empty.)
-        void VerifyOutput(const std::string &output, bool should_print,
-                          const string &expected_substring,
-                          const string &function_name) {
-            if (should_print) {
-                EXPECT_THAT(output.c_str(), HasSubstr(expected_substring));
+class GMockVerboseFlagTest : public VerboseFlagPreservingFixture {
+public:
+    // Verifies that the given Google Mock output is correct.  (When
+    // should_print is true, the output should match the given regex and
+    // contain the given function name in the stack trace.  When it's
+    // false, the output should be empty.)
+    void VerifyOutput(const std::string &output, bool should_print,
+                      const string &expected_substring,
+                      const string &function_name) {
+        if (should_print) {
+            EXPECT_THAT(output.c_str(), HasSubstr(expected_substring));
 # ifndef NDEBUG
-                // We check the stack trace content in dbg-mode only, as opt-mode
-                // may inline the call we are interested in seeing.
-                EXPECT_THAT(output.c_str(), HasSubstr(function_name));
+            // We check the stack trace content in dbg-mode only, as opt-mode
+            // may inline the call we are interested in seeing.
+            EXPECT_THAT(output.c_str(), HasSubstr(function_name));
 # else
-                // Suppresses 'unused function parameter' warnings.
-                static_cast<void>(function_name);
+            // Suppresses 'unused function parameter' warnings.
+            static_cast<void>(function_name);
 # endif  // NDEBUG
-            } else {
-                EXPECT_STREQ("", output.c_str());
-            }
+        } else {
+            EXPECT_STREQ("", output.c_str());
         }
+    }
 
-        // Tests how the flag affects expected calls.
-        void TestExpectedCall(bool should_print) {
-            MockA a;
-            EXPECT_CALL(a, DoA(5));
-            EXPECT_CALL(a, Binary(_, 1))
-                    .WillOnce(Return(true));
+    // Tests how the flag affects expected calls.
+    void TestExpectedCall(bool should_print) {
+        MockA a;
+        EXPECT_CALL(a, DoA(5));
+        EXPECT_CALL(a, Binary(_, 1))
+                .WillOnce(Return(true));
 
-            // A void-returning function.
-            CaptureStdout();
-            a.DoA(5);
-            VerifyOutput(
-                    GetCapturedStdout(),
-                    should_print,
-                    "Mock function call matches EXPECT_CALL(a, DoA(5))...\n"
-                            "    Function call: DoA(5)\n"
-                            "Stack trace:\n",
-                    "DoA");
+        // A void-returning function.
+        CaptureStdout();
+        a.DoA(5);
+        VerifyOutput(
+                GetCapturedStdout(),
+                should_print,
+                "Mock function call matches EXPECT_CALL(a, DoA(5))...\n"
+                        "    Function call: DoA(5)\n"
+                        "Stack trace:\n",
+                "DoA");
 
-            // A non-void-returning function.
-            CaptureStdout();
-            a.Binary(2, 1);
-            VerifyOutput(
-                    GetCapturedStdout(),
-                    should_print,
-                    "Mock function call matches EXPECT_CALL(a, Binary(_, 1))...\n"
-                            "    Function call: Binary(2, 1)\n"
-                            "          Returns: true\n"
-                            "Stack trace:\n",
-                    "Binary");
-        }
+        // A non-void-returning function.
+        CaptureStdout();
+        a.Binary(2, 1);
+        VerifyOutput(
+                GetCapturedStdout(),
+                should_print,
+                "Mock function call matches EXPECT_CALL(a, Binary(_, 1))...\n"
+                        "    Function call: Binary(2, 1)\n"
+                        "          Returns: true\n"
+                        "Stack trace:\n",
+                "Binary");
+    }
 
-        // Tests how the flag affects uninteresting calls on a naggy mock.
-        void TestUninterestingCallOnNaggyMock(bool should_print) {
-            NaggyMock<MockA> a;
-            const string note =
-                    "NOTE: You can safely ignore the above warning unless this "
-                            "call should not happen.  Do not suppress it by blindly adding "
-                            "an EXPECT_CALL() if you don't mean to enforce the call.  "
-                            "See https://github.com/google/googletest/blob/master/googlemock/docs/CookBook.md#"
-                            "knowing-when-to-expect for details.";
+    // Tests how the flag affects uninteresting calls on a naggy mock.
+    void TestUninterestingCallOnNaggyMock(bool should_print) {
+        NaggyMock<MockA> a;
+        const string note =
+                "NOTE: You can safely ignore the above warning unless this "
+                        "call should not happen.  Do not suppress it by blindly adding "
+                        "an EXPECT_CALL() if you don't mean to enforce the call.  "
+                        "See https://github.com/google/googletest/blob/master/googlemock/docs/CookBook.md#"
+                        "knowing-when-to-expect for details.";
 
-            // A void-returning function.
-            CaptureStdout();
-            a.DoA(5);
-            VerifyOutput(
-                    GetCapturedStdout(),
-                    should_print,
-                    "\nGMOCK WARNING:\n"
-                            "Uninteresting mock function call - returning directly.\n"
-                            "    Function call: DoA(5)\n" +
-                    note,
-                    "DoA");
+        // A void-returning function.
+        CaptureStdout();
+        a.DoA(5);
+        VerifyOutput(
+                GetCapturedStdout(),
+                should_print,
+                "\nGMOCK WARNING:\n"
+                        "Uninteresting mock function call - returning directly.\n"
+                        "    Function call: DoA(5)\n" +
+                note,
+                "DoA");
 
-            // A non-void-returning function.
-            CaptureStdout();
-            a.Binary(2, 1);
-            VerifyOutput(
-                    GetCapturedStdout(),
-                    should_print,
-                    "\nGMOCK WARNING:\n"
-                            "Uninteresting mock function call - returning default value.\n"
-                            "    Function call: Binary(2, 1)\n"
-                            "          Returns: false\n" +
-                    note,
-                    "Binary");
-        }
-    };
+        // A non-void-returning function.
+        CaptureStdout();
+        a.Binary(2, 1);
+        VerifyOutput(
+                GetCapturedStdout(),
+                should_print,
+                "\nGMOCK WARNING:\n"
+                        "Uninteresting mock function call - returning default value.\n"
+                        "    Function call: Binary(2, 1)\n"
+                        "          Returns: false\n" +
+                note,
+                "Binary");
+    }
+};
 
 // Tests that --gmock_verbose=info causes both expected and
 // uninteresting calls to be reported.
-    TEST_F(GMockVerboseFlagTest, Info) {
-        GMOCK_FLAG(verbose) = kInfoVerbosity;
-        TestExpectedCall(true);
-        TestUninterestingCallOnNaggyMock(true);
-    }
+TEST_F(GMockVerboseFlagTest, Info) {
+    GMOCK_FLAG(verbose) = kInfoVerbosity;
+    TestExpectedCall(true);
+    TestUninterestingCallOnNaggyMock(true);
+}
 
 // Tests that --gmock_verbose=warning causes uninteresting calls to be
 // reported.
-    TEST_F(GMockVerboseFlagTest, Warning) {
-        GMOCK_FLAG(verbose) = kWarningVerbosity;
-        TestExpectedCall(false);
-        TestUninterestingCallOnNaggyMock(true);
-    }
+TEST_F(GMockVerboseFlagTest, Warning) {
+    GMOCK_FLAG(verbose) = kWarningVerbosity;
+    TestExpectedCall(false);
+    TestUninterestingCallOnNaggyMock(true);
+}
 
 // Tests that --gmock_verbose=warning causes neither expected nor
 // uninteresting calls to be reported.
-    TEST_F(GMockVerboseFlagTest, Error) {
-        GMOCK_FLAG(verbose) = kErrorVerbosity;
-        TestExpectedCall(false);
-        TestUninterestingCallOnNaggyMock(false);
-    }
+TEST_F(GMockVerboseFlagTest, Error) {
+    GMOCK_FLAG(verbose) = kErrorVerbosity;
+    TestExpectedCall(false);
+    TestUninterestingCallOnNaggyMock(false);
+}
 
 // Tests that --gmock_verbose=SOME_INVALID_VALUE has the same effect
 // as --gmock_verbose=warning.
-    TEST_F(GMockVerboseFlagTest, InvalidFlagIsTreatedAsWarning) {
-        GMOCK_FLAG(verbose) = "invalid";  // Treated as "warning".
-        TestExpectedCall(false);
-        TestUninterestingCallOnNaggyMock(true);
-    }
+TEST_F(GMockVerboseFlagTest, InvalidFlagIsTreatedAsWarning) {
+    GMOCK_FLAG(verbose) = "invalid";  // Treated as "warning".
+    TestExpectedCall(false);
+    TestUninterestingCallOnNaggyMock(true);
+}
 
 #endif  // GTEST_HAS_STREAM_REDIRECTION
 
 // A helper class that generates a failure when printed.  We use it to
 // ensure that Google Mock doesn't print a value (even to an internal
 // buffer) when it is not supposed to do so.
-    class PrintMeNot {
-    };
+class PrintMeNot {
+};
 
-    void PrintTo(PrintMeNot /* dummy */, ::std::ostream * /* os */) {
-        ADD_FAILURE() << "Google Mock is printing a value that shouldn't be "
-                      << "printed even to an internal buffer.";
-    }
+void PrintTo(PrintMeNot /* dummy */, ::std::ostream * /* os */) {
+    ADD_FAILURE() << "Google Mock is printing a value that shouldn't be "
+                  << "printed even to an internal buffer.";
+}
 
-    class LogTestHelper {
-    public:
-        LogTestHelper() {}
+class LogTestHelper {
+public:
+    LogTestHelper() {}
 
-        MOCK_METHOD1(Foo, PrintMeNot(PrintMeNot));
+    MOCK_METHOD1(Foo, PrintMeNot(PrintMeNot)
+    );
 
-    private:
-        GTEST_DISALLOW_COPY_AND_ASSIGN_(LogTestHelper);
-    };
+private:
+    GTEST_DISALLOW_COPY_AND_ASSIGN_(LogTestHelper);
+};
 
-    class GMockLogTest : public VerboseFlagPreservingFixture {
-    protected:
-        LogTestHelper helper_;
-    };
+class GMockLogTest : public VerboseFlagPreservingFixture {
+protected:
+    LogTestHelper helper_;
+};
 
-    TEST_F(GMockLogTest, DoesNotPrintGoodCallInternallyIfVerbosityIsWarning) {
-        GMOCK_FLAG(verbose) = kWarningVerbosity;
-        EXPECT_CALL(helper_, Foo(_))
-                .WillOnce(Return(PrintMeNot()));
-        helper_.Foo(PrintMeNot());  // This is an expected call.
-    }
+TEST_F(GMockLogTest, DoesNotPrintGoodCallInternallyIfVerbosityIsWarning) {
+    GMOCK_FLAG(verbose) = kWarningVerbosity;
+    EXPECT_CALL(helper_, Foo(_))
+            .WillOnce(Return(PrintMeNot()));
+    helper_.Foo(PrintMeNot());  // This is an expected call.
+}
 
-    TEST_F(GMockLogTest, DoesNotPrintGoodCallInternallyIfVerbosityIsError) {
-        GMOCK_FLAG(verbose) = kErrorVerbosity;
-        EXPECT_CALL(helper_, Foo(_))
-                .WillOnce(Return(PrintMeNot()));
-        helper_.Foo(PrintMeNot());  // This is an expected call.
-    }
+TEST_F(GMockLogTest, DoesNotPrintGoodCallInternallyIfVerbosityIsError) {
+    GMOCK_FLAG(verbose) = kErrorVerbosity;
+    EXPECT_CALL(helper_, Foo(_))
+            .WillOnce(Return(PrintMeNot()));
+    helper_.Foo(PrintMeNot());  // This is an expected call.
+}
 
-    TEST_F(GMockLogTest, DoesNotPrintWarningInternallyIfVerbosityIsError) {
-        GMOCK_FLAG(verbose) = kErrorVerbosity;
-        ON_CALL(helper_, Foo(_))
-                .WillByDefault(Return(PrintMeNot()));
-        helper_.Foo(PrintMeNot());  // This should generate a warning.
-    }
+TEST_F(GMockLogTest, DoesNotPrintWarningInternallyIfVerbosityIsError) {
+    GMOCK_FLAG(verbose) = kErrorVerbosity;
+    ON_CALL(helper_, Foo(_))
+            .WillByDefault(Return(PrintMeNot()));
+    helper_.Foo(PrintMeNot());  // This should generate a warning.
+}
 
 // Tests Mock::AllowLeak().
 
-    TEST(AllowLeakTest, AllowsLeakingUnusedMockObject) {
-        MockA *a = new MockA;
-        Mock::AllowLeak(a);
-    }
+TEST(AllowLeakTest, AllowsLeakingUnusedMockObject) {
+    MockA *a = new MockA;
+    Mock::AllowLeak(a);
+}
 
-    TEST(AllowLeakTest, CanBeCalledBeforeOnCall) {
-        MockA *a = new MockA;
-        Mock::AllowLeak(a);
-        ON_CALL(*a, DoA(_)).WillByDefault(Return());
-        a->DoA(0);
-    }
+TEST(AllowLeakTest, CanBeCalledBeforeOnCall) {
+    MockA *a = new MockA;
+    Mock::AllowLeak(a);
+    ON_CALL(*a, DoA(_)).WillByDefault(Return());
+    a->DoA(0);
+}
 
-    TEST(AllowLeakTest, CanBeCalledAfterOnCall) {
-        MockA *a = new MockA;
-        ON_CALL(*a, DoA(_)).WillByDefault(Return());
-        Mock::AllowLeak(a);
-    }
+TEST(AllowLeakTest, CanBeCalledAfterOnCall) {
+    MockA *a = new MockA;
+    ON_CALL(*a, DoA(_)).WillByDefault(Return());
+    Mock::AllowLeak(a);
+}
 
-    TEST(AllowLeakTest, CanBeCalledBeforeExpectCall) {
-        MockA *a = new MockA;
-        Mock::AllowLeak(a);
-        EXPECT_CALL(*a, DoA(_));
-        a->DoA(0);
-    }
+TEST(AllowLeakTest, CanBeCalledBeforeExpectCall) {
+    MockA *a = new MockA;
+    Mock::AllowLeak(a);
+    EXPECT_CALL(*a, DoA(_));
+    a->DoA(0);
+}
 
-    TEST(AllowLeakTest, CanBeCalledAfterExpectCall) {
-        MockA *a = new MockA;
-        EXPECT_CALL(*a, DoA(_)).Times(AnyNumber());
-        Mock::AllowLeak(a);
-    }
+TEST(AllowLeakTest, CanBeCalledAfterExpectCall) {
+    MockA *a = new MockA;
+    EXPECT_CALL(*a, DoA(_)).Times(AnyNumber());
+    Mock::AllowLeak(a);
+}
 
-    TEST(AllowLeakTest, WorksWhenBothOnCallAndExpectCallArePresent) {
-        MockA *a = new MockA;
-        ON_CALL(*a, DoA(_)).WillByDefault(Return());
-        EXPECT_CALL(*a, DoA(_)).Times(AnyNumber());
-        Mock::AllowLeak(a);
-    }
+TEST(AllowLeakTest, WorksWhenBothOnCallAndExpectCallArePresent) {
+    MockA *a = new MockA;
+    ON_CALL(*a, DoA(_)).WillByDefault(Return());
+    EXPECT_CALL(*a, DoA(_)).Times(AnyNumber());
+    Mock::AllowLeak(a);
+}
 
 // Tests that we can verify and clear a mock object's expectations
 // when none of its methods has expectations.
-    TEST(VerifyAndClearExpectationsTest, NoMethodHasExpectations) {
-        MockB b;
-        ASSERT_TRUE(Mock::VerifyAndClearExpectations(&b));
+TEST(VerifyAndClearExpectationsTest, NoMethodHasExpectations) {
+    MockB b;
+    ASSERT_TRUE(Mock::VerifyAndClearExpectations(&b));
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that we can verify and clear a mock object's expectations
 // when some, but not all, of its methods have expectations *and* the
 // verification succeeds.
-    TEST(VerifyAndClearExpectationsTest,
-         SomeMethodsHaveExpectationsAndSucceed) {
-        MockB b;
-        EXPECT_CALL(b, DoB())
-                .WillOnce(Return(1));
-        b.DoB();
-        ASSERT_TRUE(Mock::VerifyAndClearExpectations(&b));
+TEST(VerifyAndClearExpectationsTest, SomeMethodsHaveExpectationsAndSucceed) {
+    MockB b;
+    EXPECT_CALL(b, DoB())
+            .WillOnce(Return(1));
+    b.DoB();
+    ASSERT_TRUE(Mock::VerifyAndClearExpectations(&b));
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that we can verify and clear a mock object's expectations
 // when some, but not all, of its methods have expectations *and* the
 // verification fails.
-    TEST(VerifyAndClearExpectationsTest, SomeMethodsHaveExpectationsAndFail) {
-        MockB b;
-        EXPECT_CALL(b, DoB())
-                .WillOnce(Return(1));
-        bool result = true;
-        EXPECT_NONFATAL_FAILURE(result = Mock::VerifyAndClearExpectations(&b),
-                                "Actual: never called");
-        ASSERT_FALSE(result);
+TEST(VerifyAndClearExpectationsTest, SomeMethodsHaveExpectationsAndFail) {
+    MockB b;
+    EXPECT_CALL(b, DoB())
+            .WillOnce(Return(1));
+    bool result = true;
+    EXPECT_NONFATAL_FAILURE(result = Mock::VerifyAndClearExpectations(&b),
+                            "Actual: never called");
+    ASSERT_FALSE(result);
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that we can verify and clear a mock object's expectations
 // when all of its methods have expectations.
-    TEST(VerifyAndClearExpectationsTest, AllMethodsHaveExpectations) {
-        MockB b;
-        EXPECT_CALL(b, DoB())
-                .WillOnce(Return(1));
-        EXPECT_CALL(b, DoB(_))
-                .WillOnce(Return(2));
-        b.DoB();
-        b.DoB(1);
-        ASSERT_TRUE(Mock::VerifyAndClearExpectations(&b));
+TEST(VerifyAndClearExpectationsTest, AllMethodsHaveExpectations) {
+    MockB b;
+    EXPECT_CALL(b, DoB())
+            .WillOnce(Return(1));
+    EXPECT_CALL(b, DoB(_))
+            .WillOnce(Return(2));
+    b.DoB();
+    b.DoB(1);
+    ASSERT_TRUE(Mock::VerifyAndClearExpectations(&b));
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that we can verify and clear a mock object's expectations
 // when a method has more than one expectation.
-    TEST(VerifyAndClearExpectationsTest, AMethodHasManyExpectations) {
-        MockB b;
-        EXPECT_CALL(b, DoB(0))
-                .WillOnce(Return(1));
-        EXPECT_CALL(b, DoB(_))
-                .WillOnce(Return(2));
-        b.DoB(1);
-        bool result = true;
-        EXPECT_NONFATAL_FAILURE(result = Mock::VerifyAndClearExpectations(&b),
-                                "Actual: never called");
-        ASSERT_FALSE(result);
+TEST(VerifyAndClearExpectationsTest, AMethodHasManyExpectations) {
+    MockB b;
+    EXPECT_CALL(b, DoB(0))
+            .WillOnce(Return(1));
+    EXPECT_CALL(b, DoB(_))
+            .WillOnce(Return(2));
+    b.DoB(1);
+    bool result = true;
+    EXPECT_NONFATAL_FAILURE(result = Mock::VerifyAndClearExpectations(&b),
+                            "Actual: never called");
+    ASSERT_FALSE(result);
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that we can call VerifyAndClearExpectations() on the same
 // mock object multiple times.
-    TEST(VerifyAndClearExpectationsTest, CanCallManyTimes) {
-        MockB b;
-        EXPECT_CALL(b, DoB());
-        b.DoB();
-        Mock::VerifyAndClearExpectations(&b);
+TEST(VerifyAndClearExpectationsTest, CanCallManyTimes) {
+    MockB b;
+    EXPECT_CALL(b, DoB());
+    b.DoB();
+    Mock::VerifyAndClearExpectations(&b);
 
-        EXPECT_CALL(b, DoB(_))
-                .WillOnce(Return(1));
-        b.DoB(1);
-        Mock::VerifyAndClearExpectations(&b);
-        Mock::VerifyAndClearExpectations(&b);
+    EXPECT_CALL(b, DoB(_))
+            .WillOnce(Return(1));
+    b.DoB(1);
+    Mock::VerifyAndClearExpectations(&b);
+    Mock::VerifyAndClearExpectations(&b);
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that we can clear a mock object's default actions when none
 // of its methods has default actions.
-    TEST(VerifyAndClearTest, NoMethodHasDefaultActions) {
-        MockB b;
-        // If this crashes or generates a failure, the test will catch it.
-        Mock::VerifyAndClear(&b);
-        EXPECT_EQ(0, b.DoB());
-    }
+TEST(VerifyAndClearTest, NoMethodHasDefaultActions) {
+    MockB b;
+    // If this crashes or generates a failure, the test will catch it.
+    Mock::VerifyAndClear(&b);
+    EXPECT_EQ(0, b.DoB());
+}
 
 // Tests that we can clear a mock object's default actions when some,
 // but not all of its methods have default actions.
-    TEST(VerifyAndClearTest, SomeMethodsHaveDefaultActions) {
-        MockB b;
-        ON_CALL(b, DoB())
-                .WillByDefault(Return(1));
+TEST(VerifyAndClearTest, SomeMethodsHaveDefaultActions) {
+    MockB b;
+    ON_CALL(b, DoB())
+            .WillByDefault(Return(1));
 
-        Mock::VerifyAndClear(&b);
+    Mock::VerifyAndClear(&b);
 
-        // Verifies that the default action of int DoB() was removed.
-        EXPECT_EQ(0, b.DoB());
-    }
+    // Verifies that the default action of int DoB() was removed.
+    EXPECT_EQ(0, b.DoB());
+}
 
 // Tests that we can clear a mock object's default actions when all of
 // its methods have default actions.
-    TEST(VerifyAndClearTest, AllMethodsHaveDefaultActions) {
-        MockB b;
-        ON_CALL(b, DoB())
-                .WillByDefault(Return(1));
-        ON_CALL(b, DoB(_))
-                .WillByDefault(Return(2));
+TEST(VerifyAndClearTest, AllMethodsHaveDefaultActions) {
+    MockB b;
+    ON_CALL(b, DoB())
+            .WillByDefault(Return(1));
+    ON_CALL(b, DoB(_))
+            .WillByDefault(Return(2));
 
-        Mock::VerifyAndClear(&b);
+    Mock::VerifyAndClear(&b);
 
-        // Verifies that the default action of int DoB() was removed.
-        EXPECT_EQ(0, b.DoB());
+    // Verifies that the default action of int DoB() was removed.
+    EXPECT_EQ(0, b.DoB());
 
-        // Verifies that the default action of int DoB(int) was removed.
-        EXPECT_EQ(0, b.DoB(0));
-    }
+    // Verifies that the default action of int DoB(int) was removed.
+    EXPECT_EQ(0, b.DoB(0));
+}
 
 // Tests that we can clear a mock object's default actions when a
 // method has more than one ON_CALL() set on it.
-    TEST(VerifyAndClearTest, AMethodHasManyDefaultActions) {
-        MockB b;
-        ON_CALL(b, DoB(0))
-                .WillByDefault(Return(1));
-        ON_CALL(b, DoB(_))
-                .WillByDefault(Return(2));
+TEST(VerifyAndClearTest, AMethodHasManyDefaultActions) {
+    MockB b;
+    ON_CALL(b, DoB(0))
+            .WillByDefault(Return(1));
+    ON_CALL(b, DoB(_))
+            .WillByDefault(Return(2));
 
-        Mock::VerifyAndClear(&b);
+    Mock::VerifyAndClear(&b);
 
-        // Verifies that the default actions (there are two) of int DoB(int)
-        // were removed.
-        EXPECT_EQ(0, b.DoB(0));
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // Verifies that the default actions (there are two) of int DoB(int)
+    // were removed.
+    EXPECT_EQ(0, b.DoB(0));
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that we can call VerifyAndClear() on a mock object multiple
 // times.
-    TEST(VerifyAndClearTest, CanCallManyTimes) {
-        MockB b;
-        ON_CALL(b, DoB())
-                .WillByDefault(Return(1));
-        Mock::VerifyAndClear(&b);
-        Mock::VerifyAndClear(&b);
+TEST(VerifyAndClearTest, CanCallManyTimes) {
+    MockB b;
+    ON_CALL(b, DoB())
+            .WillByDefault(Return(1));
+    Mock::VerifyAndClear(&b);
+    Mock::VerifyAndClear(&b);
 
-        ON_CALL(b, DoB(_))
-                .WillByDefault(Return(1));
-        Mock::VerifyAndClear(&b);
+    ON_CALL(b, DoB(_))
+            .WillByDefault(Return(1));
+    Mock::VerifyAndClear(&b);
 
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that VerifyAndClear() works when the verification succeeds.
-    TEST(VerifyAndClearTest, Success) {
-        MockB b;
-        ON_CALL(b, DoB())
-                .WillByDefault(Return(1));
-        EXPECT_CALL(b, DoB(1))
-                .WillOnce(Return(2));
+TEST(VerifyAndClearTest, Success) {
+    MockB b;
+    ON_CALL(b, DoB())
+            .WillByDefault(Return(1));
+    EXPECT_CALL(b, DoB(1))
+            .WillOnce(Return(2));
 
-        b.DoB();
-        b.DoB(1);
-        ASSERT_TRUE(Mock::VerifyAndClear(&b));
+    b.DoB();
+    b.DoB(1);
+    ASSERT_TRUE(Mock::VerifyAndClear(&b));
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that VerifyAndClear() works when the verification fails.
-    TEST(VerifyAndClearTest, Failure) {
-        MockB b;
-        ON_CALL(b, DoB(_))
-                .WillByDefault(Return(1));
-        EXPECT_CALL(b, DoB())
-                .WillOnce(Return(2));
+TEST(VerifyAndClearTest, Failure) {
+    MockB b;
+    ON_CALL(b, DoB(_))
+            .WillByDefault(Return(1));
+    EXPECT_CALL(b, DoB())
+            .WillOnce(Return(2));
 
-        b.DoB(1);
-        bool result = true;
-        EXPECT_NONFATAL_FAILURE(result = Mock::VerifyAndClear(&b),
-                                "Actual: never called");
-        ASSERT_FALSE(result);
+    b.DoB(1);
+    bool result = true;
+    EXPECT_NONFATAL_FAILURE(result = Mock::VerifyAndClear(&b),
+                            "Actual: never called");
+    ASSERT_FALSE(result);
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that VerifyAndClear() works when the default actions and
 // expectations are set on a const mock object.
-    TEST(VerifyAndClearTest, Const) {
-        MockB b;
-        ON_CALL(Const(b), DoB())
-                .WillByDefault(Return(1));
+TEST(VerifyAndClearTest, Const) {
+    MockB b;
+    ON_CALL(Const(b), DoB())
+            .WillByDefault(Return(1));
 
-        EXPECT_CALL(Const(b), DoB())
-                .WillOnce(DoDefault())
-                .WillOnce(Return(2));
+    EXPECT_CALL(Const(b), DoB())
+            .WillOnce(DoDefault())
+            .WillOnce(Return(2));
 
-        b.DoB();
-        b.DoB();
-        ASSERT_TRUE(Mock::VerifyAndClear(&b));
+    b.DoB();
+    b.DoB();
+    ASSERT_TRUE(Mock::VerifyAndClear(&b));
 
-        // There should be no expectations on the methods now, so we can
-        // freely call them.
-        EXPECT_EQ(0, b.DoB());
-        EXPECT_EQ(0, b.DoB(1));
-    }
+    // There should be no expectations on the methods now, so we can
+    // freely call them.
+    EXPECT_EQ(0, b.DoB());
+    EXPECT_EQ(0, b.DoB(1));
+}
 
 // Tests that we can set default actions and expectations on a mock
 // object after VerifyAndClear() has been called on it.
-    TEST(VerifyAndClearTest, CanSetDefaultActionsAndExpectationsAfterwards) {
-        MockB b;
-        ON_CALL(b, DoB())
-                .WillByDefault(Return(1));
-        EXPECT_CALL(b, DoB(_))
-                .WillOnce(Return(2));
-        b.DoB(1);
+TEST(VerifyAndClearTest, CanSetDefaultActionsAndExpectationsAfterwards) {
+    MockB b;
+    ON_CALL(b, DoB())
+            .WillByDefault(Return(1));
+    EXPECT_CALL(b, DoB(_))
+            .WillOnce(Return(2));
+    b.DoB(1);
 
-        Mock::VerifyAndClear(&b);
+    Mock::VerifyAndClear(&b);
 
-        EXPECT_CALL(b, DoB())
-                .WillOnce(Return(3));
-        ON_CALL(b, DoB(_))
-                .WillByDefault(Return(4));
+    EXPECT_CALL(b, DoB())
+            .WillOnce(Return(3));
+    ON_CALL(b, DoB(_))
+            .WillByDefault(Return(4));
 
-        EXPECT_EQ(3, b.DoB());
-        EXPECT_EQ(4, b.DoB(1));
-    }
+    EXPECT_EQ(3, b.DoB());
+    EXPECT_EQ(4, b.DoB(1));
+}
 
 // Tests that calling VerifyAndClear() on one mock object does not
 // affect other mock objects (either of the same type or not).
-    TEST(VerifyAndClearTest, DoesNotAffectOtherMockObjects) {
-        MockA a;
-        MockB b1;
-        MockB b2;
+TEST(VerifyAndClearTest, DoesNotAffectOtherMockObjects) {
+    MockA a;
+    MockB b1;
+    MockB b2;
 
-        ON_CALL(a, Binary(_, _))
-                .WillByDefault(Return(true));
-        EXPECT_CALL(a, Binary(_, _))
-                .WillOnce(DoDefault())
-                .WillOnce(Return(false));
+    ON_CALL(a, Binary(_, _))
+            .WillByDefault(Return(true));
+    EXPECT_CALL(a, Binary(_, _))
+            .WillOnce(DoDefault())
+            .WillOnce(Return(false));
 
-        ON_CALL(b1, DoB())
-                .WillByDefault(Return(1));
-        EXPECT_CALL(b1, DoB(_))
-                .WillOnce(Return(2));
+    ON_CALL(b1, DoB())
+            .WillByDefault(Return(1));
+    EXPECT_CALL(b1, DoB(_))
+            .WillOnce(Return(2));
 
-        ON_CALL(b2, DoB())
-                .WillByDefault(Return(3));
-        EXPECT_CALL(b2, DoB(_));
+    ON_CALL(b2, DoB())
+            .WillByDefault(Return(3));
+    EXPECT_CALL(b2, DoB(_));
 
-        b2.DoB(0);
-        Mock::VerifyAndClear(&b2);
+    b2.DoB(0);
+    Mock::VerifyAndClear(&b2);
 
-        // Verifies that the default actions and expectations of a and b1
-        // are still in effect.
-        EXPECT_TRUE(a.Binary(0, 0));
-        EXPECT_FALSE(a.Binary(0, 0));
+    // Verifies that the default actions and expectations of a and b1
+    // are still in effect.
+    EXPECT_TRUE(a.Binary(0, 0));
+    EXPECT_FALSE(a.Binary(0, 0));
 
-        EXPECT_EQ(1, b1.DoB());
-        EXPECT_EQ(2, b1.DoB(0));
-    }
+    EXPECT_EQ(1, b1.DoB());
+    EXPECT_EQ(2, b1.DoB(0));
+}
 
-    TEST(VerifyAndClearTest,
-         DestroyingChainedMocksDoesNotDeadlockThroughExpectations) {
-        linked_ptr<MockA> a(new MockA);
-        ReferenceHoldingMock test_mock;
+TEST(VerifyAndClearTest,
+     DestroyingChainedMocksDoesNotDeadlockThroughExpectations) {
+    linked_ptr<MockA> a(new MockA);
+    ReferenceHoldingMock test_mock;
 
-        // EXPECT_CALL stores a reference to a inside test_mock.
-        EXPECT_CALL(test_mock, AcceptReference(_))
-                .WillRepeatedly(SetArgPointee<0>(a));
+    // EXPECT_CALL stores a reference to a inside test_mock.
+    EXPECT_CALL(test_mock, AcceptReference(_))
+            .WillRepeatedly(SetArgPointee<0>(a));
 
-        // Throw away the reference to the mock that we have in a. After this, the
-        // only reference to it is stored by test_mock.
-        a.reset();
+    // Throw away the reference to the mock that we have in a. After this, the
+    // only reference to it is stored by test_mock.
+    a.reset();
 
-        // When test_mock goes out of scope, it destroys the last remaining reference
-        // to the mock object originally pointed to by a. This will cause the MockA
-        // destructor to be called from inside the ReferenceHoldingMock destructor.
-        // The state of all mocks is protected by a single global lock, but there
-        // should be no deadlock.
-    }
+    // When test_mock goes out of scope, it destroys the last remaining reference
+    // to the mock object originally pointed to by a. This will cause the MockA
+    // destructor to be called from inside the ReferenceHoldingMock destructor.
+    // The state of all mocks is protected by a single global lock, but there
+    // should be no deadlock.
+}
 
-    TEST(VerifyAndClearTest,
-         DestroyingChainedMocksDoesNotDeadlockThroughDefaultAction) {
-        linked_ptr<MockA> a(new MockA);
-        ReferenceHoldingMock test_mock;
+TEST(VerifyAndClearTest,
+     DestroyingChainedMocksDoesNotDeadlockThroughDefaultAction) {
+    linked_ptr<MockA> a(new MockA);
+    ReferenceHoldingMock test_mock;
 
-        // ON_CALL stores a reference to a inside test_mock.
-        ON_CALL(test_mock, AcceptReference(_))
-                .WillByDefault(SetArgPointee<0>(a));
+    // ON_CALL stores a reference to a inside test_mock.
+    ON_CALL(test_mock, AcceptReference(_))
+            .WillByDefault(SetArgPointee<0>(a));
 
-        // Throw away the reference to the mock that we have in a. After this, the
-        // only reference to it is stored by test_mock.
-        a.reset();
+    // Throw away the reference to the mock that we have in a. After this, the
+    // only reference to it is stored by test_mock.
+    a.reset();
 
-        // When test_mock goes out of scope, it destroys the last remaining reference
-        // to the mock object originally pointed to by a. This will cause the MockA
-        // destructor to be called from inside the ReferenceHoldingMock destructor.
-        // The state of all mocks is protected by a single global lock, but there
-        // should be no deadlock.
-    }
+    // When test_mock goes out of scope, it destroys the last remaining reference
+    // to the mock object originally pointed to by a. This will cause the MockA
+    // destructor to be called from inside the ReferenceHoldingMock destructor.
+    // The state of all mocks is protected by a single global lock, but there
+    // should be no deadlock.
+}
 
 // Tests that a mock function's action can call a mock function
 // (either the same function or a different one) either as an explicit
 // action or as a default action without causing a dead lock.  It
 // verifies that the action is not performed inside the critical
 // section.
-    TEST(SynchronizationTest, CanCallMockMethodInAction) {
-        MockA a;
-        MockC c;
-        ON_CALL(a, DoA(_))
-                .WillByDefault(IgnoreResult(InvokeWithoutArgs(&c,
-                                                              &MockC::NonVoidMethod)));
-        EXPECT_CALL(a, DoA(1));
-        EXPECT_CALL(a, DoA(1))
-                .WillOnce(Invoke(&a, &MockA::DoA))
-                .RetiresOnSaturation();
-        EXPECT_CALL(c, NonVoidMethod());
+TEST(SynchronizationTest, CanCallMockMethodInAction) {
+    MockA a;
+    MockC c;
+    ON_CALL(a, DoA(_))
+            .WillByDefault(IgnoreResult(InvokeWithoutArgs(&c,
+                                                          &MockC::NonVoidMethod)));
+    EXPECT_CALL(a, DoA(1));
+    EXPECT_CALL(a, DoA(1))
+            .WillOnce(Invoke(&a, &MockA::DoA))
+            .RetiresOnSaturation();
+    EXPECT_CALL(c, NonVoidMethod());
 
-        a.DoA(1);
-        // This will match the second EXPECT_CALL() and trigger another a.DoA(1),
-        // which will in turn match the first EXPECT_CALL() and trigger a call to
-        // c.NonVoidMethod() that was specified by the ON_CALL() since the first
-        // EXPECT_CALL() did not specify an action.
-    }
+    a.DoA(1);
+    // This will match the second EXPECT_CALL() and trigger another a.DoA(1),
+    // which will in turn match the first EXPECT_CALL() and trigger a call to
+    // c.NonVoidMethod() that was specified by the ON_CALL() since the first
+    // EXPECT_CALL() did not specify an action.
+}
 
 }  // namespace
 
@@ -2677,7 +2693,6 @@ namespace {
 #if GMOCK_RENAME_MAIN
 int gmock_main(int argc, char **argv) {
 #else
-
 int main(int argc, char **argv) {
 #endif  // GMOCK_RENAME_MAIN
     testing::InitGoogleMock(&argc, argv);

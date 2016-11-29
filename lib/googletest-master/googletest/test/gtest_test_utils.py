@@ -39,7 +39,6 @@ import shutil
 import sys
 import tempfile
 import unittest
-
 _test_module = unittest
 
 # Suppresses the 'Import not at the top of the file' lint complaint.
@@ -140,11 +139,9 @@ def GetBuildDir():
 
 _temp_dir = None
 
-
 def _RemoveTempDir():
     if _temp_dir:
         shutil.rmtree(_temp_dir, ignore_errors=True)
-
 
 atexit.register(_RemoveTempDir)
 

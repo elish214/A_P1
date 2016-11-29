@@ -135,7 +135,6 @@ class TypedTest1 : public Test {
 // Verifies that the second argument of TYPED_TEST_CASE can be a
 // single type.
 TYPED_TEST_CASE(TypedTest1, int);
-
 TYPED_TEST(TypedTest1, A) {}
 
 template<typename T>
@@ -281,7 +280,6 @@ TYPED_TEST_CASE_P(TypedTestP1);
 typedef int IntAfterTypedTestCaseP;
 
 TYPED_TEST_P(TypedTestP1, A) {}
-
 TYPED_TEST_P(TypedTestP1, B) {}
 
 // For testing that the code between TYPED_TEST_P() and
@@ -349,7 +347,6 @@ namespace library2 {
     static const char *GetTestName() {
         return testing::UnitTest::GetInstance()->current_test_info()->name();
     }
-
 // Test the stripping of space from test names
     template<typename T>
     class TrimmedTest : public Test {

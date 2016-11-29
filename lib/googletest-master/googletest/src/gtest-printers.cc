@@ -341,7 +341,6 @@ namespace testing {
 // memory accesses. MSVC defines _NATIVE_WCHAR_T_DEFINED symbol when
 // wchar_t is implemented as a native type.
 #if !defined(_MSC_VER) || defined(_NATIVE_WCHAR_T_DEFINED)
-
 // Prints the given wide C string to the ostream.
         void PrintTo(const wchar_t *s, ostream *os) {
             if (s == NULL) {
@@ -351,7 +350,6 @@ namespace testing {
                 PrintCharsAsStringTo(s, std::wcslen(s), os);
             }
         }
-
 #endif  // wchar_t is native
 
 // Prints a ::string object.
@@ -377,7 +375,6 @@ namespace testing {
         void PrintWideStringTo(const ::std::wstring &s, ostream *os) {
             PrintCharsAsStringTo(s.data(), s.size(), os);
         }
-
 #endif  // GTEST_HAS_STD_WSTRING
 
     }  // namespace internal

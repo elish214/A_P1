@@ -460,7 +460,6 @@ namespace {
         EXPECT_EQ(1, a2.Perform(make_tuple('a')));
         EXPECT_EQ(0, a2.Perform(make_tuple('\0')));
     }
-
 #endif  // !GTEST_OS_SYMBIAN
 
 // The following two classes are for testing MakePolymorphicAction().
@@ -704,16 +703,19 @@ namespace {
     public:
         MockClass() {}
 
-        MOCK_METHOD1(IntFunc, int(bool
-                flag));  // NOLINT
-        MOCK_METHOD0(Foo, MyNonDefaultConstructible());
+        MOCK_METHOD1(IntFunc,
+        int(
+        bool flag
+        ));  // NOLINT
+        MOCK_METHOD0(Foo, MyNonDefaultConstructible()
+        );
 #if GTEST_HAS_STD_UNIQUE_PTR_
-
-        MOCK_METHOD0(MakeUnique, std::unique_ptr<int>());
-
-        MOCK_METHOD0(MakeUniqueBase, std::unique_ptr<Base>());
-
-        MOCK_METHOD0(MakeVectorUnique, std::vector<std::unique_ptr<int>>());
+        MOCK_METHOD0(MakeUnique, std::unique_ptr<int>()
+        );
+        MOCK_METHOD0(MakeUniqueBase, std::unique_ptr<Base>()
+        );
+        MOCK_METHOD0(MakeVectorUnique, std::vector<std::unique_ptr<int>>()
+        );
 #endif
 
     private:

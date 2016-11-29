@@ -43,9 +43,7 @@
 # include <sys/stat.h>
 # include <map>  // Used in ThreadLocal.
 #else
-
 # include <unistd.h>
-
 #endif  // GTEST_OS_WINDOWS
 
 #if GTEST_OS_MAC
@@ -76,9 +74,7 @@
 // prevent the accidental inclusion of gtest-internal-inl.h in the
 // user's code.
 #define GTEST_IMPLEMENTATION_ 1
-
 #include "src/gtest-internal-inl.h"
-
 #undef GTEST_IMPLEMENTATION_
 
 namespace testing {
@@ -1129,7 +1125,6 @@ namespace testing {
             }
             return GetArgvs();
         }
-
 #endif  // GTEST_HAS_DEATH_TEST
 
 #if GTEST_OS_WINDOWS_MOBILE

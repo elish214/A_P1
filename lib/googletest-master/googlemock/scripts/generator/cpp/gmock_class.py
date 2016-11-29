@@ -95,7 +95,7 @@ def _GenerateMethods(output_lines, source, class_node):
             if class_node.templated_types:
                 tmpl = '_T'
             mock_method_macro = 'MOCK_%sMETHOD%d%s' % (
-                const, num_parameters, tmpl)
+            const, num_parameters, tmpl)
 
             args = ''
             if node.parameters:

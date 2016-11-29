@@ -42,10 +42,8 @@
 #endif
 
 #if GTEST_HAS_EXCEPTIONS
-
 # include <exception>  // For set_terminate().
 # include <stdexcept>
-
 #endif
 
 using testing::Test;

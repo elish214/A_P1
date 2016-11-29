@@ -37,9 +37,7 @@
 #define GMOCK_INCLUDE_GMOCK_GMOCK_ACTIONS_H_
 
 #ifndef _WIN32_WCE
-
 # include <errno.h>
-
 #endif
 
 #include <algorithm>
@@ -49,9 +47,7 @@
 #include "gmock/internal/gmock-port.h"
 
 #if GTEST_HAS_STD_TYPE_TRAITS_  // Defined by gtest-port.h via gmock-port.h.
-
 #include <type_traits>
-
 #endif
 
 namespace testing {
@@ -1160,7 +1156,6 @@ namespace testing {
     }
 
 #if !((GTEST_GCC_VER_ && GTEST_GCC_VER_ < 40000) || GTEST_OS_SYMBIAN)
-
 // This overload allows SetArgPointee() to accept a string literal.
 // GCC prior to the version 4.0 and Symbian C++ compiler cannot distinguish
 // this overload from the templated version and emit a compile error.
@@ -1179,7 +1174,6 @@ namespace testing {
         return MakePolymorphicAction(internal::SetArgumentPointeeAction<
                 N, const wchar_t *, false>(p));
     }
-
 #endif
 
 // The following version is DEPRECATED.

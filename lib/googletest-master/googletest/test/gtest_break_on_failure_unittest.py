@@ -64,6 +64,7 @@ CATCH_EXCEPTIONS_ENV_VAR = 'GTEST_CATCH_EXCEPTIONS'
 EXE_PATH = gtest_test_utils.GetTestExecutablePath(
     'gtest_break_on_failure_unittest_')
 
+
 environ = gtest_test_utils.environ
 SetEnvVar = gtest_test_utils.SetEnvVar
 

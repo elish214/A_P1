@@ -42,7 +42,5 @@ TEST(HelpFlagTest, ShouldNotBeRun) {
 }
 
 #if GTEST_HAS_DEATH_TEST
-
 TEST(DeathTest, UsedByPythonScriptToDetectSupportForDeathTestsInThisBinary) {}
-
 #endif

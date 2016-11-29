@@ -256,7 +256,6 @@ CAN_GENERATE_GOLDEN_FILE = (SUPPORTS_DEATH_TESTS and
                             SUPPORTS_THREADS and
                             not IS_WINDOWS)
 
-
 class GTestOutputTest(gtest_test_utils.TestCase):
     def RemoveUnsupportedTests(self, test_output):
         if not SUPPORTS_DEATH_TESTS:
