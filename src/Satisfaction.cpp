@@ -4,6 +4,8 @@
 
 #include "Satisfaction.h"
 
+Satisfaction::Satisfaction(int rating, int amount) : rating(rating), amount(amount) {}
+
 int Satisfaction::getRating() const {
     return rating;
 }
@@ -11,3 +13,5 @@ int Satisfaction::getRating() const {
 void Satisfaction::rate(int newRating) {
 
 }
+
+

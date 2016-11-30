@@ -31,6 +31,8 @@ public:
 
     Location();
 
+    Location(Point &point);
+
     virtual ~Location();
 
     Point *getPoint() ;

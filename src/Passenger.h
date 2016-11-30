@@ -15,9 +15,9 @@ private:
 public:
     Passenger(const Point &source, const Point &destination);
 
-    const Point &getSource() const;
+    Point &getSource();
 
-    const Point &getDestination() const;
+    Point &getDestination();
 
     int rate();
 };

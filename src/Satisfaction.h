@@ -11,6 +11,8 @@ private:
     int rating;
     int amount;
 public:
+    Satisfaction(int rating, int amount);
+
     int getRating() const;
 
     void rate(int newRating);

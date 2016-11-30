@@ -7,11 +7,11 @@
 Passenger::Passenger(const Point &source, const Point &destination) : source(
         source), destination(destination) {}
 
-const Point &Passenger::getSource() const {
+Point &Passenger::getSource() {
     return source;
 }
 
-const Point &Passenger::getDestination() const {
+Point &Passenger::getDestination() {
     return destination;
 }
 

@@ -13,6 +13,10 @@ using namespace std;
  */
 Location::Location() {}
 
+Location::Location(Point &point) {
+    Location::p = &point;
+}
+
 /**
  * getter.
  *

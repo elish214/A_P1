@@ -8,17 +8,33 @@
 
 #include "navigation/Point.h"
 #include "Passenger.h"
+#include "navigation/Location.h"
 
 class TripInfo {
 private:
     int id;
     int totalMeters;
-    Point start;
-    Point end;
+    Location start;
+    Location end;
     int numOfPassengers;
     int taarif;
     Passenger passenger;
 public:
+    TripInfo(int id, int numOfPassengers, Passenger passenger);
+
+    int getId() const;
+
+    int getTotalMeters() const;
+
+    Location &getStart();
+
+    Location &getEnd();
+
+    int getNumOfPassengers() const;
+
+    int getTaarif() const;
+
+    const Passenger &getPassenger() const;
 
 };
 
