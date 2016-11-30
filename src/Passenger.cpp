@@ -4,14 +4,14 @@
 
 #include "Passenger.h"
 
-Passenger::Passenger(const Point &source, const Point &destination) : source(
-        source), destination(destination) {}
+Passenger::Passenger(const Location &source, const Location &destination) :
+        source(source), destination(destination) {}
 
-Point &Passenger::getSource() {
+Location &Passenger::getSource() {
     return source;
 }
 
-Point &Passenger::getDestination() {
+Location &Passenger::getDestination() {
     return destination;
 }
 

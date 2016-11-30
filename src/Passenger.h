@@ -7,17 +7,18 @@
 
 
 #include "navigation/Point.h"
+#include "navigation/Location.h"
 
 class Passenger {
 private:
-    Point source;
-    Point destination;
+    Location source;
+    Location destination;
 public:
-    Passenger(const Point &source, const Point &destination);
+    Passenger(const Location &source, const Location &destination);
 
-    Point &getSource();
+    Location &getSource();
 
-    Point &getDestination();
+    Location &getDestination();
 
     int rate();
 };

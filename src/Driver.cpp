@@ -4,6 +4,11 @@
 
 #include "Driver.h"
 
+
+Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age), status(status),
+                                                   experience(0),
+                                                   satisfaction(0,0) {}
+
 void Driver::setTaxi(Taxi *taxi) {
     Driver::taxi = taxi;
 }

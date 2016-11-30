@@ -24,6 +24,8 @@ private:
     Location location;
     vector<EndTripListener *> endTripListeners;
 public:
+    Driver(int id, int age, MaritalStatus status);
+
     void setTaxi(Taxi *taxi);
 
     void start(TripInfo trip);

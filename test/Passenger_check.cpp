@@ -5,13 +5,16 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../src/Passenger.h"
+#include "../src/navigation/Location.h"
 
 using testing::Eq;
 
 namespace {
     class ClassDeclaration : public testing::Test {
     public:
-        Passenger a = Passenger(Location(), Location());
+        Location l1 = Location();
+        Location l2 = Location();
+        Passenger a = Passenger(l1, l2);
 
         ClassDeclaration() {
         }
