@@ -10,43 +10,43 @@
 using testing::Eq;
 
 namespace {
-    class ClassDeclaration : public testing::Test {
+    class MyTests : public testing::Test {
     public:
         Point p1, p2;
 
-        ClassDeclaration() {
+        MyTests() {
             p1 = Point(5, 6);
             p2 = Point(2, 4);
         }
     };
 }
 
-TEST_F(ClassDeclaration, testX) {
+TEST_F(MyTests, testX) {
     ASSERT_EQ(p1.getX(), 5);
 }
 
-TEST_F(ClassDeclaration, testY) {
+TEST_F(MyTests, testY) {
     ASSERT_EQ(p1.getY(), 6);
 }
 
 
-TEST_F(ClassDeclaration, testYOperatorPlus) {
+TEST_F(MyTests, testYOperatorPlus) {
     Point p3 = p1 + p2;
     ASSERT_EQ(p3, Point(7, 10));
 }
 
 
-TEST_F(ClassDeclaration, testYOperatorMinus) {
+TEST_F(MyTests, testYOperatorMinus) {
     Point p3 = p1 - p2;
     ASSERT_EQ(p3, Point(3, 2));
 }
 
-TEST_F(ClassDeclaration, testYOperatorEQ) {
+TEST_F(MyTests, testYOperatorEQ) {
     Point p3 = Point(5,6);
     ASSERT_TRUE(p1 == p3);
 }
 
-TEST_F(ClassDeclaration, testYOperatorNE) {
+TEST_F(MyTests , testYOperatorNE) {
 Point p3 = Point(5,9);
 ASSERT_TRUE(p1 != p3);
 }

@@ -26,6 +26,8 @@ private:
 public:
     Driver(int id, int age, MaritalStatus status);
 
+    Taxi *getTaxi() const;
+
     void setTaxi(Taxi *taxi);
 
     void start(TripInfo trip);

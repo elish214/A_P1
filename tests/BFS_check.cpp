@@ -13,17 +13,17 @@
 using testing::Eq;
 
 namespace {
-    class ClassDeclaration : public testing::Test {
+    class MyTests : public testing::Test {
     public:
         Grid g = Grid(3,3);
         BFS bfs;
-        ClassDeclaration() {
+        MyTests() {
 
         }
     };
 }
 
-TEST_F(ClassDeclaration, testRun){
+TEST_F(MyTests, testRun){
     Point p1 = Point(0,0);
     Location l1 = Location(p1);
     l1.setGrid(&g);

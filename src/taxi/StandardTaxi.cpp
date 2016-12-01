@@ -4,6 +4,11 @@
 
 #include "StandardTaxi.h"
 
+
+StandardTaxi::StandardTaxi(int id, CarManufacturer manufacturer, Color color) : Taxi(id,
+                                                                                     manufacturer,
+                                                                                     color) {}
+
 int StandardTaxi::getTaarif() {
     return 0;
 }
@@ -11,3 +16,4 @@ int StandardTaxi::getTaarif() {
 int StandardTaxi::getSpeed() {
     return 0;
 }
+

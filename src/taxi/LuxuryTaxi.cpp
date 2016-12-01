@@ -4,6 +4,10 @@
 
 #include "LuxuryTaxi.h"
 
+
+LuxuryTaxi::LuxuryTaxi(int id, CarManufacturer manufacturer, Color color) : Taxi(id, manufacturer,
+                                                                                 color)  {}
+
 int LuxuryTaxi::getTaarif() {
     return 0;
 }
@@ -11,3 +15,4 @@ int LuxuryTaxi::getTaarif() {
 int LuxuryTaxi::getSpeed() {
     return 0;
 }
+

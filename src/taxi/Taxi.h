@@ -16,7 +16,11 @@ private:
     CarManufacturer manufacturer;
     Color color;
 public:
+    Taxi(int id, CarManufacturer manufacturer, Color color);
+
     void addMeters(double meters);
+
+    double getKmPassed() const;
 
     virtual int getTaarif() = 0;
 

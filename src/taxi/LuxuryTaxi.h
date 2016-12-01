@@ -10,6 +10,8 @@
 
 class LuxuryTaxi : public Taxi {
 public:
+    LuxuryTaxi(int id, CarManufacturer manufacturer, Color color);
+
     int getTaarif() override;
 
     int getSpeed() override;

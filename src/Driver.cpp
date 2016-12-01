@@ -9,6 +9,10 @@ Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age), status
                                                    experience(0),
                                                    satisfaction(0,0) {}
 
+Taxi *Driver::getTaxi() const {
+    return taxi;
+}
+
 void Driver::setTaxi(Taxi *taxi) {
     Driver::taxi = taxi;
 }
@@ -32,3 +36,4 @@ void Driver::addListener(EndTripListener *listener) {
 void Driver::removeListener(EndTripListener *listener) {
 
 }
+

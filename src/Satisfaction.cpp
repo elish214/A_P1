@@ -6,12 +6,12 @@
 
 Satisfaction::Satisfaction(int rating, int amount) : rating(rating), amount(amount) {}
 
-int Satisfaction::getRating() const {
+double Satisfaction::getRating() {
     return rating;
 }
 
 void Satisfaction::rate(int newRating) {
-
+    rating = (getRating()*amount++ + newRating)/amount;
 }
 
 

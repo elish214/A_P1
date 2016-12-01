@@ -8,12 +8,12 @@
 
 class Satisfaction {
 private:
-    int rating;
+    double rating;
     int amount;
 public:
     Satisfaction(int rating, int amount);
 
-    int getRating() const;
+    double getRating();
 
     void rate(int newRating);
 };

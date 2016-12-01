@@ -15,6 +15,14 @@ private:
     vector<Taxi *> cabs;
     queue<TripInfo> trips;
 public:
+    TaxiCenter();
+
+    const vector<Driver> &getEmployees() const;
+
+    const vector<Taxi *> &getCabs() const;
+
+    const queue<TripInfo> &getTrips() const;
+
     void addDriver(Driver driver);
 
     void addTaxi(Taxi *taxi);
