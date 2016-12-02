@@ -26,13 +26,17 @@ private:
 public:
     Driver(int id, int age, MaritalStatus status);
 
+    const Location &getLocation() const;
+
+    void setLocation(const Location &location);
+
     Taxi *getTaxi() const;
 
     void setTaxi(Taxi *taxi);
 
     void start(TripInfo trip);
 
-    void drive(vector<Point>);
+    void drive(vector<Location>);
 
     void notifyAllEndTrip();
 

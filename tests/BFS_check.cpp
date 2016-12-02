@@ -13,29 +13,31 @@
 using testing::Eq;
 
 namespace {
-    class MyTests : public testing::Test {
+    class MyBFSTests : public testing::Test {
+    protected:
+
     public:
+        MyBFSTests() {}
         Grid g = Grid(3,3);
         BFS bfs;
-        MyTests() {
-
-        }
+        Point p1 = Point(0,0);
+        Location l1 = Location(p1);
+        Point p2 = Point(0,1);
+        Location l2 = Location(p2);
+        Point p3 = Point(0,2);
+        Location l3 = Location(p3);
+        Point p4 = Point(1,2);
+        Location l4 = Location(p4);
     };
+
 }
 
-TEST_F(MyTests, testRun){
-    Point p1 = Point(0,0);
-    Location l1 = Location(p1);
+TEST_F(MyBFSTests, testRun){
+    stack<Node*> s;
+
     l1.setGrid(&g);
-    Point p2 = Point(0,1);
-    Location l2 = Location(p2);
-    Point p3 = Point(0,2);
-    Location l3 = Location(p3);
-    Point p4 = Point(1,2);
-    Location l4 = Location(p4);
     l4.setGrid(&g);
 
-    stack<Node*> s;
     s.push(&l4);
     s.push(&l3);
     s.push(&l2);

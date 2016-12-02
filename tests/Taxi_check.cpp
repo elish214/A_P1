@@ -5,21 +5,22 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../src/taxi/Taxi.h"
+#include "../src/taxi/StandardTaxi.h"
 
 using testing::Eq;
 
 
 namespace {
-    class MyTests : public testing::Test {
+    class MyTaxiTests : public testing::Test {
     public:
-    Taxi taxi = Taxi(12345, CarManufacturer::HONDA, Color::BLUE);
-        MyTests() {
+    StandardTaxi taxi = StandardTaxi(12345, CarManufacturer::HONDA, Color::BLUE);
+        MyTaxiTests() {
         }
     };
 }
 
 
-TEST_F(MyTests, testMeter) {
+TEST_F(MyTaxiTests, testMeter) {
     taxi.addMeters(18.7);
     taxi.addMeters(6.5);
 

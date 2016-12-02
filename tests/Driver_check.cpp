@@ -10,22 +10,38 @@
 using testing::Eq;
 
 namespace {
-    class MyTests : public testing::Test {
+    class MyDriverTests : public testing::Test {
     public:
-        Driver d = Driver(123456,32,MaritalStatus::MARRIED);
+        MyDriverTests() {}
 
-        MyTests() {
-        }
+        BFS bfs = BFS();
+        vector<Location> v;
+        Point p1 = Point(0,0);
+        Point p2 = Point(0,1);
+        Point p3 = Point(1,1);
+        Location l1 = Location(p1);
+        Location l2 = Location(p2);
+        Location l3 = Location(p3);
+        Driver Asher = Driver(123456,32,MaritalStatus::MARRIED);
+        Passenger yossi = Passenger(l1,l3);
+        TripInfo trip = TripInfo(333,2,yossi);
     };
 }
 
 
-
-TEST_F(MyTests, testDrive){
-    Point p1 = Point(0,0);
-    Point p2 = Point(2,2);
-    BFS bfs = BFS();
-    //vector<Location> v = bfs.run(Location(p1), Location(p2));
-    //d.drive();
+TEST_F(MyDriverTests, testStart) {
+    Asher.start(trip);
+    ASSERT_EQ(Asher.getLocation(), l1);
 }
+
+TEST_F(MyDriverTests, testDrive){
+    v.push_back(l1);
+    v.push_back(l2);
+    v.push_back(l3);
+    Asher.setLocation(l1);
+    Asher.drive(v);
+    ASSERT_EQ(Asher.getLocation(),l3);
+}
+
+//add listeners tests?...
 

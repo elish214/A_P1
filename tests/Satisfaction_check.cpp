@@ -10,23 +10,23 @@
 using testing::Eq;
 
 namespace {
-    class MyTests : public testing::Test {
+    class MySatisfactionTests : public testing::Test {
     public:
         Satisfaction st = Satisfaction(0,0);
 
-        MyTests() {
+        MySatisfactionTests() {
         }
     };
 }
 
 
-TEST_F(MyTests, testGetter) {
+TEST_F(MySatisfactionTests, testGetter) {
     int r = st.getRating();
     ASSERT_TRUE(r >= 0);
 }
 
 
-TEST_F(MyTests, testRate) {
+TEST_F(MySatisfactionTests, testRating) {
     st.rate(3);
     st.rate(5);
 

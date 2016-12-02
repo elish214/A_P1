@@ -9,18 +9,25 @@
 using testing::Eq;
 
 namespace {
-    class MyTests : public testing::Test {
+    class MyPassengerTests : public testing::Test {
     public:
-        Location l1 = Location();
-        Location l2 = Location();
-        Passenger a = Passenger(l1, l2);
+        MyPassengerTests() {}
+        Point p1 = Point(3,8);
+        Point p2 = Point(2,6);
+        Location l1 = Location(p1);
+        Location l2 = Location(p2);
+        Passenger avi = Passenger(l1, l2);
 
-        MyTests() {
-        }
     };
 }
 
-TEST_F(MyTests, testRate) {
-    int r = a.rate();
+
+TEST_F(MyPassengerTests, testGetters) {
+    ASSERT_EQ(avi.getSource(), l1);
+
+}
+
+TEST_F(MyPassengerTests, testRate) {
+    int r = avi.rate();
     ASSERT_TRUE(r<=5 && r>=1);
 }

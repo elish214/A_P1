@@ -5,20 +5,26 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../src/taxi/StandardTaxi.h"
+#include "../src/taxi/LuxuryTaxi.h"
 
 using testing::Eq;
 
 namespace {
-    class MyTests : public testing::Test {
+    class MyLTaxiTests : public testing::Test {
     public:
-        StandardTaxi ltax = StandardTaxi(12345, CarManufacturer::TESLA, Color::RED);
+        LuxuryTaxi ltaxi = LuxuryTaxi(12345, CarManufacturer::TESLA, Color::RED);
 
-        MyTests() {
+        MyLTaxiTests() {
         }
     };
 }
 
-TEST_F(MyTests, testSpeed) {
-    int s = ltax.getSpeed();
+TEST_F(MyLTaxiTests, testLTaarif) {
+    int s = ltaxi.getTaarif();
+    ASSERT_TRUE(s >= 0);
+}
+
+TEST_F(MyLTaxiTests, testLSpeed) {
+    int s = ltaxi.getSpeed();
     ASSERT_TRUE(s >= 0);
 }

@@ -9,16 +9,21 @@
 using testing::Eq;
 
 namespace {
-    class MyTests : public testing::Test {
+    class MySTaxiTests : public testing::Test {
     public:
-        StandardTaxi stax = StandardTaxi(12345, CarManufacturer::FIAT, Color::PINK);
+        StandardTaxi staxi = StandardTaxi(12345, CarManufacturer::FIAT, Color::PINK);
 
-        MyTests() {
+        MySTaxiTests() {
         }
     };
 }
 
-TEST_F(MyTests, testTaarif) {
-    int t = stax.getTaarif();
+TEST_F(MySTaxiTests, testSTaarif) {
+    int t = staxi.getTaarif();
+    ASSERT_TRUE(t >= 0);
+}
+
+TEST_F(MySTaxiTests, testSSpeed) {
+    int t = staxi.getSpeed();
     ASSERT_TRUE(t >= 0);
 }

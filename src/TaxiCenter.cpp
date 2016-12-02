@@ -4,7 +4,7 @@
 
 #include "TaxiCenter.h"
 
-TaxiCenter::TaxiCenter() : {}
+TaxiCenter::TaxiCenter() {}
 
 const vector<Driver> &TaxiCenter::getEmployees() const {
     return employees;
@@ -33,5 +33,6 @@ void TaxiCenter::connect(Driver driver, Taxi *taxi) {
 void TaxiCenter::answer(Passenger passenger) {
     //create tripinfo, choose a driver and assign a cab to it.
 }
+
 
 
