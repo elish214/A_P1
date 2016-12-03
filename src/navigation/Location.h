@@ -17,12 +17,12 @@ class Grid;
 
 /**
  * Location represent a node on the grid.
- * in our case, location is a coordinae in the matrix.
+ * in our case, location is a coordinate in the matrix.
  */
 class Location: public Node {
 private:
     Point *p;
-    Grid* grid;
+    Grid *grid;
 
 protected:
     ostream &toString(ostream &os) const;

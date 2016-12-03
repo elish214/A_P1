@@ -13,7 +13,6 @@ namespace {
     class PointTests : public testing::Test {
 
     public:
-        //Point p1, p2;
         Point p1 = Point(5, 6);
         Point p2 = Point(2, 4);
 

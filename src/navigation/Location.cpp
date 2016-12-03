@@ -6,6 +6,7 @@
 #include "Grid.h"
 
 using namespace std;
+
 /**
  * constructor.
  *
@@ -30,7 +31,7 @@ Point *Location::getPoint() {
  * destructor.
  */
 Location::~Location() {
-    delete p;
+    //delete p;
 
 }
 
@@ -67,22 +68,22 @@ void Location::setGrid(Grid *grid) {
  * @return location's neighbors.
  */
 vector<Node *> Location::neighbors() {
-        int x = getPoint()->getX();
-        int y = getPoint()->getY();
+    int x = getPoint()->getX();
+    int y = getPoint()->getY();
 
     vector<Node *> neighbors;
 
-        if (x > 0) //left
-            neighbors.push_back(getGrid()->get(x - 1, y));
+    if (x > 0) //left
+        neighbors.push_back(getGrid()->get(x - 1, y));
     if (y < getGrid()->getRows() - 1) //up
-            neighbors.push_back(getGrid()->get(x, y + 1));
+        neighbors.push_back(getGrid()->get(x, y + 1));
     if (x < getGrid()->getCols() - 1) //right
-            neighbors.push_back(getGrid()->get(x + 1, y));
-        if (y > 0) //down
-            neighbors.push_back(getGrid()->get(x, y - 1));
+        neighbors.push_back(getGrid()->get(x + 1, y));
+    if (y > 0) //down
+        neighbors.push_back(getGrid()->get(x, y - 1));
 
-        return neighbors;
-    }
+    return neighbors;
+}
 
 
 /**

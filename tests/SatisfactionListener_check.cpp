@@ -9,15 +9,15 @@
 using testing::Eq;
 
 namespace {
-    class SatisfactionTests : public testing::Test {
+    class SatisfactionListenerTests : public testing::Test {
     public:
         EndTripListener *listener;
         Driver *driver;
         Passenger *passenger;
 
-        SatisfactionTests() {}
+        SatisfactionListenerTests() {}
 
-        virtual ~SatisfactionTests() {
+        virtual ~SatisfactionListenerTests() {
         }
 
         virtual void SetUp() {
@@ -36,7 +36,7 @@ namespace {
     };
 }
 
-TEST_F(SatisfactionTests, testAvailable) {
+TEST_F(SatisfactionListenerTests, testRating) {
     driver->notifyAllEndTrip();
     ASSERT_FALSE(driver->getSatisfaction() == 0);
 }
