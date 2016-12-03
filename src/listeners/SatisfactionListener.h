@@ -8,12 +8,15 @@
 
 #include "EndTripListener.h"
 #include "../Passenger.h"
+#include "../Driver.h"
 
 class SatisfactionListener : public EndTripListener {
 private:
-    //driver
-    Passenger passenger;
+    Driver *driver;
+    Passenger *passenger;
 public:
+    SatisfactionListener(Driver *driver, Passenger *passenger);
+
     void endEvent() override;
 };
 

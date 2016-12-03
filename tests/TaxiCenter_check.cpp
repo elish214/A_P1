@@ -10,9 +10,9 @@
 using testing::Eq;
 
 namespace {
-    class MyTaxiCTests : public testing::Test {
+    class TaxiCTests : public testing::Test {
     public:
-        MyTaxiCTests() {}
+        TaxiCTests() {}
         TaxiCenter TC = TaxiCenter();
         Driver bob = Driver(123456,36,MaritalStatus::MARRIED);
         StandardTaxi taxi = StandardTaxi(123, CarManufacturer::SUBARU, Color::RED);
@@ -24,7 +24,7 @@ namespace {
     };
 }
 
-TEST_F(MyTaxiCTests, testAddDriver) {
+TEST_F(TaxiCTests, testAddDriver) {
 
     TC.addDriver(bob);
 
@@ -32,7 +32,7 @@ TEST_F(MyTaxiCTests, testAddDriver) {
 }
 
 
-TEST_F(MyTaxiCTests, testAddTaxi) {
+TEST_F(TaxiCTests, testAddTaxi) {
 
     TC.addTaxi(&taxi);
 
@@ -40,14 +40,14 @@ TEST_F(MyTaxiCTests, testAddTaxi) {
 }
 
 
-TEST_F(MyTaxiCTests, testConnect) {
+TEST_F(TaxiCTests, testConnect) {
     TC.connect(bob, &taxi);
 
     //ASSERT_TRUE(bob.getTaxi() != NULL);
 }
 
 
-TEST_F(MyTaxiCTests, testAnswer) {
+TEST_F(TaxiCTests, testAnswer) {
     TC.answer(kobi);
     //ASSERT_TRUE(TC.getTrips().back().getPassenger == kobi);
 }

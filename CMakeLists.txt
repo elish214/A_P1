@@ -14,9 +14,9 @@ set(SOURCE_FILES src/main_m.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
         src/taxi/StandardTaxi.h src/taxi/LuxuryTaxi.cpp src/taxi/LuxuryTaxi.h
         src/TaxiCenter.cpp src/TaxiCenter.h tests/Point_check.cpp tests/Driver_check.cpp
         tests/Passenger_check.cpp tests/BFS_check.cpp tests/Grid_check.cpp
-        tests/Location_check.cpp tests/Taxi_check.cpp tests/StandardTaxi_chceck.cpp
+        tests/Location_check.cpp tests/Taxi_check.cpp tests/StandardTaxi_check.cpp
         tests/LuxuryTaxi_chceck.cpp tests/Satisfaction_check.cpp tests/TaxiCenter_check.cpp
-        tests/TripInfo_check.cpp tests/main.cpp)
+        tests/TripInfo_check.cpp tests/main.cpp tests/AvailabilityListener_check.cpp tests/SatisfactionListener_check.cpp)
 
 add_executable(A_P1 ${SOURCE_FILES})
 

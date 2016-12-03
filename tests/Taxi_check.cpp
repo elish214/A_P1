@@ -11,16 +11,17 @@ using testing::Eq;
 
 
 namespace {
-    class MyTaxiTests : public testing::Test {
+    class TaxiTests : public testing::Test {
     public:
     StandardTaxi taxi = StandardTaxi(12345, CarManufacturer::HONDA, Color::BLUE);
-        MyTaxiTests() {
+
+        TaxiTests() {
         }
     };
 }
 
 
-TEST_F(MyTaxiTests, testMeter) {
+TEST_F(TaxiTests, testMeter) {
     taxi.addMeters(18.7);
     taxi.addMeters(6.5);
 

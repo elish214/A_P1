@@ -9,9 +9,9 @@
 using testing::Eq;
 
 namespace {
-    class MyTripInfoTests : public testing::Test {
+    class TripInfoTests : public testing::Test {
     public:
-        MyTripInfoTests() {}
+        TripInfoTests() {}
         Point p1 = Point(0,2);
         Point p2 = Point(0,4);
         Location source = Location(p1);
@@ -21,16 +21,16 @@ namespace {
     };
 }
 
-TEST_F(MyTripInfoTests, testTotalMeters) {
+TEST_F(TripInfoTests, testTotalMeters) {
     ASSERT_TRUE(ti.getTotalMeters() >= 0);
 }
 
 
-TEST_F(MyTripInfoTests, testNumOfPass) {
+TEST_F(TripInfoTests, testNumOfPass) {
     ASSERT_TRUE(ti.getNumOfPassengers() >= 0);
 }
 
 
-TEST_F(MyTripInfoTests, testGetTaarif) {
+TEST_F(TripInfoTests, testGetTaarif) {
     ASSERT_TRUE(ti.getTaarif() >= 0);
 }

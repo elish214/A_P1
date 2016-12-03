@@ -4,6 +4,9 @@
 
 #include "SatisfactionListener.h"
 
+SatisfactionListener::SatisfactionListener(Driver *driver, Passenger *passenger)
+        : driver(driver), passenger(passenger) {}
+
 void SatisfactionListener::endEvent() {
 
 }

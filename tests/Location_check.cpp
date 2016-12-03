@@ -9,9 +9,9 @@
 using testing::Eq;
 
 namespace {
-    class MyLocationTests : public testing::Test {
+    class LocationTests : public testing::Test {
     public:
-        MyLocationTests() {}
+        LocationTests() {}
         Grid g = Grid(3,3);
         Point p = Point(1,1);
         Location l = Location(p);
@@ -28,7 +28,7 @@ namespace {
     };
 }
 
-TEST_F(MyLocationTests, testNeighbors) {
+TEST_F(LocationTests, testNeighbors) {
 
     l1.setGrid(&g);
     l2.setGrid(&g);
@@ -43,16 +43,16 @@ TEST_F(MyLocationTests, testNeighbors) {
     ASSERT_EQ(neighbors, l.neighbors());
 }
 
-TEST_F(MyLocationTests, testLOperatorOS) {
+TEST_F(LocationTests, testLOperatorOS) {
     //ostream test.
 }
 
-TEST_F(MyLocationTests, testLOperatorEQ) {
+TEST_F(LocationTests, testLOperatorEQ) {
 
     ASSERT_FALSE(l1 == l2);
 }
 
-TEST_F(MyLocationTests, testLOperatorNE) {
+TEST_F(LocationTests, testLOperatorNE) {
 
     ASSERT_TRUE(l1 != l2);
 }

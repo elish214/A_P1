@@ -20,9 +20,12 @@ private:
     MaritalStatus status;
     int experience;
     Satisfaction satisfaction;
+
+private:
     Taxi *taxi;
     Location location;
     vector<EndTripListener *> endTripListeners;
+    bool availability;
 public:
     Driver(int id, int age, MaritalStatus status);
 
@@ -37,6 +40,12 @@ public:
     void start(TripInfo trip);
 
     void drive(vector<Location>);
+
+    const double &getSatisfaction() const;
+
+    bool isAvailability() const;
+
+    void setAvailability(bool availability);
 
     void notifyAllEndTrip();
 

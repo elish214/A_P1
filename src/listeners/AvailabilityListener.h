@@ -7,12 +7,14 @@
 
 
 #include "EndTripListener.h"
+#include "../Driver.h"
 
 class AvailabilityListener : public EndTripListener {
 private:
-    //driver
-    //center
+    Driver *driver;
 public:
+    AvailabilityListener(Driver *driver);
+
     void endEvent() override;
 
 };

@@ -10,21 +10,21 @@
 using testing::Eq;
 
 namespace {
-    class MyLTaxiTests : public testing::Test {
+    class LTaxiTests : public testing::Test {
     public:
         LuxuryTaxi ltaxi = LuxuryTaxi(12345, CarManufacturer::TESLA, Color::RED);
 
-        MyLTaxiTests() {
+        LTaxiTests() {
         }
     };
 }
 
-TEST_F(MyLTaxiTests, testLTaarif) {
+TEST_F(LTaxiTests, testLTaarif) {
     int s = ltaxi.getTaarif();
     ASSERT_TRUE(s >= 0);
 }
 
-TEST_F(MyLTaxiTests, testLSpeed) {
+TEST_F(LTaxiTests, testLSpeed) {
     int s = ltaxi.getSpeed();
     ASSERT_TRUE(s >= 0);
 }

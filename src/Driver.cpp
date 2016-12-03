@@ -45,4 +45,16 @@ void Driver::setLocation(const Location &location) {
     Driver::location = location;
 }
 
+bool Driver::isAvailability() const {
+    return true;
+}
+
+void Driver::setAvailability(bool availability) {
+
+}
+
+const double &Driver::getSatisfaction() const {
+    return satisfaction.getRating();
+}
+
 

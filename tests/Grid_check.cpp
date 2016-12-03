@@ -9,21 +9,21 @@
 using testing::Eq;
 
 namespace {
-    class MyGridTests : public testing::Test {
+    class GridTests : public testing::Test {
     public:
-        MyGridTests() {}
+        GridTests() {}
         Grid g = Grid(7,8);
     };
 }
 
-TEST_F(MyGridTests, testGetR) {
+TEST_F(GridTests, testGetR) {
     ASSERT_EQ(g.getRows(), 7);
 }
 
-TEST_F(MyGridTests, testGetC) {
+TEST_F(GridTests, testGetC) {
     ASSERT_EQ(g.getCols(), 8);
 }
 
-TEST_F(MyGridTests, testGOperatorIS) {
+TEST_F(GridTests, testGOperatorIS) {
     //istream test.
 }

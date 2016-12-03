@@ -9,9 +9,9 @@
 using testing::Eq;
 
 namespace {
-    class MyPassengerTests : public testing::Test {
+    class PassengerTests : public testing::Test {
     public:
-        MyPassengerTests() {}
+        PassengerTests() {}
         Point p1 = Point(3,8);
         Point p2 = Point(2,6);
         Location l1 = Location(p1);
@@ -22,12 +22,12 @@ namespace {
 }
 
 
-TEST_F(MyPassengerTests, testGetters) {
+TEST_F(PassengerTests, testGetters) {
     ASSERT_EQ(avi.getSource(), l1);
 
 }
 
-TEST_F(MyPassengerTests, testRate) {
+TEST_F(PassengerTests, testRate) {
     int r = avi.rate();
     ASSERT_TRUE(r<=5 && r>=1);
 }

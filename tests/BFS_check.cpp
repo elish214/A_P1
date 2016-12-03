@@ -7,17 +7,15 @@
 #include <stack>
 #include "../src/navigation/Grid.h"
 #include "../src/navigation/BFS.h"
-#include "../src/navigation/Location.h"
-#include "../src/navigation/BFS.h"
 
 using testing::Eq;
 
 namespace {
-    class MyBFSTests : public testing::Test {
+    class BFSTests : public testing::Test {
     protected:
 
     public:
-        MyBFSTests() {}
+        BFSTests() {}
         Grid g = Grid(3,3);
         BFS bfs;
         Point p1 = Point(0,0);
@@ -32,7 +30,7 @@ namespace {
 
 }
 
-TEST_F(MyBFSTests, testRun){
+TEST_F(BFSTests, testRun) {
     stack<Node*> s;
 
     l1.setGrid(&g);

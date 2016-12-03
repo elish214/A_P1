@@ -4,6 +4,8 @@
 
 #include "AvailabilityListener.h"
 
+AvailabilityListener::AvailabilityListener(Driver *driver) : driver(driver) {}
+
 void AvailabilityListener::endEvent() {
 
 }
