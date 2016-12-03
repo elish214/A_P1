@@ -41,7 +41,7 @@ public:
 
     void drive(vector<Location>);
 
-    const double &getSatisfaction() const;
+    double getSatisfaction() const;
 
     bool isAvailability() const;
 

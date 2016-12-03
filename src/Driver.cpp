@@ -53,8 +53,8 @@ void Driver::setAvailability(bool availability) {
 
 }
 
-const double &Driver::getSatisfaction() const {
-    return satisfaction.getRating();
+double Driver::getSatisfaction() const {
+    return 0.0;
 }
 
 
