@@ -1,6 +1,7 @@
 //
 // Created by raz on 14/11/16.
 //
+
 #include <iostream>
 #include <stack>
 #include "navigation/Node.h"

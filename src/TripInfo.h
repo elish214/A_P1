@@ -10,6 +10,9 @@
 #include "Passenger.h"
 #include "navigation/Location.h"
 
+/**
+ * trip information class.
+ */
 class TripInfo {
 private:
     int id;

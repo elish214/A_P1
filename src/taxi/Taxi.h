@@ -9,6 +9,10 @@
 #include "../enums/CarManufacturer.h"
 #include "../enums/Color.h"
 
+/**
+ * taxi class.
+ * an interface for all taxi types.
+ */
 class Taxi {
 private:
     int id;

@@ -9,13 +9,17 @@
 #include "EndTripListener.h"
 #include "../Driver.h"
 
+/**
+ * availability listener.
+ * uses to announce taxi center who's available for a ride.
+ */
 class AvailabilityListener : public EndTripListener {
 private:
     Driver *driver;
 public:
     AvailabilityListener(Driver *driver);
 
-    void endEvent() override;
+    void endEvent();
 
 };
 

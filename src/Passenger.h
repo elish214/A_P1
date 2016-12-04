@@ -9,6 +9,9 @@
 #include "navigation/Point.h"
 #include "navigation/Location.h"
 
+/**
+ * a passenger class.
+ */
 class Passenger {
 private:
     Location source;

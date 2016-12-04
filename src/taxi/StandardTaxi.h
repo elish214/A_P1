@@ -8,13 +8,16 @@
 
 #include "Taxi.h"
 
+/**
+ * a standard taxi class.
+ */
 class StandardTaxi : public Taxi {
 public:
     StandardTaxi(int id, CarManufacturer manufacturer, Color color);
 
-    int getTaarif() override;
+    int getTaarif();
 
-    int getSpeed() override;
+    int getSpeed();
 };
 
 

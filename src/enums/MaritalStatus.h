@@ -5,7 +5,9 @@
 #ifndef A_P1_MARITALSTATUS_H
 #define A_P1_MARITALSTATUS_H
 
-
+/**
+ * marital status representing enum.
+ */
 enum class MaritalStatus {
     SINGLE, MARRIED, DIVORCED, WIDOWED
 };

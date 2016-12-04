@@ -5,7 +5,9 @@
 #ifndef A_P1_CARMANUFACTURER_H
 #define A_P1_CARMANUFACTURER_H
 
-
+/**
+ * car manufacturer representing enum.
+ */
 enum class CarManufacturer {
     HONDA, SUBARU, TESLA, FIAT
 };
