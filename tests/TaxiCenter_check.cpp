@@ -10,9 +10,9 @@
 using testing::Eq;
 
 namespace {
-    class TaxiCTests : public testing::Test {
+    class TaxiCenterTests : public testing::Test {
     public:
-        TaxiCTests() {}
+        TaxiCenterTests() {}
         TaxiCenter TC = TaxiCenter();
         Driver bob = Driver(123456,36,MaritalStatus::MARRIED);
         StandardTaxi taxi = StandardTaxi(123, CarManufacturer::SUBARU, Color::RED);
@@ -20,34 +20,46 @@ namespace {
         Point p2 = Point(1,4);
         Location l1 = Location(p1);
         Location l2 = Location(p2);
-        Passenger kobi = Passenger(l1,l2);
     };
 }
 
-TEST_F(TaxiCTests, testAddDriver) {
+/**
+ * testing adding a driver.
+ */
+TEST_F(TaxiCenterTests, testAddDriver) {
 
     TC.addDriver(bob);
 
-    //ASSERT_TRUE(TC.getEmployees() != NULL); // not empty.
+    ASSERT_TRUE(TC.getEmployees().size() > 0); // not empty.
 }
 
-
-TEST_F(TaxiCTests, testAddTaxi) {
+/**
+ * testing adding a taxi.
+ */
+TEST_F(TaxiCenterTests, testAddTaxi) {
 
     TC.addTaxi(&taxi);
 
-    //ASSERT_TRUE(TC.getCabs() != NULL); // not empty.
+    ASSERT_TRUE(TC.getCabs().size() > 0); // not empty.
 }
 
-
-TEST_F(TaxiCTests, testConnect) {
+/**
+ * testing connecting between taxi and a driver.
+ */
+TEST_F(TaxiCenterTests, testConnect) {
     TC.connect(bob, &taxi);
 
-    //ASSERT_TRUE(bob.getTaxi() != NULL);
+    ASSERT_TRUE(bob.getTaxi() != NULL);
 }
 
+/**
+ * testing anser function.
+ */
+TEST_F(TaxiCenterTests, testAnswer) {
+    Passenger kobi = Passenger(l1,l2);
+    Passenger other = TC.getFirstTrip().getPassenger();
 
-TEST_F(TaxiCTests, testAnswer) {
     TC.answer(kobi);
-    //ASSERT_TRUE(TC.getTrips().back().getPassenger == kobi);
+
+    ASSERT_TRUE(other == kobi);
 }

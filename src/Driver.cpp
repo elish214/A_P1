@@ -25,7 +25,7 @@ void Driver::start(TripInfo trip) {
 
 }
 
-void Driver::drive(vector<Location>) {
+void Driver::drive(vector<Location*>) {
 
 }
 

@@ -4,7 +4,7 @@
 
 #include "Passenger.h"
 
-Passenger::Passenger(const Location &source, const Location &destination) :
+Passenger::Passenger(Location &source, Location &destination) :
         source(source), destination(destination) {}
 
 Location &Passenger::getSource() {
@@ -17,4 +17,13 @@ Location &Passenger::getDestination() {
 
 int Passenger::rate() {
     return 1;
+}
+
+bool Passenger::operator==(const Passenger &rhs) const {
+    return source == rhs.source &&
+           destination == rhs.destination;
+}
+
+bool Passenger::operator!=(const Passenger &rhs) const {
+    return !(rhs == *this);
 }

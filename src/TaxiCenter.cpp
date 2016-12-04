@@ -34,5 +34,12 @@ void TaxiCenter::answer(Passenger passenger) {
     //create tripinfo, choose a driver and assign a cab to it.
 }
 
+TripInfo TaxiCenter::getFirstTrip() {
+    Location l1 = Location();
+    Location l2 = Location();
+
+    return TripInfo(0,0,Passenger(l1,l2));
+}
+
 
 

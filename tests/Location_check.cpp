@@ -13,8 +13,6 @@ namespace {
     public:
         Grid *g;
 
-
-
         LocationTests() {}
 
         virtual ~LocationTests() {
@@ -32,6 +30,9 @@ namespace {
     };
 }
 
+/**
+ * get location's neibghours.
+ */
 TEST_F(LocationTests, testNeighbors) {
     Point p = Point(1, 1);
     Location l = Location(p);
@@ -58,13 +59,19 @@ TEST_F(LocationTests, testNeighbors) {
     neighbors.push_back(&l3);
     neighbors.push_back(&l4);
 
-    ASSERT_EQ(neighbors, l.neighbors());
+    ASSERT_THAT(neighbors, l.neighbors());
 }
 
+/**
+ * testing ostream operator.
+ */
 TEST_F(LocationTests, testLOperatorOS) {
     //ostream test.
 }
 
+/**
+ * testing equality operator.
+ */
 TEST_F(LocationTests, testLOperatorEQ) {
     Point p1 = Point(0, 1);
     Point p2 = Point(1, 2);
@@ -78,6 +85,9 @@ TEST_F(LocationTests, testLOperatorEQ) {
     ASSERT_FALSE(l1 == l2);
 }
 
+/**
+ * testing non-equality operator.
+ */
 TEST_F(LocationTests, testLOperatorNE) {
     Point p1 = Point(0, 1);
     Point p2 = Point(1, 2);

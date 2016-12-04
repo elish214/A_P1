@@ -4,7 +4,6 @@
 
 #include <map>
 #include <queue>
-#include <stack>
 #include "BFS.h"
 
 using namespace std;
@@ -16,13 +15,13 @@ using namespace std;
  * @param end an ending point.
  * @return a stack of nodes which is the optimal route.
  */
-stack<Node *> BFS::run(Node *start, Node *end) {
+vector<Node *> BFS::run(Node *start, Node *end) {
     map<Node *, Node *> parents;
     map<Node *, int> dist;
     vector<Node *> nei;
     queue<Node *> q;
     Node *current;
-    stack<Node *> route;
+    vector<Node *> route;
     Node *p;
 
     parents.insert(make_pair(start, (Node *) NULL));
@@ -47,11 +46,11 @@ stack<Node *> BFS::run(Node *start, Node *end) {
         }
     }
 
-    route.push(end);
+    route.emplace_back(end);
     p = parents.find(end)->second;
 
     while (p != NULL) {
-        route.push(p);
+        route.emplace_back(p);
         p = parents.find(p)->second;
     }
 

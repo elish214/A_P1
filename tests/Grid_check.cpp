@@ -16,14 +16,23 @@ namespace {
     };
 }
 
+/**
+ * testing rows getter.
+ */
 TEST_F(GridTests, testGetR) {
     ASSERT_EQ(g.getRows(), 7);
 }
 
+/**
+ * testing columns getter.
+ */
 TEST_F(GridTests, testGetC) {
     ASSERT_EQ(g.getCols(), 8);
 }
 
+/**
+ * testing istream operator.
+ */
 TEST_F(GridTests, testGOperatorIS) {
     //istream test.
 }

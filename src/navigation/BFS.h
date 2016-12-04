@@ -5,7 +5,7 @@
 #ifndef A_P1_BFS_H
 #define A_P1_BFS_H
 
-#include <stack>
+#include <vector>
 #include <list>
 #include "Node.h"
 
@@ -18,7 +18,7 @@ using namespace std;
  */
 class BFS {
 public:
-    stack<Node *> run(Node *start, Node *end);
+    vector<Node *> run(Node *start, Node *end);
 };
 
 

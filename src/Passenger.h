@@ -14,13 +14,17 @@ private:
     Location source;
     Location destination;
 public:
-    Passenger(const Location &source, const Location &destination);
+    Passenger(Location &source, Location &destination);
 
     Location &getSource();
 
     Location &getDestination();
 
     int rate();
+
+    bool operator==(const Passenger &rhs) const;
+
+    bool operator!=(const Passenger &rhs) const;
 };
 
 

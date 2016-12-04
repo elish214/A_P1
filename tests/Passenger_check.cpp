@@ -21,12 +21,17 @@ namespace {
     };
 }
 
-
+/**
+ * testing getter.
+ */
 TEST_F(PassengerTests, testGetters) {
     ASSERT_EQ(avi.getSource(), l1);
 
 }
 
+/**
+ * testing rate function.
+ */
 TEST_F(PassengerTests, testRate) {
     int r = avi.rate();
     ASSERT_TRUE(r<=5 && r>=1);

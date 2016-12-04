@@ -19,13 +19,17 @@ namespace {
     };
 }
 
-
+/**
+ * testing getter.
+ */
 TEST_F(SatisfactionTests, testGetter) {
     double r = st.getRating();
     ASSERT_TRUE(r >= 0);
 }
 
-
+/**
+ * testing rating function.
+ */
 TEST_F(SatisfactionTests, testRating) {
     st.rate(3);
     st.rate(5);

@@ -30,16 +30,30 @@ namespace {
 
 }
 
+/**
+ * testing BFS algorithem.
+ */
 TEST_F(BFSTests, testRun) {
-    stack<Node*> s;
+    vector<Node*> s;
 
     l1.setGrid(&g);
+    l2.setGrid(&g);
+    l3.setGrid(&g);
     l4.setGrid(&g);
 
-    s.push(&l4);
-    s.push(&l3);
-    s.push(&l2);
-    s.push(&l1);
+    s.push_back(&l4);
+    s.push_back(&l3);
+    s.push_back(&l2);
+    s.push_back(&l1);
 
-    ASSERT_EQ(bfs.run(&l1,&l4), s);
+    vector<Node*> actual = bfs.run(&l1, &l4);
+
+    EXPECT_THAT(actual, ::testing::ContainerEq(s));
+
+  /*  //ASSERT_THAT(bfs.run(&l1, &l4), s);
+
+    for(int i = 0; i < actual.size(); ++i) {
+        EXPECT_EQ(actual.top(), s.top());
+
+    }*/
 }

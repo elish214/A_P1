@@ -31,7 +31,9 @@ namespace {
     };
 }
 
-
+/**
+ * driver get starting location and need to go there.
+ */
 TEST_F(DriverTests, testStart) {
     Point p1 = Point(0, 0);
     Point p3 = Point(1, 1);
@@ -44,8 +46,11 @@ TEST_F(DriverTests, testStart) {
     ASSERT_EQ(driver->getLocation(), l1);
 }
 
+/**
+ * driver get final location and need to go there.
+ */
 TEST_F(DriverTests, testDrive) {
-    vector<Location> v;
+    vector<Location*> v;
     Point p1 = Point(0, 0);
     Point p2 = Point(0, 1);
     Point p3 = Point(1, 1);
@@ -53,9 +58,9 @@ TEST_F(DriverTests, testDrive) {
     Location l2 = Location(p2);
     Location l3 = Location(p3);
 
-    v.push_back(l1);
-    v.push_back(l2);
-    v.push_back(l3);
+    v.push_back(&l1);
+    v.push_back(&l2);
+    v.push_back(&l3);
     driver->setLocation(l1);
     driver->drive(v);
     ASSERT_EQ(driver->getLocation(), l3);

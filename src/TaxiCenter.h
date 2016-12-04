@@ -23,6 +23,8 @@ public:
 
     const queue<TripInfo> &getTrips() const;
 
+    TripInfo getFirstTrip();
+
     void addDriver(Driver driver);
 
     void addTaxi(Taxi *taxi);

@@ -34,6 +34,9 @@ namespace {
     };
 }
 
+/**
+ * test availabilty of a driver.
+ */
 TEST_F(AvailabilityTests, testAvailable) {
     driver->setAvailability(false);
     driver->notifyAllEndTrip();

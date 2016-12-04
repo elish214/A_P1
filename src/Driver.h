@@ -39,7 +39,7 @@ public:
 
     void start(TripInfo trip);
 
-    void drive(vector<Location>);
+    void drive(vector<Location*>);
 
     double getSatisfaction() const;
 

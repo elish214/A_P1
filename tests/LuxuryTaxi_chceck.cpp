@@ -19,11 +19,17 @@ namespace {
     };
 }
 
+/**
+ * test taarif getter.
+ */
 TEST_F(LTaxiTests, testLTaarif) {
     int s = ltaxi.getTaarif();
     ASSERT_TRUE(s >= 0);
 }
 
+/**
+ * test speed getter.
+ */
 TEST_F(LTaxiTests, testLSpeed) {
     int s = ltaxi.getSpeed();
     ASSERT_TRUE(s >= 0);

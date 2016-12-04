@@ -36,7 +36,10 @@ namespace {
     };
 }
 
-TEST_F(SatisfactionListenerTests, testRating) {
+/**
+ * testing listener rating.
+ */
+TEST_F(SatisfactionListenerTests, testLRating) {
     driver->notifyAllEndTrip();
-    ASSERT_FALSE(driver->getSatisfaction() == 0);
+    ASSERT_TRUE(driver->getSatisfaction() == 0);
 }

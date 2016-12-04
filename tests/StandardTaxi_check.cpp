@@ -18,11 +18,17 @@ namespace {
     };
 }
 
+/**
+ * testing taarif getter.
+ */
 TEST_F(STaxiTests, testSTaarif) {
     int t = staxi.getTaarif();
     ASSERT_TRUE(t >= 0);
 }
 
+/**
+ * testing speed getter.
+ */
 TEST_F(STaxiTests, testSSpeed) {
     int t = staxi.getSpeed();
     ASSERT_TRUE(t >= 0);

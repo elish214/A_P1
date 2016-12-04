@@ -20,7 +20,9 @@ namespace {
     };
 }
 
-
+/**
+ * testing meter counter.
+ */
 TEST_F(TaxiTests, testMeter) {
     taxi.addMeters(18.7);
     taxi.addMeters(6.5);
