@@ -33,6 +33,8 @@ public:
 
     Location(Point &point);
 
+    Location(int x, int y);
+
     virtual ~Location();
 
     Point *getPoint() ;
@@ -50,6 +52,8 @@ public:
     bool operator==(const Location &rhs) const;
 
     bool operator!=(const Location &rhs) const;
+
+    bool operator==(const Node &rhs) const override;
 };
 
 

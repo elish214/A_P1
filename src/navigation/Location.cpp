@@ -3,6 +3,7 @@
 //
 
 #include <vector>
+#include <typeinfo>
 #include "Grid.h"
 
 using namespace std;
@@ -16,6 +17,10 @@ Location::Location() {}
 
 Location::Location(Point &point) {
     Location::p = &point;
+}
+
+Location::Location(int x, int y) {
+    Location::p = new Point(x, y);
 }
 
 /**
@@ -62,6 +67,7 @@ void Location::setGrid(Grid *grid) {
     Location::grid = grid;
 }
 
+
 /**
  * returns location's neighbors.
  *
@@ -85,7 +91,6 @@ vector<Node *> Location::neighbors() {
     return neighbors;
 }
 
-
 /**
  * method overloading for operator '<<'.
  *
@@ -104,9 +109,8 @@ ostream &operator<<(ostream &os, Location &location) {
  * @return true/false
  */
 bool Location::operator==(const Location &rhs) const {
-    return this == &rhs &&
-           p == rhs.p &&
-           grid == rhs.grid;
+    return p->getX() == rhs.p->getX() &&
+           p->getY() == rhs.p->getY();
 }
 
 /**
@@ -126,5 +130,13 @@ bool Location::operator!=(const Location &rhs) const {
 ostream &Location::toString(ostream &os) const {
     os << *p;
     return os;
+}
+
+bool Location::operator==(const Node &rhs) const {
+    if (typeid(rhs) == typeid(*this)) {
+        const Location &other = static_cast<const Location &>(rhs);
+        return *this == other;
+    } else
+        return false;
 }
 

@@ -42,15 +42,19 @@ vector<Node *> BFS::run(Node *start, Node *end) {
                 dist.insert(make_pair(nei.at(i), itCurrent->second + 1));
                 parents.insert(make_pair(nei.at(i), current));
                 q.push(nei.at(i));
+
+                if (*(nei.at(i)) == *end) {
+                    p = nei.at(i);
+                }
             }
         }
     }
 
     route.emplace_back(end);
-    p = parents.find(end)->second;
+    p = parents.find(p)->second;
 
     while (p != NULL) {
-        route.emplace_back(p);
+        route.insert(route.begin(), p);
         p = parents.find(p)->second;
     }
 

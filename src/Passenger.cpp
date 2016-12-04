@@ -27,3 +27,7 @@ bool Passenger::operator==(const Passenger &rhs) const {
 bool Passenger::operator!=(const Passenger &rhs) const {
     return !(rhs == *this);
 }
+
+Passenger::~Passenger() {
+
+}

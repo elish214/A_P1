@@ -6,11 +6,14 @@
 
 
 Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age), status(status),
-                                                   experience(0),
-                                                   satisfaction(0,0) {}
+                                                        experience(0),
+                                                        satisfaction(0, 0) {
+    Point *p = new Point(0, 0);
+    location = new Location(*p);
+}
 
 const Location &Driver::getLocation() const {
-    return location;
+    return *location;
 }
 
 Taxi *Driver::getTaxi() const {
@@ -42,7 +45,7 @@ void Driver::removeListener(EndTripListener *listener) {
 }
 
 void Driver::setLocation(const Location &location) {
-    Driver::location = location;
+
 }
 
 bool Driver::isAvailability() const {
@@ -55,6 +58,11 @@ void Driver::setAvailability(bool availability) {
 
 double Driver::getSatisfaction() const {
     return 0.0;
+}
+
+Driver::~Driver() {
+    //delete taxi;
+    //delete location;
 }
 
 

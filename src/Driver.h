@@ -23,11 +23,13 @@ private:
 
 private:
     Taxi *taxi;
-    Location location;
+    Location *location;
     vector<EndTripListener *> endTripListeners;
     bool availability;
 public:
     Driver(int id, int age, MaritalStatus status);
+
+    virtual ~Driver();
 
     const Location &getLocation() const;
 

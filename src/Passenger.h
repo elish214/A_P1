@@ -16,6 +16,8 @@ private:
 public:
     Passenger(Location &source, Location &destination);
 
+    virtual ~Passenger();
+
     Location &getSource();
 
     Location &getDestination();

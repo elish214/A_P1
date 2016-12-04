@@ -50,9 +50,7 @@ public:
     * @param rhs another node.
     * @return whether it equals to current node or not.
     */
-    bool operator==(const Node &rhs) const {
-        return this == &rhs;
-    }
+    virtual bool operator==(const Node &rhs) const = 0;
 
     /**
     * method overloading for operator '!='.
@@ -61,7 +59,7 @@ public:
     * @return whether it isn't equals to current node or not.
     */
     bool operator!=(const Node &rhs) const {
-        return this != &rhs;
+        return *this != rhs;
     }
 
     /**

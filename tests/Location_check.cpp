@@ -59,7 +59,11 @@ TEST_F(LocationTests, testNeighbors) {
     neighbors.push_back(&l3);
     neighbors.push_back(&l4);
 
-    ASSERT_THAT(neighbors, l.neighbors());
+    vector<Node *> actual = l.neighbors();
+
+    for (int i = 0; i < actual.size(); ++i) {
+        EXPECT_TRUE(*(actual.at(i)) == *(neighbors.at(i)));
+    }
 }
 
 /**
