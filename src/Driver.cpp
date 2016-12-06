@@ -78,7 +78,6 @@ Driver::~Driver() {
  */
 istream &operator>>(istream &is, Driver &driver) {
     string s;
-    char c;
 
     getline(is, s, ',');
     driver.id = atoi(s.c_str());
@@ -87,23 +86,7 @@ istream &operator>>(istream &is, Driver &driver) {
     driver.age = atoi(s.c_str());
 
     getline(is, s, ',');
-    c = s[0];
-
-    switch (c) {
-        case 'S':
-            driver.status = MaritalStatus::SINGLE;
-            break;
-        case 'M':
-            driver.status = MaritalStatus::MARRIED;
-            break;
-        case 'D':
-            driver.status = MaritalStatus::DIVORCED;
-            break;
-        case 'W':
-            driver.status = MaritalStatus::WIDOWED;
-            break;
-        default:;
-    }
+    driver.status = static_cast<MaritalStatus>(s[0]);
 
     getline(is, s, ',');
     driver.experience = atoi(s.c_str());

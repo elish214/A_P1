@@ -9,7 +9,7 @@
  * car manufacturer representing enum.
  */
 enum class CarManufacturer {
-    HONDA, SUBARU, TESLA, FIAT
+    HONDA = 'H', SUBARU = 'S', TESLA = 'T', FIAT = 'F'
 };
 
 

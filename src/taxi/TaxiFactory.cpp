@@ -24,45 +24,10 @@ istream &operator>>(istream &is, TaxiFactory &factory) {
     type = atoi(s.c_str());
 
     getline(is, s, ',');
-    c = s[0];
-
-    switch (c) {
-        case 'H':
-            m = CarManufacturer::HONDA;
-            break;
-        case 'S':
-            m = CarManufacturer::SUBARU;
-            break;
-        case 'T':
-            m = CarManufacturer::TESLA;
-            break;
-        case 'F':
-            m = CarManufacturer::FIAT;
-            break;
-        default:;
-    }
+    m = static_cast<CarManufacturer>(s[0]);
 
     getline(is, s, '\n');
-    c = s[0];
-
-    switch (c) {
-        case 'R':
-            color = Color::RED;
-            break;
-        case 'B':
-            color = Color::BLUE;
-            break;
-        case 'G':
-            color = Color::GREEN;
-            break;
-        case 'P':
-            color = Color::PINK;
-            break;
-        case 'W':
-            color = Color::WHITE;
-            break;
-        default:;
-    }
+    color = static_cast<Color>(s[0]);
 
     switch (type) {
         case 1:

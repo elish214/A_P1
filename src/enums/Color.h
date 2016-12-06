@@ -9,7 +9,7 @@
  * color representing enum.
  */
 enum class Color {
-    RED, BLUE, GREEN, PINK, WHITE
+    RED = 'R', BLUE = 'B', GREEN = 'G', PINK = 'P', WHITE = 'W'
 };
 
 

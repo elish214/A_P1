@@ -9,7 +9,7 @@
  * marital status representing enum.
  */
 enum class MaritalStatus {
-    SINGLE, MARRIED, DIVORCED, WIDOWED
+    SINGLE = 'S', MARRIED = 'M', DIVORCED = 'D', WIDOWED = 'W'
 };
 
 
