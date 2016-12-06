@@ -1,12 +1,13 @@
 //
 // Created by raz on 03/12/16.
 //
+
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../src/Driver.h"
 #include "../src/listeners/SatisfactionListener.h"
 
-using testing::Eq;
+//using testing::Eq;
 
 namespace {
     class SatisfactionListenerTests : public testing::Test {

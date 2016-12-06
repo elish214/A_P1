@@ -6,7 +6,7 @@
 #include <gmock/gmock.h>
 #include "../src/navigation/Grid.h"
 
-using testing::Eq;
+//using testing::Eq;
 
 namespace {
     class LocationTests : public testing::Test {

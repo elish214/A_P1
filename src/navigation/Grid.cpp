@@ -103,10 +103,15 @@ Location *Grid::get(Point p) {
  * @return input stream.
  */
 istream &operator>>(istream &is, Grid &grid) {
-    Point point;
+    string s;
+    int x, y;
 
-    is >> point;
-    grid = Grid(point);
+    getline(is, s, ',');
+    x = atoi(s.c_str());
+    getline(is, s, '\n');
+    y = atoi(s.c_str());
+
+    grid = Grid(y, x);
 
     return is;
 }

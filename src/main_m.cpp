@@ -4,6 +4,8 @@
 #include <iostream>
 #include <stack>
 #include "navigation/Node.h"
+#include "Driver.h"
+#include "Flow.h"
 
 using namespace std;
 
@@ -16,7 +18,7 @@ void printRoute(stack<Node *> route);
  *
  * @return 0.
  */
-int main_1() {
+int main() {
     //BFS bfs;
     //Grid *grid;
     //int x, y;
@@ -45,7 +47,9 @@ int main_1() {
 //
     //delete grid;
 
-    return 0;
+    Flow flow = Flow();
+
+    return flow.run();
 }
 
 /**

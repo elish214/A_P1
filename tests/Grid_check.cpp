@@ -6,13 +6,27 @@
 #include <gmock/gmock.h>
 #include "../src/navigation/Grid.h"
 
-using testing::Eq;
+//using testing::Eq;
 
 namespace {
     class GridTests : public testing::Test {
     public:
+        Grid *g;
+
         GridTests() {}
-        Grid g = Grid(7,8);
+
+        virtual ~GridTests() {
+
+        }
+
+        virtual void SetUp() {
+            g = new Grid(7, 8);
+        }
+
+        virtual void TearDown() {
+            delete g;
+        }
+        
     };
 }
 
@@ -20,14 +34,16 @@ namespace {
  * testing rows getter.
  */
 TEST_F(GridTests, testGetR) {
-    ASSERT_EQ(g.getRows(), 7);
+
+    ASSERT_EQ(g->getRows(), 7);
 }
 
 /**
  * testing columns getter.
  */
 TEST_F(GridTests, testGetC) {
-    ASSERT_EQ(g.getCols(), 8);
+
+    ASSERT_EQ(g->getCols(), 8);
 }
 
 /**

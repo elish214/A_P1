@@ -7,6 +7,12 @@
 Passenger::Passenger(Location &source, Location &destination) :
         source(source), destination(destination) {}
 
+Passenger::Passenger() {}
+
+Passenger::~Passenger() {
+
+}
+
 Location &Passenger::getSource() {
     return source;
 }
@@ -26,8 +32,4 @@ bool Passenger::operator==(const Passenger &rhs) const {
 
 bool Passenger::operator!=(const Passenger &rhs) const {
     return !(rhs == *this);
-}
-
-Passenger::~Passenger() {
-
 }

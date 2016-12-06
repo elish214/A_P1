@@ -6,6 +6,7 @@
 #define A_P1_DRIVER_H
 
 
+#include <ostream>
 #include "enums/MaritalStatus.h"
 #include "Satisfaction.h"
 #include "navigation/Location.h"
@@ -20,14 +21,16 @@ private:
     MaritalStatus status;
     int experience;
     Satisfaction satisfaction;
-
-private:
     Taxi *taxi;
+    int taxiID;
     Location *location;
     vector<EndTripListener *> endTripListeners;
     bool availability;
+
 public:
     Driver(int id, int age, MaritalStatus status);
+
+    Driver();
 
     virtual ~Driver();
 
@@ -54,6 +57,10 @@ public:
     void addListener(EndTripListener *listener);
 
     void removeListener(EndTripListener *listener);
+
+    friend istream &operator>>(istream &is, Driver &driver);
+
+    friend ostream &operator<<(ostream &os, const Driver &driver);
 };
 
 

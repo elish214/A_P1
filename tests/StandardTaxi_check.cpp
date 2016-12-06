@@ -6,15 +6,27 @@
 #include <gmock/gmock.h>
 #include "../src/taxi/StandardTaxi.h"
 
-using testing::Eq;
+//using testing::Eq;
 
 namespace {
     class STaxiTests : public testing::Test {
     public:
-        StandardTaxi staxi = StandardTaxi(12345, CarManufacturer::FIAT, Color::PINK);
+        StandardTaxi *staxi;
 
         STaxiTests() {
         }
+
+        virtual ~STaxiTests() {
+
+        }
+
+        virtual void SetUp() {
+            staxi = new StandardTaxi(12345, CarManufacturer::FIAT, Color::PINK);
+        }
+
+        virtual void TearDown() {
+            delete staxi;
+        }  
     };
 }
 
@@ -22,7 +34,7 @@ namespace {
  * testing taarif getter.
  */
 TEST_F(STaxiTests, testSTaarif) {
-    int t = staxi.getTaarif();
+    int t = staxi->getTaarif();
     ASSERT_TRUE(t >= 0);
 }
 
@@ -30,6 +42,6 @@ TEST_F(STaxiTests, testSTaarif) {
  * testing speed getter.
  */
 TEST_F(STaxiTests, testSSpeed) {
-    int t = staxi.getSpeed();
+    int t = staxi->getSpeed();
     ASSERT_TRUE(t >= 0);
 }

@@ -6,6 +6,7 @@
 #define A_P1_STANDARDTAXI_H
 
 
+#include <ostream>
 #include "Taxi.h"
 
 class StandardTaxi : public Taxi {
@@ -15,6 +16,8 @@ public:
     int getTaarif() override;
 
     int getSpeed() override;
+
+    friend ostream &operator<<(ostream &os, const StandardTaxi &taxi);
 };
 
 

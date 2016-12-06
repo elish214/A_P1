@@ -7,16 +7,28 @@
 #include "../src/taxi/Taxi.h"
 #include "../src/taxi/StandardTaxi.h"
 
-using testing::Eq;
+//using testing::Eq;
 
 
 namespace {
     class TaxiTests : public testing::Test {
     public:
-    StandardTaxi taxi = StandardTaxi(12345, CarManufacturer::HONDA, Color::BLUE);
+        StandardTaxi *taxi;
 
         TaxiTests() {
         }
+
+        virtual ~TaxiTests() {
+
+        }
+
+        virtual void SetUp() {
+            taxi = new StandardTaxi(12345, CarManufacturer::HONDA, Color::BLUE);
+        }
+
+        virtual void TearDown() {
+            delete taxi;
+        }    
     };
 }
 
@@ -24,8 +36,8 @@ namespace {
  * testing meter counter.
  */
 TEST_F(TaxiTests, testMeter) {
-    taxi.addMeters(18.7);
-    taxi.addMeters(6.5);
+    taxi->addMeters(18.7);
+    taxi->addMeters(6.5);
 
-    ASSERT_EQ(taxi.getKmPassed(), 25.2);
+    ASSERT_EQ(taxi->getKmPassed(), 25.2);
 }

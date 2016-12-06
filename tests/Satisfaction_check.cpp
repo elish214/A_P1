@@ -6,16 +6,27 @@
 #include <gmock/gmock.h>
 #include "../src/Satisfaction.h"
 
-
-using testing::Eq;
+//using testing::Eq;
 
 namespace {
     class SatisfactionTests : public testing::Test {
     public:
-        Satisfaction st = Satisfaction(0,0);
+        Satisfaction *st;
 
         SatisfactionTests() {
         }
+
+        virtual ~SatisfactionTests() {
+
+        }
+
+        virtual void SetUp() {
+            st = new Satisfaction(0, 0);
+        }
+
+        virtual void TearDown() {
+            delete st;
+        }  
     };
 }
 
@@ -23,7 +34,7 @@ namespace {
  * testing getter.
  */
 TEST_F(SatisfactionTests, testGetter) {
-    double r = st.getRating();
+    double r = st->getRating();
     ASSERT_TRUE(r >= 0);
 }
 
@@ -31,8 +42,8 @@ TEST_F(SatisfactionTests, testGetter) {
  * testing rating function.
  */
 TEST_F(SatisfactionTests, testRating) {
-    st.rate(3);
-    st.rate(5);
+    st->rate(3);
+    st->rate(5);
 
-    ASSERT_EQ(st.getRating(), 4);
+    ASSERT_EQ(st->getRating(), 4);
 }

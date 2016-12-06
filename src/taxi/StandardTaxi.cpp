@@ -17,3 +17,8 @@ int StandardTaxi::getSpeed() {
     return 0;
 }
 
+ostream &operator<<(ostream &os, const StandardTaxi &taxi) {
+    os << static_cast<const Taxi &>(taxi) << " Type: Standard";
+    return os;
+}
+

@@ -6,6 +6,7 @@
 #define A_P1_LUXURYTAXI_H
 
 
+#include <ostream>
 #include "Taxi.h"
 
 class LuxuryTaxi : public Taxi {
@@ -15,6 +16,8 @@ public:
     int getTaarif() override;
 
     int getSpeed() override;
+
+    friend ostream &operator<<(ostream &os, const LuxuryTaxi &taxi);
 };
 
 

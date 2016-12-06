@@ -6,18 +6,34 @@
 #include <gmock/gmock.h>
 #include "../src/Passenger.h"
 
-using testing::Eq;
+//using testing::Eq;
 
 namespace {
     class PassengerTests : public testing::Test {
     public:
-        PassengerTests() {}
-        Point p1 = Point(3,8);
-        Point p2 = Point(2,6);
-        Location l1 = Location(p1);
-        Location l2 = Location(p2);
-        Passenger avi = Passenger(l1, l2);
+        Passenger *avi;
+        Location *l1;
+        Location *l2;
 
+        PassengerTests() {}
+
+        virtual ~PassengerTests() {
+
+        }
+
+        virtual void SetUp() {
+            Point p1 = Point(3, 8);
+            Point p2 = Point(2, 6);
+            l1 = new Location(p1);
+            l2 = new Location(p2);
+            avi = new Passenger(*l1, *l2);
+        }
+
+        virtual void TearDown() {
+            delete avi;
+            delete l1;
+            delete l2;
+        }  
     };
 }
 
@@ -25,7 +41,7 @@ namespace {
  * testing getter.
  */
 TEST_F(PassengerTests, testGetters) {
-    ASSERT_EQ(avi.getSource(), l1);
+    ASSERT_EQ(avi->getSource(), *l1);
 
 }
 
@@ -33,6 +49,6 @@ TEST_F(PassengerTests, testGetters) {
  * testing rate function.
  */
 TEST_F(PassengerTests, testRate) {
-    int r = avi.rate();
+    int r = avi->rate();
     ASSERT_TRUE(r<=5 && r>=1);
 }

@@ -5,9 +5,11 @@
 #ifndef A_P1_TAXI_H
 #define A_P1_TAXI_H
 
-
+#include <ostream>
 #include "../enums/CarManufacturer.h"
 #include "../enums/Color.h"
+
+using namespace std;
 
 class Taxi {
 private:
@@ -18,6 +20,8 @@ private:
 public:
     Taxi(int id, CarManufacturer manufacturer, Color color);
 
+    Taxi();
+
     void addMeters(double meters);
 
     double getKmPassed() const;
@@ -25,6 +29,10 @@ public:
     virtual int getTaarif() = 0;
 
     virtual int getSpeed() = 0;
+
+    friend istream &operator>>(istream &is, Taxi &taxi);
+
+    friend ostream &operator<<(ostream &os, const Taxi &taxi);
 };
 
 

@@ -4,12 +4,16 @@
 
 #include "Driver.h"
 
+using namespace std;
 
 Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age), status(status),
                                                         experience(0),
                                                         satisfaction(0, 0) {
     Point *p = new Point(0, 0);
     location = new Location(*p);
+}
+
+Driver::Driver() : satisfaction(0, 0) {
 }
 
 const Location &Driver::getLocation() const {
@@ -64,5 +68,73 @@ Driver::~Driver() {
     //delete taxi;
     //delete location;
 }
+
+/**
+ * method overloading for operator '>>'.
+ *
+ * @param is input stream.
+ * @param point a point.
+ * @return input stream.
+ */
+istream &operator>>(istream &is, Driver &driver) {
+    string s;
+    char c;
+
+    getline(is, s, ',');
+    driver.id = atoi(s.c_str());
+
+    getline(is, s, ',');
+    driver.age = atoi(s.c_str());
+
+    getline(is, s, ',');
+    c = s[0];
+
+    switch (c) {
+        case 'S':
+            driver.status = MaritalStatus::SINGLE;
+            break;
+        case 'M':
+            driver.status = MaritalStatus::MARRIED;
+            break;
+        case 'D':
+            driver.status = MaritalStatus::DIVORCED;
+            break;
+        case 'W':
+            driver.status = MaritalStatus::WIDOWED;
+            break;
+        default:;
+    }
+
+    getline(is, s, ',');
+    driver.experience = atoi(s.c_str());
+
+    getline(is, s, '\n');
+    driver.taxiID = atoi(s.c_str());
+
+    return is;
+}
+
+string statusToString(MaritalStatus status) {
+    switch (status) {
+        case MaritalStatus::SINGLE:
+            return "SINGLE";
+        case MaritalStatus::MARRIED:
+            return "MARRIED";
+        case MaritalStatus::DIVORCED:
+            return "DIVORCED";
+        case MaritalStatus::WIDOWED:
+            return "WIDOWED";
+        default:;
+    }
+}
+
+ostream &operator<<(ostream &os, const Driver &driver) {
+    os << "id: " << driver.id << " age: " << driver.age << " status: "
+       << statusToString(driver.status) << " experience: "
+       << driver.experience << " taxiID: " << driver.taxiID;
+    return os;
+}
+
+
 
 

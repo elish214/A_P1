@@ -17,6 +17,9 @@ using namespace std;
  * keeps it generic as possible.
  */
 class Node {
+private:
+    bool obstacle; //obstacle flag
+
 protected:
     /**
      * returns an output stream.
@@ -71,6 +74,10 @@ public:
     */
     friend ostream &operator<<(ostream &os, const Node &node) {
         return node.toString(os);
+    }
+
+    bool isObstacle() const {
+        return obstacle;
     }
 };
 

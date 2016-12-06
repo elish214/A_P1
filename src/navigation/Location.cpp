@@ -79,13 +79,15 @@ vector<Node *> Location::neighbors() {
 
     vector<Node *> neighbors;
 
-    if (x > 0) //left
+    if ((x > 0) && !(getGrid()->get(x - 1, y)->isObstacle())) //left
         neighbors.push_back(getGrid()->get(x - 1, y));
-    if (y < getGrid()->getRows() - 1) //up
+    if ((y < getGrid()->getRows() - 1) &&
+        !(getGrid()->get(x, y + 1)->isObstacle())) //up
         neighbors.push_back(getGrid()->get(x, y + 1));
-    if (x < getGrid()->getCols() - 1) //right
+    if ((x < getGrid()->getCols() - 1) &&
+        !(getGrid()->get(x + 1, y)->isObstacle())) //right
         neighbors.push_back(getGrid()->get(x + 1, y));
-    if (y > 0) //down
+    if ((y > 0) && !(getGrid()->get(x, y - 1)->isObstacle())) //down
         neighbors.push_back(getGrid()->get(x, y - 1));
 
     return neighbors;

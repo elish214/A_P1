@@ -6,7 +6,7 @@
 #include <gmock/gmock.h>
 #include "../src/Driver.h"
 
-using testing::Eq;
+//using testing::Eq;
 
 namespace {
     class DriverTests : public testing::Test {

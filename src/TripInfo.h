@@ -6,6 +6,7 @@
 #define A_P1_TRIPINFO_H
 
 
+#include <ostream>
 #include "navigation/Point.h"
 #include "Passenger.h"
 #include "navigation/Location.h"
@@ -17,9 +18,11 @@ private:
     Location start;
     Location end;
     int numOfPassengers;
-    int taarif;
+    double taarif;
     Passenger passenger;
 public:
+    TripInfo();
+
     TripInfo(int id, int numOfPassengers, Passenger passenger);
 
     int getId() const;
@@ -32,10 +35,13 @@ public:
 
     int getNumOfPassengers() const;
 
-    int getTaarif() const;
+    double getTaarif() const;
 
     const Passenger &getPassenger() const;
 
+    friend istream &operator>>(istream &is, TripInfo &trip);
+
+    friend ostream &operator<<(ostream &os, const TripInfo &info);
 };
 
 
