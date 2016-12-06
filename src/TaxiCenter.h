@@ -5,10 +5,12 @@
 #ifndef A_P1_TAXICENTER_H
 #define A_P1_TAXICENTER_H
 
-
 #include <queue>
 #include "Driver.h"
 
+/**
+ * taxi center class.
+ */
 class TaxiCenter {
 private:
     vector<Driver> employees;

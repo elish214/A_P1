@@ -53,7 +53,7 @@ public:
 
     bool operator!=(const Location &rhs) const;
 
-    bool operator==(const Node &rhs) const override;
+    bool operator==(const Node &rhs) const;
 };
 
 

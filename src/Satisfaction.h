@@ -5,7 +5,9 @@
 #ifndef A_P1_SATISFACTION_H
 #define A_P1_SATISFACTION_H
 
-
+/**
+ * satisfaction class.
+ */
 class Satisfaction {
 private:
     double rating;

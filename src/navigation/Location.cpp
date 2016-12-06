@@ -19,6 +19,12 @@ Location::Location(Point &point) {
     Location::p = &point;
 }
 
+/**
+ * construtor.
+ *
+ * @param x an integer.
+ * @param y an integer.
+ */
 Location::Location(int x, int y) {
     Location::p = new Point(x, y);
 }
@@ -134,6 +140,11 @@ ostream &Location::toString(ostream &os) const {
     return os;
 }
 
+/**
+ * different == operator
+ * @param rhs to compare
+ * @return true/false
+ */
 bool Location::operator==(const Node &rhs) const {
     if (typeid(rhs) == typeid(*this)) {
         const Location &other = static_cast<const Location &>(rhs);

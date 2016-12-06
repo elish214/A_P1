@@ -10,6 +10,10 @@
 #include "../Passenger.h"
 #include "../Driver.h"
 
+/**
+ * satisfaction listener class.
+ * uses to announce the satisfaction of the passenger of trip.
+ */
 class SatisfactionListener : public EndTripListener {
 private:
     Driver *driver;
@@ -17,7 +21,7 @@ private:
 public:
     SatisfactionListener(Driver *driver, Passenger *passenger);
 
-    void endEvent() override;
+    void endEvent();
 };
 
 

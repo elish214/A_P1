@@ -14,6 +14,10 @@
 #include "TripInfo.h"
 #include "taxi/Taxi.h"
 
+/***
+ * driver class.
+ * this is a taxi driver.
+ */
 class Driver {
 private:
     int id;
