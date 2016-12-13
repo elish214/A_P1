@@ -1,15 +1,24 @@
 //
+// Created by raz on 29/11/16.
+//
 
 #include "TripInfo.h"
+#include "navigation/BFS.h"
 
 
 TripInfo::TripInfo(int id, int numOfPassengers, Passenger passenger) :
         id(id), start(passenger.getSource()), end(passenger.getDestination()),
         numOfPassengers(numOfPassengers), passenger(passenger) {}
 
-//
-// Created by raz on 29/11/16.
 TripInfo::TripInfo() {}
+
+Grid *TripInfo::getGrid() const {
+    return grid;
+}
+
+void TripInfo::setGrid(Grid *g) {
+    TripInfo::grid = g;
+}
 
 int TripInfo::getId() const {
     return id;
@@ -17,6 +26,21 @@ int TripInfo::getId() const {
 
 int TripInfo::getTotalMeters() const {
     return totalMeters;
+}
+
+void TripInfo::findPath() {
+    BFS bfs;
+    route = bfs.run(&start,&end);
+}
+
+void TripInfo::calcMeters() {
+    for (int i = 1; i < route.size(); i++) {
+        //totalMeters += route.at(i).get point and calculate the distance from i-1.
+    }
+}
+
+vector<Node*> TripInfo::getRoute() {
+    return route;
 }
 
 Location &TripInfo::getStart() {
@@ -78,4 +102,6 @@ ostream &operator<<(ostream &os, const TripInfo &info) {
        << info.taarif;
     return os;
 }
+
+
 

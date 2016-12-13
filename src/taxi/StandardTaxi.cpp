@@ -20,7 +20,7 @@ StandardTaxi::StandardTaxi(int id, CarManufacturer manufacturer, Color color) : 
  * @return cabs' taarif.
  */
 int StandardTaxi::getTaarif() {
-    return 0;
+    return 1;
 }
 
 /**
@@ -29,7 +29,7 @@ int StandardTaxi::getTaarif() {
  * @return cab's speed.
  */
 int StandardTaxi::getSpeed() {
-    return 0;
+    return 1;
 }
 
 ostream &operator<<(ostream &os, const StandardTaxi &taxi) {

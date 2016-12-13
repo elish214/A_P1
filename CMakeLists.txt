@@ -3,7 +3,7 @@ project(A_P1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
-set(SOURCE_FILES src/main_m.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
+set(SOURCE_FILES src/main.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
         src/navigation/Grid.cpp src/navigation/Location.cpp src/navigation/Node.h
         src/listeners/EndTripListener.h
         src/listeners/SatisfactionListener.cpp src/listeners/SatisfactionListener.h
@@ -16,7 +16,9 @@ set(SOURCE_FILES src/main_m.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
         tests/Passenger_check.cpp tests/BFS_check.cpp tests/Grid_check.cpp
         tests/Location_check.cpp tests/Taxi_check.cpp tests/StandardTaxi_check.cpp
         tests/LuxuryTaxi_check.cpp tests/Satisfaction_check.cpp tests/TaxiCenter_check.cpp
-        tests/TripInfo_check.cpp tests/main.cpp tests/AvailabilityListener_check.cpp tests/SatisfactionListener_check.cpp src/taxi/TaxiFactory.cpp src/taxi/TaxiFactory.h src/Flow.cpp src/Flow.h)
+        tests/TripInfo_check.cpp tests/main.cpp tests/AvailabilityListener_check.cpp
+        tests/SatisfactionListener_check.cpp src/taxi/TaxiFactory.cpp src/taxi/TaxiFactory.h
+        src/Flow.cpp src/Flow.h)
 
 add_executable(A_P1 ${SOURCE_FILES})
 

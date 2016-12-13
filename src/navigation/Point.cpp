@@ -2,6 +2,7 @@
 // Created by raz on 14/11/16.
 //
 #include <iostream>
+#include <cmath>
 #include "Point.h"
 
 using namespace std;
@@ -54,6 +55,10 @@ int Point::getY() const {
  */
 void Point::setY(int y) {
     Point::y = y;
+}
+
+double Point::distance(Point p) {
+    return sqrt(pow(x - p.getX(), 2) + pow(y - p.getY(), 2));
 }
 
 /**

@@ -33,3 +33,8 @@ bool Passenger::operator==(const Passenger &rhs) const {
 bool Passenger::operator!=(const Passenger &rhs) const {
     return !(rhs == *this);
 }
+
+ostream &operator<<(ostream &os, const Passenger &passenger) {
+    os << "source: " << passenger.source << " destination: " << passenger.destination;
+    return os;
+}

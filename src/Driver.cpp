@@ -94,6 +94,8 @@ istream &operator>>(istream &is, Driver &driver) {
     getline(is, s, '\n');
     driver.taxiID = atoi(s.c_str());
 
+    driver.satisfaction = Satisfaction(0,0);
+
     return is;
 }
 

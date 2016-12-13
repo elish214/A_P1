@@ -30,6 +30,8 @@ public:
 
     void setY(int y);
 
+    double distance(Point p);
+
     Point operator+(const Point &p) const;
 
     Point operator-(const Point &p) const;

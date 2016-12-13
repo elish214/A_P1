@@ -19,7 +19,7 @@ LuxuryTaxi::LuxuryTaxi(int id, CarManufacturer manufacturer, Color color) : Taxi
  * @return cabs' taarif.
  */
 int LuxuryTaxi::getTaarif() {
-    return 0;
+    return 2;
 }
 
 /**
@@ -28,7 +28,7 @@ int LuxuryTaxi::getTaarif() {
  * @return cab's speed.
  */
 int LuxuryTaxi::getSpeed() {
-    return 0;
+    return 2;
 }
 
 ostream &operator<<(ostream &os, const LuxuryTaxi &taxi) {

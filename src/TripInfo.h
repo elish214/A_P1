@@ -23,14 +23,27 @@ private:
     int numOfPassengers;
     double taarif;
     Passenger passenger;
+    Grid *grid;
+    vector<Node*> route;
+
 public:
     TripInfo();
 
     TripInfo(int id, int numOfPassengers, Passenger passenger);
 
+    Grid *getGrid() const;
+
+    void setGrid(Grid *g);
+
     int getId() const;
 
     int getTotalMeters() const;
+
+    void findPath();
+
+    void calcMeters();
+
+    vector<Node*> getRoute();
 
     Location &getStart();
 

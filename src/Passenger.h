@@ -6,6 +6,7 @@
 #define A_P1_PASSENGER_H
 
 
+#include <ostream>
 #include "navigation/Point.h"
 #include "navigation/Location.h"
 
@@ -32,6 +33,8 @@ public:
     bool operator==(const Passenger &rhs) const;
 
     bool operator!=(const Passenger &rhs) const;
+
+    friend ostream &operator<<(ostream &os, const Passenger &passenger);
 };
 
 

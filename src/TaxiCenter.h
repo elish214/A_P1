@@ -30,6 +30,8 @@ public:
 
     void addDriver(Driver driver);
 
+    void addTrip(TripInfo trip);
+
     void addTaxi(Taxi *taxi);
 
     void connect(Driver driver, Taxi *taxi);

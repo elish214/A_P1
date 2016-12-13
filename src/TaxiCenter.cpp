@@ -49,6 +49,10 @@ void TaxiCenter::addDriver(Driver driver) {
     employees.emplace_back(driver);
 }
 
+void TaxiCenter::addTrip(TripInfo trip){
+    trips.emplace_back(trip);
+}
+
 /**
  * add taxi to center.
  *

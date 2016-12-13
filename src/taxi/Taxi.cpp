@@ -13,7 +13,7 @@ Taxi::Taxi(int id, CarManufacturer manufacturer, Color color) : id(id), KmPassed
 Taxi::Taxi() {}
 
 void Taxi::addMeters(double meters) {
-
+    KmPassed += meters/1000;
 }
 
 double Taxi::getKmPassed() const {
