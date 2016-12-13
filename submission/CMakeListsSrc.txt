@@ -1,0 +1,40 @@
+set(core_SRCS Driver.cpp
+	      Driver.h
+	      Passenger.cpp
+	      Passenger.h
+	      Satisfaction.cpp
+	      Satisfaction.h
+	      TaxiCenter.cpp
+	      TaxiCenter.h
+	      TripInfo.cpp
+	      TripInfo.h
+	      enums/CarManufacturer.h
+	      enums/Color.h
+	      enums/MaritalStatus.h
+	      listeners/AvailabilityListener.cpp
+	      listeners/AvailabilityListener.h
+	      listeners/EndTripListener.h
+	      listeners/SatisfactionListener.cpp
+	      listeners/SatisfactionListener.h
+	      navigation/BFS.cpp
+	      navigation/BFS.h
+	      navigation/Grid.cpp
+	      navigation/Grid.h
+	      navigation/Location.cpp
+	      navigation/Location.h
+	      navigation/Node.h
+	      navigation/Point.cpp
+	      navigation/Point.h
+	      taxi/LuxuryTaxi.cpp
+	      taxi/LuxuryTaxi.h
+	      taxi/StandardTaxi.cpp
+	      taxi/StandardTaxi.h
+	      taxi/Taxi.cpp
+	      taxi/Taxi.h
+)
+
+add_library(core ${core_SRCS})
+#add_executable(exe main.cpp)
+
+#target_link_libraries(exe core)
+

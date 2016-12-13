@@ -6,6 +6,7 @@
 #define A_P1_TAXICENTER_H
 
 #include <queue>
+#include <ostream>
 #include "Driver.h"
 
 /**
@@ -34,6 +35,8 @@ public:
     void connect(Driver driver, Taxi *taxi);
 
     void answer(Passenger passenger);
+
+    friend ostream &operator<<(ostream &os, const TaxiCenter &center);
 };
 
 
