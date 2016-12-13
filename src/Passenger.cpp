@@ -22,7 +22,7 @@ Location &Passenger::getDestination() {
 }
 
 int Passenger::rate() {
-    return 1;
+    return rand() % 5 +1;
 }
 
 bool Passenger::operator==(const Passenger &rhs) const {

@@ -29,6 +29,7 @@ int Flow::run() {
         switch (op) {
             case Operation::NEW_DRIVER:
                 cout << "new driver" << endl;
+                driver = new Driver();
                 cin >> *driver;
                 center.addDriver(*driver);
                 break;
@@ -36,20 +37,26 @@ int Flow::run() {
                 cout << "new ride" << endl;
                 trip = new TripInfo();
                 cin >> *trip;
-                trip->setGrid(grid);
+                trip->setGrid(grid); // For BFS.
                 trip->getStart().setGrid(grid);
                 trip->getEnd().setGrid(grid);
-
+                trip->findPath(); // call BFS
+                trip->calcMeters(); // calc and update.
                 center.addTrip(*trip);
                 break;
             case Operation::NEW_VEHICLE:
                 cout << "new vehicle" << endl;
                 //not working.
                 cin >> *taxi;
+
                 center.addTaxi(taxi);
                 break;
             case Operation::DRIVER_LOCATION:
                 cout << "driver location" << endl;
+                cin >> i;
+
+
+                //->printLocation();
                 break;
             case Operation::START:
                 cout << "start" << endl;

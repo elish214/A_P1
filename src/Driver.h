@@ -42,6 +42,8 @@ public:
 
     void setLocation(const Location &location);
 
+    void printLocation();
+
     Taxi *getTaxi() const;
 
     void setTaxi(Taxi *taxi);

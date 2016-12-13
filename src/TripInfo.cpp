@@ -8,9 +8,9 @@
 
 TripInfo::TripInfo(int id, int numOfPassengers, Passenger passenger) :
         id(id), start(passenger.getSource()), end(passenger.getDestination()),
-        numOfPassengers(numOfPassengers), passenger(passenger) {}
+        numOfPassengers(numOfPassengers), passenger(passenger), totalMeters(0) {}
 
-TripInfo::TripInfo() {}
+TripInfo::TripInfo() : totalMeters(0) {}
 
 Grid *TripInfo::getGrid() const {
     return grid;
@@ -34,8 +34,8 @@ void TripInfo::findPath() {
 }
 
 void TripInfo::calcMeters() {
-    for (int i = 1; i < route.size(); i++) {
-        //totalMeters += route.at(i).get point and calculate the distance from i-1.
+    for (int i = 0; i < route.size(); i++) {
+        totalMeters += 1;
     }
 }
 

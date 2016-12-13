@@ -52,6 +52,10 @@ void Driver::setLocation(const Location &location) {
 
 }
 
+void Driver::printLocation() {
+    cout << location;
+}
+
 bool Driver::isAvailability() const {
     return true;
 }

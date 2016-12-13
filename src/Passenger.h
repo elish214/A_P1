@@ -5,8 +5,8 @@
 #ifndef A_P1_PASSENGER_H
 #define A_P1_PASSENGER_H
 
-
 #include <ostream>
+#include <cstdlib>
 #include "navigation/Point.h"
 #include "navigation/Location.h"
 
