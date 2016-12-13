@@ -43,7 +43,7 @@ TEST_F(DriverTests, testStart) {
     TripInfo trip = TripInfo(333, 2, yossi);
 
     driver->start(trip);
-    ASSERT_EQ(driver->getLocation(), l1);
+    ASSERT_EQ(*driver->getLocation(), l1);
 }
 
 /**
@@ -63,6 +63,6 @@ TEST_F(DriverTests, testDrive) {
     v.push_back(&l3);
     driver->setLocation(l1);
     driver->drive(v);
-    ASSERT_EQ(driver->getLocation(), l3);
+    ASSERT_EQ(*driver->getLocation(), l3);
 }
 

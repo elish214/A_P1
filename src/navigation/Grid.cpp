@@ -16,8 +16,8 @@ Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {
     for (int i = 0; i < rows; i++)
         matrix[i] = new Location *[cols];
 
-    for(int i = 0; i < rows; i++) {
-        for(int j = 0; j < cols; j++) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
             matrix[i][j] = new Location();
             matrix[i][j]->setGrid(this);
             matrix[i][j]->setPoint(new Point(j, i));
@@ -106,7 +106,7 @@ istream &operator>>(istream &is, Grid &grid) {
     string s;
     int x, y;
 
-    getline(is, s, ',');
+    getline(is, s, ' ');
     x = atoi(s.c_str());
     getline(is, s, '\n');
     y = atoi(s.c_str());
@@ -114,4 +114,18 @@ istream &operator>>(istream &is, Grid &grid) {
     grid = Grid(y, x);
 
     return is;
+}
+
+ostream &operator<<(ostream &os, const Grid &grid) {
+    os << grid.rows << "x" << grid.cols << endl;
+
+    for (int i = grid.rows - 1; i >= 0; i--) {
+        for (int j = 0; j < grid.cols; j++) {
+            os << (grid.matrix[i][j]->isObstacle() ? 'X' : 'O');
+        }
+        os << endl;
+    }
+
+
+    return os;
 }

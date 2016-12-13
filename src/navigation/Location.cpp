@@ -34,7 +34,7 @@ Location::Location(int x, int y) {
  *
  * @return a constant point.
  */
-Point *Location::getPoint() {
+Point * Location::getPoint()const {
     return p;
 }
 

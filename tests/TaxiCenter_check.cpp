@@ -49,7 +49,7 @@ namespace {
  */
 TEST_F(TaxiCenterTests, testAddDriver) {
 
-    TC->addDriver(*bob);
+    TC->addDriver(bob);
 
     ASSERT_TRUE(TC->getEmployees().size() > 0); // not empty.
 }

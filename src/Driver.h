@@ -38,7 +38,9 @@ public:
 
     virtual ~Driver();
 
-    const Location &getLocation() const;
+    int getId() const;
+
+    const Location *getLocation() const;
 
     void setLocation(const Location &location);
 
@@ -51,6 +53,8 @@ public:
     void drive(vector<Location*>);
 
     double getSatisfaction() const;
+
+    int getTaxiID() const;
 
     bool isAvailability() const;
 

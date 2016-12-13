@@ -5,36 +5,54 @@
 #include "Flow.h"
 #include "TaxiCenter.h"
 #include "navigation/Grid.h"
+#include "taxi/TaxiFactory.h"
 
 using namespace std;
 
 int Flow::run() {
-    Grid *grid = new Grid(3,3);
+    Grid *grid;
     TaxiCenter center = TaxiCenter();
-    Driver *driver;
-    TripInfo *trip;
-    Taxi *taxi;
+    Driver *driver = new Driver();
+    TripInfo *trip = new TripInfo();
+    Point point = Point(-1, -1);
+    TaxiFactory factory;
     bool isRunning = true;
-    int i;
+    int opNum, numOfObstacles, id;
     Operation op;
 
+    //cin >> (*grid); not working!
+
+    int rows, cols;
+
+    cin >> rows >> cols;
+    grid = new Grid(rows, cols);
+
+    cin >> numOfObstacles;
+
+    for (int j = 0; j < numOfObstacles; ++j) {
+        cin >> point;
+        grid->get(point)->setObstacle(true);
+    }
+
+    cout << "-----------------------" << endl
+         << "GRID: " << *grid << endl
+         << "-----------------------" << endl;
+
     do {
-        //cin >> *grid;
-
-        cin >> i;
-        op = static_cast<Operation>(i);
-
-        //obstacles?
+        //operation
+        cin >> opNum;
+        op = static_cast<Operation>(opNum);
 
         switch (op) {
             case Operation::NEW_DRIVER:
                 cout << "new driver" << endl;
+
                 cin >> *driver;
-                center.addDriver(*driver);
+                center.addDriver(driver);
                 break;
             case Operation::NEW_RIDE:
                 cout << "new ride" << endl;
-                trip = new TripInfo();
+
                 cin >> *trip;
                 trip->setGrid(grid);
                 trip->getStart().setGrid(grid);
@@ -44,12 +62,15 @@ int Flow::run() {
                 break;
             case Operation::NEW_VEHICLE:
                 cout << "new vehicle" << endl;
-                //not working.
-                cin >> *taxi;
-                center.addTaxi(taxi);
+
+                cin >> factory;
+                center.addTaxi(factory.getTaxi());
                 break;
             case Operation::DRIVER_LOCATION:
                 cout << "driver location" << endl;
+
+                cin >> id;
+                cout << *(center.getDriver(id)->getLocation()) << endl;
                 break;
             case Operation::START:
                 cout << "start" << endl;
@@ -61,7 +82,7 @@ int Flow::run() {
         }
 
         cout << "-----------------------" << endl
-             << center << endl
+             << "CENTER:" << endl << center << endl
              << "-----------------------" << endl;
 
     } while (isRunning);

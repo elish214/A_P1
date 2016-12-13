@@ -6,14 +6,20 @@
 #include "StandardTaxi.h"
 #include "LuxuryTaxi.h"
 
-Taxi::Taxi(int id, CarManufacturer manufacturer, Color color) : id(id), KmPassed(0),
-                                                                manufacturer(manufacturer),
+Taxi::Taxi(int id, CarManufacturer manufacturer, Color color) : id(id),
+                                                                KmPassed(0),
+                                                                manufacturer(
+                                                                        manufacturer),
                                                                 color(color) {}
 
 Taxi::Taxi() {}
 
+int Taxi::getId() const {
+    return id;
+}
+
 void Taxi::addMeters(double meters) {
-    KmPassed += meters/1000;
+    KmPassed += meters / 1000;
 }
 
 double Taxi::getKmPassed() const {
@@ -99,7 +105,7 @@ string colorToString(Color c) {
             return "PINK";
         case Color::WHITE:
             return "WHITE";
-        default:;
+            //default:;
     }
 }
 
@@ -113,14 +119,15 @@ string cmToString(CarManufacturer cm) {
             return "TESLA";
         case CarManufacturer::FIAT:
             return "FIAT";
-        default:;
+            //default:;
     }
 }
 
 ostream &operator<<(ostream &os, const Taxi &taxi) {
-    os << "id: " << taxi.id << " manufacturer: "
-       << cmToString(taxi.manufacturer)
-       << " color: " << colorToString(taxi.color);
+    os << "id: " << taxi.id
+       << " manufacturer: " << cmToString(taxi.manufacturer)
+       << " color: " << colorToString(taxi.color)
+       << " type: " << taxi.getType();
     return os;
 }
 

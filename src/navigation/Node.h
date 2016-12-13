@@ -33,7 +33,7 @@ public:
     /**
      * constructor.
      */
-    Node() {}
+    Node() : obstacle(false) {}
 
     /**
     * distructor
@@ -78,6 +78,10 @@ public:
 
     bool isObstacle() const {
         return obstacle;
+    }
+
+    void setObstacle(bool obstacle) {
+        Node::obstacle = obstacle;
     }
 };
 

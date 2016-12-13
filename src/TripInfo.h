@@ -6,7 +6,7 @@
 #define A_P1_TRIPINFO_H
 
 
-#include <ostream>
+#include <iostream>
 #include "navigation/Point.h"
 #include "Passenger.h"
 #include "navigation/Location.h"

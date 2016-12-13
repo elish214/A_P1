@@ -37,3 +37,7 @@ ostream &operator<<(ostream &os, const StandardTaxi &taxi) {
     return os;
 }
 
+string StandardTaxi::getType() const {
+    return "STANDARD";
+}
+

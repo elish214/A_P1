@@ -10,6 +10,9 @@
 #include "Taxi.h"
 
 class StandardTaxi : public Taxi {
+protected:
+    string getType() const;
+
 public:
     StandardTaxi(int id, CarManufacturer manufacturer, Color color);
 

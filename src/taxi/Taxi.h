@@ -17,10 +17,14 @@ private:
     double KmPassed;
     CarManufacturer manufacturer;
     Color color;
+protected:
+    virtual string getType() const = 0;
 public:
     Taxi(int id, CarManufacturer manufacturer, Color color);
 
     Taxi();
+
+    int getId() const;
 
     void addMeters(double meters);
 

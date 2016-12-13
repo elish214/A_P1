@@ -5,22 +5,30 @@
 #ifndef A_P1_TAXICENTER_H
 #define A_P1_TAXICENTER_H
 
-#include <queue>
-#include <ostream>
+#include <deque>
+#include <iostream>
+#include <map>
 #include "Driver.h"
+
+using namespace std;
 
 /**
  * taxi center class.
  */
 class TaxiCenter {
 private:
-    vector<Driver> employees;
+    vector<Driver *> employees;
     vector<Taxi *> cabs;
     deque<TripInfo> trips;
+    map<Point, deque<Driver *>> locations;
+
+    void push(Driver *driver);
+
+    Driver *pop(Point p);
 public:
     TaxiCenter();
 
-    vector<Driver> &getEmployees();
+    vector<Driver *> &getEmployees();
 
     vector<Taxi *> &getCabs();
 
@@ -28,11 +36,17 @@ public:
 
     TripInfo getFirstTrip();
 
-    void addDriver(Driver driver);
+    void addDriver(Driver *driver);
+
+    Driver *getDriver(int i);
 
     void addTrip(TripInfo trip);
 
     void addTaxi(Taxi *taxi);
+
+    Taxi *getTaxi(int i);
+
+    void start();
 
     void connect(Driver driver, Taxi *taxi);
 

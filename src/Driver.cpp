@@ -6,7 +6,8 @@
 
 using namespace std;
 
-Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age), status(status),
+Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age),
+                                                        status(status),
                                                         experience(0),
                                                         satisfaction(0, 0) {
     Point *p = new Point(0, 0);
@@ -14,10 +15,12 @@ Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age), status
 }
 
 Driver::Driver() : satisfaction(0, 0) {
+    Point *p = new Point(0, 0);
+    location = new Location(*p);
 }
 
-const Location &Driver::getLocation() const {
-    return *location;
+const Location *Driver::getLocation() const {
+    return location;
 }
 
 Taxi *Driver::getTaxi() const {
@@ -32,7 +35,7 @@ void Driver::start(TripInfo trip) {
 
 }
 
-void Driver::drive(vector<Location*>) {
+void Driver::drive(vector<Location *>) {
 
 }
 
@@ -94,7 +97,7 @@ istream &operator>>(istream &is, Driver &driver) {
     getline(is, s, '\n');
     driver.taxiID = atoi(s.c_str());
 
-    driver.satisfaction = Satisfaction(0,0);
+    driver.satisfaction = Satisfaction(0, 0);
 
     return is;
 }
@@ -109,15 +112,26 @@ string statusToString(MaritalStatus status) {
             return "DIVORCED";
         case MaritalStatus::WIDOWED:
             return "WIDOWED";
-        default:;
+            //default:;
     }
 }
 
 ostream &operator<<(ostream &os, const Driver &driver) {
-    os << "id: " << driver.id << " age: " << driver.age << " status: "
-       << statusToString(driver.status) << " experience: "
-       << driver.experience << " taxiID: " << driver.taxiID;
+    os << "id: " << driver.id
+       << " location: " << *driver.getLocation()
+       << " age: " << driver.age
+       << " status: " << statusToString(driver.status)
+       << " experience: " << driver.experience
+       << " taxi-" << *driver.taxi;
     return os;
+}
+
+int Driver::getId() const {
+    return id;
+}
+
+int Driver::getTaxiID() const {
+    return taxiID;
 }
 
 

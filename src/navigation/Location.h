@@ -37,7 +37,7 @@ public:
 
     virtual ~Location();
 
-    Point *getPoint() ;
+    Point *getPoint() const;
 
     void setPoint(Point *p);
 

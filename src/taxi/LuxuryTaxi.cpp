@@ -36,3 +36,7 @@ ostream &operator<<(ostream &os, const LuxuryTaxi &taxi) {
     return os;
 }
 
+string LuxuryTaxi::getType() const {
+    return "LUXURY";
+}
+
