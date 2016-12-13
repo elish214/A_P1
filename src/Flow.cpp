@@ -20,8 +20,7 @@ int Flow::run() {
 
         switch (op) {
             case Operation::NEW_DRIVER:
-                cin >> driver;
-                center.addDriver(driver);
+                cout << "new driver" << endl;
                 break;
             case Operation::NEW_RIDE:
                 cout << "new ride" << endl;
@@ -40,7 +39,9 @@ int Flow::run() {
                 break;
         }
 
-        cout << center << endl;
+        cout << "-----------------------" << endl
+             << center << endl
+             << "-----------------------" << endl;
 
     } while (isRunning);
 

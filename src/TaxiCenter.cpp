@@ -7,14 +7,18 @@
 /**
  * constructor.
  */
-TaxiCenter::TaxiCenter() {}
+TaxiCenter::TaxiCenter() {
+    this->trips = deque<TripInfo>();
+    this->cabs = vector<Taxi *>();
+    this->employees = vector<Driver>();
+}
 
 /**
  * returns center's employees vector.
 
  * @return center's employees vector.
  */
-const vector<Driver> &TaxiCenter::getEmployees() const {
+vector<Driver> &TaxiCenter::getEmployees() {
     return employees;
 }
 
@@ -23,7 +27,7 @@ const vector<Driver> &TaxiCenter::getEmployees() const {
  *
  * @return center's cabs vector.
  */
-const vector<Taxi *> &TaxiCenter::getCabs() const {
+vector<Taxi *> &TaxiCenter::getCabs() {
     return cabs;
 }
 
@@ -32,7 +36,7 @@ const vector<Taxi *> &TaxiCenter::getCabs() const {
  *
  * @return center's trips queue.
  */
-const queue<TripInfo> &TaxiCenter::getTrips() const {
+deque<TripInfo> &TaxiCenter::getTrips() {
     return trips;
 }
 
@@ -96,16 +100,10 @@ ostream &operator<<(ostream &os, const TaxiCenter &center) {
         cout << '\t' << *taxi << endl;
     }
 
-
-    int size = (int) center.trips.size();
-    TripInfo temp;
-
     cout << endl << "trips: " << endl;
-    for (int i = 0; i < size; i++) {
-        temp = center.trips.front();
-        cout << '\t' << temp << endl;
-        center.trips.pop();
-        center.trips.push(temp);
+    for (TripInfo trip : center.trips) {
+        cout << '\t' << trip << endl;
     }
+
     return os;
 }

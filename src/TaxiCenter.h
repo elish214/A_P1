@@ -16,15 +16,15 @@ class TaxiCenter {
 private:
     vector<Driver> employees;
     vector<Taxi *> cabs;
-    queue<TripInfo> trips;
+    deque<TripInfo> trips;
 public:
     TaxiCenter();
 
-    const vector<Driver> &getEmployees() const;
+    vector<Driver> &getEmployees();
 
-    const vector<Taxi *> &getCabs() const;
+    vector<Taxi *> &getCabs();
 
-    const queue<TripInfo> &getTrips() const;
+    deque<TripInfo> &getTrips();
 
     TripInfo getFirstTrip();
 
