@@ -82,5 +82,30 @@ TripInfo TaxiCenter::getFirstTrip() {
     Location l1 = Location();
     Location l2 = Location();
 
-    return TripInfo(0,0,Passenger(l1,l2));
+    return TripInfo(0, 0, Passenger(l1, l2));
+}
+
+ostream &operator<<(ostream &os, const TaxiCenter &center) {
+    os << "employees: " << endl;
+    for (Driver driver : center.employees) {
+        cout << '\t' << driver << endl;
+    }
+
+    os << endl << "cabs: " << endl;
+    for (Taxi *taxi : center.cabs) {
+        cout << '\t' << *taxi << endl;
+    }
+
+
+    int size = (int) center.trips.size();
+    TripInfo temp;
+
+    cout << endl << "trips: " << endl;
+    for (int i = 0; i < size; i++) {
+        temp = center.trips.front();
+        cout << '\t' << temp << endl;
+        center.trips.pop();
+        center.trips.push(temp);
+    }
+    return os;
 }

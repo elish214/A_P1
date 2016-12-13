@@ -3,11 +3,13 @@
 //
 
 #include "Flow.h"
-#include <iostream>
+#include "TaxiCenter.h"
 
 using namespace std;
 
 int Flow::run() {
+    TaxiCenter center = TaxiCenter();
+    Driver driver;
     bool isRunning = true;
     int i;
     Operation op;
@@ -18,7 +20,8 @@ int Flow::run() {
 
         switch (op) {
             case Operation::NEW_DRIVER:
-                cout << "new driver" << endl;
+                cin >> driver;
+                center.addDriver(driver);
                 break;
             case Operation::NEW_RIDE:
                 cout << "new ride" << endl;
@@ -36,6 +39,8 @@ int Flow::run() {
                 isRunning = false;
                 break;
         }
+
+        cout << center << endl;
 
     } while (isRunning);
 

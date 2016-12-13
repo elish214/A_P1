@@ -1,0 +1,47 @@
+//
+// Created by elish on 01/12/16.
+//
+
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
+#include "../src/taxi/StandardTaxi.h"
+#include "../src/taxi/LuxuryTaxi.h"
+
+//using testing::Eq;
+
+namespace {
+    class LTaxiTests : public testing::Test {
+    public:
+        LuxuryTaxi *ltaxi;
+
+        LTaxiTests() {}
+
+        virtual ~LTaxiTests() {
+
+        }
+
+        virtual void SetUp() {
+            ltaxi = new LuxuryTaxi(12345, CarManufacturer::TESLA, Color::RED);
+        }
+
+        virtual void TearDown() {
+            delete ltaxi;
+        }
+    };
+}
+
+/**
+ * test taarif getter.
+ */
+TEST_F(LTaxiTests, testLTaarif) {
+    int s = ltaxi->getTaarif();
+    ASSERT_TRUE(s >= 0);
+}
+
+/**
+ * test speed getter.
+ */
+TEST_F(LTaxiTests, testLSpeed) {
+    int s = ltaxi->getSpeed();
+    ASSERT_TRUE(s >= 0);
+}

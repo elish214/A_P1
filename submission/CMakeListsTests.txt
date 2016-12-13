@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.3)
+
+project(Test)
+
+
+include(CTest)
+
+include_directories(../lib/googletest-master/googlemock/include)
+
+SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -lpthread -std=c++0x")
+set(test_SRCS AvailabilityListener_check.cpp
+	      BFS_check.cpp
+	      Driver_check.cpp
+	      Grid_check.cpp
+	      Location_check.cpp
+	      LuxuryTaxi_check.cpp
+	      main.cpp
+	      Passenger_check.cpp
+	      Point_check.cpp
+	      Satisfaction_check.cpp
+	      SatisfactionListener_check.cpp
+	      StandardTaxi_check.cpp
+	      TaxiCenter_check.cpp
+	      Taxi_check.cpp
+	      TripInfo_check.cpp)
+add_executable(runUnitTests main.cpp ${test_SRCS})
+target_link_libraries(runUnitTests gtest gmock core)
+add_test(runUnitTests runUnitTests) #included in all tutorials but I don't know what it actually does.
+
+
+
