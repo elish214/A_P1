@@ -50,6 +50,7 @@ deque<TripInfo> &TaxiCenter::getTrips() {
 void TaxiCenter::addDriver(Driver *driver) {
     driver->setTaxi(getTaxi(driver->getTaxiID()));
     employees.emplace_back(driver);
+    push(driver);
 }
 
 Driver *TaxiCenter::getDriver(int i) {
@@ -110,8 +111,8 @@ void TaxiCenter::answer(Passenger passenger) {
  * @return center's first trip in queue.
  */
 TripInfo TaxiCenter::getFirstTrip() {
-    Location l1 = Location();
-    Location l2 = Location();
+    Location *l1 = new Location();
+    Location *l2 = new Location();
 
     return TripInfo(0, 0, Passenger(l1, l2));
 }
@@ -141,7 +142,7 @@ void printLocations(map<Point, deque<Driver *>> locations) {
         cout << it->first << ": ";
 
         for (int i = 0; i < it->second.size(); i++) {
-            cout << it->second.at((unsigned long) i) << ", ";
+            cout << it->second.at((unsigned long) i)->getId() << ", ";
         }
 
         cout << endl;
@@ -151,20 +152,22 @@ void printLocations(map<Point, deque<Driver *>> locations) {
 void TaxiCenter::start() {
     TripInfo trip;
     Driver *driver;
+    unsigned long availableDrivers = employees.size();
 
     printLocations(locations);
 
-    while (!trips.empty()) {
+    while (!trips.empty() && availableDrivers > 0) {
         trip = trips.front();
         trips.pop_front();
-        driver = pop(*trip.getStart().getPoint());
+        driver = pop(*trip.getStart()->getPoint());
 
         driver->setLocation(trip.getEnd());
 
         push(driver);
+        availableDrivers--;
     }
 
-    cout << "V V V V V" << endl;
+    cout << "  V V V" << endl;
     printLocations(locations);
 }
 

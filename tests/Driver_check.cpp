@@ -39,7 +39,7 @@ TEST_F(DriverTests, testStart) {
     Point p3 = Point(1, 1);
     Location l1 = Location(p1);
     Location l3 = Location(p3);
-    Passenger yossi = Passenger(l1, l3);
+    Passenger yossi = Passenger(&l1, &l3);
     TripInfo trip = TripInfo(333, 2, yossi);
 
     driver->start(trip);
@@ -61,7 +61,7 @@ TEST_F(DriverTests, testDrive) {
     v.push_back(&l1);
     v.push_back(&l2);
     v.push_back(&l3);
-    driver->setLocation(l1);
+    driver->setLocation(&l1);
     driver->drive(v);
     ASSERT_EQ(*driver->getLocation(), l3);
 }

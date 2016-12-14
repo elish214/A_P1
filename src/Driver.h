@@ -42,7 +42,7 @@ public:
 
     const Location *getLocation() const;
 
-    void setLocation(const Location &location);
+    void setLocation(Location *location);
 
     Taxi *getTaxi() const;
 

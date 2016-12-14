@@ -18,8 +18,8 @@ class TripInfo {
 private:
     int id;
     int totalMeters;
-    Location start;
-    Location end;
+    Location *start;
+    Location *end;
     int numOfPassengers;
     double taarif;
     Passenger passenger;
@@ -45,9 +45,9 @@ public:
 
     vector<Node*> getRoute();
 
-    Location &getStart();
+    Location *getStart();
 
-    Location &getEnd();
+    Location *getEnd();
 
     int getNumOfPassengers() const;
 

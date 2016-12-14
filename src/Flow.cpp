@@ -55,8 +55,8 @@ int Flow::run() {
 
                 cin >> *trip;
                 trip->setGrid(grid);
-                trip->getStart().setGrid(grid);
-                trip->getEnd().setGrid(grid);
+                trip->getStart()->setGrid(grid);
+                trip->getEnd()->setGrid(grid);
 
                 center.addTrip(*trip);
                 break;
@@ -74,6 +74,8 @@ int Flow::run() {
                 break;
             case Operation::START:
                 cout << "start" << endl;
+
+                center.start();
                 break;
             case Operation::EXIT:
                 isRunning = false;

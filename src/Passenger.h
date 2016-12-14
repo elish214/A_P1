@@ -15,18 +15,18 @@
  */
 class Passenger {
 private:
-    Location source;
-    Location destination;
+    Location *source;
+    Location *destination;
 public:
-    Passenger(Location &source, Location &destination);
+    Passenger(Location *source, Location *destination);
 
     Passenger();
 
     virtual ~Passenger();
 
-    Location &getSource();
+    Location *getSource();
 
-    Location &getDestination();
+    Location *getDestination();
 
     int rate();
 

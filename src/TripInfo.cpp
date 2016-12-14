@@ -34,7 +34,7 @@ int TripInfo::getTotalMeters() const {
 
 void TripInfo::findPath() {
     BFS bfs;
-    route = bfs.run(&start,&end);
+    route = bfs.run(start, end);
 }
 
 void TripInfo::calcMeters() {
@@ -43,15 +43,15 @@ void TripInfo::calcMeters() {
     }
 }
 
-vector<Node*> TripInfo::getRoute() {
+vector<Node *> TripInfo::getRoute() {
     return route;
 }
 
-Location &TripInfo::getStart() {
+Location *TripInfo::getStart() {
     return start;
 }
 
-Location &TripInfo::getEnd() {
+Location *TripInfo::getEnd() {
     return end;
 }
 
@@ -80,7 +80,7 @@ istream &operator>>(istream &is, TripInfo &trip) {
     getline(is, s, ',');
     y1 = atoi(s.c_str());
 
-    trip.start = Location(x1, y1);
+    trip.start = new Location(x1, y1);
 
     getline(is, s, ',');
     x2 = atoi(s.c_str());
@@ -88,7 +88,7 @@ istream &operator>>(istream &is, TripInfo &trip) {
     getline(is, s, ',');
     y2 = atoi(s.c_str());
 
-    trip.end = Location(x2, y2);
+    trip.end = new Location(x2, y2);
 
     getline(is, s, ',');
     trip.numOfPassengers = atoi(s.c_str());

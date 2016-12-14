@@ -77,7 +77,7 @@ TEST_F(TaxiCenterTests, testConnect) {
  * testing anser function.
  */
 TEST_F(TaxiCenterTests, testAnswer) {
-    Passenger kobi = Passenger(*l1, *l2);
+    Passenger kobi = Passenger(l1, l2);
     Passenger other = TC->getFirstTrip().getPassenger();
 
     TC->answer(kobi);

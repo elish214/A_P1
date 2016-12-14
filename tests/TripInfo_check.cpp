@@ -27,7 +27,7 @@ namespace {
             Point p2 = Point(0, 4);
             source = new Location(p1);
             dest = new Location(p2);
-            passenger = new Passenger(*source, *dest);
+            passenger = new Passenger(source, dest);
             ti = new TripInfo(222, 3, *passenger);
         }
 

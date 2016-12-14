@@ -19,8 +19,17 @@ Driver::Driver() : satisfaction(0, 0) {
     location = new Location(*p);
 }
 
+Driver::~Driver() {
+    //delete taxi;
+    //delete location;
+}
+
 const Location *Driver::getLocation() const {
     return location;
+}
+
+void Driver::setLocation(Location *location) {
+    this->location = location;
 }
 
 Taxi *Driver::getTaxi() const {
@@ -51,10 +60,6 @@ void Driver::removeListener(EndTripListener *listener) {
 
 }
 
-void Driver::setLocation(const Location &location) {
-
-}
-
 bool Driver::isAvailability() const {
     return true;
 }
@@ -65,11 +70,6 @@ void Driver::setAvailability(bool availability) {
 
 double Driver::getSatisfaction() const {
     return 0.0;
-}
-
-Driver::~Driver() {
-    //delete taxi;
-    //delete location;
 }
 
 /**

@@ -26,7 +26,7 @@ namespace {
             Point p2 = Point(2, 6);
             l1 = new Location(p1);
             l2 = new Location(p2);
-            avi = new Passenger(*l1, *l2);
+            avi = new Passenger(l1, l2);
         }
 
         virtual void TearDown() {
@@ -41,7 +41,7 @@ namespace {
  * testing getter.
  */
 TEST_F(PassengerTests, testGetters) {
-    ASSERT_EQ(avi->getSource(), *l1);
+    ASSERT_EQ(*avi->getSource(), *l1);
 
 }
 

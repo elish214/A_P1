@@ -4,7 +4,7 @@
 
 #include "Passenger.h"
 
-Passenger::Passenger(Location &source, Location &destination) :
+Passenger::Passenger(Location *source, Location *destination) :
         source(source), destination(destination) {}
 
 Passenger::Passenger() {}
@@ -13,11 +13,11 @@ Passenger::~Passenger() {
 
 }
 
-Location &Passenger::getSource() {
+Location *Passenger::getSource() {
     return source;
 }
 
-Location &Passenger::getDestination() {
+Location *Passenger::getDestination() {
     return destination;
 }
 

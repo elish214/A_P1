@@ -40,6 +40,14 @@ public:
 
     bool operator!=(const Point &rhs) const;
 
+    bool operator<(const Point &rhs) const;
+
+    bool operator>(const Point &rhs) const;
+
+    bool operator<=(const Point &rhs) const;
+
+    bool operator>=(const Point &rhs) const;
+
     friend istream &operator>>(istream &os, Point &point);
 
     friend ostream &operator<<(ostream &os, const Point &point);
