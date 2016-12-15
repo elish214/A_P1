@@ -31,11 +31,23 @@ int LuxuryTaxi::getSpeed() {
     return 2;
 }
 
+/**
+ * method overloading for operator '<<'.
+ *
+ * @param os output stream.
+ * @param taxi a luxury taxi.
+ * @return output stream.
+ */
 ostream &operator<<(ostream &os, const LuxuryTaxi &taxi) {
     os << static_cast<const Taxi &>(taxi) << " Type: Luxury";
     return os;
 }
 
+/**
+ * returns taxi's type.
+ *
+ * @return taxi's type.
+ */
 string LuxuryTaxi::getType() const {
     return "LUXURY";
 }

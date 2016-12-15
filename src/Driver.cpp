@@ -6,6 +6,13 @@
 
 using namespace std;
 
+/**
+ * constructor.
+ *
+ * @param id an integer.
+ * @param age an integer.
+ * @param status an enum.
+ */
 Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age),
                                                         status(status),
                                                         experience(0),
@@ -14,62 +21,125 @@ Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age),
     location = new Location(*p);
 }
 
+/**
+ * constructor.
+ */
 Driver::Driver() : satisfaction(0, 0) {
     Point *p = new Point(0, 0);
     location = new Location(*p);
 }
 
+/**
+ * distructor.
+ */
 Driver::~Driver() {
-    //delete taxi;
-    //delete location;
+    delete taxi;
+    delete location;
+    //delete all listeners.
 }
 
+/**
+ * returns driver's location.
+ *
+ * @return driver's location.
+ */
 const Location *Driver::getLocation() const {
     return location;
 }
 
+/**
+ * setting driver's location.
+ *
+ * @param location driver's location.
+ */
 void Driver::setLocation(Location *location) {
     this->location = location;
 }
 
+/**
+ * returns driver's taxi.
+ *
+ * @return driver's taxi.
+ */
 Taxi *Driver::getTaxi() const {
     return taxi;
 }
 
+/**
+ * setting driver's taxi.
+ *
+ * @param taxi driver's taxi.
+ */
 void Driver::setTaxi(Taxi *taxi) {
     Driver::taxi = taxi;
 }
 
+/**
+ * starting trip.
+ *
+ * @param trip a trip.
+ */
 void Driver::start(TripInfo trip) {
 
 }
 
+/**
+ * drive the route.
+ */
 void Driver::drive(vector<Location *>) {
 
 }
 
+/**
+ * notify all listeners.
+ */
 void Driver::notifyAllEndTrip() {
 
 }
 
+/**
+ * add listener.
+ *
+ * @param listener a listener.
+ */
 void Driver::addListener(EndTripListener *listener) {
 
 }
 
+/**
+ * removing listener.
+ *
+ * @param listener a listener.
+ */
 void Driver::removeListener(EndTripListener *listener) {
 
 }
 
+/**
+ * returns whether is available.
+ *
+ * @return whether is available.
+ */
 bool Driver::isAvailability() const {
     return true;
 }
 
+/**
+ * setting driver's availability.
+ *
+ * @param availability a boolean value.
+ */
 void Driver::setAvailability(bool availability) {
 
 }
 
-double Driver::getSatisfaction() const {
-    return 0.0;
+/**
+ * returns driver's satisfaction.
+ *
+ * @return driver's satisfaction.
+ */
+double Driver::getSatisfaction() {
+    return satisfaction.getRating();
 }
 
 /**
@@ -102,6 +172,12 @@ istream &operator>>(istream &is, Driver &driver) {
     return is;
 }
 
+/**
+ * returns enum as a string.
+ *
+ * @param status aan enum.
+ * @return enum as a string.
+ */
 string statusToString(MaritalStatus status) {
     switch (status) {
         case MaritalStatus::SINGLE:
@@ -116,6 +192,13 @@ string statusToString(MaritalStatus status) {
     }
 }
 
+/**
+ * method overloading for operator '<<'.
+ *
+ * @param os output stream.
+ * @param driver a driver.
+ * @return output stream.
+ */
 ostream &operator<<(ostream &os, const Driver &driver) {
     os << "id: " << driver.id
        << " location: " << *driver.getLocation()
@@ -126,14 +209,34 @@ ostream &operator<<(ostream &os, const Driver &driver) {
     return os;
 }
 
+/**
+ * returns driver's id.
+ *
+ * @return driver's id.
+ */
 int Driver::getId() const {
     return id;
 }
 
+/**
+ * returns driver's taxi's id.
+ *
+ * @return driver's taxi's id.
+ */
 int Driver::getTaxiID() const {
     return taxiID;
 }
 
+/**
+ * setting experience.
+ *
+ * @param experience an integer.
+ */
+void Driver::setExperience(int experience) {
+    Driver::experience = experience;
+}
 
-
+int Driver::getExperience() {
+    return experience;
+}
 

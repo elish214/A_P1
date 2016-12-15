@@ -9,6 +9,11 @@
 
 using namespace std;
 
+/**
+ * returns 0 if everything runs well.
+ *
+ * @return 0 if everything runs well.
+ */
 int Flow::run() {
     Grid *grid;
     TaxiCenter center = TaxiCenter();
@@ -46,18 +51,18 @@ int Flow::run() {
         switch (op) {
             case Operation::NEW_DRIVER:
                 cout << "new driver" << endl;
-
+                driver = new Driver();
                 cin >> *driver;
                 center.addDriver(driver);
                 break;
             case Operation::NEW_RIDE:
                 cout << "new ride" << endl;
-
+                trip = new TripInfo();
                 cin >> *trip;
                 trip->setGrid(grid);
                 trip->getStart()->setGrid(grid);
                 trip->getEnd()->setGrid(grid);
-
+                trip->calcMeters();
                 center.addTrip(*trip);
                 break;
             case Operation::NEW_VEHICLE:
@@ -79,7 +84,6 @@ int Flow::run() {
                 break;
             case Operation::EXIT:
                 isRunning = false;
-                //delete allllllll...
                 break;
         }
 
@@ -89,6 +93,7 @@ int Flow::run() {
 
     } while (isRunning);
 
+    delete grid;
 
     return 0;
 }

@@ -9,6 +9,9 @@
 #include <ostream>
 #include "Taxi.h"
 
+/**
+ * luxury taxi class.
+ */
 class LuxuryTaxi : public Taxi {
 protected:
     string getType() const;

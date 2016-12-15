@@ -8,13 +8,9 @@
 
 TripInfo::TripInfo(int id, int numOfPassengers, Passenger passenger) :
         id(id), start(passenger.getSource()), end(passenger.getDestination()),
-        numOfPassengers(numOfPassengers), passenger(passenger) {
-    totalMeters = 0;
-}
+        numOfPassengers(numOfPassengers), passenger(passenger), totalMeters(0) {}
 
-TripInfo::TripInfo() {
-    totalMeters = 0;
-}
+TripInfo::TripInfo() : totalMeters(0) {}
 
 Grid *TripInfo::getGrid() const {
     return grid;
@@ -38,8 +34,9 @@ void TripInfo::findPath() {
 }
 
 void TripInfo::calcMeters() {
-    for (int i = 1; i < route.size(); i++) {
-        //totalMeters += route.at(i).get point and calculate the distance from i-1.
+    findPath();
+    for (int i = 0; i < route.size(); i++) {
+        totalMeters += 1 ;
     }
 }
 
@@ -51,8 +48,16 @@ Location *TripInfo::getStart() {
     return start;
 }
 
+Location TripInfo::getStartVal() {
+    return *start;
+}
+
 Location *TripInfo::getEnd() {
     return end;
+}
+
+Location TripInfo::getEndVal() {
+    return *end;
 }
 
 int TripInfo::getNumOfPassengers() const {
@@ -99,13 +104,10 @@ istream &operator>>(istream &is, TripInfo &trip) {
     return is;
 }
 
-ostream &operator<<(ostream &os, const TripInfo &info) {
+ostream &operator<<(ostream &os, TripInfo &info) {
     os << "id: " << info.id << " totalMeters: " << info.totalMeters
-       << " start: " << info.start << " end: " << info.end
+       << " start: " << info.getStartVal() << " end: " << info.getEndVal()
        << " numOfPassengers: " << info.numOfPassengers << " taarif: "
        << info.taarif;
     return os;
 }
-
-
-

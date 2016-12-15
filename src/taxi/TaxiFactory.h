@@ -8,6 +8,9 @@
 
 #include "Taxi.h"
 
+/**
+ * taxi factory representation class.
+ */
 class TaxiFactory {
 private:
     Taxi *taxi;

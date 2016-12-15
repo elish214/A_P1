@@ -116,6 +116,13 @@ istream &operator>>(istream &is, Grid &grid) {
     return is;
 }
 
+/**
+ * method overloading for operator '<<'.
+ *
+ * @param os output stream.
+ * @param grid a grid.
+ * @return output stream.
+ */
 ostream &operator<<(ostream &os, const Grid &grid) {
     os << grid.rows << "x" << grid.cols << endl;
 
@@ -125,7 +132,6 @@ ostream &operator<<(ostream &os, const Grid &grid) {
         }
         os << endl;
     }
-
 
     return os;
 }

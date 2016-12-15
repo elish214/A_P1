@@ -47,7 +47,11 @@ public:
 
     Location *getStart();
 
+    Location getStartVal();
+
     Location *getEnd();
+
+    Location getEndVal();
 
     int getNumOfPassengers() const;
 
@@ -57,7 +61,7 @@ public:
 
     friend istream &operator>>(istream &is, TripInfo &trip);
 
-    friend ostream &operator<<(ostream &os, const TripInfo &info);
+    friend ostream &operator<<(ostream &os, TripInfo &info);
 };
 
 

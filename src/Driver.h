@@ -46,13 +46,17 @@ public:
 
     Taxi *getTaxi() const;
 
+    void setExperience(int experience);
+
+    int getExperience();
+
     void setTaxi(Taxi *taxi);
 
     void start(TripInfo trip);
 
     void drive(vector<Location*>);
 
-    double getSatisfaction() const;
+    double getSatisfaction();
 
     int getTaxiID() const;
 

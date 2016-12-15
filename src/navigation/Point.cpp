@@ -57,10 +57,6 @@ void Point::setY(int y) {
     Point::y = y;
 }
 
-double Point::distance(Point p) {
-    return sqrt(pow(x - p.getX(), 2) + pow(y - p.getY(), 2));
-}
-
 /**
  * method overloading for operator '+'.
  *
@@ -132,6 +128,12 @@ ostream &operator<<(ostream &os, const Point &point) {
     return os;
 }
 
+/**
+ * method overloading for operator '<'.
+ *
+ * @param rhs a point.
+ * @return true if smaller. false otherwise.
+ */
 bool Point::operator<(const Point &rhs) const {
     if (x < rhs.x)
         return true;
@@ -140,14 +142,32 @@ bool Point::operator<(const Point &rhs) const {
     return y < rhs.y;
 }
 
+/**
+ * method overloading for operator '>'.
+ *
+ * @param rhs a point.
+ * @return true if bigger. false otherwise.
+ */
 bool Point::operator>(const Point &rhs) const {
     return rhs < *this;
 }
 
+/**
+ * method overloading for operator '<='.
+ *
+ * @param rhs a point.
+ * @return true if smaller or equal. false otherwise.
+ */
 bool Point::operator<=(const Point &rhs) const {
     return !(rhs < *this);
 }
 
+/**
+ * method overloading for operator '>='.
+ *
+ * @param rhs a point.
+ * @return true if bigger or equal. false otherwise.
+ */
 bool Point::operator>=(const Point &rhs) const {
     return !(*this < rhs);
 }

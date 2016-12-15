@@ -6,26 +6,58 @@
 #include "StandardTaxi.h"
 #include "LuxuryTaxi.h"
 
+/**
+ * constructor.
+ *
+ * @param id an integer.
+ * @param manufacturer an enum.
+ * @param color an enum.
+ */
 Taxi::Taxi(int id, CarManufacturer manufacturer, Color color) : id(id),
                                                                 KmPassed(0),
                                                                 manufacturer(
                                                                         manufacturer),
                                                                 color(color) {}
 
+/**
+ * constructor.
+ */
 Taxi::Taxi() {}
 
+/**
+ * returns taxi's id.
+ *
+ * @return taxi's id.
+ */
 int Taxi::getId() const {
     return id;
 }
 
+/**
+ * adding meters to taxi's total meters.
+ *
+ * @param meters meters to add.
+ */
 void Taxi::addMeters(double meters) {
     KmPassed += meters / 1000;
 }
 
+/**
+ * returns km passed.
+ *
+ * @return km passed.
+ */
 double Taxi::getKmPassed() const {
     return KmPassed;
 }
 
+/**
+ * method overloading for operator '>>'.
+ *
+ * @param is input stream.
+ * @param taxi a taxi.
+ * @return input stream.
+ */
 istream &operator>>(istream &is, Taxi &taxi) {
     string s;
     char c;
@@ -93,6 +125,12 @@ istream &operator>>(istream &is, Taxi &taxi) {
     return is;
 }
 
+/**
+ * returns enum as a string.
+ *
+ * @param c a color.
+ * @return enum as a string.
+ */
 string colorToString(Color c) {
     switch (c) {
         case Color::RED:
@@ -109,6 +147,12 @@ string colorToString(Color c) {
     }
 }
 
+/**
+ * returns enum as a string.
+ *
+ * @param cm a car manufacturer.
+ * @return enum as a string.
+ */
 string cmToString(CarManufacturer cm) {
     switch (cm) {
         case CarManufacturer::HONDA:
@@ -123,6 +167,13 @@ string cmToString(CarManufacturer cm) {
     }
 }
 
+/**
+ * method overloading for operator '<<'.
+ *
+ * @param os output stream.
+ * @param taxi a taxi.
+ * @return output stream.
+ */
 ostream &operator<<(ostream &os, const Taxi &taxi) {
     os << "id: " << taxi.id
        << " manufacturer: " << cmToString(taxi.manufacturer)
@@ -130,5 +181,3 @@ ostream &operator<<(ostream &os, const Taxi &taxi) {
        << " type: " << taxi.getType();
     return os;
 }
-
-

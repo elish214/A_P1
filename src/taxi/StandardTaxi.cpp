@@ -32,12 +32,23 @@ int StandardTaxi::getSpeed() {
     return 1;
 }
 
+/**
+ * method overloading for operator '<<'.
+ *
+ * @param os output stream.
+ * @param taxi a standard.
+ * @return output stream.
+ */
 ostream &operator<<(ostream &os, const StandardTaxi &taxi) {
     os << static_cast<const Taxi &>(taxi) << " Type: Standard";
     return os;
 }
 
+/**
+ * returns taxi's type.
+ *
+ * @return taxi's type.
+ */
 string StandardTaxi::getType() const {
     return "STANDARD";
 }
-

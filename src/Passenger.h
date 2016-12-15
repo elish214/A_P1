@@ -7,6 +7,7 @@
 
 
 #include <ostream>
+#include <cstdlib>
 #include "navigation/Point.h"
 #include "navigation/Location.h"
 

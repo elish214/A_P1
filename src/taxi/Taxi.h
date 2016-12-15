@@ -11,6 +11,10 @@
 
 using namespace std;
 
+/**
+ * taxi representation.
+ * this is an abstract class.
+ */
 class Taxi {
 private:
     int id;

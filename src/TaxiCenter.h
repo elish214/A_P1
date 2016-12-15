@@ -53,6 +53,8 @@ public:
     void answer(Passenger passenger);
 
     friend ostream &operator<<(ostream &os, const TaxiCenter &center);
+
+    virtual ~TaxiCenter();
 };
 
 

@@ -6,13 +6,25 @@
 #include "StandardTaxi.h"
 #include "LuxuryTaxi.h"
 
+/**
+ * returns a taxi.
+ *
+ * @return a taxi.
+ */
 Taxi *TaxiFactory::getTaxi() const {
     return taxi;
 }
 
+/**
+ * method overloading for operator '>>'.
+ *
+ * @param is input stream.
+ * @param factory a factory.
+ * @return input stream.
+ */
 istream &operator>>(istream &is, TaxiFactory &factory) {
     string s;
-    char c;
+    //char c;
     int id, type;
     CarManufacturer m;
     Color color;
