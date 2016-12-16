@@ -188,7 +188,8 @@ string statusToString(MaritalStatus status) {
             return "DIVORCED";
         case MaritalStatus::WIDOWED:
             return "WIDOWED";
-            //default:;
+        default:
+            return "NONE";
     }
 }
 
