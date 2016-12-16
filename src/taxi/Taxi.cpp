@@ -28,9 +28,8 @@ double Taxi::getKmPassed() const {
 
 istream &operator>>(istream &is, Taxi &taxi) {
     string s;
-    char c;
     int id, type;
-    CarManufacturer m;
+    CarManufacturer manufacturer;
     Color color;
 
     getline(is, s, ',');
@@ -40,52 +39,17 @@ istream &operator>>(istream &is, Taxi &taxi) {
     type = atoi(s.c_str());
 
     getline(is, s, ',');
-    c = s[0];
-
-    switch (c) {
-        case 'H':
-            m = CarManufacturer::HONDA;
-            break;
-        case 'S':
-            m = CarManufacturer::SUBARU;
-            break;
-        case 'T':
-            m = CarManufacturer::TESLA;
-            break;
-        case 'F':
-            m = CarManufacturer::FIAT;
-            break;
-        default:;
-    }
+    manufacturer = static_cast<CarManufacturer>(s[0]);
 
     getline(is, s, '\n');
-    c = s[0];
-
-    switch (c) {
-        case 'R':
-            color = Color::RED;
-            break;
-        case 'B':
-            color = Color::BLUE;
-            break;
-        case 'G':
-            color = Color::GREEN;
-            break;
-        case 'P':
-            color = Color::PINK;
-            break;
-        case 'W':
-            color = Color::WHITE;
-            break;
-        default:;
-    }
+    color = static_cast<Color>(s[0]);
 
     switch (type) {
         case 1:
-            taxi = StandardTaxi(id, m, color);
+            taxi = StandardTaxi(id, manufacturer, color);
             break;
         case 2:
-            taxi = LuxuryTaxi(id, m, color);
+            taxi = LuxuryTaxi(id, manufacturer, color);
             break;
         default:;
     }
@@ -105,7 +69,8 @@ string colorToString(Color c) {
             return "PINK";
         case Color::WHITE:
             return "WHITE";
-            //default:;
+        default:
+            return "NONE";
     }
 }
 
@@ -119,7 +84,8 @@ string cmToString(CarManufacturer cm) {
             return "TESLA";
         case CarManufacturer::FIAT:
             return "FIAT";
-            //default:;
+        default:
+            return "NONE";
     }
 }
 
