@@ -19,9 +19,9 @@ protected:
 public:
     StandardTaxi(int id, CarManufacturer manufacturer, Color color);
 
-    int getTaarif() override;
+    int getTaarif();
 
-    int getSpeed() override;
+    int getSpeed();
 
     friend ostream &operator<<(ostream &os, const StandardTaxi &taxi);
 };

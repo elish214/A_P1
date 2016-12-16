@@ -2,6 +2,7 @@
 // Created by raz on 29/11/16.
 //
 
+#include <vector>
 #include "TaxiCenter.h"
 
 using namespace std;
@@ -16,16 +17,17 @@ TaxiCenter::TaxiCenter() {
 }
 
 TaxiCenter::~TaxiCenter() {
-    for(Driver *d: employees) {
-        delete d;
+
+    for (unsigned int i = 0; i < employees.size(); i++) {
+        delete employees.at(i);
     }
 
-    for(Taxi *t: cabs) {
-        delete t;
+    for (unsigned int j = 0; j < cabs.size(); j++) {
+        delete cabs.at(j);
     }
 
-    for(TripInfo ti: trips) {
-        delete &ti;
+    for (unsigned int k = 0; k < trips.size(); k++) {
+        delete &(trips.at(k));
     }
 }
 
@@ -74,7 +76,7 @@ void TaxiCenter::addDriver(Driver *driver) {
  * @return the i'th driver.
  */
 Driver *TaxiCenter::getDriver(int i) {
-    for (Driver *driver:employees) {
+     for (Driver *driver:employees) {
         if (driver->getId() == i) {
             return driver;
         }
@@ -217,6 +219,11 @@ void TaxiCenter::start() {
     printLocations(locations);
 }
 
+/**
+ * pushing function.
+ *
+ * @param driver a driver.
+ */
 void TaxiCenter::push(Driver *driver) {
     Point p = *driver->getLocation()->getPoint();
     map<Point, deque<Driver *>>::iterator it = locations.find(p);
