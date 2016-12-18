@@ -23,16 +23,16 @@ private:
     int id;
     int age;
     MaritalStatus status;
+    int taxiID;
     int experience;
     Satisfaction satisfaction;
     Taxi *taxi;
-    int taxiID;
     Location *location;
     vector<EndTripListener *> endTripListeners;
     bool availability;
 
 public:
-    Driver(int id, int age, MaritalStatus status);
+    Driver(int id, int age, MaritalStatus status, int taxiId);
 
     Driver();
 

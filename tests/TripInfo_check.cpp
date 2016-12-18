@@ -6,7 +6,7 @@
 #include <gmock/gmock.h>
 #include "../src/TripInfo.h"
 
-//using testing::Eq;
+using testing::Eq;
 
 namespace {
     class TripInfoTests : public testing::Test {
@@ -23,10 +23,8 @@ namespace {
         }
 
         virtual void SetUp() {
-            Point p1 = Point(0, 2);
-            Point p2 = Point(0, 4);
-            source = new Location(p1);
-            dest = new Location(p2);
+            source = new Location(0,2);
+            dest = new Location(0,4);
             passenger = new Passenger(source, dest);
             ti = new TripInfo(222, 3, *passenger);
         }

@@ -19,7 +19,7 @@ class TaxiCenter {
 private:
     vector<Driver *> employees;
     vector<Taxi *> cabs;
-    deque<TripInfo> trips;
+    deque<TripInfo *> trips;
     map<Point, deque<Driver *>> locations;
 
     void push(Driver *driver);
@@ -32,7 +32,7 @@ public:
 
     vector<Taxi *> &getCabs();
 
-    deque<TripInfo> &getTrips();
+    deque<TripInfo *> &getTrips();
 
     TripInfo getFirstTrip();
 
@@ -40,7 +40,7 @@ public:
 
     Driver *getDriver(int i);
 
-    void addTrip(TripInfo trip);
+    void addTrip(TripInfo *trip);
 
     void addTaxi(Taxi *taxi);
 

@@ -17,8 +17,8 @@ using namespace std;
 int Flow::run() {
     Grid *grid;
     TaxiCenter center = TaxiCenter();
-    Driver *driver = new Driver();
-    TripInfo *trip = new TripInfo();
+    Driver *driver;
+    TripInfo *trip;
     Point point = Point(-1, -1);
     TaxiFactory factory;
     bool isRunning = true;
@@ -38,11 +38,11 @@ int Flow::run() {
         cin >> point;
         grid->get(point)->setObstacle(true);
     }
-
+/*
     cout << "-----------------------" << endl
          << "GRID: " << *grid << endl
          << "-----------------------" << endl;
-
+*/
     do {
         //operation
         cin >> opNum;
@@ -50,35 +50,36 @@ int Flow::run() {
 
         switch (op) {
             case Operation::NEW_DRIVER:
-                cout << "new driver" << endl;
+             //   cout << "new driver" << endl;
                 driver = new Driver();
                 cin >> *driver;
+                driver->setLocation(grid->get(0,0));
                 center.addDriver(driver);
                 break;
             case Operation::NEW_RIDE:
-                cout << "new ride" << endl;
+             //   cout << "new ride" << endl;
                 trip = new TripInfo();
                 cin >> *trip;
                 trip->setGrid(grid);
                 trip->getStart()->setGrid(grid);
                 trip->getEnd()->setGrid(grid);
                 trip->calcMeters();
-                center.addTrip(*trip);
+                center.addTrip(trip);
                 break;
             case Operation::NEW_VEHICLE:
-                cout << "new vehicle" << endl;
+             //   cout << "new vehicle" << endl;
 
                 cin >> factory;
                 center.addTaxi(factory.getTaxi());
                 break;
             case Operation::DRIVER_LOCATION:
-                cout << "driver location" << endl;
+             //   cout << "driver location" << endl;
 
                 cin >> id;
                 cout << *(center.getDriver(id)->getLocation()) << endl;
                 break;
             case Operation::START:
-                cout << "start" << endl;
+             //   cout << "start" << endl;
 
                 center.start();
                 break;
@@ -86,14 +87,15 @@ int Flow::run() {
                 isRunning = false;
                 break;
         }
-
+/*
         cout << "-----------------------" << endl
              << "CENTER:" << endl << center << endl
              << "-----------------------" << endl;
-
+*/
     } while (isRunning);
 
     delete grid;
+    //delete trip;
 
     return 0;
 }

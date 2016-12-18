@@ -36,14 +36,14 @@ namespace {
 
         virtual void TearDown() {
             delete g;
-
+            delete bfs;
         } 
     };
 
 }
 
 /**
- * testing BFS algorithem.
+ * testing BFS algorithm.
  */
 TEST_F(BFSTests, testRun) {
 

@@ -7,7 +7,7 @@
 #include "../src/taxi/Taxi.h"
 #include "../src/taxi/StandardTaxi.h"
 
-//using testing::Eq;
+using testing::Eq;
 
 
 namespace {
@@ -36,8 +36,8 @@ namespace {
  * testing meter counter.
  */
 TEST_F(TaxiTests, testMeter) {
-    taxi->addMeters(18.7);
-    taxi->addMeters(6.5);
+    taxi->addMeters(18);
+    taxi->addMeters(6);
 
-    ASSERT_EQ(taxi->getKmPassed(), 25.2);
+    ASSERT_EQ(taxi->getKmPassed(),  0.024);
 }
