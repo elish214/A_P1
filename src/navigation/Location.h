@@ -31,7 +31,7 @@ public:
 
     Location();
 
-    Location(Point &point);
+    Location(Point *point);
 
     Location(int x, int y);
 

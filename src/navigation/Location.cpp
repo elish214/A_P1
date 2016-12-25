@@ -15,8 +15,8 @@ using namespace std;
  */
 Location::Location() {}
 
-Location::Location(Point &point) {
-    Location::p = &point;
+Location::Location(Point *point) {
+    Location::p = point;
 }
 
 /**
@@ -42,7 +42,7 @@ Point * Location::getPoint()const {
  * destructor.
  */
 Location::~Location() {
-    //delete p;
+    delete p;
 
 }
 

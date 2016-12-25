@@ -27,7 +27,9 @@ double Satisfaction::getRating() {
  * @param newRating an integer.
  */
 void Satisfaction::rate(int newRating) {
-    rating = (getRating()*amount++ + newRating)/amount;
+    double current = getRating()*amount;
+    amount++;
+    rating = (current + newRating)/amount;
 }
 
 

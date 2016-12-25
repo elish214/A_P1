@@ -19,16 +19,19 @@ TaxiCenter::TaxiCenter() {
 TaxiCenter::~TaxiCenter() {
 
     for (unsigned int i = 0; i < employees.size(); i++) {
-        delete employees.at(i);
+        delete employees[i];
     }
 
     for (unsigned int j = 0; j < cabs.size(); j++) {
-        delete cabs.at(j);
+        delete cabs[j];
     }
-
+/*
     for (unsigned int k = 0; k < trips.size(); k++) {
         delete &(trips.at(k));
-    }
+    }*/
+    employees.clear();
+    cabs.clear();
+    trips.clear();
 }
 
 /**
@@ -54,7 +57,7 @@ vector<Taxi *> &TaxiCenter::getCabs() {
  *
  * @return center's trips queue.
  */
-deque<TripInfo> &TaxiCenter::getTrips() {
+deque<TripInfo*> &TaxiCenter::getTrips() {
     return trips;
 }
 
@@ -76,13 +79,16 @@ void TaxiCenter::addDriver(Driver *driver) {
  * @return the i'th driver.
  */
 Driver *TaxiCenter::getDriver(int i) {
-     for (Driver *driver:employees) {
-        if (driver->getId() == i) {
-            return driver;
+    Driver *d;
+
+    for (unsigned int j = 0; j < employees.size(); j++) {
+        d = employees.at(j);
+        if (d->getId() == i) {
+            return d;
         }
     }
 
-    return nullptr;
+    return NULL;
 }
 
 /**
@@ -90,7 +96,7 @@ Driver *TaxiCenter::getDriver(int i) {
  *
  * @param trip a trip.
  */
-void TaxiCenter::addTrip(TripInfo trip) {
+void TaxiCenter::addTrip(TripInfo *trip) {
     trips.emplace_back(trip);
 }
 
@@ -110,13 +116,16 @@ void TaxiCenter::addTaxi(Taxi *taxi) {
  * @return  the i'th taxi.
  */
 Taxi *TaxiCenter::getTaxi(int i) {
-    for (Taxi *taxi:cabs) {
-        if (taxi->getId() == i) {
-            return taxi;
+    Taxi *t;
+
+    for (unsigned int j = 0; j < cabs.size(); j++) {
+        t = cabs.at(j);
+        if (t->getId() == i){
+            return t;
         }
     }
 
-    return nullptr;
+    return NULL;
 }
 
 /**
@@ -158,19 +167,26 @@ TripInfo TaxiCenter::getFirstTrip() {
  * @return output stream.
  */
 ostream &operator<<(ostream &os, const TaxiCenter &center) {
+    Driver *d;
+    Taxi *t;
+    TripInfo *ti;
+
     os << "employees: " << endl;
-    for (Driver *driver : center.employees) {
-        cout << '\t' << *driver << endl;
+    for (unsigned int i = 0; i < center.employees.size(); i++) {
+        d = center.employees.at(i);
+        cout << '\t' << *d << endl;
     }
 
     os << endl << "cabs: " << endl;
-    for (Taxi *taxi : center.cabs) {
-        cout << '\t' << *taxi << endl;
+    for (unsigned int j = 0; j < center.cabs.size(); j++) {
+        t = center.cabs.at(j);
+        cout << '\t' << *t << endl;
     }
 
     cout << endl << "trips: " << endl;
-    for (TripInfo trip : center.trips) {
-        cout << '\t' << trip << endl;
+    for (unsigned int k = 0; k < center.trips.size(); k++) {
+        ti = center.trips.at(k);
+        cout << '\t' << ti << endl;
     }
 
     return os;
@@ -186,7 +202,7 @@ void printLocations(map<Point, deque<Driver *>> locations) {
          it != locations.end(); ++it) {
         cout << it->first << ": ";
 
-        for (int i = 0; i < it->second.size(); i++) {
+        for (unsigned int i = 0; i < it->second.size(); i++) {
             cout << it->second.at((unsigned long) i)->getId() << ", ";
         }
 
@@ -198,25 +214,26 @@ void printLocations(map<Point, deque<Driver *>> locations) {
  * starting function.
  */
 void TaxiCenter::start() {
-    TripInfo trip;
+    TripInfo *trip;
     Driver *driver;
     unsigned long availableDrivers = employees.size();
 
-    printLocations(locations);
+    //printLocations(locations);
 
     while (!trips.empty() && availableDrivers > 0) {
         trip = trips.front();
         trips.pop_front();
-        driver = pop(*trip.getStart()->getPoint());
+        driver = pop(*trip->getStart()->getPoint());
 
-        driver->setLocation(trip.getEnd());
+        driver->setLocation(trip->getEnd());
         driver->setExperience(driver->getExperience()+ 1);
         push(driver);
         availableDrivers--;
+        delete trip;
     }
 
-    cout << "  V V V" << endl;
-    printLocations(locations);
+   // cout << "  V V V" << endl;
+    //printLocations(locations);
 }
 
 /**
@@ -245,7 +262,7 @@ void TaxiCenter::push(Driver *driver) {
  */
 Driver *TaxiCenter::pop(Point p) {
     map<Point, deque<Driver *>>::iterator it = locations.find(p);
-    Driver *driver = nullptr;
+    Driver *driver = NULL;
 
     if (it != locations.end()) {
         driver = it->second.front();

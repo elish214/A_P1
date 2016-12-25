@@ -13,28 +13,24 @@ using namespace std;
  * @param age an integer.
  * @param status an enum.
  */
-Driver::Driver(int id, int age, MaritalStatus status) : id(id), age(age),
-                                                        status(status),
+Driver::Driver(int id, int age, MaritalStatus status, int taxiId) : id(id), age(age),
+                                                        status(status), taxiID(taxiId),
                                                         experience(0),
                                                         satisfaction(0, 0) {
-    Point *p = new Point(0, 0);
-    location = new Location(*p);
 }
 
 /**
  * constructor.
  */
 Driver::Driver() : satisfaction(0, 0) {
-    Point *p = new Point(0, 0);
-    location = new Location(*p);
 }
 
 /**
  * distructor.
  */
 Driver::~Driver() {
-    delete taxi;
-    delete location;
+    //delete taxi;
+    //delete location;
     //delete all listeners.
 }
 
@@ -245,4 +241,3 @@ void Driver::setExperience(int experience) {
 int Driver::getExperience() {
     return experience;
 }
-

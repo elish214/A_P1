@@ -20,7 +20,7 @@ namespace {
         }
 
         virtual void SetUp() {
-            g = new Grid(7, 8);
+            g = new Grid(7, 7);
         }
 
         virtual void TearDown() {
@@ -43,7 +43,7 @@ TEST_F(GridTests, testGetR) {
  */
 TEST_F(GridTests, testGetC) {
 
-    ASSERT_EQ(g->getCols(), 8);
+    ASSERT_EQ(g->getCols(), 7);
 }
 
 /**

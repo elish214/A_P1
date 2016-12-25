@@ -34,19 +34,13 @@ namespace {
  * get location's neibghours.
  */
 TEST_F(LocationTests, testNeighbors) {
-    Point p = Point(1, 1);
-    Location l = Location(p);
+    Location l = Location(1,1);
     vector<Node *> neighbors;
 
-    Point p1 = Point(0, 1);
-    Point p2 = Point(1, 2);
-    Point p3 = Point(2, 1);
-    Point p4 = Point(1, 0);
-
-    Location l1 = Location(p1);
-    Location l2 = Location(p2);
-    Location l3 = Location(p3);
-    Location l4 = Location(p4);
+    Location l1 = Location(0,1);
+    Location l2 = Location(1,2);
+    Location l3 = Location(2,1);
+    Location l4 = Location(1,0);
 
     l.setGrid(g);
     l1.setGrid(g);
@@ -77,11 +71,8 @@ TEST_F(LocationTests, testLOperatorOS) {
  * testing equality operator.
  */
 TEST_F(LocationTests, testLOperatorEQ) {
-    Point p1 = Point(0, 1);
-    Point p2 = Point(1, 2);
-
-    Location l1 = Location(p1);
-    Location l2 = Location(p2);
+    Location l1 = Location(0, 1);
+    Location l2 = Location(1, 2);
 
     l1.setGrid(g);
     l2.setGrid(g);
@@ -93,11 +84,8 @@ TEST_F(LocationTests, testLOperatorEQ) {
  * testing non-equality operator.
  */
 TEST_F(LocationTests, testLOperatorNE) {
-    Point p1 = Point(0, 1);
-    Point p2 = Point(1, 2);
-
-    Location l1 = Location(p1);
-    Location l2 = Location(p2);
+    Location l1 = Location(0, 1);
+    Location l2 = Location(1, 2);
 
     l1.setGrid(g);
     l2.setGrid(g);

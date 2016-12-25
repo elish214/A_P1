@@ -22,10 +22,8 @@ namespace {
         }
 
         virtual void SetUp() {
-            Point p1 = Point(3, 8);
-            Point p2 = Point(2, 6);
-            l1 = new Location(p1);
-            l2 = new Location(p2);
+            l1 = new Location(3,8);
+            l2 = new Location(2,6);
             avi = new Passenger(l1, l2);
         }
 
