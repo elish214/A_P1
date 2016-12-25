@@ -18,7 +18,8 @@ set(SOURCE_FILES src/main.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
         tests/LuxuryTaxi_check.cpp tests/Satisfaction_check.cpp tests/TaxiCenter_check.cpp
         tests/TripInfo_check.cpp tests/main.cpp tests/AvailabilityListener_check.cpp
         tests/SatisfactionListener_check.cpp src/taxi/TaxiFactory.cpp src/taxi/TaxiFactory.h
-        src/Flow.cpp src/Flow.h)
+        src/Flow.cpp src/Flow.h src/sockets/Socket.cpp src/sockets/Socket.h src/sockets/Udp.cpp
+        src/sockets/Udp.h)
 
 add_executable(A_P1 ${SOURCE_FILES})
 

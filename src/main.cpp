@@ -6,7 +6,7 @@
 #include <stack>
 #include "navigation/Node.h"
 #include "Driver.h"
-#include "Flow.h"
+#include "sockets/Udp.h"
 
 using namespace std;
 
@@ -19,38 +19,26 @@ void printRoute(stack<Node *> route);
  *
  * @return 0.
  */
-int main() {
-    //BFS bfs;
-    //Grid *grid;
-    //int x, y;
-    //int cols;
-    //int rows;
-    //Point start;
-    //Point end;
-    //string s;
-//
-    //getline(cin, s, ',');
-    //parser(s, cols, rows);
-//
-    //getline(cin, s, ',');
-    //parser(s, x, y);
-    //start.setX(x);
-    //start.setY(y);
-//
-    //getline(cin, s, '\n');
-    //parser(s, x, y);
-    //end.setX(x);
-    //end.setY(y);
-//
-    //grid = new Grid(rows, cols);
-//
-    //printRoute(bfs.run(grid->get(start), grid->get(end)));
-//
-    //delete grid;
+int main(int argc, char *argv[]) {
+    std::cout << "Hello, from server" << std::endl;
 
-    Flow flow = Flow();
+    while (1) {
+        Udp udp(1, atoi(argv[1]));
+        udp.initialize();
 
-    return flow.run();
+        char buffer[1024];
+        udp.reciveData(buffer, sizeof(buffer));
+        cout << buffer << endl;
+        udp.sendData("sup?");
+    }
+
+
+    return 0;
+
+
+    //Flow flow = Flow();
+//
+    //return flow.run();
 }
 
 /**
