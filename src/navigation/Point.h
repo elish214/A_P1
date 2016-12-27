@@ -6,8 +6,23 @@
 #define PROJECT_POINT_H
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/tokenizer.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/assign/list_of.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/iostreams/device/back_inserter.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
 
 using namespace std;
+using namespace boost::archive;
+//std::stringstream ss;
 
 /**
  * Point represent a 2-dimensional point.
@@ -30,7 +45,7 @@ public:
 
     void setY(int y);
 
-    double distance(Point p);
+    //double distance(Point p);
 
     Point operator+(const Point &p) const;
 
@@ -51,6 +66,14 @@ public:
     friend istream &operator>>(istream &os, Point &point);
 
     friend ostream &operator<<(ostream &os, const Point &point);
+
+    friend class boost::serialization::access;
+
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & x;
+        ar & y;
+    }
 };
 
 

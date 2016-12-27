@@ -53,6 +53,15 @@ public:
     * the data															   *
     ***********************************************************************/
     int reciveData(char *buffer, int size);
+
+    /***********************************************************************
+    * function name: recive	`											   *
+    * The Input: none										               *
+    * The output: int number representing the return status	               *
+    * The Function operation: getting data from the other socket and print *
+    * the data															   *
+    ***********************************************************************/
+    int sendData(string data, int len);
 };
 
 #endif /* UDP_H_ */

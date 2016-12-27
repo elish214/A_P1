@@ -3,6 +3,19 @@ project(A_P1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
+
+add_subdirectory(lib/googletest-master)
+
+include_directories(lib/googletest-master/googletest/include)
+
+include_directories(lib/googletest-master/googlemock/include)
+
+
+set(BOOST_ROOT CACHE PATH "/usr/include/boost/")
+find_package(Boost 1.58.0 COMPONENTS serialization system)
+include_directories(${Boost_INCLUDE_DIR})
+
+
 set(SOURCE_FILES src/main.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
         src/navigation/Grid.cpp src/navigation/Location.cpp src/navigation/Node.h
         src/listeners/EndTripListener.h
@@ -19,14 +32,8 @@ set(SOURCE_FILES src/main.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
         tests/TripInfo_check.cpp tests/main.cpp tests/AvailabilityListener_check.cpp
         tests/SatisfactionListener_check.cpp src/taxi/TaxiFactory.cpp src/taxi/TaxiFactory.h
         src/Flow.cpp src/Flow.h src/sockets/Socket.cpp src/sockets/Socket.h src/sockets/Udp.cpp
-        src/sockets/Udp.h)
+        src/sockets/Udp.h src/sockets/Connection.cpp src/sockets/Connection.h)
 
 add_executable(A_P1 ${SOURCE_FILES})
 
-add_subdirectory(lib/googletest-master)
-
-include_directories(lib/googletest-master/googletest/include)
-
-include_directories(lib/googletest-master/googlemock/include)
-
-target_link_libraries(A_P1 gtest gtest_main)
+target_link_libraries(A_P1 gtest gtest_main ${Boost_LIBRARIES})

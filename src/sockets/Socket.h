@@ -87,6 +87,14 @@ public:
     virtual int reciveData(char *buffer, int size) = 0;
 
 
+    /***********************************************************************
+    * function name: recive	`											   *
+    * The Input: none										               *
+    * The output: int number representing the return status	               *
+    * The Function operation: getting data from the other socket and print *
+    * the data															   *
+    ***********************************************************************/
+    virtual int sendData(string data, int len) = 0;
 };
 
 #endif /* SOCKET_H_ */

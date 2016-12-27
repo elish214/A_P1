@@ -7,8 +7,11 @@
 #include "navigation/Node.h"
 #include "Driver.h"
 #include "sockets/Udp.h"
+#include "sockets/Connection.h"
 
 using namespace std;
+//using namespace boost::archive;
+//std::stringstream ss;
 
 void parser(string s, int &a, int &c);
 
@@ -20,24 +23,28 @@ void printRoute(stack<Node *> route);
  * @return 0.
  */
 int main(int argc, char *argv[]) {
-    std::cout << "Hello, from server" << std::endl;
+    Point *p = new Point(4, 5);
+
+    cout << "Hello, from server" << endl;
+
+    Connection con(new Udp(1, atoi(argv[1])));
+    con.initialize();
 
     while (1) {
-        Udp udp(1, atoi(argv[1]));
-        udp.initialize();
-
         char buffer[1024];
-        udp.reciveData(buffer, sizeof(buffer));
+
+        con.receiveString(buffer);
         cout << buffer << endl;
-        udp.sendData("sup?");
+
+        con.send(p);
     }
 
 
-    return 0;
+    //return 0;
 
 
     //Flow flow = Flow();
-//
+
     //return flow.run();
 }
 
