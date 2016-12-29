@@ -16,7 +16,7 @@ find_package(Boost 1.58.0 COMPONENTS serialization system)
 include_directories(${Boost_INCLUDE_DIR})
 
 
-set(SOURCE_FILES src/main.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
+set(SOURCE_FILES src/navigation/Point.cpp src/navigation/BFS.cpp
         src/navigation/Grid.cpp src/navigation/Location.cpp src/navigation/Node.h
         src/listeners/EndTripListener.h
         src/listeners/SatisfactionListener.cpp src/listeners/SatisfactionListener.h
@@ -34,6 +34,7 @@ set(SOURCE_FILES src/main.cpp src/navigation/Point.cpp src/navigation/BFS.cpp
         src/Flow.cpp src/Flow.h src/sockets/Socket.cpp src/sockets/Socket.h src/sockets/Udp.cpp
         src/sockets/Udp.h src/sockets/Connection.cpp src/sockets/Connection.h)
 
-add_executable(A_P1 ${SOURCE_FILES})
+add_executable(Server ${SOURCE_FILES} src/main.cpp)
+add_executable(Client ${SOURCE_FILES} src/Client.cpp)
 
-target_link_libraries(A_P1 gtest gtest_main ${Boost_LIBRARIES})
+target_link_libraries(Server gtest gtest_main ${Boost_LIBRARIES})
