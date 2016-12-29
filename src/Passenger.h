@@ -11,6 +11,9 @@
 #include "navigation/Point.h"
 #include "navigation/Location.h"
 
+using namespace std;
+using namespace boost::archive;
+
 /**
  * a passenger class.
  */
@@ -36,6 +39,21 @@ public:
     bool operator!=(const Passenger &rhs) const;
 
     friend ostream &operator<<(ostream &os, const Passenger &passenger);
+
+    friend class boost::serialization::access;
+
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & source;
+        ar & destination;
+    }
 };
 
 

@@ -9,7 +9,7 @@
 using namespace std;
 
 /**
- * runs the algorithem.
+ * runs the algorithm.
  *
  * @param start a starting point.
  * @param end an ending point.
@@ -62,3 +62,7 @@ vector<Node *> BFS::run(Node *start, Node *end) {
 
     return route;
 }
+
+BFS::BFS() {}
+
+BFS::~BFS() {}

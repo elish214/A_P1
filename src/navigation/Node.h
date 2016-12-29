@@ -10,6 +10,7 @@
 #include <string>
 
 using namespace std;
+//using namespace boost::archive;
 
 /**
  * Node represent an abstract class.
@@ -83,7 +84,24 @@ public:
     void setObstacle(bool obstacle) {
         Node::obstacle = obstacle;
     }
+
+    //friend class boost::serialization::access;
+
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & obstacle;
+    }
+
 };
+
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Node)
 
 
 #endif //A_P1_NODE_H

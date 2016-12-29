@@ -10,6 +10,7 @@
  */
 enum class CarManufacturer {
     HONDA = 'H', SUBARU = 'S', TESLA = 'T', FIAT = 'F'
+
 };
 
 

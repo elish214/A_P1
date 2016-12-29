@@ -12,6 +12,7 @@
 #include "Node.h"
 
 using namespace std;
+using namespace boost::archive;
 
 class Grid;
 
@@ -54,6 +55,23 @@ public:
     bool operator!=(const Location &rhs) const;
 
     bool operator==(const Node &rhs) const;
+
+    friend class boost::serialization::access;
+
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & boost::serialization::base_object<Node>(*this);
+        ar & p;
+        ar & grid;
+    }
+
 };
 
 

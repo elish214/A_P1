@@ -6,10 +6,14 @@
 #define A_P1_TAXI_H
 
 #include <ostream>
+#include <boost/archive/basic_archive.hpp>
+#include <boost/archive/archive_exception.hpp>
+#include <boost/serialization/access.hpp>
 #include "../enums/CarManufacturer.h"
 #include "../enums/Color.h"
 
 using namespace std;
+using namespace boost::archive;
 
 /**
  * taxi representation.
@@ -41,7 +45,27 @@ public:
     friend istream &operator>>(istream &is, Taxi &taxi);
 
     friend ostream &operator<<(ostream &os, const Taxi &taxi);
+
+    friend class boost::serialization::access;
+
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & id;
+        ar & KmPassed;
+        ar & manufacturer;
+        ar & color;
+    }
+
 };
+
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Taxi)
 
 
 #endif //A_P1_TAXI_H

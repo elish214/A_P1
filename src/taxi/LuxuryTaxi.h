@@ -9,6 +9,9 @@
 #include <ostream>
 #include "Taxi.h"
 
+using namespace std;
+using namespace boost::archive;
+
 /**
  * luxury taxi class.
  */
@@ -24,6 +27,20 @@ public:
     int getSpeed();
 
     friend ostream &operator<<(ostream &os, const LuxuryTaxi &taxi);
+
+    friend class boost::serialization::access;
+
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & boost::serialization::base_object<Taxi>(*this);
+    }
 };
 
 

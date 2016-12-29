@@ -43,6 +43,23 @@ public:
     friend istream &operator>>(istream &is, Grid &grid);
 
     friend ostream &operator<<(ostream &os, const Grid &grid);
+
+    friend class boost::serialization::access;
+
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & matrix;
+        ar & rows;
+        ar & cols;
+    }
+
 };
 
 

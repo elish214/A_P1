@@ -24,6 +24,7 @@ void printRoute(stack<Node *> route);
  */
 int main(int argc, char *argv[]) {
     Point *p = new Point(4, 5);
+    Driver *d = new Driver(1,23,MaritalStatus::DIVORCED,123);
 
     cout << "Hello, from server" << endl;
 
@@ -36,7 +37,7 @@ int main(int argc, char *argv[]) {
         con.receiveString(buffer);
         cout << buffer << endl;
 
-        con.send(p);
+        con.send(d);
     }
 
 

@@ -18,6 +18,10 @@ using namespace std;
  */
 class BFS {
 public:
+    BFS();
+
+    virtual ~BFS();
+
     vector<Node *> run(Node *start, Node *end);
 };
 

@@ -69,6 +69,13 @@ public:
 
     friend class boost::serialization::access;
 
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version) {
         ar & x;

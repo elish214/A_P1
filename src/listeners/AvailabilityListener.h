@@ -9,6 +9,9 @@
 #include "EndTripListener.h"
 #include "../Driver.h"
 
+using namespace std;
+using namespace boost::archive;
+
 /**
  * availability listener.
  * uses to announce taxi center who's available for a ride.
@@ -21,6 +24,20 @@ public:
 
     void endEvent();
 
+    friend class boost::serialization::access;
+
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & boost::serialization::base_object<EndTripListener>(*this);
+        ar & driver;
+    }
 };
 
 

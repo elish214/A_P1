@@ -14,6 +14,9 @@
 #include "TripInfo.h"
 #include "taxi/Taxi.h"
 
+using namespace std;
+using namespace boost::archive;
+
 /***
  * driver class.
  * this is a taxi driver.
@@ -73,6 +76,29 @@ public:
     friend istream &operator>>(istream &is, Driver &driver);
 
     friend ostream &operator<<(ostream &os, const Driver &driver);
+
+    friend class boost::serialization::access;
+
+    /**
+     * serialization implement.
+     *
+     * @tparam Archive a template.
+     * @param ar an archive.
+     * @param version an unsigned int.
+     */
+    template<class Archive>
+    void serialize(Archive &ar, const unsigned int version) {
+        ar & id;
+        ar & age;
+        //ar & status;
+        ar & taxiID;
+        ar & experience;
+        ar & satisfaction;
+        ar & taxi;
+        ar & location;
+        ar & endTripListeners;
+        ar & availability;
+    }
 };
 
 
