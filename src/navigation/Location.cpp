@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include "Grid.h"
 
+
 using namespace std;
 
 /**
@@ -153,3 +154,4 @@ bool Location::operator==(const Node &rhs) const {
         return false;
 }
 
+BOOST_CLASS_EXPORT(Location)

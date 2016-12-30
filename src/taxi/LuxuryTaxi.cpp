@@ -3,6 +3,7 @@
 //
 
 #include "LuxuryTaxi.h"
+BOOST_CLASS_EXPORT(LuxuryTaxi)
 
 /**
  * constructor.

@@ -6,6 +6,11 @@
 
 /**
  * constructor.
+ */
+Grid::Grid() {}
+
+/**
+ * constructor.
  *
  * @param rows matrix's rows.
  * @param cols matrix's collumns.
@@ -135,3 +140,5 @@ ostream &operator<<(ostream &os, const Grid &grid) {
 
     return os;
 }
+
+

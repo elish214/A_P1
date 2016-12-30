@@ -241,3 +241,15 @@ void Driver::setExperience(int experience) {
 int Driver::getExperience() {
     return experience;
 }
+
+/**
+ * Driver move one step on grid, according to it's taxi's type.
+ */
+void Driver::moveOneStep() {
+    int step = getTaxi()->getSpeed();
+    //advance according to 'step'.
+    //for (int i = 0; i < step; i++) {
+        //route.pop();
+    //}
+    //setLocation(route.top());
+}

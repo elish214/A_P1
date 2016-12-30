@@ -3,6 +3,7 @@
 //
 
 #include "StandardTaxi.h"
+BOOST_CLASS_EXPORT(StandardTaxi)
 
 /**
  * constructor.

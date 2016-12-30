@@ -3,6 +3,13 @@
 //
 
 #include "SatisfactionListener.h"
+BOOST_CLASS_EXPORT(SatisfactionListener)
+
+
+/**
+ * constructor.
+ */
+SatisfactionListener::SatisfactionListener() {}
 
 /**
  * constructor.

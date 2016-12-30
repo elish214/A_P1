@@ -5,7 +5,6 @@
 #ifndef A_P1_DRIVER_H
 #define A_P1_DRIVER_H
 
-
 #include <ostream>
 #include "enums/MaritalStatus.h"
 #include "Satisfaction.h"
@@ -33,6 +32,7 @@ private:
     Location *location;
     vector<EndTripListener *> endTripListeners;
     bool availability;
+    //vector<Node*> route;
 
 public:
     Driver(int id, int age, MaritalStatus status, int taxiId);
@@ -73,6 +73,8 @@ public:
 
     void removeListener(EndTripListener *listener);
 
+    void moveOneStep();
+
     friend istream &operator>>(istream &is, Driver &driver);
 
     friend ostream &operator<<(ostream &os, const Driver &driver);
@@ -90,13 +92,13 @@ public:
     void serialize(Archive &ar, const unsigned int version) {
         ar & id;
         ar & age;
-        //ar & status;
+        ar & status;
         ar & taxiID;
         ar & experience;
         ar & satisfaction;
         ar & taxi;
         ar & location;
-        ar & endTripListeners;
+        //ar & endTripListeners;
         ar & availability;
     }
 };

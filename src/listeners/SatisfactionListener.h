@@ -5,9 +5,22 @@
 #ifndef A_P1_SATISFACTIONLISTENER_H
 #define A_P1_SATISFACTIONLISTENER_H
 
-
+#include <boost/serialization/export.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/assign/list_of.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <boost/iostreams/device/back_inserter.hpp>
+#include <boost/tokenizer.hpp>
 #include "EndTripListener.h"
 #include "../Passenger.h"
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(EndTripListener)
+
 #include "../Driver.h"
 
 using namespace std;
@@ -22,6 +35,8 @@ private:
     Driver *driver;
     Passenger *passenger;
 public:
+    SatisfactionListener();
+
     SatisfactionListener(Driver *driver, Passenger *passenger);
 
     void endEvent();

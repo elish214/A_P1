@@ -224,8 +224,8 @@ void TaxiCenter::start() {
         trip = trips.front();
         trips.pop_front();
         driver = pop(*trip->getStart()->getPoint());
-
-        driver->setLocation(trip->getEnd());
+        //driver.setRoute(trip->getRoute());
+        driver->setLocation(trip->getEnd());                   //need to erase.
         driver->setExperience(driver->getExperience()+ 1);
         push(driver);
         availableDrivers--;
@@ -270,4 +270,16 @@ Driver *TaxiCenter::pop(Point p) {
     }
 
     return driver;
+}
+
+/**
+ * advance al taxi center's drivers one step.
+ */
+void TaxiCenter::advanceAllDrivers() {
+    Driver *d;
+    for (unsigned int i = 0; i < employees.size(); i++) {
+        d = employees.at(i);
+        //d->moveOneStep();
+
+    }
 }

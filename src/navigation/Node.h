@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <boost/serialization/base_object.hpp>
 
 using namespace std;
 //using namespace boost::archive;
@@ -101,7 +102,6 @@ public:
 
 };
 
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(Node)
-
+//BOOST_SERIALIZATION_ASSUME_ABSTRACT(Node);
 
 #endif //A_P1_NODE_H

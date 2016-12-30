@@ -11,6 +11,7 @@
 #include "Location.h"
 
 using namespace std;
+using namespace boost::archive;
 
 /**
  * Grid represent the 'map' on which the BFS search for the best route.
@@ -22,6 +23,8 @@ private:
     int rows;
     int cols;
 public:
+    Grid();
+
     Grid(int rows, int cols);
 
     Grid(Point p) { Grid(p.getY(), p.getX()); }
@@ -55,12 +58,11 @@ public:
      */
     template<class Archive>
     void serialize(Archive &ar, const unsigned int version) {
-        ar & matrix;
+        ar & **matrix;
         ar & rows;
         ar & cols;
     }
 
 };
-
 
 #endif //A_P1_GRID_H

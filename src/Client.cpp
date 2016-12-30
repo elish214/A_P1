@@ -24,3 +24,16 @@ int main(int argc, char *argv[]) {
     delete p;
     return 0;
 }
+
+/*
+ Driver *driver = new Driver();
+ cin >> *driver;
+
+ con.send(driver);
+
+ Taxi *taxi = con.receive<Taxi>();
+ //assign the taxi too driver??
+
+ delete driver, taxi.
+ close all sockets.
+ */

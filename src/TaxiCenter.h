@@ -52,6 +52,8 @@ public:
 
     void answer(Passenger passenger);
 
+    void advanceAllDrivers();
+
     friend ostream &operator<<(ostream &os, const TaxiCenter &center);
 
     virtual ~TaxiCenter();

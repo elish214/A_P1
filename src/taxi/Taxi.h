@@ -9,6 +9,8 @@
 #include <boost/archive/basic_archive.hpp>
 #include <boost/archive/archive_exception.hpp>
 #include <boost/serialization/access.hpp>
+#include <boost/serialization/export.hpp>
+#include <boost/serialization/base_object.hpp>
 #include "../enums/CarManufacturer.h"
 #include "../enums/Color.h"
 
@@ -65,7 +67,7 @@ public:
 
 };
 
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(Taxi)
+//BOOST_SERIALIZATION_ASSUME_ABSTRACT(Taxi)
 
 
 #endif //A_P1_TAXI_H

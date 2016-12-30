@@ -3,6 +3,12 @@
 //
 
 #include "AvailabilityListener.h"
+BOOST_CLASS_EXPORT(AvailabilityListener)
+
+/**
+ * constructor.
+ */
+AvailabilityListener::AvailabilityListener() {}
 
 /**
  * constructor.
@@ -17,3 +23,4 @@ AvailabilityListener::AvailabilityListener(Driver *driver) : driver(driver) {}
 void AvailabilityListener::endEvent() {
 
 }
+

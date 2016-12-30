@@ -10,12 +10,12 @@
  * here everything operate.
  */
 enum class Operation {
-    NEW_DRIVER = 1, NEW_RIDE, NEW_VEHICLE, DRIVER_LOCATION, START = 6, EXIT
+    NEW_DRIVER = 1, NEW_RIDE, NEW_VEHICLE, DRIVER_LOCATION, START = 6, EXIT, ADVANCE = 9
 };
 
 class Flow {
 public:
-    int run();
+    int run(int argc, char *argv[]);
 };
 
 

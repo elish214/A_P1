@@ -5,9 +5,9 @@
 #ifndef A_P1_ENDTRIPLISTENER_H
 #define A_P1_ENDTRIPLISTENER_H
 
-
 #include <boost/serialization/access.hpp>
 #include <boost/serialization/assume_abstract.hpp>
+#include <boost/serialization/base_object.hpp>
 
 //using namespace std;
 using namespace boost::archive;
@@ -34,6 +34,6 @@ public:
     }
 };
 
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(EndTripListener)
+//BOOST_SERIALIZATION_ASSUME_ABSTRACT(EndTripListener)
 
 #endif //A_P1_ENDTRIPLISTENER_H

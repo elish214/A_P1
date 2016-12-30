@@ -37,14 +37,14 @@ int main(int argc, char *argv[]) {
         con.receiveString(buffer);
         cout << buffer << endl;
 
-        con.send(d);
+        con.send(p);
     }
 
 
     //return 0;
 
 
-    //Flow flow = Flow();
+    //Flow flow = Flow(argc, argv);
 
     //return flow.run();
 }
