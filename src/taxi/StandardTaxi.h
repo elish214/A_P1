@@ -34,6 +34,8 @@ protected:
 public:
     StandardTaxi(int id, CarManufacturer manufacturer, Color color);
 
+    StandardTaxi();
+
     int getTaarif();
 
     int getSpeed();

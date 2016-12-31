@@ -1,24 +1,40 @@
 //
-// Created by raz on 06/12/16.
+// Created by raz on 14/11/16.
 //
 
-#include "Flow.h"
-#include "TaxiCenter.h"
+#include <iostream>
+#include <stack>
 #include "navigation/Grid.h"
-#include "taxi/TaxiFactory.h"
+#include "Driver.h"
 #include "sockets/Udp.h"
 #include "sockets/Connection.h"
+#include "taxi/StandardTaxi.h"
+#include "Flow.h"
 #include "enums/Operation.h"
 #include "containers/Command.h"
+#include "TaxiCenter.h"
+#include "taxi/TaxiFactory.h"
 
 using namespace std;
+//using namespace boost::archive;
+//std::stringstream ss;
+
+void parser(string s, int &a, int &c);
+
+void printRoute(stack<Node *> route);
 
 /**
- * returns 0 if everything runs well.
+ * entry point.
  *
- * @return 0 if everything runs well.
+ * @return 0.
  */
-int Flow::run(int port) {
+int main(int argc, char *argv[]) {
+    cout << "Hello, from server" << endl;
+
+
+    int port = atoi(argv[1]);
+
+
     Grid *grid;
     TaxiCenter center = TaxiCenter();
     Driver *driver;
@@ -141,7 +157,7 @@ int Flow::run(int port) {
 
                 //lc = con.receive<LocationContainer>();
                 location = new Location(*con.receive<LocationContainer>());
-                cout << *location << endl;
+                cout << clock << " : " << *location << endl;
 
                 break;
 
@@ -163,4 +179,71 @@ int Flow::run(int port) {
     //close socket.
 
     return 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    Command *op = new Command(Operation::ADVANCE);
+
+    Connection con(new Udp(1, atoi(argv[1])));
+    con.initialize();
+
+    while (1) {
+        char buffer[1024];
+
+        con.receiveString(buffer);
+        cout << buffer << endl;
+
+        con.send(op);
+    }
+
+    return 0;
+    */
+
+
+    Flow flow = Flow();
+
+    return flow.run(atoi(argv[1]));
+}
+
+/**
+ * parsing a string into two integers.
+ *
+ * @param s a string.
+ * @param a first integer.
+ * @param b second integer.
+ */
+void parser(string s, int &a, int &b) {
+    unsigned long i = s.find('_');
+
+    a = atoi(s.substr(0, i).c_str());
+    b = atoi(s.substr(i + 1, s.size() - i - 1).c_str());
+}
+
+/**
+ * printing a route.
+ *
+ * @param route a stuck of nodes.
+ */
+void printRoute(stack<Node *> route) {
+    while (!route.empty()) {
+        cout << *(route.top()) << endl;
+        route.pop();
+    }
 }

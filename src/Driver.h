@@ -12,6 +12,7 @@
 #include "listeners/EndTripListener.h"
 #include "TripInfo.h"
 #include "taxi/Taxi.h"
+#include "containers/DriverContainer.h"
 
 using namespace std;
 using namespace boost::archive;
@@ -29,13 +30,17 @@ private:
     int experience;
     Satisfaction satisfaction;
     Taxi *taxi;
-    Location *location;
+    Node *location;
     vector<EndTripListener *> endTripListeners;
     bool availability;
-    //vector<Node*> route;
+    vector<Node *> route;
 
 public:
+    Driver(int id, int age, MaritalStatus status, int experience, int taxiID);
+
     Driver(int id, int age, MaritalStatus status, int taxiId);
+
+    Driver(DriverContainer container);
 
     Driver();
 
@@ -43,9 +48,9 @@ public:
 
     int getId() const;
 
-    const Location *getLocation() const;
+    const Node *getLocation() const;
 
-    void setLocation(Location *location);
+    void setLocation(Node *location);
 
     Taxi *getTaxi() const;
 
@@ -57,7 +62,9 @@ public:
 
     void start(TripInfo trip);
 
-    void drive(vector<Location*>);
+    void setRoute(const vector<Node *> &route);
+
+    void drive(vector<Location *>);
 
     double getSatisfaction();
 
@@ -74,6 +81,8 @@ public:
     void removeListener(EndTripListener *listener);
 
     void moveOneStep();
+
+    DriverContainer *getContainer();
 
     friend istream &operator>>(istream &is, Driver &driver);
 
@@ -96,8 +105,12 @@ public:
         ar & taxiID;
         ar & experience;
         ar & satisfaction;
-        ar & taxi;
-        ar & location;
+        if (taxi != nullptr) {
+            ar & taxi;
+        }
+        if (location != nullptr) {
+            ar & location;
+        }
         //ar & endTripListeners;
         ar & availability;
     }

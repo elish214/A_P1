@@ -8,10 +8,6 @@
 
 #include <iostream>
 #include <string>
-#include "Point.h"
-#include "Node.h"
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(Node)
-
 #include <boost/serialization/export.hpp>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -24,6 +20,9 @@ BOOST_SERIALIZATION_ASSUME_ABSTRACT(Node)
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/device/back_inserter.hpp>
 #include <boost/tokenizer.hpp>
+#include "Point.h"
+#include "Node.h"
+#include "../containers/LocationContainer.h"
 
 using namespace std;
 using namespace boost::archive;
@@ -50,6 +49,8 @@ public:
 
     Location(int x, int y);
 
+    Location(LocationContainer container);
+
     virtual ~Location();
 
     Point *getPoint() const;
@@ -61,6 +62,8 @@ public:
     void setGrid(Grid *grid);
 
     vector<Node *> neighbors();
+
+    LocationContainer *getContainer() const;
 
     friend ostream &operator<<(ostream &os, Location &location);
 
@@ -83,7 +86,7 @@ public:
     void serialize(Archive &ar, const unsigned int version) {
         ar & boost::serialization::base_object<Node>(*this);
         ar & p;
-        ar & grid;
+        //ar & grid;
     }
 
 };

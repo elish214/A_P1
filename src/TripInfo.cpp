@@ -13,14 +13,21 @@
  * @param numOfPassengers number of passenger.
  * @param passenger a passenger.
  */
-TripInfo::TripInfo(int id, int numOfPassengers, Passenger passenger) :
-        id(id), totalMeters(0), start(passenger.getSource()), end(passenger.getDestination()),
-        numOfPassengers(numOfPassengers), passenger(passenger) {}
+TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger) :
+        id(id), totalMeters(0), start(passenger->getSource()),
+        end(passenger->getDestination()),
+        numOfPassengers(numOfPassengers), passenger(passenger) {
+    totalMeters = -1;
+    taarif = -1;
+}
 
 /**
  * constructor.
  */
-TripInfo::TripInfo() : totalMeters(0) {}
+TripInfo::TripInfo() : totalMeters(0) {
+    totalMeters = -1;
+    taarif = -1;
+}
 
 /**
  * returns trip's grid.
@@ -82,7 +89,7 @@ void TripInfo::findPath() {
 void TripInfo::calcMeters() {
     findPath();
     for (unsigned int i = 0; i < route.size(); i++) {
-        totalMeters += 1 ;
+        totalMeters += 1;
     }
 }
 
@@ -154,7 +161,7 @@ double TripInfo::getTaarif() const {
  *
  * @return trip's passenger.
  */
-const Passenger &TripInfo::getPassenger() const {
+Passenger *TripInfo::getPassenger() const {
     return passenger;
 }
 
@@ -191,8 +198,11 @@ istream &operator>>(istream &is, TripInfo &trip) {
     getline(is, s, ',');
     trip.numOfPassengers = atoi(s.c_str());
 
-    getline(is, s, '\n');
+    getline(is, s, ',');
     trip.taarif = stod(s.c_str());
+
+    getline(is, s, '\n');
+    trip.time = atoi(s.c_str());
 
     return is;
 }
@@ -208,6 +218,51 @@ ostream &operator<<(ostream &os, TripInfo &info) {
     os << "id: " << info.id << " totalMeters: " << info.totalMeters
        << " start: " << info.getStartVal() << " end: " << info.getEndVal()
        << " numOfPassengers: " << info.numOfPassengers << " taarif: "
-       << info.taarif;
+       << info.taarif << " time: " << time;
     return os;
+}
+
+TripInfo::TripInfo(TripContainer tc) :
+        id(tc.getId()), totalMeters(tc.getTotalMeters()),
+        start(new Location(*tc.getPassenger()->getSource())),
+        end(new Location(*tc.getPassenger()->getDestination())),
+        numOfPassengers(tc.getNumOfPassengers()),
+        passenger(new Passenger(*tc.getPassenger())), taarif(tc.getTaarif()),
+        time(tc.getTime()) {
+
+    for (int i = 0; i < tc.getRoute().size(); ++i) {
+        route.emplace_back(new Location(*tc.getRoute().at(i)));
+    }
+
+}
+
+TripContainer *TripInfo::getContainer() {
+    vector<LocationContainer *> r;
+
+    for (int i = 0; i < route.size(); ++i) {
+        r.emplace_back(route.at(i)->getContainer());
+    }
+
+    return new TripContainer(id, totalMeters, numOfPassengers, taarif,
+                             passenger->getContainer(), r, time);
+}
+
+TripInfo::~TripInfo() {
+    delete passenger;
+}
+
+void TripInfo::setRoute(const vector<Node *> &route) {
+    TripInfo::route = route;
+}
+
+TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger, int time)
+        : id(id), numOfPassengers(numOfPassengers), passenger(passenger),
+          time(time) {}
+
+int TripInfo::getTime() const {
+    return time;
+}
+
+void TripInfo::initPassenger() {
+    passenger = new Passenger(start, end);
 }

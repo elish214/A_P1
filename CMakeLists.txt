@@ -32,9 +32,10 @@ set(SOURCE_FILES src/navigation/Point.cpp src/navigation/BFS.cpp
         tests/TripInfo_check.cpp tests/main.cpp tests/AvailabilityListener_check.cpp
         tests/SatisfactionListener_check.cpp src/taxi/TaxiFactory.cpp src/taxi/TaxiFactory.h
         src/Flow.cpp src/Flow.h src/sockets/Socket.cpp src/sockets/Socket.h src/sockets/Udp.cpp
-        src/sockets/Udp.h src/sockets/Connection.cpp src/sockets/Connection.h)
+        src/sockets/Udp.h src/sockets/Connection.cpp src/sockets/Connection.h src/navigation/Node.cpp src/containers/LocationContainer.cpp src/containers/LocationContainer.h src/containers/DriverContainer.cpp src/containers/DriverContainer.h src/containers/PassengerContainer.cpp src/containers/PassengerContainer.h src/containers/TripContainer.cpp src/containers/TripContainer.h src/enums/Operation.h src/containers/Command.cpp src/containers/Command.h)
 
-add_executable(Server ${SOURCE_FILES} src/main.cpp)
+add_executable(Server ${SOURCE_FILES} src/Server.cpp)
 add_executable(Client ${SOURCE_FILES} src/Client.cpp)
 
 target_link_libraries(Server gtest gtest_main ${Boost_LIBRARIES})
+target_link_libraries(Client gtest gtest_main ${Boost_LIBRARIES})

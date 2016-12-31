@@ -6,6 +6,7 @@
 #define A_P1_SATISFACTION_H
 
 #include <boost/serialization/access.hpp>
+#include <ostream>
 
 using namespace std;
 using namespace boost::archive;
@@ -20,9 +21,14 @@ private:
 public:
     Satisfaction(int rating, int amount);
 
+    Satisfaction();
+
     double getRating();
 
     void rate(int newRating);
+
+    friend std::ostream &
+    operator<<(std::ostream &os, const Satisfaction &satisfaction);
 
     friend class boost::serialization::access;
 

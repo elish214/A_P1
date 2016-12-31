@@ -18,7 +18,7 @@
 #include <boost/iostreams/device/back_inserter.hpp>
 #include <boost/tokenizer.hpp>
 #include "EndTripListener.h"
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(EndTripListener)
+//BOOST_SERIALIZATION_ASSUME_ABSTRACT(EndTripListener)
 
 #include "../Driver.h"
 
@@ -39,7 +39,7 @@ public:
 
     void endEvent();
 
-    friend class boost::serialization::access;
+    //friend class boost::serialization::access;
 
     /**
      * serialization implement.
@@ -48,11 +48,11 @@ public:
      * @param ar an archive.
      * @param version an unsigned int.
      */
-    template<class Archive>
-    void serialize(Archive &ar, const unsigned int version) {
-        ar & boost::serialization::base_object<EndTripListener>(*this);
-        ar & driver;
-    }
+    //template<class Archive>
+    //void serialize(Archive &ar, const unsigned int version) {
+    //    ar & boost::serialization::base_object<EndTripListener>(*this);
+    //    ar & driver;
+    //}
 };
 
 

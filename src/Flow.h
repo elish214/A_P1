@@ -9,13 +9,9 @@
  * this is the flow class.
  * here everything operate.
  */
-enum class Operation {
-    NEW_DRIVER = 1, NEW_RIDE, NEW_VEHICLE, DRIVER_LOCATION, START = 6, EXIT, ADVANCE = 9
-};
-
 class Flow {
 public:
-    int run(int argc, char *argv[]);
+    int run(int port);
 };
 
 

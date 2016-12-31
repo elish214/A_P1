@@ -4,8 +4,6 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../src/Driver.h"
-#include "../src/listeners/AvailabilityListener.h"
 
 //using testing::Eq;
 
@@ -48,6 +46,6 @@ TEST_F(AvailabilityTests, testAvailable) {
      * currently isn't implemented.
     driver->setAvailability(false);
     driver->notifyAllEndTrip();
-    ASSERT_EQ(driver->isAvailability(), true);
+    ASSERT_EQ(driver->isAvailabile(), true);
      */
 }

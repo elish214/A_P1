@@ -108,7 +108,7 @@ vector<Node *> Location::neighbors() {
  * @return output stream.
  */
 ostream &operator<<(ostream &os, Location &location) {
-    os << location.getPoint();
+    os << *location.getPoint();
     return os;
 }
 
@@ -152,6 +152,14 @@ bool Location::operator==(const Node &rhs) const {
         return *this == other;
     } else
         return false;
+}
+
+LocationContainer *Location::getContainer() const {
+    return new LocationContainer(p);
+}
+
+Location::Location(LocationContainer container) {
+    p = container.getPoint();
 }
 
 BOOST_CLASS_EXPORT(Location)

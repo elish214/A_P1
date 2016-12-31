@@ -12,6 +12,11 @@
  */
 Satisfaction::Satisfaction(int rating, int amount) : rating(rating), amount(amount) {}
 
+Satisfaction::Satisfaction() {
+    rating = 0;
+    amount = 0;
+}
+
 /**
  * returns rating.
  *
@@ -30,6 +35,12 @@ void Satisfaction::rate(int newRating) {
     double current = getRating()*amount;
     amount++;
     rating = (current + newRating)/amount;
+}
+
+std::ostream &operator<<(std::ostream &os, const Satisfaction &satisfaction) {
+    os << "rating: " << satisfaction.rating << " amount: "
+       << satisfaction.amount;
+    return os;
 }
 
 

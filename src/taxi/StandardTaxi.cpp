@@ -1,10 +1,8 @@
 //
-// Created by raz on 29/11/16.
-//
 
 #include "StandardTaxi.h"
-BOOST_CLASS_EXPORT(StandardTaxi)
 
+BOOST_CLASS_EXPORT(StandardTaxi)
 /**
  * constructor.
  * @param id an integer.
@@ -14,6 +12,10 @@ BOOST_CLASS_EXPORT(StandardTaxi)
 StandardTaxi::StandardTaxi(int id, CarManufacturer manufacturer, Color color) : Taxi(id,
                                                                                      manufacturer,
                                                                                      color) {}
+
+//
+// Created by raz on 29/11/16.
+StandardTaxi::StandardTaxi() {}
 
 /**
  * returns cabs' taarif.

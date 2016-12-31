@@ -6,6 +6,14 @@
 
 using namespace std;
 
+
+Driver::Driver(int id, int age, MaritalStatus status, int experience,
+               int taxiID) : id(id), age(age), status(status),
+                             experience(experience), taxiID(taxiID) {
+    taxi = nullptr;
+    location = new Location(0, 0);
+}
+
 /**
  * constructor.
  *
@@ -13,16 +21,34 @@ using namespace std;
  * @param age an integer.
  * @param status an enum.
  */
-Driver::Driver(int id, int age, MaritalStatus status, int taxiId) : id(id), age(age),
-                                                        status(status), taxiID(taxiId),
-                                                        experience(0),
-                                                        satisfaction(0, 0) {
+Driver::Driver(int id, int age, MaritalStatus status, int taxiId) : id(id),
+                                                                    age(age),
+                                                                    status(status),
+                                                                    taxiID(taxiId),
+                                                                    experience(
+                                                                            0),
+                                                                    satisfaction(
+                                                                            0,
+                                                                            0) {
+    taxi = nullptr;
+    location = new Location(0, 0);
 }
 
 /**
  * constructor.
  */
 Driver::Driver() : satisfaction(0, 0) {
+    taxi = nullptr;
+    location = new Location(0, 0);
+}
+
+Driver::Driver(DriverContainer container) :
+        satisfaction(0, 0) {
+    id = container.getId();
+    age = container.getAge();
+    status = container.getStatus();
+    taxiID = container.getTaxiID();
+    experience = container.getExperience();
 }
 
 /**
@@ -39,7 +65,7 @@ Driver::~Driver() {
  *
  * @return driver's location.
  */
-const Location *Driver::getLocation() const {
+const Node *Driver::getLocation() const {
     return location;
 }
 
@@ -48,7 +74,7 @@ const Location *Driver::getLocation() const {
  *
  * @param location driver's location.
  */
-void Driver::setLocation(Location *location) {
+void Driver::setLocation(Node *location) {
     this->location = location;
 }
 
@@ -202,7 +228,7 @@ ostream &operator<<(ostream &os, const Driver &driver) {
        << " age: " << driver.age
        << " status: " << statusToString(driver.status)
        << " experience: " << driver.experience
-       << " taxi-" << *driver.taxi;
+       << " taxi: " << driver.taxiID;
     return os;
 }
 
@@ -247,9 +273,20 @@ int Driver::getExperience() {
  */
 void Driver::moveOneStep() {
     int step = getTaxi()->getSpeed();
+
     //advance according to 'step'.
-    //for (int i = 0; i < step; i++) {
-        //route.pop();
-    //}
-    //setLocation(route.top());
+    for (int i = 0; i < step; i++) {
+        if (route.size() != 0) {
+            setLocation(route.front());
+            route.erase(route.begin());
+        }
+    }
+}
+
+DriverContainer *Driver::getContainer() {
+    return new DriverContainer(id, age, status, taxiID, experience);
+}
+
+void Driver::setRoute(const vector<Node *> &route) {
+    Driver::route = route;
 }

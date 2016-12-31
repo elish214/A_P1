@@ -25,10 +25,11 @@ TaxiCenter::~TaxiCenter() {
     for (unsigned int j = 0; j < cabs.size(); j++) {
         delete cabs[j];
     }
-/*
+
     for (unsigned int k = 0; k < trips.size(); k++) {
-        delete &(trips.at(k));
-    }*/
+        delete trips[k];
+    }
+
     employees.clear();
     cabs.clear();
     trips.clear();
@@ -57,7 +58,7 @@ vector<Taxi *> &TaxiCenter::getCabs() {
  *
  * @return center's trips queue.
  */
-deque<TripInfo*> &TaxiCenter::getTrips() {
+vector<TripInfo *> &TaxiCenter::getTrips() {
     return trips;
 }
 
@@ -156,7 +157,7 @@ TripInfo TaxiCenter::getFirstTrip() {
     Location *l1 = new Location();
     Location *l2 = new Location();
 
-    return TripInfo(0, 0, Passenger(l1, l2));
+    return TripInfo(0, 0, new Passenger(l1, l2));
 }
 
 /**
@@ -222,7 +223,7 @@ void TaxiCenter::start() {
 
     while (!trips.empty() && availableDrivers > 0) {
         trip = trips.front();
-        trips.pop_front();
+        trips.erase(trips.begin());
         driver = pop(*trip->getStart()->getPoint());
         //driver.setRoute(trip->getRoute());
         driver->setLocation(trip->getEnd());                   //need to erase.
@@ -282,4 +283,30 @@ void TaxiCenter::advanceAllDrivers() {
         //d->moveOneStep();
 
     }
+}
+
+int TaxiCenter::numOfTripsAt(int time) {
+    int count = 0;
+
+    for (int i = 0; i < trips.size(); ++i) {
+        if (trips.at(i)->getTime() == time) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+TripInfo *TaxiCenter::getTripAt(int time) {
+    TripInfo *trip = nullptr;
+
+    for (int i = 0; i < trips.size(); ++i) {
+        if (trips.at(i)->getTime() == time) {
+            trip = trips.at(i);
+            //trips.erase(trips.begin() + i);
+            break;
+        }
+    }
+
+    return trip;
 }

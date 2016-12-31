@@ -26,7 +26,7 @@ namespace {
             source = new Location(0,2);
             dest = new Location(0,4);
             passenger = new Passenger(source, dest);
-            ti = new TripInfo(222, 3, *passenger);
+            ti = new TripInfo(222, 3, passenger);
         }
 
         virtual void TearDown() {

@@ -10,7 +10,7 @@
 #include <boost/serialization/base_object.hpp>
 
 //using namespace std;
-using namespace boost::archive;
+//using namespace boost::archive;
 
 /**
  * a listener for end of trips.
@@ -28,10 +28,10 @@ public:
      * @param ar an archive.
      * @param version an unsigned int.
      */
-    template<class Archive>
-    void serialize(Archive &ar, const unsigned int version) {
-        // nothing to serialize.
-    }
+    //template<class Archive>
+    //void serialize(Archive &ar, const unsigned int version) {
+    //    // nothing to serialize.
+    //}
 };
 
 //BOOST_SERIALIZATION_ASSUME_ABSTRACT(EndTripListener)

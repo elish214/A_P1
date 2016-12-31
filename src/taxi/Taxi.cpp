@@ -6,6 +6,8 @@
 #include "StandardTaxi.h"
 #include "LuxuryTaxi.h"
 
+BOOST_SERIALIZATION_ASSUME_ABSTRACT(Taxi)
+
 /**
  * constructor.
  *

@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include "navigation/Point.h"
 #include "navigation/Location.h"
+#include "containers/PassengerContainer.h"
 
 using namespace std;
 using namespace boost::archive;
@@ -24,6 +25,8 @@ private:
 public:
     Passenger(Location *source, Location *destination);
 
+    Passenger(PassengerContainer pc);
+
     Passenger();
 
     virtual ~Passenger();
@@ -32,7 +35,13 @@ public:
 
     Location *getDestination();
 
+    void setSource(Location *source);
+
+    void setDestination(Location *destination);
+
     int rate();
+
+    PassengerContainer *getContainer();
 
     bool operator==(const Passenger &rhs) const;
 

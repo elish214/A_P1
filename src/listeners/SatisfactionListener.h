@@ -19,12 +19,12 @@
 #include <boost/tokenizer.hpp>
 #include "EndTripListener.h"
 #include "../Passenger.h"
-BOOST_SERIALIZATION_ASSUME_ABSTRACT(EndTripListener)
+//BOOST_SERIALIZATION_ASSUME_ABSTRACT(EndTripListener)
 
 #include "../Driver.h"
 
 using namespace std;
-using namespace boost::archive;
+//using namespace boost::archive;
 
 /**
  * satisfaction listener class.
@@ -41,7 +41,7 @@ public:
 
     void endEvent();
 
-    friend class boost::serialization::access;
+    //friend class boost::serialization::access;
 
     /**
      * serialization implement.
@@ -50,12 +50,12 @@ public:
      * @param ar an archive.
      * @param version an unsigned int.
      */
-    template<class Archive>
-    void serialize(Archive &ar, const unsigned int version) {
-        ar & boost::serialization::base_object<EndTripListener>(*this);
-        ar & driver;
-        ar & passenger;
-    }
+    //template<class Archive>
+    //void serialize(Archive &ar, const unsigned int version) {
+    //    ar & boost::serialization::base_object<EndTripListener>(*this);
+    //    ar & driver;
+    //    ar & passenger;
+    //}
 };
 
 

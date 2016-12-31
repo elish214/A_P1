@@ -13,6 +13,11 @@
 Passenger::Passenger(Location *source, Location *destination) :
         source(source), destination(destination) {}
 
+Passenger::Passenger(PassengerContainer pc) {
+    source = new Location(*pc.getSource());
+    destination = new Location(*pc.getDestination());
+}
+
 /**
  * constructor.
  */
@@ -79,6 +84,20 @@ bool Passenger::operator!=(const Passenger &rhs) const {
  * @return output stream.
  */
 ostream &operator<<(ostream &os, const Passenger &passenger) {
-    os << "source: " << passenger.source << " destination: " << passenger.destination;
+    os << "source: " << *passenger.source << " destination: "
+       << *passenger.destination;
     return os;
+}
+
+PassengerContainer *Passenger::getContainer() {
+    return new PassengerContainer(source->getContainer(),
+                                  destination->getContainer());
+}
+
+void Passenger::setSource(Location *source) {
+    Passenger::source = source;
+}
+
+void Passenger::setDestination(Location *destination) {
+    Passenger::destination = destination;
 }

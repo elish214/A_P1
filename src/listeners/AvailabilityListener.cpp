@@ -3,7 +3,6 @@
 //
 
 #include "AvailabilityListener.h"
-BOOST_CLASS_EXPORT(AvailabilityListener)
 
 /**
  * constructor.

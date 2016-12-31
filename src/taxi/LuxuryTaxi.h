@@ -35,6 +35,8 @@ protected:
 public:
     LuxuryTaxi(int id, CarManufacturer manufacturer, Color color);
 
+    LuxuryTaxi();
+
     int getTaarif();
 
     int getSpeed();

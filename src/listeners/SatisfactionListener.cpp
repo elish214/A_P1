@@ -3,7 +3,7 @@
 //
 
 #include "SatisfactionListener.h"
-BOOST_CLASS_EXPORT(SatisfactionListener)
+//BOOST_CLASS_EXPORT(SatisfactionListener)
 
 
 /**

@@ -9,9 +9,10 @@
 #include <iostream>
 #include <string>
 #include <boost/serialization/base_object.hpp>
+#include "../containers/LocationContainer.h"
 
 using namespace std;
-//using namespace boost::archive;
+using namespace boost::archive;
 
 /**
  * Node represent an abstract class.
@@ -35,7 +36,7 @@ public:
     /**
      * constructor.
      */
-    Node() : obstacle(false) {}
+    Node();
 
     /**
     * distructor
@@ -57,15 +58,19 @@ public:
     */
     virtual bool operator==(const Node &rhs) const = 0;
 
+    virtual LocationContainer *getContainer() const = 0;
+
+    virtual Point *getPoint() const = 0;
+
+    virtual void setPoint(Point *p) = 0;
+
     /**
     * method overloading for operator '!='.
     *
     * @param rhs another node.
     * @return whether it isn't equals to current node or not.
     */
-    bool operator!=(const Node &rhs) const {
-        return *this != rhs;
-    }
+    bool operator!=(const Node &rhs) const;
 
     /**
      * method overloading for operator '<<'.
@@ -74,17 +79,11 @@ public:
     * @param point a node.
     * @return output stream.
     */
-    friend ostream &operator<<(ostream &os, const Node &node) {
-        return node.toString(os);
-    }
+    friend ostream &operator<<(ostream &os, const Node &node);
 
-    bool isObstacle() const {
-        return obstacle;
-    }
+    bool isObstacle() const;
 
-    void setObstacle(bool obstacle) {
-        Node::obstacle = obstacle;
-    }
+    void setObstacle(bool obstacle);
 
     //friend class boost::serialization::access;
 

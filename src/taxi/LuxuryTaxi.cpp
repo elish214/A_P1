@@ -14,6 +14,9 @@ BOOST_CLASS_EXPORT(LuxuryTaxi)
  */
 LuxuryTaxi::LuxuryTaxi(int id, CarManufacturer manufacturer, Color color) : Taxi(id, manufacturer,
                                                                                  color)  {}
+
+LuxuryTaxi::LuxuryTaxi() {}
+
 /**
  * returns cabs' taarif.
  *

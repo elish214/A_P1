@@ -10,6 +10,7 @@
 #include "navigation/Point.h"
 #include "Passenger.h"
 #include "navigation/Location.h"
+#include "containers/TripContainer.h"
 
 /**
  * trip information class.
@@ -22,18 +23,27 @@ private:
     Location *end;
     int numOfPassengers;
     double taarif;
-    Passenger passenger;
+    Passenger *passenger;
     Grid *grid;
     vector<Node*> route;
+    int time;
 
 public:
+    TripInfo(int id, int numOfPassengers, Passenger *passenger, int time);
+
+    TripInfo(int id, int numOfPassengers, Passenger *passenger);
+
+    TripInfo(TripContainer tc);
+
     TripInfo();
 
-    TripInfo(int id, int numOfPassengers, Passenger passenger);
+    virtual ~TripInfo();
 
     Grid *getGrid() const;
 
     void setGrid(Grid *g);
+
+    void initPassenger();
 
     int getId() const;
 
@@ -43,7 +53,11 @@ public:
 
     void calcMeters();
 
+    int getTime() const;
+
     vector<Node*> getRoute();
+
+    void setRoute(const vector<Node *> &route);
 
     Location *getStart();
 
@@ -53,11 +67,13 @@ public:
 
     Location getEndVal();
 
+    TripContainer *getContainer();
+
     int getNumOfPassengers() const;
 
     double getTaarif() const;
 
-    const Passenger &getPassenger() const;
+    Passenger *getPassenger() const;
 
     friend istream &operator>>(istream &is, TripInfo &trip);
 
