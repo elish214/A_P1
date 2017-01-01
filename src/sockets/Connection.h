@@ -86,7 +86,7 @@ public:
         oa << ob;
         s.flush();
 
-        return socket->sendData(serial_str, serial_str.size());
+        return socket->sendData(serial_str, (int) serial_str.size());
     }
 };
 

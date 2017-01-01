@@ -17,12 +17,15 @@ private:
     int totalMeters;
     int numOfPassengers;
     double taarif;
-    PassengerContainer *passenger;
+    LocationContainer *source;
+    LocationContainer *destination;
+    //PassengerContainer *passenger;
     vector<LocationContainer *> route;
     int time;
 public:
     TripContainer(int id, int totalMeters, int numOfPassengers,
-                  double taarif, PassengerContainer *passenger,
+                  double taarif, LocationContainer *source,
+                  LocationContainer *destination,
                   const vector<LocationContainer *> &route,
                   int time);
 
@@ -36,7 +39,11 @@ public:
 
     double getTaarif() const;
 
-    const PassengerContainer *getPassenger() const;
+    const LocationContainer *getSource() const;
+
+    const LocationContainer *getDestination() const;
+
+    //const PassengerContainer *getPassenger() const;
 
     const vector<LocationContainer *> &getRoute() const;
 
@@ -57,7 +64,9 @@ public:
         ar & totalMeters;
         ar & numOfPassengers;
         ar & taarif;
-        ar & passenger;
+        ar & source;
+        ar & destination;
+        //ar & passenger;
         ar & route;
         ar & time;
     }

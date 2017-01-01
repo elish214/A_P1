@@ -106,9 +106,9 @@ int main(int argc, char *argv[]) {
                 trip = new TripInfo();
                 cin >> *trip;
                 trip->setGrid(grid);
+                //trip->initPassenger();
                 //trip->getStart()->setGrid(grid);
                 //trip->getEnd()->setGrid(grid);
-                trip->initPassenger();
                 trip->calcMeters();
                 center.addTrip(trip);
                 break;
@@ -156,8 +156,9 @@ int main(int argc, char *argv[]) {
                 con.send(command);
 
                 //lc = con.receive<LocationContainer>();
-                location = new Location(*con.receive<LocationContainer>());
-                cout << clock << " : " << *location << endl;
+                //location = new Location(*con.receive<LocationContainer>());
+                cout << clock << " : "
+                     << Location(*con.receive<LocationContainer>()) << endl;
 
                 break;
 

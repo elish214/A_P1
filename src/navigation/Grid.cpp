@@ -141,4 +141,13 @@ ostream &operator<<(ostream &os, const Grid &grid) {
     return os;
 }
 
+void Grid::refresh() {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            matrix[i][j]->getPoint()->setX(j);
+            matrix[i][j]->getPoint()->setY(i);
+        }
+    }
+}
+
 

@@ -49,6 +49,8 @@ public:
 
     Location(int x, int y);
 
+    Location(Location *other);
+
     Location(LocationContainer container);
 
     virtual ~Location();

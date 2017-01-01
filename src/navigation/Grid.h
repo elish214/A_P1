@@ -43,6 +43,8 @@ public:
 
     Location *get(Point p);
 
+    void refresh();
+
     friend istream &operator>>(istream &is, Grid &grid);
 
     friend ostream &operator<<(ostream &os, const Grid &grid);

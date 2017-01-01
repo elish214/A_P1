@@ -81,9 +81,10 @@ void Location::setGrid(Grid *grid) {
  * @return location's neighbors.
  */
 vector<Node *> Location::neighbors() {
+    grid->refresh();
+
     int x = getPoint()->getX();
     int y = getPoint()->getY();
-
     vector<Node *> neighbors;
 
     if ((x > 0) && !(getGrid()->get(x - 1, y)->isObstacle())) //left
@@ -96,6 +97,14 @@ vector<Node *> Location::neighbors() {
         neighbors.push_back(getGrid()->get(x + 1, y));
     if ((y > 0) && !(getGrid()->get(x, y - 1)->isObstacle())) //down
         neighbors.push_back(getGrid()->get(x, y - 1));
+
+    //cout << *getPoint() << " : ";
+//
+    //for (int j = 0; j < neighbors.size(); ++j) {
+    //    cout << *neighbors.at(j) << ", ";
+    //}
+//
+    //cout << endl;
 
     return neighbors;
 }
@@ -155,11 +164,14 @@ bool Location::operator==(const Node &rhs) const {
 }
 
 LocationContainer *Location::getContainer() const {
-    return new LocationContainer(p);
+    return new LocationContainer(new Point(*p));
 }
 
 Location::Location(LocationContainer container) {
     p = container.getPoint();
+}
+
+Location::Location(Location *other) : p(other->getPoint()) {
 }
 
 BOOST_CLASS_EXPORT(Location)

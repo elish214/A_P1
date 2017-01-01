@@ -218,16 +218,16 @@ ostream &operator<<(ostream &os, TripInfo &info) {
     os << "id: " << info.id << " totalMeters: " << info.totalMeters
        << " start: " << info.getStartVal() << " end: " << info.getEndVal()
        << " numOfPassengers: " << info.numOfPassengers << " taarif: "
-       << info.taarif << " time: " << time;
+       << info.taarif << " time: " << info.time;
     return os;
 }
 
 TripInfo::TripInfo(TripContainer tc) :
         id(tc.getId()), totalMeters(tc.getTotalMeters()),
-        start(new Location(*tc.getPassenger()->getSource())),
-        end(new Location(*tc.getPassenger()->getDestination())),
+        start(new Location(*tc.getSource())),
+        end(new Location(*tc.getDestination())),
         numOfPassengers(tc.getNumOfPassengers()),
-        passenger(new Passenger(*tc.getPassenger())), taarif(tc.getTaarif()),
+        //passenger(new Passenger(*tc.getPassenger())), taarif(tc.getTaarif()),
         time(tc.getTime()) {
 
     for (int i = 0; i < tc.getRoute().size(); ++i) {
@@ -244,7 +244,8 @@ TripContainer *TripInfo::getContainer() {
     }
 
     return new TripContainer(id, totalMeters, numOfPassengers, taarif,
-                             passenger->getContainer(), r, time);
+                             start->getContainer(), end->getContainer(),
+                             r, time);
 }
 
 TripInfo::~TripInfo() {
@@ -264,5 +265,5 @@ int TripInfo::getTime() const {
 }
 
 void TripInfo::initPassenger() {
-    passenger = new Passenger(start, end);
+    passenger = new Passenger(new Location(start), new Location(end));
 }

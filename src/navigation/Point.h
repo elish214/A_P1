@@ -35,6 +35,8 @@ private:
 public:
     Point(int x = 0, int y = 0);
 
+    Point(const Point &p);
+
     virtual ~Point();
 
     int getX() const;
