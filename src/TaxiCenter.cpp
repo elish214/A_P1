@@ -288,7 +288,7 @@ void TaxiCenter::advanceAllDrivers() {
 int TaxiCenter::numOfTripsAt(int time) {
     int count = 0;
 
-    for (int i = 0; i < trips.size(); ++i) {
+    for (unsigned int i = 0; i < trips.size(); ++i) {
         if (trips.at(i)->getTime() == time) {
             count++;
         }
@@ -298,9 +298,9 @@ int TaxiCenter::numOfTripsAt(int time) {
 }
 
 TripInfo *TaxiCenter::getTripAt(int time) {
-    TripInfo *trip = nullptr;
+    TripInfo *trip = NULL;
 
-    for (int i = 0; i < trips.size(); ++i) {
+    for (unsigned int i = 0; i < trips.size(); ++i) {
         if (trips.at(i)->getTime() == time) {
             trip = trips.at(i);
             //trips.erase(trips.begin() + i);

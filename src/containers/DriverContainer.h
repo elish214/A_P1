@@ -18,8 +18,8 @@ private:
     int id;
     int age;
     MaritalStatus status;
-    int experience;
     int taxiID;
+    int experience;
 public:
     DriverContainer();
 

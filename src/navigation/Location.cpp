@@ -43,6 +43,7 @@ Point * Location::getPoint()const {
  * destructor.
  */
 Location::~Location() {
+    cout << "location deleted!" << endl;
     delete p;
 
 }

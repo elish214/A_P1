@@ -8,11 +8,13 @@ TripContainer::TripContainer(int id, int totalMeters, int numOfPassengers,
                              double taarif, LocationContainer *source,
                              LocationContainer *destination,
                              const vector<LocationContainer *> &route,
-                             int time) : id(id), totalMeters(
-        totalMeters), numOfPassengers(numOfPassengers), taarif(taarif),
-                                         route(route), time(time),
+                             int time) : id(id), totalMeters( totalMeters),
+                                         numOfPassengers(numOfPassengers),
+                                         taarif(taarif),
                                          source(source),
-                                         destination(destination) {}
+                                         destination(destination),
+                                         route(route),
+                                         time(time){}
 
 TripContainer::TripContainer() {}
 

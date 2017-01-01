@@ -12,7 +12,8 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    Connection con(new Udp(0, atoi(argv[2])));
+    int sock = atoi(argv[2]);
+    Connection con(new Udp(0, sock));
     Driver *d = new Driver(0, 30, MaritalStatus::MARRIED, 1, 0);
     d->setAvailability(true);
     DriverContainer *dc = d->getContainer();
@@ -24,11 +25,8 @@ int main(int argc, char *argv[]) {
     const Node *l;
     Command *c;
     bool isRunning = true;
-    int x, y, size;
-
 
     con.initialize();
-
 
     con.send(dc);
     taxi = con.receive<Taxi>();
@@ -46,12 +44,6 @@ int main(int argc, char *argv[]) {
             case Operation::NEW_RIDE:
                 tc = con.receive<TripContainer>();
                 trip = new TripInfo(*tc);
-
-                //bug fix
-                size = (int) trip->getRoute().size();
-                x = trip->getRoute().at(size - 1)->getPoint()->getX();
-                y = trip->getRoute().at(size - 1)->getPoint()->getY();
-                trip->getRoute().at(size - 1)->setPoint(new Point(x, y));
 
                 cout << "got trip: " << *trip << endl;
 
@@ -81,6 +73,6 @@ int main(int argc, char *argv[]) {
 
     //close sockets!!
     //free stuff
-
+    close(sock);
     return 0;
 }

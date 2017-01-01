@@ -46,15 +46,19 @@ Grid *TripInfo::getGrid() const {
 void TripInfo::setGrid(Grid *g) {
     TripInfo::grid = g;
 
-    Location *s = g->get(*start->getPoint());
-    Location *e = g->get(*end->getPoint());
+    //Location *s = g->get(*start->getPoint());
+    //Location *e = g->get(*end->getPoint());
+//
+    ////delete start;
+    ////delete end;
+//
+    //start = s;
+    //end = e;
 
-    delete start;
-    delete end;
+}
 
-    start = s;
-    end = e;
-
+TripInfo::~TripInfo() {
+    delete passenger;
 }
 
 /**
@@ -80,7 +84,7 @@ int TripInfo::getTotalMeters() const {
  */
 void TripInfo::findPath() {
     BFS bfs;
-    route = bfs.run(start, end);
+    route = bfs.run(grid->get(*start->getPoint()), grid->get(*end->getPoint()));
 }
 
 /**
@@ -230,7 +234,7 @@ TripInfo::TripInfo(TripContainer tc) :
         //passenger(new Passenger(*tc.getPassenger())), taarif(tc.getTaarif()),
         time(tc.getTime()) {
 
-    for (int i = 0; i < tc.getRoute().size(); ++i) {
+    for (unsigned int i = 0; i < tc.getRoute().size(); ++i) {
         route.emplace_back(new Location(*tc.getRoute().at(i)));
     }
 
@@ -239,17 +243,13 @@ TripInfo::TripInfo(TripContainer tc) :
 TripContainer *TripInfo::getContainer() {
     vector<LocationContainer *> r;
 
-    for (int i = 0; i < route.size(); ++i) {
+    for (unsigned int i = 0; i < route.size(); ++i) {
         r.emplace_back(route.at(i)->getContainer());
     }
 
     return new TripContainer(id, totalMeters, numOfPassengers, taarif,
                              start->getContainer(), end->getContainer(),
                              r, time);
-}
-
-TripInfo::~TripInfo() {
-    delete passenger;
 }
 
 void TripInfo::setRoute(const vector<Node *> &route) {

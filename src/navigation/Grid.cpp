@@ -133,7 +133,8 @@ ostream &operator<<(ostream &os, const Grid &grid) {
 
     for (int i = grid.rows - 1; i >= 0; i--) {
         for (int j = 0; j < grid.cols; j++) {
-            os << (grid.matrix[i][j]->isObstacle() ? 'X' : 'O');
+            //os << (grid.matrix[i][j]->isObstacle() ? 'X' : 'O');
+            os << *grid.matrix[i][j]->getPoint();
         }
         os << endl;
     }

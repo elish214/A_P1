@@ -106,7 +106,6 @@ bool Point::operator!=(const Point &rhs) const {
  */
 istream &operator>>(istream &is, Point &point) {
     string s;
-    int x, y;
 
     getline(is, s, ',');
     point.x = atoi(s.c_str());

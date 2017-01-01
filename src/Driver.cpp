@@ -10,7 +10,7 @@ using namespace std;
 Driver::Driver(int id, int age, MaritalStatus status, int experience,
                int taxiID) : id(id), age(age), status(status),
                              experience(experience), taxiID(taxiID) {
-    taxi = nullptr;
+    taxi = NULL;
     location = new Location(0, 0);
 }
 
@@ -24,13 +24,10 @@ Driver::Driver(int id, int age, MaritalStatus status, int experience,
 Driver::Driver(int id, int age, MaritalStatus status, int taxiId) : id(id),
                                                                     age(age),
                                                                     status(status),
+                                                                    experience(0),
                                                                     taxiID(taxiId),
-                                                                    experience(
-                                                                            0),
-                                                                    satisfaction(
-                                                                            0,
-                                                                            0) {
-    taxi = nullptr;
+                                                                    satisfaction(0, 0) {
+    taxi = NULL;
     location = new Location(0, 0);
 }
 
@@ -38,7 +35,7 @@ Driver::Driver(int id, int age, MaritalStatus status, int taxiId) : id(id),
  * constructor.
  */
 Driver::Driver() : satisfaction(0, 0) {
-    taxi = nullptr;
+    taxi = NULL;
     location = new Location(0, 0);
 }
 

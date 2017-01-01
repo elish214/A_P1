@@ -26,8 +26,8 @@ private:
     int id;
     int age;
     MaritalStatus status;
-    int taxiID;
     int experience;
+    int taxiID;
     Satisfaction satisfaction;
     Taxi *taxi;
     Node *location;
@@ -105,10 +105,10 @@ public:
         ar & taxiID;
         ar & experience;
         ar & satisfaction;
-        if (taxi != nullptr) {
+        if (taxi != NULL) {
             ar & taxi;
         }
-        if (location != nullptr) {
+        if (location != NULL) {
             ar & location;
         }
         //ar & endTripListeners;

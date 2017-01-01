@@ -9,11 +9,11 @@
 #include "sockets/Udp.h"
 #include "sockets/Connection.h"
 #include "taxi/StandardTaxi.h"
-#include "Flow.h"
 #include "enums/Operation.h"
 #include "containers/Command.h"
 #include "TaxiCenter.h"
 #include "taxi/TaxiFactory.h"
+#include "navigation/Node.h"
 
 using namespace std;
 //using namespace boost::archive;
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     cout << "Hello, from server" << endl;
 
 
-    int port = atoi(argv[1]);
+    int sock = atoi(argv[1]);
 
 
     Grid *grid;
@@ -48,14 +48,14 @@ int main(int argc, char *argv[]) {
     Operation op;
     int clock = 0;
     Command *command = new Command();
-    Node *node;
-    //LocationContainer *lc;
+    //Node *node;
+    LocationContainer *lc;
     //TripContainer *tc;
     Location *location;
 
     int rows, cols;
 
-    Connection con(new Udp(1, port));
+    Connection con(new Udp(1, sock));
     con.initialize();
 
     cin >> rows >> cols;
@@ -103,14 +103,20 @@ int main(int argc, char *argv[]) {
                 break;
             case Operation::NEW_RIDE:
                 //   cout << "new ride" << endl;
+                cout << "before new: " << endl << *grid << endl;
                 trip = new TripInfo();
+                cout << "new: " << endl << *grid << endl;
                 cin >> *trip;
+                cout << "cin: " << endl << *grid << endl;
                 trip->setGrid(grid);
                 //trip->initPassenger();
                 //trip->getStart()->setGrid(grid);
                 //trip->getEnd()->setGrid(grid);
+                cout << "set: " << endl << *grid << endl;
                 trip->calcMeters();
+                cout << "calc: " << endl << *grid << endl;
                 center.addTrip(trip);
+                cout << "after trip: " << endl << *grid << endl;
                 break;
             case Operation::NEW_VEHICLE:
                 //   cout << "new vehicle" << endl;
@@ -152,19 +158,23 @@ int main(int argc, char *argv[]) {
                     command->setOp(Operation::ADVANCE);
                 }
 
+                cout << "before send: " << endl << *grid << endl;
                 clock++;
                 con.send(command);
 
-                //lc = con.receive<LocationContainer>();
-                //location = new Location(*con.receive<LocationContainer>());
+                cout << "after send: " << endl << *grid << endl;
+
+
+                lc = con.receive<LocationContainer>();
+                location = new Location(*lc);
                 cout << clock << " : "
-                     << Location(*con.receive<LocationContainer>()) << endl;
+                     << *location << endl;
 
                 break;
 
             case Operation::EXIT:
                 con.send(command);
-
+                cout << "gonna end: " << endl << *grid << endl;
                 isRunning = false;
                 break;
         }
@@ -175,27 +185,15 @@ int main(int argc, char *argv[]) {
 */
     } while (isRunning);
 
+    cout << "grid: " << endl << *grid << endl;
+
+
     delete grid;
     //delete trip;
     //close socket.
-
+    close(sock);
     return 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -218,10 +216,10 @@ int main(int argc, char *argv[]) {
     */
 
 
-    Flow flow = Flow();
+  //  Flow flow = Flow();
 
-    return flow.run(atoi(argv[1]));
-}
+//    return flow.run(atoi(argv[1]));
+
 
 /**
  * parsing a string into two integers.
