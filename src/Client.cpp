@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     d->setAvailability(true);
     DriverContainer *dc;// = d->getContainer();
     Taxi *taxi;
-    TripInfo *trip;
+    TripInfo *trip = new TripInfo();
     TripContainer *tc;
     Operation op;
     LocationContainer *lc;
@@ -33,25 +33,21 @@ int main(int argc, char *argv[]) {
 
     con.send(dc);
     taxi = con.receive<Taxi>();
-    cout << "here" << endl;
     d->setTaxi(taxi);
 
     do {
         //operation
         c = con.receive<Command>();
         op = c->getOp();
-        cout << "here" << endl;
 
         switch (op) {
             case Operation::NEW_RIDE:
                 tc = con.receive<TripContainer>();
                 cout << tc->getId() << endl;
-                trip = new TripInfo(*tc);
-                cout << "here" << endl;
+                trip = new TripInfo(tc);
 
                 d->setRoute(trip->getRoute());
                 d->moveOneStep();
-                cout << "here" << endl;
 
                 //need to delete trip after finished it.
                 break;
@@ -59,7 +55,7 @@ int main(int argc, char *argv[]) {
                 d->moveOneStep();
                 //break;
             case Operation::DRIVER_LOCATION:
-                l = d->getLocation();
+                //l = d->getLocation();
                 lc = d->getLocation()->getContainer();
                 con.send(lc);
                 break;

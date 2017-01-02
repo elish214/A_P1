@@ -33,7 +33,7 @@ public:
 
     TripInfo(int id, int numOfPassengers, Passenger *passenger);
 
-    TripInfo(TripContainer tc);
+    TripInfo(TripContainer *tc);
 
     TripInfo();
 

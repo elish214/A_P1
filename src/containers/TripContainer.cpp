@@ -38,6 +38,7 @@ TripContainer::TripContainer() {}
  */
 TripContainer::~TripContainer() {
 
+
     for (unsigned int i = 0; i < route.size(); i++) {
         delete route[i];
     }
@@ -105,7 +106,7 @@ int TripContainer::getTime() const {
  *
  * @return trip's source.
  */
-const LocationContainer *TripContainer::getSource() const {
+LocationContainer *TripContainer::getSource() const {
     return source;
 }
 
@@ -114,6 +115,6 @@ const LocationContainer *TripContainer::getSource() const {
  *
  * @return trip's destination.
  */
-const LocationContainer *TripContainer::getDestination() const {
+LocationContainer *TripContainer::getDestination() const {
     return destination;
 }

@@ -47,7 +47,6 @@ Point * Location::getPoint()const {
  * destructor.
  */
 Location::~Location() {
-    cout << "location deleted!" << endl;
     delete p;
 
 }
@@ -182,8 +181,8 @@ LocationContainer *Location::getContainer() const {
  *
  * @param container a container.
  */
-Location::Location(LocationContainer container) {
-    p = container.getPoint();
+Location::Location(LocationContainer *container) {
+    p = new Point(*container->getPoint());
 }
 
 /**

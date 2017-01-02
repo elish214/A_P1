@@ -21,7 +21,7 @@ LocationContainer::LocationContainer(Point *p) : p(p) {}
  * destructor.
  */
 LocationContainer::~LocationContainer() {
-    //delete p;
+    delete p;
 }
 
 /**

@@ -51,7 +51,7 @@ public:
 
     Location(Location *other);
 
-    Location(LocationContainer container);
+    Location(LocationContainer *container);
 
     virtual ~Location();
 

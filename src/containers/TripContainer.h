@@ -44,9 +44,9 @@ public:
 
     double getTaarif() const;
 
-    const LocationContainer *getSource() const;
+    LocationContainer *getSource() const;
 
-    const LocationContainer *getDestination() const;
+    LocationContainer *getDestination() const;
 
     //const PassengerContainer *getPassenger() const;
 

@@ -46,21 +46,20 @@ TripInfo::TripInfo() : totalMeters(0) {
  *
  * @param tc trip container.
  */
-TripInfo::TripInfo(TripContainer tc) :
-        id(tc.getId()), totalMeters(tc.getTotalMeters()),
-        start(new Location(*tc.getSource())),
-        end(new Location(*tc.getDestination())),
-        numOfPassengers(tc.getNumOfPassengers()),
+TripInfo::TripInfo(TripContainer *tc) :
+        id(tc->getId()), totalMeters(tc->getTotalMeters()),
+        numOfPassengers(tc->getNumOfPassengers()),
         //passenger(new Passenger(*tc.getPassenger())), taarif(tc.getTaarif()),
-        time(tc.getTime()) {
-    cout << "here11" << endl;
+        time(tc->getTime()) {
 
-    for (unsigned int i = 0; i < tc.getRoute().size(); ++i) {
+    start = new Location(tc->getSource());
+    end = new Location(tc->getDestination());
 
-        route.emplace_back(new Location(*tc.getRoute().at(i)));
+    for (unsigned int i = 0; i < tc->getRoute().size(); ++i) {
+
+        route.emplace_back(new Location(tc->getRoute().at(i)));
         cout << *route.at(i) << endl;
     }
-    cout << "here22" << endl;
 
 }
 

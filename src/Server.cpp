@@ -13,7 +13,6 @@
 #include "containers/Command.h"
 #include "TaxiCenter.h"
 #include "taxi/TaxiFactory.h"
-#include "navigation/Node.h"
 
 using namespace std;
 //using namespace boost::archive;
@@ -124,7 +123,7 @@ int main(int argc, char *argv[]) {
                 //cout << *(center.getDriver(id)->getLocation()) << endl;
                 con.send(command);
                 lc = con.receive<LocationContainer>();
-                location = new Location(*lc);
+                location = new Location(lc);
 
                 cout << *location << endl;
                 delete lc;
@@ -154,7 +153,7 @@ int main(int argc, char *argv[]) {
                 con.send(command);
 
                 //lc = con.receive<LocationContainer>();
-                //location = new Location(*lc);
+                //location = new Location(lc);
                 //cout << clock << " : " << *location << endl;
 
                 break;

@@ -19,8 +19,8 @@ Passenger::Passenger(Location *source, Location *destination) :
  * @param pc a passenger container.
  */
 Passenger::Passenger(PassengerContainer pc) {
-    source = new Location(*pc.getSource());
-    destination = new Location(*pc.getDestination());
+    source = new Location(pc.getSource());
+    destination = new Location(pc.getDestination());
 }
 
 /**
