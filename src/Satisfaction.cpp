@@ -12,6 +12,9 @@
  */
 Satisfaction::Satisfaction(int rating, int amount) : rating(rating), amount(amount) {}
 
+/**
+ * constructor.
+ */
 Satisfaction::Satisfaction() {
     rating = 0;
     amount = 0;
@@ -37,10 +40,15 @@ void Satisfaction::rate(int newRating) {
     rating = (current + newRating)/amount;
 }
 
+/**
+ * method overloading for operator '<<'.
+ *
+ * @param os output stream.
+ * @param satisfction a satisfaction..
+ * @return output stream.
+ */
 std::ostream &operator<<(std::ostream &os, const Satisfaction &satisfaction) {
     os << "rating: " << satisfaction.rating << " amount: "
        << satisfaction.amount;
     return os;
 }
-
-

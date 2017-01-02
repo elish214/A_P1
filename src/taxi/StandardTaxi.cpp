@@ -1,4 +1,6 @@
 //
+// Created by raz on 29/11/16.
+//
 
 #include "StandardTaxi.h"
 
@@ -13,8 +15,9 @@ StandardTaxi::StandardTaxi(int id, CarManufacturer manufacturer, Color color) : 
                                                                                      manufacturer,
                                                                                      color) {}
 
-//
-// Created by raz on 29/11/16.
+/**
+ * constructor.
+ */
 StandardTaxi::StandardTaxi() {}
 
 /**

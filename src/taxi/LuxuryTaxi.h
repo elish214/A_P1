@@ -5,7 +5,6 @@
 #ifndef A_P1_LUXURYTAXI_H
 #define A_P1_LUXURYTAXI_H
 
-
 #include <ostream>
 #include <boost/serialization/export.hpp>
 #include <boost/archive/text_oarchive.hpp>

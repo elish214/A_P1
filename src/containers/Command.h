@@ -11,6 +11,10 @@
 
 using namespace boost::archive;
 
+/**
+ * command represent class.
+ * command is the way to tell the client what data it's about to receive.
+ */
 class Command {
 private:
     Operation op;

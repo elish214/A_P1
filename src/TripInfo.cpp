@@ -23,6 +23,18 @@ TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger) :
 
 /**
  * constructor.
+ *
+ * @param id an integer.
+ * @param numOfPassengers an integer.
+ * @param passenger a passenger.
+ * @param time a starting time.
+ */
+TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger, int time)
+        : id(id), numOfPassengers(numOfPassengers), passenger(passenger),
+          time(time) {}
+
+/**
+ * constructor.
  */
 TripInfo::TripInfo() : totalMeters(0) {
     totalMeters = -1;
@@ -48,15 +60,18 @@ void TripInfo::setGrid(Grid *g) {
 
     //Location *s = g->get(*start->getPoint());
     //Location *e = g->get(*end->getPoint());
-//
+
     ////delete start;
     ////delete end;
-//
+
     //start = s;
     //end = e;
 
 }
 
+/**
+ * distructor.
+ */
 TripInfo::~TripInfo() {
     delete passenger;
 }
@@ -226,6 +241,11 @@ ostream &operator<<(ostream &os, TripInfo &info) {
     return os;
 }
 
+/**
+ * constructor.
+ *
+ * @param tc trip container.
+ */
 TripInfo::TripInfo(TripContainer tc) :
         id(tc.getId()), totalMeters(tc.getTotalMeters()),
         start(new Location(*tc.getSource())),
@@ -240,6 +260,11 @@ TripInfo::TripInfo(TripContainer tc) :
 
 }
 
+/**
+ * returns object's container.
+ *
+ * @return  object's container.
+ */
 TripContainer *TripInfo::getContainer() {
     vector<LocationContainer *> r;
 
@@ -252,18 +277,27 @@ TripContainer *TripInfo::getContainer() {
                              r, time);
 }
 
+/**
+ * set trip's route.
+ *
+ * @param route a route.
+ */
 void TripInfo::setRoute(const vector<Node *> &route) {
     TripInfo::route = route;
 }
 
-TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger, int time)
-        : id(id), numOfPassengers(numOfPassengers), passenger(passenger),
-          time(time) {}
-
+/**
+ * returns trip's time.
+ *
+ * @return trip's time.
+ */
 int TripInfo::getTime() const {
     return time;
 }
 
+/**
+ * initial passengers.
+ */
 void TripInfo::initPassenger() {
     passenger = new Passenger(new Location(start), new Location(end));
 }

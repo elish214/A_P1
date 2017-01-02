@@ -10,6 +10,9 @@
 
 using namespace boost::archive;
 
+/**
+ * a passenger's container in order to send it to client.
+ */
 class PassengerContainer {
 private:
     LocationContainer *source;

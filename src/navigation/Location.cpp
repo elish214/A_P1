@@ -164,14 +164,29 @@ bool Location::operator==(const Node &rhs) const {
         return false;
 }
 
+/**
+ * return's object's container.
+ *
+ * @return object's container.
+ */
 LocationContainer *Location::getContainer() const {
     return new LocationContainer(new Point(*p));
 }
 
+/**
+ * constructor.
+ *
+ * @param container a container.
+ */
 Location::Location(LocationContainer container) {
     p = container.getPoint();
 }
 
+/**
+ * constructor.
+ *
+ * @param other anlther location.
+ */
 Location::Location(Location *other) : p(other->getPoint()) {
 }
 

@@ -13,6 +13,11 @@
 Passenger::Passenger(Location *source, Location *destination) :
         source(source), destination(destination) {}
 
+/**
+ * constructor.
+ *
+ * @param pc a passenger container.
+ */
 Passenger::Passenger(PassengerContainer pc) {
     source = new Location(*pc.getSource());
     destination = new Location(*pc.getDestination());
@@ -89,15 +94,30 @@ ostream &operator<<(ostream &os, const Passenger &passenger) {
     return os;
 }
 
+/**
+ * returns object's container.
+ *
+ * @return object's container.
+ */
 PassengerContainer *Passenger::getContainer() {
     return new PassengerContainer(source->getContainer(),
                                   destination->getContainer());
 }
 
+/**
+ * setting passenger's source location.
+ *
+ * @param source a location.
+ */
 void Passenger::setSource(Location *source) {
     Passenger::source = source;
 }
 
+/**
+ * setting passenger's destination location.
+ *
+ * @param destination a location.
+ */
 void Passenger::setDestination(Location *destination) {
     Passenger::destination = destination;
 }

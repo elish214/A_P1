@@ -14,9 +14,10 @@ using namespace std;
 int main(int argc, char *argv[]) {
     int sock = atoi(argv[2]);
     Connection con(new Udp(0, sock));
-    Driver *d = new Driver(0, 30, MaritalStatus::MARRIED, 1, 0);
+    //Driver *d = new Driver(0, 30, MaritalStatus::MARRIED, 1, 0);
+    Driver *d = new Driver();
     d->setAvailability(true);
-    DriverContainer *dc = d->getContainer();
+    DriverContainer *dc;// = d->getContainer();
     Taxi *taxi;
     TripInfo *trip;
     TripContainer *tc;
@@ -25,13 +26,13 @@ int main(int argc, char *argv[]) {
     const Node *l;
     Command *c;
     bool isRunning = true;
+    cin >> *d;
+    dc = d->getContainer();
 
     con.initialize();
 
     con.send(dc);
     taxi = con.receive<Taxi>();
-
-    cout << "got taxi: " << *taxi << endl;
 
     d->setTaxi(taxi);
 
@@ -44,8 +45,6 @@ int main(int argc, char *argv[]) {
             case Operation::NEW_RIDE:
                 tc = con.receive<TripContainer>();
                 trip = new TripInfo(*tc);
-
-                cout << "got trip: " << *trip << endl;
 
                 d->setRoute(trip->getRoute());
                 d->moveOneStep();

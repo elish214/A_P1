@@ -142,6 +142,9 @@ ostream &operator<<(ostream &os, const Grid &grid) {
     return os;
 }
 
+/**
+ * rfresh all grid's values to be it's original values.
+ */
 void Grid::refresh() {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {

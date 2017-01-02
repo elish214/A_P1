@@ -16,6 +16,9 @@ TaxiCenter::TaxiCenter() {
     //this->employees = vector<Driver *>();
 }
 
+/**
+ * distructor.
+ */
 TaxiCenter::~TaxiCenter() {
 
     for (unsigned int i = 0; i < employees.size(); i++) {
@@ -285,6 +288,12 @@ void TaxiCenter::advanceAllDrivers() {
     }
 }
 
+/**
+ * returns how many trips are assigned at a specific time.
+ *
+ * @param time a specific time.
+ * @return an integer.
+ */
 int TaxiCenter::numOfTripsAt(int time) {
     int count = 0;
 
@@ -297,6 +306,12 @@ int TaxiCenter::numOfTripsAt(int time) {
     return count;
 }
 
+/**
+ * returns a trip that assignedto the specific time.
+ *
+ * @param time a specific time.
+ * @return a trip.
+ */
 TripInfo *TaxiCenter::getTripAt(int time) {
     TripInfo *trip = NULL;
 

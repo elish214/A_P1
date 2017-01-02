@@ -31,9 +31,7 @@ void printRoute(stack<Node *> route);
 int main(int argc, char *argv[]) {
     cout << "Hello, from server" << endl;
 
-
     int sock = atoi(argv[1]);
-
 
     Grid *grid;
     TaxiCenter center = TaxiCenter();
@@ -81,7 +79,7 @@ int main(int argc, char *argv[]) {
         switch (op) {
             case Operation::NEW_DRIVER:
                 cin >> numOfDrivers;
-                cout << "waiting for drivers" << endl;
+    //            cout << "waiting for drivers" << endl;
                 for (int j = 0; j < numOfDrivers; ++j) {
                     //dc = con.receive<DriverContainer>();
                     driver = new Driver(*con.receive<DriverContainer>());
@@ -92,10 +90,10 @@ int main(int argc, char *argv[]) {
                     driver->setTaxi(taxi);
                     con.send(taxi);
 
-                    cout << "got driver: " << *driver << endl;
-                    cout << "sent taxi: " << *taxi << endl;
+      //              cout << "got driver: " << *driver << endl;
+      //              cout << "sent taxi: " << *taxi << endl;
                 }
-                cout << "finished waiting for drivers" << endl;
+      //          cout << "finished waiting for drivers" << endl;
                 /*
                 driver = new Driver();
                 cin >> *driver;
@@ -103,20 +101,14 @@ int main(int argc, char *argv[]) {
                 break;
             case Operation::NEW_RIDE:
                 //   cout << "new ride" << endl;
-                cout << "before new: " << endl << *grid << endl;
                 trip = new TripInfo();
-                cout << "new: " << endl << *grid << endl;
                 cin >> *trip;
-                cout << "cin: " << endl << *grid << endl;
                 trip->setGrid(grid);
                 //trip->initPassenger();
                 //trip->getStart()->setGrid(grid);
                 //trip->getEnd()->setGrid(grid);
-                cout << "set: " << endl << *grid << endl;
                 trip->calcMeters();
-                cout << "calc: " << endl << *grid << endl;
                 center.addTrip(trip);
-                cout << "after trip: " << endl << *grid << endl;
                 break;
             case Operation::NEW_VEHICLE:
                 //   cout << "new vehicle" << endl;
@@ -153,28 +145,20 @@ int main(int argc, char *argv[]) {
                     //tc = trip->getContainer();
                     con.send(trip->getContainer());
 
-                    cout << "sent trip: " << *trip << endl;
-
                     command->setOp(Operation::ADVANCE);
                 }
 
-                cout << "before send: " << endl << *grid << endl;
                 clock++;
                 con.send(command);
 
-                cout << "after send: " << endl << *grid << endl;
-
-
                 lc = con.receive<LocationContainer>();
                 location = new Location(*lc);
-                cout << clock << " : "
-                     << *location << endl;
+                //cout << clock << " : " << *location << endl;
 
                 break;
 
             case Operation::EXIT:
                 con.send(command);
-                cout << "gonna end: " << endl << *grid << endl;
                 isRunning = false;
                 break;
         }
@@ -184,9 +168,6 @@ int main(int argc, char *argv[]) {
              << "-----------------------" << endl;
 */
     } while (isRunning);
-
-    cout << "grid: " << endl << *grid << endl;
-
 
     delete grid;
     //delete trip;

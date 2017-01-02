@@ -5,7 +5,9 @@
 #ifndef A_P1_OPERATION_H
 #define A_P1_OPERATION_H
 
-
+/**
+ * operating representing enum.
+ */
 enum class Operation {
     NEW_DRIVER = 1,
     NEW_RIDE,

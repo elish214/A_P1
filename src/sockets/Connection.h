@@ -15,6 +15,9 @@
 
 using namespace std;
 
+/**
+ * connction representing class.
+ */
 class Connection {
 private:
     Socket *socket;
@@ -30,7 +33,7 @@ public:
     int initialize();
 
     /**
-     * recieve text from socket
+     * receive text from socket
      * @param buffer buffer to save text
      * @return event code
      */

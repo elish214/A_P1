@@ -11,6 +11,9 @@
 
 using namespace boost::archive;
 
+/**
+ * a trip's container in order to send it to client.
+ */
 class TripContainer {
 private:
     int id;

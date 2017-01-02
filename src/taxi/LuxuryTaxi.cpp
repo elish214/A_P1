@@ -14,7 +14,9 @@ BOOST_CLASS_EXPORT(LuxuryTaxi)
  */
 LuxuryTaxi::LuxuryTaxi(int id, CarManufacturer manufacturer, Color color) : Taxi(id, manufacturer,
                                                                                  color)  {}
-
+/**
+ * constructor.
+ */
 LuxuryTaxi::LuxuryTaxi() {}
 
 /**
@@ -55,4 +57,3 @@ ostream &operator<<(ostream &os, const LuxuryTaxi &taxi) {
 string LuxuryTaxi::getType() const {
     return "LUXURY";
 }
-

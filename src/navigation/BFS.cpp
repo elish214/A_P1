@@ -9,6 +9,16 @@
 using namespace std;
 
 /**
+ * constructor.
+ */
+BFS::BFS() {}
+
+/**
+ * distructor.
+ */
+BFS::~BFS() {}
+
+/**
  * runs the algorithm.
  *
  * @param start a starting point.
@@ -62,7 +72,3 @@ vector<Node *> BFS::run(Node *start, Node *end) {
 
     return route;
 }
-
-BFS::BFS() {}
-
-BFS::~BFS() {}

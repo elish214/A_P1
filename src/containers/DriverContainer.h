@@ -13,6 +13,9 @@
 
 using namespace boost::archive;
 
+/**
+ * a driver's container in order to send it to client.
+ */
 class DriverContainer {
 private:
     int id;

@@ -11,6 +11,9 @@
 
 using namespace boost::archive;
 
+/**
+ * a location's container in order to send it to client.
+ */
 class LocationContainer {
 private:
     Point *p;
