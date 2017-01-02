@@ -42,6 +42,29 @@ TripInfo::TripInfo() : totalMeters(0) {
 }
 
 /**
+ * constructor.
+ *
+ * @param tc trip container.
+ */
+TripInfo::TripInfo(TripContainer tc) :
+        id(tc.getId()), totalMeters(tc.getTotalMeters()),
+        start(new Location(*tc.getSource())),
+        end(new Location(*tc.getDestination())),
+        numOfPassengers(tc.getNumOfPassengers()),
+        //passenger(new Passenger(*tc.getPassenger())), taarif(tc.getTaarif()),
+        time(tc.getTime()) {
+    cout << "here11" << endl;
+
+    for (unsigned int i = 0; i < tc.getRoute().size(); ++i) {
+
+        route.emplace_back(new Location(*tc.getRoute().at(i)));
+        cout << *route.at(i) << endl;
+    }
+    cout << "here22" << endl;
+
+}
+
+/**
  * returns trip's grid.
  *
  * @return trip's grid.
@@ -61,8 +84,8 @@ void TripInfo::setGrid(Grid *g) {
     //Location *s = g->get(*start->getPoint());
     //Location *e = g->get(*end->getPoint());
 
-    ////delete start;
-    ////delete end;
+    //delete start;
+    //delete end;
 
     //start = s;
     //end = e;
@@ -73,7 +96,9 @@ void TripInfo::setGrid(Grid *g) {
  * distructor.
  */
 TripInfo::~TripInfo() {
-    delete passenger;
+    //delete passenger;
+    delete start;
+    delete end;
 }
 
 /**
@@ -239,25 +264,6 @@ ostream &operator<<(ostream &os, TripInfo &info) {
        << " numOfPassengers: " << info.numOfPassengers << " taarif: "
        << info.taarif << " time: " << info.time;
     return os;
-}
-
-/**
- * constructor.
- *
- * @param tc trip container.
- */
-TripInfo::TripInfo(TripContainer tc) :
-        id(tc.getId()), totalMeters(tc.getTotalMeters()),
-        start(new Location(*tc.getSource())),
-        end(new Location(*tc.getDestination())),
-        numOfPassengers(tc.getNumOfPassengers()),
-        //passenger(new Passenger(*tc.getPassenger())), taarif(tc.getTaarif()),
-        time(tc.getTime()) {
-
-    for (unsigned int i = 0; i < tc.getRoute().size(); ++i) {
-        route.emplace_back(new Location(*tc.getRoute().at(i)));
-    }
-
 }
 
 /**

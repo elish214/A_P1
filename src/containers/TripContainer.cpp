@@ -34,6 +34,19 @@ TripContainer::TripContainer(int id, int totalMeters, int numOfPassengers,
 TripContainer::TripContainer() {}
 
 /**
+ * destructor.
+ */
+TripContainer::~TripContainer() {
+
+    for (unsigned int i = 0; i < route.size(); i++) {
+        delete route[i];
+    }
+
+    route.clear();
+    delete source;
+    delete destination;
+}
+/**
  * returns trip's id.
  *
  * @return trip's id.

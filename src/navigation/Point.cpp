@@ -171,6 +171,10 @@ bool Point::operator>=(const Point &rhs) const {
     return !(*this < rhs);
 }
 
+/**
+ *
+ * @param p
+ */
 Point::Point(const Point &p) {
     x = p.getX();
     y = p.getY();

@@ -16,6 +16,14 @@ LocationContainer::LocationContainer() {}
  */
 LocationContainer::LocationContainer(Point *p) : p(p) {}
 
+
+/**
+ * destructor.
+ */
+LocationContainer::~LocationContainer() {
+    //delete p;
+}
+
 /**
  * returns container's point.
  *
@@ -36,3 +44,4 @@ ostream &operator<<(ostream &os, const LocationContainer &container) {
     os << *(container.p);
     return os;
 }
+

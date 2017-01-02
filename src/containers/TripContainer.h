@@ -34,6 +34,8 @@ public:
 
     TripContainer();
 
+    virtual ~TripContainer();
+
     int getId() const;
 
     int getTotalMeters() const;

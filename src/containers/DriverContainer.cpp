@@ -25,6 +25,13 @@ DriverContainer::DriverContainer() {
 }
 
 /**
+ * destructor.
+ */
+DriverContainer::~DriverContainer() {
+
+}
+
+/**
  * returns driver's id.
  *
  * @return driver's id.

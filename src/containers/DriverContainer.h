@@ -29,6 +29,8 @@ public:
     DriverContainer(int id, int age, MaritalStatus status, int taxiID,
                     int experience);
 
+    virtual ~DriverContainer();
+
     int getId() const;
 
     int getAge() const;

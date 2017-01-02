@@ -280,10 +280,18 @@ void Driver::moveOneStep() {
     }
 }
 
+/**
+ *
+ * @return
+ */
 DriverContainer *Driver::getContainer() {
     return new DriverContainer(id, age, status, taxiID, experience);
 }
 
+/**
+ *
+ * @param route
+ */
 void Driver::setRoute(const vector<Node *> &route) {
     Driver::route = route;
 }

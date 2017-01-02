@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     Grid *grid;
     TaxiCenter center = TaxiCenter();
     Driver *driver;
-    //DriverContainer *dc;
+    DriverContainer *dc;
     TripInfo *trip;
     Point point = Point(-1, -1);
     TaxiFactory factory;
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
     Command *command = new Command();
     //Node *node;
     LocationContainer *lc;
-    //TripContainer *tc;
+    TripContainer *tc;
     Location *location;
 
     int rows, cols;
@@ -81,10 +81,11 @@ int main(int argc, char *argv[]) {
                 cin >> numOfDrivers;
     //            cout << "waiting for drivers" << endl;
                 for (int j = 0; j < numOfDrivers; ++j) {
-                    //dc = con.receive<DriverContainer>();
-                    driver = new Driver(*con.receive<DriverContainer>());
+                    dc = con.receive<DriverContainer>();
+                    driver = new Driver(*dc);
                     driver->setLocation(grid->get(0, 0));
                     center.addDriver(driver);
+                    delete dc;
                     //assign a taxi and send it back.
                     taxi = center.getTaxi(driver->getTaxiID());
                     driver->setTaxi(taxi);
@@ -122,11 +123,12 @@ int main(int argc, char *argv[]) {
                 cin >> id;
                 //cout << *(center.getDriver(id)->getLocation()) << endl;
                 con.send(command);
-                //lc = con.receive<LocationContainer>();
-                location = new Location(*con.receive<LocationContainer>());
+                lc = con.receive<LocationContainer>();
+                location = new Location(*lc);
 
                 cout << *location << endl;
-
+                delete lc;
+                delete location;
                 break;
             case Operation::START:
                 //   cout << "start" << endl;
@@ -142,17 +144,17 @@ int main(int argc, char *argv[]) {
                     con.send(command);
 
                     trip = center.getTripAt(clock);
-                    //tc = trip->getContainer();
-                    con.send(trip->getContainer());
-
+                    tc = trip->getContainer();
+                    con.send(tc);
+                    delete tc;
                     command->setOp(Operation::ADVANCE);
                 }
 
                 clock++;
                 con.send(command);
 
-                lc = con.receive<LocationContainer>();
-                location = new Location(*lc);
+                //lc = con.receive<LocationContainer>();
+                //location = new Location(*lc);
                 //cout << clock << " : " << *location << endl;
 
                 break;
@@ -170,6 +172,7 @@ int main(int argc, char *argv[]) {
     } while (isRunning);
 
     delete grid;
+    delete command;
     //delete trip;
     //close socket.
     close(sock);

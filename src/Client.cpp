@@ -33,21 +33,27 @@ int main(int argc, char *argv[]) {
 
     con.send(dc);
     taxi = con.receive<Taxi>();
-
+    cout << "here" << endl;
     d->setTaxi(taxi);
 
     do {
         //operation
         c = con.receive<Command>();
         op = c->getOp();
+        cout << "here" << endl;
 
         switch (op) {
             case Operation::NEW_RIDE:
                 tc = con.receive<TripContainer>();
+                cout << tc->getId() << endl;
                 trip = new TripInfo(*tc);
+                cout << "here" << endl;
 
                 d->setRoute(trip->getRoute());
                 d->moveOneStep();
+                cout << "here" << endl;
+
+                //need to delete trip after finished it.
                 break;
             case Operation::ADVANCE:
                 d->moveOneStep();
@@ -72,6 +78,8 @@ int main(int argc, char *argv[]) {
 
     //close sockets!!
     //free stuff
+    //delete d;
+    //delete con;
     close(sock);
     return 0;
 }

@@ -22,6 +22,8 @@ public:
 
     LocationContainer(Point *p);
 
+    virtual ~LocationContainer();
+
     Point *getPoint() const;
 
     friend ostream &operator<<(ostream &os, const LocationContainer &container);

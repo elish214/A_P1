@@ -16,6 +16,10 @@ using namespace std;
  */
 Location::Location() {}
 
+/**
+ *
+ * @param point
+ */
 Location::Location(Point *point) {
     Location::p = point;
 }
