@@ -57,6 +57,10 @@ Driver::~Driver() {
     //delete all listeners.
 }
 
+void Driver::deleteLocation(){
+    delete location;
+}
+
 /**
  * returns driver's location.
  *

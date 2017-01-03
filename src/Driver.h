@@ -46,6 +46,8 @@ public:
 
     virtual ~Driver();
 
+    void deleteLocation();
+
     int getId() const;
 
     const Node *getLocation() const;

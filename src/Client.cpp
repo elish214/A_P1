@@ -13,17 +13,19 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     int sock = atoi(argv[2]);
-    Connection con(new Udp(0, sock));
+    Socket *udp = new Udp(0, sock);
+    Connection con(udp);
     //Driver *d = new Driver(0, 30, MaritalStatus::MARRIED, 1, 0);
     Driver *d = new Driver();
     d->setAvailability(true);
     DriverContainer *dc;// = d->getContainer();
     Taxi *taxi;
-    TripInfo *trip = new TripInfo();
+    vector<Node*> route;
+    TripInfo *trip = new TripInfo(route);
     TripContainer *tc;
     Operation op;
     LocationContainer *lc;
-    const Node *l;
+    //const Node *l;
     Command *c;
     bool isRunning = true;
     cin >> *d;
@@ -39,9 +41,12 @@ int main(int argc, char *argv[]) {
         //operation
         c = con.receive<Command>();
         op = c->getOp();
+        delete c;
 
         switch (op) {
             case Operation::NEW_RIDE:
+                trip->deleteRoute();
+                delete trip;
                 tc = con.receive<TripContainer>();
                 cout << tc->getId() << endl;
                 trip = new TripInfo(tc);
@@ -49,7 +54,7 @@ int main(int argc, char *argv[]) {
                 d->setRoute(trip->getRoute());
                 d->moveOneStep();
 
-                //need to delete trip after finished it.
+                delete tc;
                 break;
             case Operation::ADVANCE:
                 d->moveOneStep();
@@ -58,6 +63,7 @@ int main(int argc, char *argv[]) {
                 //l = d->getLocation();
                 lc = d->getLocation()->getContainer();
                 con.send(lc);
+                delete lc;
                 break;
             case Operation::EXIT:
                 isRunning = false;
@@ -74,8 +80,12 @@ int main(int argc, char *argv[]) {
 
     //close sockets!!
     //free stuff
-    //delete d;
     //delete con;
+    delete trip;
+    d->deleteLocation();
+    delete taxi;
+    delete d;
+    delete dc;
     close(sock);
     return 0;
 }

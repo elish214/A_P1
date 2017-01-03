@@ -35,9 +35,13 @@ public:
 
     TripInfo(TripContainer *tc);
 
+    TripInfo(const vector<Node *> &route);
+
     TripInfo();
 
     virtual ~TripInfo();
+
+    void deleteRoute();
 
     Grid *getGrid() const;
 

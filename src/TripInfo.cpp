@@ -37,9 +37,15 @@ TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger, int time)
  * constructor.
  */
 TripInfo::TripInfo() : totalMeters(0) {
-    totalMeters = -1;
     taarif = -1;
 }
+
+/**
+ * constructor.
+ *
+ * @param route a vector.
+ */
+TripInfo::TripInfo(const vector<Node *> &route) : route(route) {}
 
 /**
  * constructor.
@@ -98,6 +104,14 @@ TripInfo::~TripInfo() {
     //delete passenger;
     delete start;
     delete end;
+}
+
+void TripInfo::deleteRoute() {
+    for (unsigned int i = 0; i < route.size(); i++) {
+        delete route[i];
+    }
+
+    route.clear();
 }
 
 /**

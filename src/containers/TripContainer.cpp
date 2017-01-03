@@ -47,6 +47,7 @@ TripContainer::~TripContainer() {
     delete source;
     delete destination;
 }
+
 /**
  * returns trip's id.
  *
