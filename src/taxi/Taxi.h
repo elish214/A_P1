@@ -34,6 +34,8 @@ public:
 
     Taxi();
 
+    virtual ~Taxi();
+
     int getId() const;
 
     void addMeters(double meters);

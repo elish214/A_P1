@@ -36,6 +36,8 @@ public:
 
     StandardTaxi();
 
+    virtual ~StandardTaxi();
+
     int getTaarif();
 
     int getSpeed();

@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
     //const Node *l;
     Command *c;
     bool isRunning = true;
+    bool locationFlag = true;
     cin >> *d;
     dc = d->getContainer();
 
@@ -45,20 +46,28 @@ int main(int argc, char *argv[]) {
 
         switch (op) {
             case Operation::NEW_RIDE:
+                if (locationFlag) {
+                    d->deleteLocation();
+                    locationFlag = false;
+                }
+
                 trip->deleteRoute();
                 delete trip;
                 tc = con.receive<TripContainer>();
-                cout << tc->getId() << endl;
                 trip = new TripInfo(tc);
 
                 d->setRoute(trip->getRoute());
-                d->moveOneStep();
+
+                d->moveOneStep(1);
+                d->moveTaxiStep();
+                //cout << "step: " << *d->getLocation() << endl;
 
                 delete tc;
                 break;
             case Operation::ADVANCE:
-                d->moveOneStep();
-                //break;
+                d->moveTaxiStep();
+                //cout << "step: " << *d->getLocation() << endl;
+                break;
             case Operation::DRIVER_LOCATION:
                 //l = d->getLocation();
                 lc = d->getLocation()->getContainer();
@@ -71,18 +80,18 @@ int main(int argc, char *argv[]) {
             default:
                 break;
         }
-/*
-        cout << "-----------------------" << endl
-             << "CENTER:" << endl << center << endl
-             << "-----------------------" << endl;
-*/
     } while (isRunning);
 
     //close sockets!!
     //free stuff
     //delete con;
+    //delete c;
+    trip->deleteRoute();
     delete trip;
-    d->deleteLocation();
+    if (locationFlag) {
+        d->deleteLocation();
+        //locationFlag = false;
+    }
     delete taxi;
     delete d;
     delete dc;

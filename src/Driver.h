@@ -82,7 +82,9 @@ public:
 
     void removeListener(EndTripListener *listener);
 
-    void moveOneStep();
+    void moveTaxiStep();
+
+    void moveOneStep(int step);
 
     DriverContainer *getContainer();
 

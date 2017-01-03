@@ -149,3 +149,5 @@ ostream &operator<<(ostream &os, const Taxi &taxi) {
        << " type: " << taxi.getType();
     return os;
 }
+
+Taxi::~Taxi() {}

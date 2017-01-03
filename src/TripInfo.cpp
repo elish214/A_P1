@@ -45,7 +45,10 @@ TripInfo::TripInfo() : totalMeters(0) {
  *
  * @param route a vector.
  */
-TripInfo::TripInfo(const vector<Node *> &route) : route(route) {}
+TripInfo::TripInfo(const vector<Node *> &route) : route(route) {
+    start = new Location(-1, -1);
+    end = new Location(-1, -1);
+}
 
 /**
  * constructor.
@@ -62,9 +65,7 @@ TripInfo::TripInfo(TripContainer *tc) :
     end = new Location(tc->getDestination());
 
     for (unsigned int i = 0; i < tc->getRoute().size(); ++i) {
-
         route.emplace_back(new Location(tc->getRoute().at(i)));
-        cout << *route.at(i) << endl;
     }
 
 }

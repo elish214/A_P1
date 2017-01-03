@@ -48,7 +48,6 @@ Point * Location::getPoint()const {
  */
 Location::~Location() {
     delete p;
-
 }
 
 /**

@@ -270,11 +270,9 @@ int Driver::getExperience() {
 }
 
 /**
- * Driver move one step on grid, according to it's taxi's type.
+ * Driver [step] steps on grid
  */
-void Driver::moveOneStep() {
-    int step = getTaxi()->getSpeed();
-
+void Driver::moveOneStep(int step) {
     //advance according to 'step'.
     for (int i = 0; i < step; i++) {
         if (route.size() != 0) {
@@ -282,6 +280,13 @@ void Driver::moveOneStep() {
             route.erase(route.begin());
         }
     }
+}
+
+/**
+ * Move [taxi->speed] steps
+ */
+void Driver::moveTaxiStep() {
+    moveOneStep(getTaxi()->getSpeed());
 }
 
 /**
