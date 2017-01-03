@@ -27,6 +27,11 @@ Taxi::Taxi(int id, CarManufacturer manufacturer, Color color) : id(id),
 Taxi::Taxi() {}
 
 /**
+ * destructor.
+ */
+Taxi::~Taxi() {}
+
+/**
  * returns taxi's id.
  *
  * @return taxi's id.
@@ -149,5 +154,3 @@ ostream &operator<<(ostream &os, const Taxi &taxi) {
        << " type: " << taxi.getType();
     return os;
 }
-
-Taxi::~Taxi() {}

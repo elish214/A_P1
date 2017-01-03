@@ -17,6 +17,7 @@ using namespace std;
 Location::Location() {}
 
 /**
+ * constructor.
  *
  * @param point
  */
@@ -35,12 +36,20 @@ Location::Location(int x, int y) {
 }
 
 /**
- * getter.
+ * constructor.
  *
- * @return a constant point.
+ * @param container a container.
  */
-Point * Location::getPoint()const {
-    return p;
+Location::Location(LocationContainer *container) {
+    p = new Point(*container->getPoint());
+}
+
+/**
+ * constructor.
+ *
+ * @param other anlther location.
+ */
+Location::Location(Location *other) : p(other->getPoint()) {
 }
 
 /**
@@ -48,6 +57,15 @@ Point * Location::getPoint()const {
  */
 Location::~Location() {
     delete p;
+}
+
+/**
+ * getter.
+ *
+ * @return a constant point.
+ */
+Point * Location::getPoint()const {
+    return p;
 }
 
 /**
@@ -76,7 +94,6 @@ Grid *Location::getGrid() const {
 void Location::setGrid(Grid *grid) {
     Location::grid = grid;
 }
-
 
 /**
  * returns location's neighbors.
@@ -173,23 +190,6 @@ bool Location::operator==(const Node &rhs) const {
  */
 LocationContainer *Location::getContainer() const {
     return new LocationContainer(new Point(*p));
-}
-
-/**
- * constructor.
- *
- * @param container a container.
- */
-Location::Location(LocationContainer *container) {
-    p = new Point(*container->getPoint());
-}
-
-/**
- * constructor.
- *
- * @param other anlther location.
- */
-Location::Location(Location *other) : p(other->getPoint()) {
 }
 
 BOOST_CLASS_EXPORT(Location)

@@ -71,6 +71,26 @@ TripInfo::TripInfo(TripContainer *tc) :
 }
 
 /**
+ * destructor.
+ */
+TripInfo::~TripInfo() {
+    //delete passenger;
+    delete start;
+    delete end;
+}
+
+/**
+ * for the use of the client to delete it's trip's route.
+ */
+void TripInfo::deleteRoute() {
+    for (unsigned int i = 0; i < route.size(); i++) {
+        delete route[i];
+    }
+
+    route.clear();
+}
+
+/**
  * returns trip's grid.
  *
  * @return trip's grid.
@@ -96,23 +116,6 @@ void TripInfo::setGrid(Grid *g) {
     //start = s;
     //end = e;
 
-}
-
-/**
- * distructor.
- */
-TripInfo::~TripInfo() {
-    //delete passenger;
-    delete start;
-    delete end;
-}
-
-void TripInfo::deleteRoute() {
-    for (unsigned int i = 0; i < route.size(); i++) {
-        delete route[i];
-    }
-
-    route.clear();
 }
 
 /**

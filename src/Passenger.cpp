@@ -29,7 +29,7 @@ Passenger::Passenger(PassengerContainer pc) {
 Passenger::Passenger() {}
 
 /**
- * distructor.
+ * destructor.
  */
 Passenger::~Passenger() {}
 

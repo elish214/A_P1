@@ -16,6 +16,16 @@ using namespace std;
 Point::Point(int x, int y) : x(x), y(y) {}
 
 /**
+ * constructor.
+ *
+ * @param p another point.
+ */
+Point::Point(const Point &p) {
+    x = p.getX();
+    y = p.getY();
+}
+
+/**
  * destructor.
  */
 Point::~Point() {}
@@ -171,11 +181,3 @@ bool Point::operator>=(const Point &rhs) const {
     return !(*this < rhs);
 }
 
-/**
- *
- * @param p
- */
-Point::Point(const Point &p) {
-    x = p.getX();
-    y = p.getY();
-}

@@ -6,7 +6,15 @@
 
 using namespace std;
 
-
+/**
+ * constructor.
+ *
+ * @param id an integer.
+ * @param age an integer.
+ * @param status an enum.
+ * @param experience an integer.
+ * @param taxiID an integer..
+ */
 Driver::Driver(int id, int age, MaritalStatus status, int experience,
                int taxiID) : id(id), age(age), status(status),
                              experience(experience), taxiID(taxiID) {
@@ -39,6 +47,11 @@ Driver::Driver() : satisfaction(0, 0) {
     location = new Location(0, 0);
 }
 
+/**
+ * constructor.
+ *
+ * @param container a driver container.
+ */
 Driver::Driver(DriverContainer container) :
         satisfaction(0, 0) {
     id = container.getId();
@@ -49,7 +62,7 @@ Driver::Driver(DriverContainer container) :
 }
 
 /**
- * distructor.
+ * destructor.
  */
 Driver::~Driver() {
     //delete taxi;
@@ -57,6 +70,9 @@ Driver::~Driver() {
     //delete all listeners.
 }
 
+/**
+ * client's use to delete itself.
+ */
 void Driver::deleteLocation(){
     delete location;
 }
@@ -290,16 +306,18 @@ void Driver::moveTaxiStep() {
 }
 
 /**
+ *  returns driver's container.
  *
- * @return
+ * @return driver's container.
  */
 DriverContainer *Driver::getContainer() {
     return new DriverContainer(id, age, status, taxiID, experience);
 }
 
 /**
+ * setting driver's route.
  *
- * @param route
+ * @param route a vector.
  */
 void Driver::setRoute(const vector<Node *> &route) {
     Driver::route = route;

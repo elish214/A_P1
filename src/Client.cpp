@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
                 d->setRoute(trip->getRoute());
 
                 d->moveOneStep(1);
-                d->moveTaxiStep();
+                //d->moveTaxiStep();
                 //cout << "step: " << *d->getLocation() << endl;
 
                 delete tc;

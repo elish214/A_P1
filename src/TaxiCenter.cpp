@@ -17,7 +17,7 @@ TaxiCenter::TaxiCenter() {
 }
 
 /**
- * distructor.
+ * destructor.
  */
 TaxiCenter::~TaxiCenter() {
 
@@ -229,14 +229,14 @@ void TaxiCenter::start() {
         trips.erase(trips.begin());
         driver = pop(*trip->getStart()->getPoint());
         //driver.setRoute(trip->getRoute());
-        driver->setLocation(trip->getEnd());                   //need to erase.
+        driver->setLocation(trip->getEnd());
         driver->setExperience(driver->getExperience()+ 1);
         push(driver);
         availableDrivers--;
         delete trip;
     }
 
-   // cout << "  V V V" << endl;
+    //cout << "  V V V" << endl;
     //printLocations(locations);
 }
 
@@ -277,7 +277,7 @@ Driver *TaxiCenter::pop(Point p) {
 }
 
 /**
- * advance al taxi center's drivers one step.
+ * advance all taxi center's drivers one step.
  */
 void TaxiCenter::advanceAllDrivers() {
     Driver *d;
@@ -307,7 +307,7 @@ int TaxiCenter::numOfTripsAt(int time) {
 }
 
 /**
- * returns a trip that assignedto the specific time.
+ * returns a trip that assigned to the specific time.
  *
  * @param time a specific time.
  * @return a trip.

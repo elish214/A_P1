@@ -8,12 +8,12 @@
 BOOST_SERIALIZATION_ASSUME_ABSTRACT(Node)
 
 /**
- * cconstructor.
+ * constructor.
  */
 Node::Node() : obstacle(false) {}
 
 /**
- *  method overloading for operator '=='.
+ * method overloading for operator '=='.
  *
  * @param rhs another node.
  * @return whether it equals to current node or not.

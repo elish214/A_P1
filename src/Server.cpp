@@ -64,11 +64,11 @@ int main(int argc, char *argv[]) {
         cin >> point;
         grid->get(point)->setObstacle(true);
     }
-/*
+    /*
     cout << "-----------------------" << endl
          << "GRID: " << *grid << endl
          << "-----------------------" << endl;
-*/
+    */
     do {
         //operation
         cin >> opNum;
@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
         switch (op) {
             case Operation::NEW_DRIVER:
                 cin >> numOfDrivers;
-    //            cout << "waiting for drivers" << endl;
+                //cout << "waiting for drivers" << endl;
                 for (int j = 0; j < numOfDrivers; ++j) {
                     dc = con.receive<DriverContainer>();
                     driver = new Driver(*dc);
@@ -90,10 +90,9 @@ int main(int argc, char *argv[]) {
                     driver->setTaxi(taxi);
                     con.send(taxi);
 
-      //              cout << "got driver: " << *driver << endl;
-      //              cout << "sent taxi: " << *taxi << endl;
-                }
-      //          cout << "finished waiting for drivers" << endl;
+                    //cout << "got driver: " << *driver << endl;
+                    //cout << "sent taxi: " << *taxi << endl;
+                }//cout << "finished waiting for drivers" << endl;
                 /*
                 driver = new Driver();
                 cin >> *driver;
@@ -163,11 +162,11 @@ int main(int argc, char *argv[]) {
                 isRunning = false;
                 break;
         }
-/*
+        /*
         cout << "-----------------------" << endl
              << "CENTER:" << endl << center << endl
              << "-----------------------" << endl;
-*/
+        */
     } while (isRunning);
 
     delete grid;

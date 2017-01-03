@@ -12,7 +12,7 @@
 Connection::Connection(Socket *socket) : socket(socket) {}
 
 /**
- * distructor.
+ * destructor.
  */
 Connection::~Connection() {
     delete socket;

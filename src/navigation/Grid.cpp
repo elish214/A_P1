@@ -143,7 +143,7 @@ ostream &operator<<(ostream &os, const Grid &grid) {
 }
 
 /**
- * rfresh all grid's values to be it's original values.
+ * refresh all grid's values to be it's original values.
  */
 void Grid::refresh() {
     for (int i = 0; i < rows; i++) {

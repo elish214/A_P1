@@ -7,6 +7,7 @@
 BOOST_CLASS_EXPORT(StandardTaxi)
 /**
  * constructor.
+ *
  * @param id an integer.
  * @param manufacturer an enum.
  * @param color an enum.
@@ -19,6 +20,11 @@ StandardTaxi::StandardTaxi(int id, CarManufacturer manufacturer, Color color) : 
  * constructor.
  */
 StandardTaxi::StandardTaxi() {}
+
+/**
+ * destructor.
+ */
+StandardTaxi::~StandardTaxi() {}
 
 /**
  * returns cabs' taarif.
@@ -58,5 +64,3 @@ ostream &operator<<(ostream &os, const StandardTaxi &taxi) {
 string StandardTaxi::getType() const {
     return "STANDARD";
 }
-
-StandardTaxi::~StandardTaxi() {}

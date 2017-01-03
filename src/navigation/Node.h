@@ -39,7 +39,7 @@ public:
     Node();
 
     /**
-    * distructor
+    * destructor
     */
     virtual ~Node() {}
 
