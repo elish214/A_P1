@@ -51,8 +51,8 @@ int main(int argc, char *argv[]) {
     Location *location;
 
     int rows, cols;
-
-    Connection con(new Udp(1, sock));
+    Socket *udp = new Udp(1, sock);
+    Connection con(udp);
     con.initialize();
 
     cin >> rows >> cols;
@@ -171,9 +171,9 @@ int main(int argc, char *argv[]) {
 
     delete grid;
     delete command;
-    //delete trip;
-    //close socket.
-    close(sock);
+
+    //close(sock); // create warning in valgrind.
+    //delete udp;  // no need.
     return 0;
 }
 

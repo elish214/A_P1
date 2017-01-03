@@ -13,6 +13,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     int sock = atoi(argv[2]);
+
     Socket *udp = new Udp(0, sock);
     Connection con(udp);
     //Driver *d = new Driver(0, 30, MaritalStatus::MARRIED, 1, 0);
@@ -95,6 +96,7 @@ int main(int argc, char *argv[]) {
     delete taxi;
     delete d;
     delete dc;
-    close(sock);
+    // delete udp; // no need.
+    //close(sock); // create warning in valgrind.
     return 0;
 }
