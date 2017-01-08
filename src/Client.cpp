@@ -3,6 +3,7 @@
 //
 
 #include "sockets/Udp.h"
+#include "sockets/Tcp.h"
 #include "sockets/Connection.h"
 #include "taxi/StandardTaxi.h"
 #include "Driver.h"
@@ -14,8 +15,9 @@ using namespace std;
 int main(int argc, char *argv[]) {
     int sock = atoi(argv[2]);
 
-    Socket *udp = new Udp(0, sock);
-    Connection con(udp);
+    //Socket *socket = new Udp(0, sock);
+    Socket *socket = new Tcp(0, sock);
+    Connection con(socket);
     //Driver *d = new Driver(0, 30, MaritalStatus::MARRIED, 1, 0);
     Driver *d = new Driver();
     d->setAvailability(true);
@@ -66,13 +68,17 @@ int main(int argc, char *argv[]) {
                 delete tc;
                 break;
             case Operation::ADVANCE:
+                cout << "i'm moving!" << endl;
                 d->moveTaxiStep();
+                cout << "moved" << endl;
                 //cout << "step: " << *d->getLocation() << endl;
                 break;
             case Operation::DRIVER_LOCATION:
                 //l = d->getLocation();
                 lc = d->getLocation()->getContainer();
+                cout << *lc << endl;
                 con.send(lc);
+                cout << "again" << *lc << endl;
                 delete lc;
                 break;
             case Operation::EXIT:

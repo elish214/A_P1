@@ -13,6 +13,7 @@
 #include "containers/Command.h"
 #include "TaxiCenter.h"
 #include "taxi/TaxiFactory.h"
+#include "sockets/Tcp.h"
 
 using namespace std;
 //using namespace boost::archive;
@@ -51,8 +52,9 @@ int main(int argc, char *argv[]) {
     Location *location;
 
     int rows, cols;
-    Socket *udp = new Udp(1, sock);
-    Connection con(udp);
+    //Socket *socket = new Udp(1, sock);
+    Socket *socket = new Tcp(1, sock);
+    Connection con(socket);
     con.initialize();
 
     cin >> rows >> cols;
@@ -74,7 +76,7 @@ int main(int argc, char *argv[]) {
         cin >> opNum;
         op = static_cast<Operation>(opNum);
         command->setOp(op);
-
+        cout << "alive" << endl;
         switch (op) {
             case Operation::NEW_DRIVER:
                 cin >> numOfDrivers;
@@ -89,7 +91,7 @@ int main(int argc, char *argv[]) {
                     taxi = center.getTaxi(driver->getTaxiID());
                     driver->setTaxi(taxi);
                     con.send(taxi);
-
+                    cout << "alive driver" << endl;
                     //cout << "got driver: " << *driver << endl;
                     //cout << "sent taxi: " << *taxi << endl;
                 }//cout << "finished waiting for drivers" << endl;
@@ -108,19 +110,23 @@ int main(int argc, char *argv[]) {
                 //trip->getEnd()->setGrid(grid);
                 trip->calcMeters();
                 center.addTrip(trip);
+                cout << "alive trip" << endl;
                 break;
             case Operation::NEW_VEHICLE:
                 //   cout << "new vehicle" << endl;
 
                 cin >> factory;
                 center.addTaxi(factory.getTaxi());
+                cout << "alive taxi" << endl;
                 break;
             case Operation::DRIVER_LOCATION:
                 //   cout << "driver location" << endl;
 
                 cin >> id;
                 //cout << *(center.getDriver(id)->getLocation()) << endl;
+                cout << "alive before" << endl;
                 con.send(command);
+                cout << "alive after" << endl;
                 lc = con.receive<LocationContainer>();
                 location = new Location(lc);
 
@@ -136,21 +142,24 @@ int main(int argc, char *argv[]) {
 
             case Operation::ADVANCE:
                 //center.advanceAllDrivers();
-
+                cout << "advance" << endl;
                 if (center.numOfTripsAt(clock)) {
                     command->setOp(Operation::NEW_RIDE);
+                    cout << "sending" << endl;
                     con.send(command);
-
+                    cout << "sent command" << endl;
                     trip = center.getTripAt(clock);
                     tc = trip->getContainer();
+                    cout << "send trip" << endl;
                     con.send(tc);
+                    cout << "sent it" << endl;
                     delete tc;
                     command->setOp(Operation::ADVANCE);
                 }
 
                 clock++;
                 con.send(command);
-
+                cout << "sent command advance" << endl;
                 //lc = con.receive<LocationContainer>();
                 //location = new Location(lc);
                 //cout << clock << " : " << *location << endl;
