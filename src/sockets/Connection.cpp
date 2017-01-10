@@ -9,7 +9,7 @@
  *
  * @param socket a socket.
  */
-Connection::Connection(Socket *socket) : socket(socket) {}
+Connection::Connection(Socket *socket, bool isServer, int port) : socket(socket), isServer(isServer), port(port) {}
 
 /**
  * destructor.

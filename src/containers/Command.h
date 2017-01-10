@@ -7,6 +7,7 @@
 
 
 #include <boost/serialization/access.hpp>
+#include <ostream>
 #include "../enums/Operation.h"
 
 using namespace boost::archive;
@@ -26,6 +27,8 @@ public:
     Operation getOp() const;
 
     void setOp(Operation op);
+
+    friend std::ostream &operator<<(std::ostream &os, const Command &command);
 
     friend class boost::serialization::access;
 

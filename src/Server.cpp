@@ -33,6 +33,7 @@ int main(int argc, char *argv[]) {
 
     int sock = atoi(argv[1]);
 
+    char buffer[1024];
     Grid *grid;
     TaxiCenter center = TaxiCenter();
     Driver *driver;
@@ -54,7 +55,7 @@ int main(int argc, char *argv[]) {
     int rows, cols;
     //Socket *socket = new Udp(1, sock);
     Socket *socket = new Tcp(1, sock);
-    Connection con(socket);
+    Connection con(socket, 1, sock);
     con.initialize();
 
     cin >> rows >> cols;
@@ -76,13 +77,17 @@ int main(int argc, char *argv[]) {
         cin >> opNum;
         op = static_cast<Operation>(opNum);
         command->setOp(op);
-        cout << "alive" << endl;
+
+        cout << *command << endl;
+
         switch (op) {
             case Operation::NEW_DRIVER:
                 cin >> numOfDrivers;
-                //cout << "waiting for drivers" << endl;
+                cout << "waiting for " << numOfDrivers << " drivers" << endl;
                 for (int j = 0; j < numOfDrivers; ++j) {
-                    dc = con.receive<DriverContainer>();
+                    do {
+                        dc = con.receive<DriverContainer>();
+                    } while (dc == NULL);
                     driver = new Driver(*dc);
                     driver->setLocation(grid->get(0, 0));
                     center.addDriver(driver);
@@ -91,8 +96,8 @@ int main(int argc, char *argv[]) {
                     taxi = center.getTaxi(driver->getTaxiID());
                     driver->setTaxi(taxi);
                     con.send(taxi);
-                    cout << "alive driver" << endl;
-                    //cout << "got driver: " << *driver << endl;
+                    //cout << "alive driver" << endl;
+                    cout << "got driver: " << *driver << endl;
                     //cout << "sent taxi: " << *taxi << endl;
                 }//cout << "finished waiting for drivers" << endl;
                 /*
@@ -110,23 +115,23 @@ int main(int argc, char *argv[]) {
                 //trip->getEnd()->setGrid(grid);
                 trip->calcMeters();
                 center.addTrip(trip);
-                cout << "alive trip" << endl;
+                //cout << "alive trip" << endl;
                 break;
             case Operation::NEW_VEHICLE:
                 //   cout << "new vehicle" << endl;
 
                 cin >> factory;
                 center.addTaxi(factory.getTaxi());
-                cout << "alive taxi" << endl;
+                //cout << "alive taxi" << endl;
                 break;
             case Operation::DRIVER_LOCATION:
                 //   cout << "driver location" << endl;
 
                 cin >> id;
                 //cout << *(center.getDriver(id)->getLocation()) << endl;
-                cout << "alive before" << endl;
+                //cout << "alive before" << endl;
                 con.send(command);
-                cout << "alive after" << endl;
+                cout << "sent: " << *command << endl;
                 lc = con.receive<LocationContainer>();
                 location = new Location(lc);
 
@@ -142,24 +147,29 @@ int main(int argc, char *argv[]) {
 
             case Operation::ADVANCE:
                 //center.advanceAllDrivers();
-                cout << "advance" << endl;
+                //cout << "advance" << endl;
                 if (center.numOfTripsAt(clock)) {
                     command->setOp(Operation::NEW_RIDE);
-                    cout << "sending" << endl;
+                    //cout << "sending" << endl;
+                    cout << "mini " << *command << endl;
                     con.send(command);
-                    cout << "sent command" << endl;
+                    con.receiveString(buffer);
+                    cout << "OK" << endl;
                     trip = center.getTripAt(clock);
                     tc = trip->getContainer();
-                    cout << "send trip" << endl;
+                    //cout << "send trip" << endl;
                     con.send(tc);
-                    cout << "sent it" << endl;
+                    con.receiveString(buffer);
+                    cout << "OK" << endl;
                     delete tc;
                     command->setOp(Operation::ADVANCE);
                 }
 
                 clock++;
                 con.send(command);
-                cout << "sent command advance" << endl;
+                con.receiveString(buffer);
+                cout << "OK" << endl;
+                //cout << "sent command advance" << endl;
                 //lc = con.receive<LocationContainer>();
                 //location = new Location(lc);
                 //cout << clock << " : " << *location << endl;

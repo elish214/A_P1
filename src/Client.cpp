@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
     //Socket *socket = new Udp(0, sock);
     Socket *socket = new Tcp(0, sock);
-    Connection con(socket);
+    Connection con(socket, 0, sock);
     //Driver *d = new Driver(0, 30, MaritalStatus::MARRIED, 1, 0);
     Driver *d = new Driver();
     d->setAvailability(true);
@@ -37,14 +37,20 @@ int main(int argc, char *argv[]) {
 
     con.initialize();
 
-    con.send(dc);
-    taxi = con.receive<Taxi>();
+    do {
+        con.send(dc);
+        taxi = con.receive<Taxi>();
+    } while (taxi == NULL);
+
     d->setTaxi(taxi);
 
     do {
         //operation
         c = con.receive<Command>();
         op = c->getOp();
+
+        cout << *c << endl;
+
         delete c;
 
         switch (op) {
@@ -56,7 +62,9 @@ int main(int argc, char *argv[]) {
 
                 trip->deleteRoute();
                 delete trip;
+                con.sendString("OK");
                 tc = con.receive<TripContainer>();
+                con.sendString("OK");
                 trip = new TripInfo(tc);
 
                 d->setRoute(trip->getRoute());
@@ -68,17 +76,18 @@ int main(int argc, char *argv[]) {
                 delete tc;
                 break;
             case Operation::ADVANCE:
-                cout << "i'm moving!" << endl;
+                //cout << "i'm moving!" << endl;
                 d->moveTaxiStep();
-                cout << "moved" << endl;
+                con.sendString("OK");
+                //cout << "moved" << endl;
                 //cout << "step: " << *d->getLocation() << endl;
                 break;
             case Operation::DRIVER_LOCATION:
                 //l = d->getLocation();
                 lc = d->getLocation()->getContainer();
-                cout << *lc << endl;
+                //cout << *lc << endl;
                 con.send(lc);
-                cout << "again" << *lc << endl;
+                //cout << "again" << *lc << endl;
                 delete lc;
                 break;
             case Operation::EXIT:
