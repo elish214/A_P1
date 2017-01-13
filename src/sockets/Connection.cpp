@@ -27,6 +27,10 @@ int Connection::initialize() {
     return socket->initialize();
 }
 
+int Connection::accept() {
+    return socket->initialRecieve();
+}
+
 /**
  * recieve a string from connection.
  *

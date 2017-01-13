@@ -59,6 +59,8 @@ public:
     * who connect to this socket.															   *
     ***********************************************************************/
     int sendData(string data, int len);
+
+    int initialRecieve();
 };
 
 #endif /* TCP_H_ */

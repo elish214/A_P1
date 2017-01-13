@@ -34,17 +34,26 @@ int main(int argc, char *argv[]) {
     bool locationFlag = true;
     cin >> *d;
     dc = d->getContainer();
-
+    cout << "run before" << endl;
     con.initialize();
 
+    cout << "run after" << endl;
+
     con.send(dc);
+    cout << "run after2" << endl;
+
     taxi = con.receive<Taxi>();
+    cout << *taxi << endl;
     d->setTaxi(taxi);
+    con.sendString("OK");
 
     do {
         //operation
         c = con.receive<Command>();
         op = c->getOp();
+        cout << "run" << endl;
+        cout << *c << endl;
+
         delete c;
 
         switch (op) {
@@ -56,7 +65,9 @@ int main(int argc, char *argv[]) {
 
                 trip->deleteRoute();
                 delete trip;
+                con.sendString("OK");
                 tc = con.receive<TripContainer>();
+                con.sendString("OK");
                 trip = new TripInfo(tc);
 
                 d->setRoute(trip->getRoute());
@@ -71,10 +82,13 @@ int main(int argc, char *argv[]) {
                 cout << "i'm moving!" << endl;
                 d->moveTaxiStep();
                 cout << "moved" << endl;
+
+                con.sendString("OK");
                 //cout << "step: " << *d->getLocation() << endl;
                 break;
             case Operation::DRIVER_LOCATION:
                 //l = d->getLocation();
+                cout << "got here" << endl;
                 lc = d->getLocation()->getContainer();
                 cout << *lc << endl;
                 con.send(lc);

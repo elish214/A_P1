@@ -95,6 +95,8 @@ public:
     * the data															   *
     ***********************************************************************/
     virtual int sendData(string data, int len) = 0;
+
+    virtual int initialRecieve() = 0;
 };
 
 #endif /* SOCKET_H_ */

@@ -62,6 +62,8 @@ public:
     * the data															   *
     ***********************************************************************/
     int sendData(string data, int len);
+
+    int initialRecieve();
 };
 
 #endif /* UDP_H_ */
