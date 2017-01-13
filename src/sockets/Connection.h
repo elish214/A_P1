@@ -35,6 +35,8 @@ public:
      */
     int initialize();
 
+    int accept();
+
     /**
      * receive text from socket
      * @param buffer buffer to save text

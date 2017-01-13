@@ -124,3 +124,5 @@ int Udp::reciveData(char *buffer, int size) {
     //return correct if there were no error
     return bytes;
 }
+
+int Udp::initialRecieve() { return CORRECT; }
