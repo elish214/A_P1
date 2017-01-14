@@ -12,22 +12,24 @@
 #include <boost/iostreams/device/back_inserter.hpp>
 #include <boost/archive/binary_oarchive.hpp>
 #include "Socket.h"
-#include "Tcp.h"
 
 using namespace std;
 
 /**
- * connction representing class.
+ * connection representing class.
  */
 class Connection {
 private:
     Socket *socket;
-    bool isServer;
-    int port;
+    int client;
 public:
-    Connection(Socket *socket, bool isServer, int port);
+    Connection(Socket *socket);
 
     virtual ~Connection();
+
+    int getClient() const;
+
+    void setDescriptor(int client);
 
     /**
      * initialize socket
@@ -51,40 +53,13 @@ public:
      */
     template<class T>
     T *receive() {
-        T *ob = NULL;
-        string s;
-        int j;
+        T *ob;
         char buffer[1024];
 
-        cout << "loop ";
-        //do {
-        for (int i = 0; i < 1024; ++i) {
-            buffer[i] = '\0';
-        }
+        memset(buffer, 0, sizeof(buffer));
 
+        socket->setDescriptorCommunicateClient(client);
         socket->reciveData(buffer, sizeof(buffer));
-
-        j = -1;
-        for (int k = 0; k < sizeof(buffer); ++k) {
-            if (buffer[k] == 's') {
-                j = 1;
-                break;
-            }
-        }
-        cout << "find: " << j << endl;
-        if (j == -1) {
-            cout << ++port << endl;
-            socket = new Tcp(isServer, port);
-            initialize();
-            return ob;
-        }
-        //} while (j == -1);
-
-        cout << "received: ";
-        for (int i = 0; i < 100; ++i) {
-            cout << buffer[i];
-        }
-        cout << endl;
 
         std::string serial_str;
         boost::iostreams::basic_array_source<char> device(buffer,
@@ -120,8 +95,7 @@ public:
         oa << ob;
         s.flush();
 
-        cout << "sent: " << serial_str << endl;
-
+        socket->setDescriptorCommunicateClient(client);
         return socket->sendData(serial_str, (int) serial_str.size());
     }
 };

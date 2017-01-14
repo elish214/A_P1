@@ -46,7 +46,7 @@ int Tcp::initialRecieve() {
     }
     cout << "alive tcp" << endl;
     //return correct if there were no problem
-    return CORRECT;
+    return this->descriptorCommunicateClient;
 }
 
 /***********************************************************************
@@ -71,6 +71,8 @@ int Tcp::initialize() {
 		sin.sin_family = AF_INET;
 		sin.sin_addr.s_addr = INADDR_ANY;
 		sin.sin_port = htons(this->port_number);
+        bzero(&(sin.sin_zero), 8);
+
         cout << "alive tcp" << endl;
 		//bind
 		if (bind(this->socketDescriptor,
@@ -90,10 +92,10 @@ int Tcp::initialize() {
         //cout << "alive tcp" << endl;
 		//unsigned int addr_len = sizeof(client_sin);
         //cout << "alive tcp" << endl;
-		//this->descriptorCommunicateClient = accept(this->socketDescriptor,
+		//this->client = accept(this->socketDescriptor,
 		//										   (struct sockaddr *) &client_sin, &addr_len);
         //cout << "alive tcp" << endl;
-		//if (this->descriptorCommunicateClient < 0) {
+		//if (this->client < 0) {
         //    cout << "alive tcp" << endl;
 		//	//return an error represent error at this method
 		//	return ERROR_ACCEPT;
@@ -129,7 +131,7 @@ int Tcp::sendData(string data) {
 	/*
 	int data_len = data.length();
 	const char * datas = data.c_str();
-	int sent_bytes = send(this->isServer ? this->descriptorCommunicateClient
+	int sent_bytes = send(this->isServer ? this->client
 										 : this->socketDescriptor, datas, data_len, 0);
 	if (sent_bytes < 0) {
 		//return an error represent error at this method
@@ -183,5 +185,13 @@ int Tcp::reciveData(char* buffer, int size) {
 	}
 	//return correct if there were no problem
 	return read_bytes;
+}
+
+int Tcp::getDescriptorCommunicateClient() const {
+    return descriptorCommunicateClient;
+}
+
+void Tcp::setDescriptorCommunicateClient(int descriptorCommunicateClient) {
+    Tcp::descriptorCommunicateClient = descriptorCommunicateClient;
 }
 

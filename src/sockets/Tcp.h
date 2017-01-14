@@ -12,6 +12,10 @@ class Tcp : public Socket {
 private:
     int descriptorCommunicateClient;
 public:
+    int getDescriptorCommunicateClient() const;
+
+    void setDescriptorCommunicateClient(int descriptorCommunicateClient);
+
     /***********************************************************************
     * function name: Tcp												   *
     * The Input: Boolean, true - if server, false if client and port number*

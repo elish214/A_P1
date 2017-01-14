@@ -126,3 +126,11 @@ int Udp::reciveData(char *buffer, int size) {
 }
 
 int Udp::initialRecieve() { return CORRECT; }
+
+int Udp::getDescriptorCommunicateClient() const {
+    return 0;
+}
+
+void Udp::setDescriptorCommunicateClient(int descriptorCommunicateClient) {
+
+}

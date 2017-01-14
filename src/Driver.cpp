@@ -322,3 +322,11 @@ DriverContainer *Driver::getContainer() {
 void Driver::setRoute(const vector<Node *> &route) {
     Driver::route = route;
 }
+
+int Driver::getDescriptor() const {
+    return descriptor;
+}
+
+void Driver::setDescriptor(int descriptor) {
+    Driver::descriptor = descriptor;
+}

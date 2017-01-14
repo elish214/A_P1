@@ -124,7 +124,7 @@ Taxi *TaxiCenter::getTaxi(int i) {
 
     for (unsigned int j = 0; j < cabs.size(); j++) {
         t = cabs.at(j);
-        if (t->getId() == i){
+        if (t->getId() == i) {
             return t;
         }
     }
@@ -230,7 +230,7 @@ void TaxiCenter::start() {
         driver = pop(*trip->getStart()->getPoint());
         //driver.setRoute(trip->getRoute());
         driver->setLocation(trip->getEnd());
-        driver->setExperience(driver->getExperience()+ 1);
+        driver->setExperience(driver->getExperience() + 1);
         push(driver);
         availableDrivers--;
         delete trip;
@@ -324,4 +324,20 @@ TripInfo *TaxiCenter::getTripAt(int time) {
     }
 
     return trip;
+}
+
+TripInfo *TaxiCenter::getTripAt(int time, Point *start) {
+    TripInfo *trip;
+
+    for (int i = 0; i < trips.size(); ++i) {
+        trip = trips.at(i);
+
+        if ((trip->getTime() == time) && *trip->getStart()->getPoint() == *start) {
+            trips.erase(trips.begin() + i);
+            return trip;
+        }
+    }
+
+
+    return NULL;
 }

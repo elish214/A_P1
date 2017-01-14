@@ -9,7 +9,7 @@
  *
  * @param socket a socket.
  */
-Connection::Connection(Socket *socket, bool isServer, int port) : socket(socket), isServer(isServer), port(port) {}
+Connection::Connection(Socket *socket) : socket(socket) {}
 
 /**
  * destructor.
@@ -28,7 +28,8 @@ int Connection::initialize() {
 }
 
 int Connection::accept() {
-    return socket->initialRecieve();
+    client = socket->initialRecieve();
+    return client;
 }
 
 /**
@@ -38,6 +39,7 @@ int Connection::accept() {
  * @return number of bytes it gets.
  */
 int Connection::receiveString(char *buffer) {
+    socket->setDescriptorCommunicateClient(client);
     return socket->reciveData(buffer, sizeof(buffer));
 }
 
@@ -48,5 +50,14 @@ int Connection::receiveString(char *buffer) {
  * @return 0 if correct. other numbers otherwise.
  */
 int Connection::sendString(string s) {
+    socket->setDescriptorCommunicateClient(client);
     return socket->sendData(s);
+}
+
+int Connection::getClient() const {
+    return client;
+}
+
+void Connection::setDescriptor(int client) {
+    Connection::client = client;
 }

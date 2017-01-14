@@ -64,6 +64,10 @@ public:
     int sendData(string data, int len);
 
     int initialRecieve();
+
+    int getDescriptorCommunicateClient() const override;
+
+    void setDescriptorCommunicateClient(int descriptorCommunicateClient) override;
 };
 
 #endif /* UDP_H_ */

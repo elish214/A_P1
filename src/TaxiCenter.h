@@ -28,6 +28,8 @@ private:
 public:
     TaxiCenter();
 
+    virtual ~TaxiCenter();
+
     vector<Driver *> &getEmployees();
 
     vector<Taxi *> &getCabs();
@@ -37,6 +39,8 @@ public:
     int numOfTripsAt(int time);
 
     TripInfo *getTripAt(int time);
+
+    TripInfo *getTripAt(int time, Point *start);
 
     TripInfo getFirstTrip();
 
@@ -59,8 +63,6 @@ public:
     void advanceAllDrivers();
 
     friend ostream &operator<<(ostream &os, const TaxiCenter &center);
-
-    virtual ~TaxiCenter();
 };
 
 

@@ -97,6 +97,10 @@ public:
     virtual int sendData(string data, int len) = 0;
 
     virtual int initialRecieve() = 0;
+
+    virtual int getDescriptorCommunicateClient() const = 0;
+
+    virtual void setDescriptorCommunicateClient(int descriptorCommunicateClient) = 0;
 };
 
 #endif /* SOCKET_H_ */

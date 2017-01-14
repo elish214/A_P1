@@ -27,6 +27,7 @@ private:
     Grid *grid;
     vector<Node*> route;
     int time;
+    bool calced = false;
 
 public:
     TripInfo(int id, int numOfPassengers, Passenger *passenger, int time);
@@ -40,6 +41,10 @@ public:
     TripInfo();
 
     virtual ~TripInfo();
+
+    bool isCalced() const;
+
+    void setCalced(bool calced);
 
     void deleteRoute();
 
@@ -55,7 +60,9 @@ public:
 
     void findPath();
 
-    void calcMeters();
+    static void* threadPath(void *element);
+
+    void calcPath();
 
     int getTime() const;
 

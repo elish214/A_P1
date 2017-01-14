@@ -83,9 +83,9 @@ int main(int argc, char *argv[]) {
                 d->moveTaxiStep();
                 cout << "moved" << endl;
 
-                con.sendString("OK");
+                //con.sendString("OK");
                 //cout << "step: " << *d->getLocation() << endl;
-                break;
+                //break;
             case Operation::DRIVER_LOCATION:
                 //l = d->getLocation();
                 cout << "got here" << endl;
@@ -101,6 +101,8 @@ int main(int argc, char *argv[]) {
             default:
                 break;
         }
+
+        cout << *d->getLocation() << endl;
     } while (isRunning);
 
     //close sockets!!
