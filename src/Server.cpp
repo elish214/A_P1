@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
          << "-----------------------" << endl;
     */
 
-    pthread_t pthreads[10];
+    //pthread_t pthreads[10];
 
 
     do {
@@ -140,10 +140,10 @@ int main(int argc, char *argv[]) {
                     con.receiveString(buffer);
                     //cout << "got driver: " << *driver << endl;
                     //cout << "sent taxi: " << *taxi << endl;
-
-
+                    
+                    pthread_t pthread;
                     cout << *driver << " threads.. ";
-                    pthread_create(&pthreads[j], NULL, threadRun, (void *) driver);
+                    pthread_create(&pthread, NULL, threadRun, (void *) driver);
                     cout << "ok" << endl;
                     threads++;
                 }//cout << "finished waiting for drivers" << endl;
@@ -275,7 +275,7 @@ void *threadRun(void *element) {
     cout << *driver << endl;
 
     bool isRunning = true;
-    int localClock = timeClock;
+    int localClock = 0;
     char buffer[1024];
 
 
