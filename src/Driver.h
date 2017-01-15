@@ -34,7 +34,6 @@ private:
     vector<EndTripListener *> endTripListeners;
     bool availability;
     vector<Node *> route;
-    int descriptor;
 
 public:
     Driver(int id, int age, MaritalStatus status, int experience, int taxiID);
@@ -46,10 +45,6 @@ public:
     Driver();
 
     virtual ~Driver();
-
-    int getDescriptor() const;
-
-    void setDescriptor(int descriptor);
 
     void deleteLocation();
 
@@ -79,7 +74,7 @@ public:
 
     bool isAvailability() const;
 
-    void setAvailability(bool availability);
+    void setAvailability(bool isAvailable);
 
     void notifyAllEndTrip();
 

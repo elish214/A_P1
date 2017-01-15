@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
 
     do {
         //operation
+        cout << "im here" <<endl;
         c = con.receive<Command>();
         op = c->getOp();
         cout << "run" << endl;
@@ -66,6 +67,7 @@ int main(int argc, char *argv[]) {
                 trip->deleteRoute();
                 delete trip;
                 con.sendString("OK");
+
                 tc = con.receive<TripContainer>();
                 con.sendString("OK");
                 trip = new TripInfo(tc);
@@ -105,9 +107,6 @@ int main(int argc, char *argv[]) {
         cout << *d->getLocation() << endl;
     } while (isRunning);
 
-    //close sockets!!
-    //free stuff
-    //delete con;
     //delete c;
     trip->deleteRoute();
     delete trip;
@@ -118,7 +117,5 @@ int main(int argc, char *argv[]) {
     delete taxi;
     delete d;
     delete dc;
-    // delete udp; // no need.
-    //close(sock); // create warning in valgrind.
     return 0;
 }

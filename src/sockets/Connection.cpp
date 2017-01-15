@@ -27,6 +27,11 @@ int Connection::initialize() {
     return socket->initialize();
 }
 
+/**
+ * accept connection.
+ *
+ * @return a descriptor.
+ */
 int Connection::accept() {
     client = socket->initialRecieve();
     return client;
@@ -54,10 +59,20 @@ int Connection::sendString(string s) {
     return socket->sendData(s);
 }
 
+/**
+ * returns connection's client.
+ *
+ * @return connection's client.
+ */
 int Connection::getClient() const {
     return client;
 }
 
+/**
+ * setting connection's client.
+ *
+ * @param client a descriptor.
+ */
 void Connection::setDescriptor(int client) {
     Connection::client = client;
 }

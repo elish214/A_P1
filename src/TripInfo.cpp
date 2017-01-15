@@ -142,19 +142,18 @@ int TripInfo::getTotalMeters() const {
 void TripInfo::findPath() {
     BFS bfs;
     route = bfs.run(grid->get(*start->getPoint()), grid->get(*end->getPoint()));
-
+    cout << "done calc!" << endl;
     totalMeters = (int) route.size();
 
-    for (int i = 0; i < route.size(); ++i) {
-        cout << *route.at(i) << endl;
-    }
+//    for (int i = 0; i < route.size(); ++i) {
+  //      cout << *route.at(i) << endl;
+    //}
 }
 
 /**
  * calculating trip's total meters.
  */
 void TripInfo::calcPath() {
-    pthread_t thread;
     pthread_create(&thread, NULL, threadPath, (void *) this);
     //findPath();
 }
@@ -339,10 +338,29 @@ void TripInfo::initPassenger() {
     passenger = new Passenger(new Location(start), new Location(end));
 }
 
+/**
+ * returns whether route has been calculated already.
+ *
+ * @return whether route has been calculated already.
+ */
 bool TripInfo::isCalced() const {
     return calced;
 }
 
+/**
+ * setting calculated status.
+ *
+ * @param calced a boolean.
+ */
 void TripInfo::setCalced(bool calced) {
     TripInfo::calced = calced;
+}
+
+/**
+ * returns trip's thread.
+ *
+ * @return trip's thread.
+ */
+pthread_t TripInfo::getThread() const {
+    return thread;
 }

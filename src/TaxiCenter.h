@@ -42,6 +42,8 @@ public:
 
     TripInfo *getTripAt(int time, Point *start);
 
+    TripInfo *getTripAt(int time, Point *start, int id);
+
     TripInfo getFirstTrip();
 
     void addDriver(Driver *driver);

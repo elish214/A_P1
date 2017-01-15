@@ -5,11 +5,11 @@
 
 all: server.out client.out
 
-server.out: Server.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o
-	g++ -g -o server.out Server.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o -lboost_serialization
+server.out: Server.o Command.o DriverContainer.o LocationContainer.o NewDriverContainer.o PassengerContainer.o ThreadContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o
+	g++ -g -o server.out Server.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o -lboost_serialization -pthread
 
-client.out: Client.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o
-	g++ -g -o client.out Client.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o -lboost_serialization
+client.out: Client.o Command.o DriverContainer.o LocationContainer.o NewDriverContainer.o PassengerContainer.o ThreadContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o
+	g++ -g -o client.out Client.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o -lboost_serialization -pthread
 
 Server.o: src/Server.cpp src/navigation/Node.h src/enums/CarManufacturer.h src/enums/Color.h src/enums/MaritalStatus.h src/listeners/EndTripListener.h
 	g++ -g -c -std=c++0x -Wall src/Server.cpp
@@ -26,8 +26,14 @@ DriverContainer.o: src/containers/DriverContainer.cpp src/containers/DriverConta
 LocationContainer.o: src/containers/LocationContainer.cpp src/containers/LocationContainer.h
 	g++ -c -std=c++0x -Wall src/containers/LocationContainer.cpp
 
+NewDriverContainer.o: src/containers/NewDriverContainer.cpp src/containers/NewDriverContainer.h
+    g++ -c -std=c++0x -Wall src/containers/NewDriverContainer.cpp
+
 PassengerContainer.o: src/containers/PassengerContainer.cpp src/containers/PassengerContainer.h
 	g++ -c -std=c++0x -Wall src/containers/PassengerContainer.cpp
+
+ThreadContainer.o: src/containers/ThreadContainer.cpp src/containers/ThreadContainer.h
+	g++ -c -std=c++0x -Wall src/containers/ThreadContainer.cpp
 
 TripContainer.o: src/containers/TripContainer.cpp src/containers/TripContainer.h
 	g++ -c -std=c++0x -Wall src/containers/TripContainer.cpp

@@ -28,6 +28,7 @@ private:
     vector<Node*> route;
     int time;
     bool calced = false;
+    pthread_t thread;
 
 public:
     TripInfo(int id, int numOfPassengers, Passenger *passenger, int time);
@@ -85,6 +86,8 @@ public:
     double getTaarif() const;
 
     Passenger *getPassenger() const;
+
+    pthread_t getThread() const;
 
     friend istream &operator>>(istream &is, TripInfo &trip);
 

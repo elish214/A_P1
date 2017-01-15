@@ -33,18 +33,13 @@ Tcp::~Tcp() {
 int Tcp::initialRecieve() {
     //accept
     struct sockaddr_in client_sin;
-    cout << "alive tcp" << endl;
     unsigned int addr_len = sizeof(client_sin);
-    cout << "alive tcp" << endl;
     this->descriptorCommunicateClient = accept(this->socketDescriptor,
                                                (struct sockaddr *) &client_sin, &addr_len);
-    cout << "alive tcp" << endl;
     if (this->descriptorCommunicateClient < 0) {
-        cout << "alive tcp?" << endl;
         //return an error represent error at this method
         return ERROR_ACCEPT;
     }
-    cout << "alive tcp" << endl;
     //return correct if there were no problem
     return this->descriptorCommunicateClient;
 }
@@ -73,20 +68,17 @@ int Tcp::initialize() {
 		sin.sin_port = htons(this->port_number);
         bzero(&(sin.sin_zero), 8);
 
-        cout << "alive tcp" << endl;
 		//bind
 		if (bind(this->socketDescriptor,
 				 (struct sockaddr *) &sin, sizeof(sin)) < 0) {
 			//return an error represent error at this method
 			return ERROR_BIND;
 		}
-        cout << "alive tcp" << endl;
 		//listen
 		if (listen(this->socketDescriptor, this->backLog) < 0) {
 			//return an error represent error at this method
 			return ERROR_LISTEN;
 		}
-        cout << "alive tcp" << endl;
 		//accept
 		//struct sockaddr_in client_sin;
         //cout << "alive tcp" << endl;
