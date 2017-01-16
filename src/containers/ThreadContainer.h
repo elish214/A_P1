@@ -1,5 +1,5 @@
 //
-// Created by elish on 15/01/17.
+// Created by raz on 16/01/17.
 //
 
 #ifndef A_P1_THREADCONTAINER_H
@@ -8,9 +8,6 @@
 
 #include <sys/types.h>
 
-/**
- * a thread container class representation.
- */
 class ThreadContainer {
 private:
     pthread_t thread;

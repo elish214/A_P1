@@ -306,6 +306,18 @@ int TaxiCenter::numOfTripsAt(int time) {
     return count;
 }
 
+int TaxiCenter::numOfTripsAt(int time, Point *start) {
+    int count = 0;
+
+    for (unsigned int i = 0; i < trips.size(); ++i) {
+        if ((trips[i]->getTime() == time) && (*trips[i]->getStart()->getPoint() == *start)) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
 /**
  * returns a trip that assigned to the specific time.
  *
@@ -332,9 +344,48 @@ TripInfo *TaxiCenter::getTripAt(int time, Point *start) {
     for (int i = 0; i < trips.size(); ++i) {
         trip = trips.at(i);
 
-        if ((trip->getTime() == time) && *trip->getStart()->getPoint() == *start) {
+        if ((trip->getTime() == time) && (*trip->getStart()->getPoint() == *start)) {
             trips.erase(trips.begin() + i);
             return trip;
+        }
+    }
+
+
+    return NULL;
+}
+
+int TaxiCenter::getTurn(Driver *driver) {
+    map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
+
+    for (unsigned int i = 0; i < it->second.size(); ++i) {
+        if(*driver == *it->second.at(i)) {
+            return i + 1;
+        }
+    }
+
+    return -1;
+}
+
+TripInfo *TaxiCenter::getTripAt(int time, Driver *driver) {
+    TripInfo *trip;
+    int numOfTrips = numOfTripsAt(time, driver->getLocation()->getPoint());
+    int turn = getTurn(driver);
+
+    cout << driver->getId() << " " << turn << " : " << numOfTrips << endl;
+
+    if(turn > numOfTrips) {
+        return NULL;
+    }
+
+    for (int i = 0; i < trips.size(); ++i) {
+        trip = trips.at(i);
+
+        if ((trip->getTime() == time) && *trip->getStart()->getPoint() == *driver->getLocation()->getPoint()) {
+            if (turn == 1) {
+                trips.erase(trips.begin() + i);
+                return trip;
+            }
+            turn--;
         }
     }
 

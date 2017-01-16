@@ -101,8 +101,6 @@ void Location::setGrid(Grid *grid) {
  * @return location's neighbors.
  */
 vector<Node *> Location::neighbors() {
-    grid->refresh();
-
     int x = getPoint()->getX();
     int y = getPoint()->getY();
     vector<Node *> neighbors;

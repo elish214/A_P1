@@ -59,7 +59,7 @@ Driver::Driver(DriverContainer container) :
     status = container.getStatus();
     taxiID = container.getTaxiID();
     experience = container.getExperience();
-    availability = true;
+    available = true;
 }
 
 /**
@@ -153,24 +153,6 @@ void Driver::addListener(EndTripListener *listener) {
  */
 void Driver::removeListener(EndTripListener *listener) {
 
-}
-
-/**
- * returns whether is available.
- *
- * @return whether is available.
- */
-bool Driver::isAvailability() const {
-    return availability;
-}
-
-/**
- * setting driver's availability.
- *
- * @param availability a boolean value.
- */
-void Driver::setAvailability(bool isAvailable) {
-    availability = isAvailable;
 }
 
 /**
@@ -323,3 +305,39 @@ DriverContainer *Driver::getContainer() {
 void Driver::setRoute(const vector<Node *> &route) {
     Driver::route = route;
 }
+
+int Driver::getDescriptor() const {
+    return descriptor;
+}
+
+void Driver::setDescriptor(int descriptor) {
+    Driver::descriptor = descriptor;
+}
+
+/**
+ * returns whether is available.
+ *
+ * @return whether is available.
+ */
+bool Driver::isAvailable() const {
+    return available;
+}
+
+/**
+ * setting driver's availability.
+ *
+ * @param availability a boolean value.
+ */
+void Driver::setAvailable(bool available) {
+    Driver::available = available;
+}
+
+bool Driver::operator==(const Driver &rhs) const {
+    return id == rhs.id;
+}
+
+bool Driver::operator!=(const Driver &rhs) const {
+    return !(rhs == *this);
+}
+
+

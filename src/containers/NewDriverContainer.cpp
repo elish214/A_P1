@@ -1,5 +1,5 @@
 //
-// Created by elish on 14/01/17.
+// Created by raz on 16/01/17.
 //
 
 #include "NewDriverContainer.h"
@@ -44,23 +44,5 @@ int NewDriverContainer::getJoiningTime() {
  */
 int NewDriverContainer::getDescriptor() {
     return descriptor;
-}
-
-/**
- * setting driver's location.
- *
- * @param location a location.
- */
-void NewDriverContainer::setDriverLocation(Location* location) {
-    driver->setLocation(location);
-}
-
-/**
- * setting driver's availability.
- *
- * @param isAvailable a boolean.
- */
-void NewDriverContainer::setDriverAvailablity(bool isAvailable) {
-    driver->setAvailability(isAvailable);
 }
 

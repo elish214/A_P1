@@ -22,13 +22,14 @@ private:
     vector<TripInfo *> trips;
     map<Point, deque<Driver *>> locations;
 
-    void push(Driver *driver);
-
-    Driver *pop(Point p);
 public:
     TaxiCenter();
 
     virtual ~TaxiCenter();
+
+    void push(Driver *driver);
+
+    Driver *pop(Point p);
 
     vector<Driver *> &getEmployees();
 
@@ -42,7 +43,7 @@ public:
 
     TripInfo *getTripAt(int time, Point *start);
 
-    TripInfo *getTripAt(int time, Point *start, int id);
+    TripInfo *getTripAt(int time, Driver *driver);
 
     TripInfo getFirstTrip();
 
@@ -65,6 +66,10 @@ public:
     void advanceAllDrivers();
 
     friend ostream &operator<<(ostream &os, const TaxiCenter &center);
+
+    int numOfTripsAt(int time, Point *start);
+
+    int getTurn(Driver *driver);
 };
 
 

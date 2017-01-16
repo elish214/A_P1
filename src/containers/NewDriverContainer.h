@@ -1,5 +1,5 @@
 //
-// Created by elish on 14/01/17.
+// Created by raz on 16/01/17.
 //
 
 #ifndef A_P1_NEWDRIVERCONTAINER_H
@@ -8,10 +8,6 @@
 
 #include "../Driver.h"
 
-/**
- * a new driver container class
- * using to pass to new thread's handling.
- */
 class NewDriverContainer {
 private:
     Driver* driver;
@@ -28,10 +24,6 @@ public:
     int getJoiningTime();
 
     int getDescriptor();
-
-    void setDriverLocation(Location* location);
-
-    void setDriverAvailablity(bool isAvailable);
 };
 
 

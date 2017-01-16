@@ -43,6 +43,8 @@ public:
 
     virtual ~TripInfo();
 
+    pthread_t getThread() const;
+
     bool isCalced() const;
 
     void setCalced(bool calced);
