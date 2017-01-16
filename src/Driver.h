@@ -32,7 +32,7 @@ private:
     Taxi *taxi;
     Node *location;
     vector<EndTripListener *> endTripListeners;
-    bool availability;
+    bool available;
     vector<Node *> route;
     int descriptor;
 
@@ -46,6 +46,10 @@ public:
     Driver();
 
     virtual ~Driver();
+
+    bool isAvailable() const;
+
+    void setAvailable(bool available);
 
     int getDescriptor() const;
 
@@ -77,10 +81,6 @@ public:
 
     int getTaxiID() const;
 
-    bool isAvailability() const;
-
-    void setAvailability(bool availability);
-
     void notifyAllEndTrip();
 
     void addListener(EndTripListener *listener);
@@ -92,6 +92,10 @@ public:
     void moveOneStep(int step);
 
     DriverContainer *getContainer();
+
+    bool operator==(const Driver &rhs) const;
+
+    bool operator!=(const Driver &rhs) const;
 
     friend istream &operator>>(istream &is, Driver &driver);
 
@@ -121,7 +125,7 @@ public:
             ar & location;
         }
         //ar & endTripListeners;
-        ar & availability;
+        ar & available;
     }
 };
 

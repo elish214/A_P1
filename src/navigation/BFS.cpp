@@ -44,6 +44,8 @@ vector<Node *> BFS::run(Node *start, Node *end) {
         map<Node *, int>::iterator itCurrent = dist.find(current);
         nei = itCurrent->first->neighbors();
 
+        //cout << *itCurrent->first << endl;
+
         for (unsigned long i = 0; i < nei.size(); ++i) {
             std::map<Node *, int>::iterator itN = dist.find(nei.at(i));
 

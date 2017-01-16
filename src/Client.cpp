@@ -20,7 +20,6 @@ int main(int argc, char *argv[]) {
     Connection con(socket);
     //Driver *d = new Driver(0, 30, MaritalStatus::MARRIED, 1, 0);
     Driver *d = new Driver();
-    d->setAvailability(true);
     DriverContainer *dc;// = d->getContainer();
     Taxi *taxi;
     vector<Node*> route;

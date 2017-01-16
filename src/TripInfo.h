@@ -28,6 +28,7 @@ private:
     vector<Node*> route;
     int time;
     bool calced = false;
+    pthread_t thread;
 
 public:
     TripInfo(int id, int numOfPassengers, Passenger *passenger, int time);
@@ -41,6 +42,8 @@ public:
     TripInfo();
 
     virtual ~TripInfo();
+
+    pthread_t getThread() const;
 
     bool isCalced() const;
 

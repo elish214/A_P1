@@ -145,16 +145,16 @@ void TripInfo::findPath() {
 
     totalMeters = (int) route.size();
 
-    for (int i = 0; i < route.size(); ++i) {
-        cout << *route.at(i) << endl;
-    }
+    //for (int i = 0; i < route.size(); ++i) {
+    //    cout << *route.at(i) << endl;
+    //}
 }
 
 /**
  * calculating trip's total meters.
  */
 void TripInfo::calcPath() {
-    pthread_t thread;
+    //pthread_t thread;
     pthread_create(&thread, NULL, threadPath, (void *) this);
     //findPath();
 }
@@ -345,4 +345,8 @@ bool TripInfo::isCalced() const {
 
 void TripInfo::setCalced(bool calced) {
     TripInfo::calced = calced;
+}
+
+pthread_t TripInfo::getThread() const {
+    return thread;
 }

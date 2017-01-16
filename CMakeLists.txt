@@ -38,7 +38,7 @@ set(SOURCE_FILES src/navigation/Point.cpp src/navigation/BFS.cpp
         src/containers/DriverContainer.h src/containers/PassengerContainer.cpp
         src/containers/PassengerContainer.h src/containers/TripContainer.cpp
         src/containers/TripContainer.h src/enums/Operation.h src/containers/Command.cpp
-        src/containers/Command.h)
+        src/containers/Command.h src/containers/ThreadContainer.cpp src/containers/ThreadContainer.h src/containers/NewDriverContainer.cpp src/containers/NewDriverContainer.h)
 
 add_executable(Server ${SOURCE_FILES} src/Server.cpp)
 add_executable(Client ${SOURCE_FILES} src/Client.cpp)

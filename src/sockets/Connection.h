@@ -54,7 +54,7 @@ public:
     template<class T>
     T *receive() {
         T *ob;
-        char buffer[1024];
+        char buffer[130000];
 
         memset(buffer, 0, sizeof(buffer));
 
