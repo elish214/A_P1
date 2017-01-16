@@ -82,6 +82,7 @@ int main(int argc, char *argv[]) {
                 break;
             case Operation::ADVANCE:
                 cout << "i'm moving!" << endl;
+
                 d->moveTaxiStep();
                 cout << "moved" << endl;
 

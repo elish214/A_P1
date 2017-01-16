@@ -2,7 +2,7 @@
 #204728299_Raz_Solomon       #
 #302860986_Elisheva_Broyer   #
 ##############################
-
+f
 all: server.out client.out
 
 server.out: Server.o Command.o DriverContainer.o LocationContainer.o NewDriverContainer.o PassengerContainer.o ThreadContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o TripInfo.o

@@ -39,7 +39,7 @@ static void *threadRun(void *element);
  */
 int main(int argc, char *argv[]) {
     sock = atoi(argv[1]);
-    char buffer[4022272];
+    char buffer[130000];
 
     vector<ThreadContainer *> threads;
     ThreadContainer *thread;
@@ -205,7 +205,7 @@ void *threadRun(void *element) {
 
     bool isRunning = true;
     int localClock = ndc->getJoiningTime();
-    char buffer[4022272];
+    char buffer[130000];
 
     Command *localCommand;
     LocationContainer *lc;
@@ -227,6 +227,8 @@ void *threadRun(void *element) {
 
         localClock++;
         cout << "localClock: " << localClock << endl;
+        cout << ndc->getDriver()->getId() << "  "
+             << *ndc->getDriver()->getLocation() << endl;
 
         localCommand = command;
         switch (localCommand->getOp()) {
@@ -263,8 +265,8 @@ void *threadRun(void *element) {
 
                         con.receiveString(buffer);
                         ndc->setDriverAvailablity(false);
-                        cout << ndc->getDriver()->getId() << "  "
-                             << *ndc->getDriver()->getLocation() << endl;
+                        //cout << ndc->getDriver()->getId() << "  "
+                        //     << *ndc->getDriver()->getLocation() << endl;
                     }
                 } else {
 
