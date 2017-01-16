@@ -89,8 +89,6 @@ public:
 
     Passenger *getPassenger() const;
 
-    pthread_t getThread() const;
-
     friend istream &operator>>(istream &is, TripInfo &trip);
 
     friend ostream &operator<<(ostream &os, TripInfo &info);

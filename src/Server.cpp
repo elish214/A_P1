@@ -392,16 +392,6 @@ void *threadRun(void *element) {
 
             default:
                 break;
-            case Operation::NEW_DRIVER:
-                break;
-            case Operation::NEW_RIDE:
-                break;
-            case Operation::NEW_VEHICLE:
-                break;
-            case Operation::DRIVER_LOCATION:
-                break;
-            case Operation::START:
-                break;
         }
 
         //pthread_mutex_lock(&locker);
