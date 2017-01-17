@@ -33,6 +33,8 @@ public:
 
     vector<Driver *> &getEmployees();
 
+    map<Point, deque<Driver *>> &getLocations();
+
     vector<Taxi *> &getCabs();
 
     vector<TripInfo *> &getTrips();
@@ -70,6 +72,10 @@ public:
     int numOfTripsAt(int time, Point *start);
 
     int getTurn(Driver *driver);
+
+    void eraseDriver(Driver *driver);
+
+    bool isDriverIn(Driver *driver);
 };
 
 

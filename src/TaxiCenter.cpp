@@ -249,12 +249,15 @@ void TaxiCenter::push(Driver *driver) {
     Point p = *driver->getLocation()->getPoint();
     map<Point, deque<Driver *>>::iterator it = locations.find(p);
 
+    cout << "here " << *driver << endl;
     if (it == locations.end()) {
         deque<Driver *> d;
         d.emplace_back(driver);
         locations.insert(make_pair(*driver->getLocation()->getPoint(), d));
     } else {
-        it->second.emplace_back(driver);
+        if(!isDriverIn(driver)) {
+            it->second.emplace_back(driver);
+        }
     }
 }
 
@@ -359,6 +362,7 @@ int TaxiCenter::getTurn(Driver *driver) {
 
     for (unsigned int i = 0; i < it->second.size(); ++i) {
         if(*driver == *it->second.at(i)) {
+            cout << *driver << " turn: " << i+1 << endl;
             return i + 1;
         }
     }
@@ -377,7 +381,7 @@ TripInfo *TaxiCenter::getTripAt(int time, Driver *driver) {
         return NULL;
     }
 
-    for (int i = 0; i < trips.size(); ++i) {
+    for (unsigned int i = 0; i < trips.size(); ++i) {
         trip = trips.at(i);
 
         if ((trip->getTime() == time) && *trip->getStart()->getPoint() == *driver->getLocation()->getPoint()) {
@@ -389,6 +393,36 @@ TripInfo *TaxiCenter::getTripAt(int time, Driver *driver) {
         }
     }
 
-
     return NULL;
+}
+
+void TaxiCenter::eraseDriver(Driver *driver) {
+    map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
+    Driver* temp;
+    for (unsigned int i = 0; i < it->second.size(); ++i) {
+        temp = it->second.at(0);
+        if(*driver != *temp) {
+            it->second.push_back(temp);
+            cout<< "no i dont" << endl;
+        }else {
+            cout<< "i erase" << endl;
+        }
+    }
+
+}
+
+bool TaxiCenter::isDriverIn(Driver *driver) {
+    map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
+
+    for (unsigned int i = 0; i < it->second.size(); ++i) {
+        if(*driver == *it->second.at(i)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+map<Point, deque<Driver *>> &TaxiCenter::getLocations() {
+    return locations;
 }
