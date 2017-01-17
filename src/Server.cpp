@@ -157,7 +157,7 @@ int main(int argc, char *argv[]) {
                     usleep(50);
                 }
 
-                cout << "------" << *center.getDriver(id)->getLocation() << endl;
+                cout << *center.getDriver(id)->getLocation() << endl;
 
                 //delete lc;
                 //delete location;
@@ -183,11 +183,11 @@ int main(int argc, char *argv[]) {
                 //cout << *command << endl;
                 //con.send(command);
 
-                for (unsigned int k = 0; k < threads.size(); ++k) {
-                    while (timeClock != threads.at(k)->getLocalClock()) {
-                        usleep(50);
-                    }
-                }
+                //for (unsigned int k = 0; k < threads.size(); ++k) {
+                //    while (timeClock != threads.at(k)->getLocalClock()) {
+                //        usleep(50);
+                //    }
+                //}
 
                 commands.push_back(new Command(Operation::EXIT));
                 timeClock++;
