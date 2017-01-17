@@ -9,6 +9,7 @@
 #include <iostream>
 #include <map>
 #include "Driver.h"
+#include "navigation/Point.h"
 
 using namespace std;
 

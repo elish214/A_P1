@@ -15,6 +15,7 @@
 #include "sockets/Tcp.h"
 #include "containers/ThreadContainer.h"
 #include "containers/NewDriverContainer.h"
+#include "Thread.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ Command *command;
 int threadsCounter = 0;
 int finished = 0;
 
-vector<Command*> commands;
+vector<Command *> commands;
 
 pthread_mutex_t trip_locker;
 pthread_mutex_t _locker;
@@ -41,7 +42,7 @@ static void *threadRun(void *element);
 int main(int argc, char *argv[]) {
     sock = atoi(argv[1]);
     char buffer[1024];
-
+    unsigned int i;
     Grid *grid;
     center = TaxiCenter();
     Driver *driver;
@@ -64,9 +65,9 @@ int main(int argc, char *argv[]) {
     Connection con = Connection(socket);
     con.initialize();
 
-    NewDriverContainer *ndc;
-
-    vector<ThreadContainer *> threads;
+    //NewDriverContainer *ndc;
+    Thread *thread;
+    vector<Thread *> threads;
 
     cin >> rows >> cols;
     grid = new Grid(rows, cols);
@@ -75,7 +76,7 @@ int main(int argc, char *argv[]) {
         cin >> point;
         grid->get(point)->setObstacle(true);
     }
-    cout << "alive" << endl;
+    //cout << "alive" << endl;
     /*
     cout << "-----------------------" << endl
          << "GRID: " << *grid << endl
@@ -92,7 +93,7 @@ int main(int argc, char *argv[]) {
         switch (op) {
             case Operation::NEW_DRIVER:
                 cin >> numOfDrivers;
-                cout << "waiting for drivers" << endl;
+                //cout << "waiting for drivers" << endl;
                 for (int j = 0; j < numOfDrivers; ++j) {
                     descriptor = con.accept();
                     dc = con.receive<DriverContainer>();
@@ -113,10 +114,12 @@ int main(int argc, char *argv[]) {
                     //cout << "sent taxi: " << *taxi << endl;
 
 
-                    threads.emplace_back(new ThreadContainer());
-                    cout << *driver << " threads.. " << endl;
-                    ndc = new NewDriverContainer(driver, timeClock, descriptor);
-                    pthread_create(threads.at(threads.size() - 1)->getThread(), NULL, threadRun, (void *) ndc);
+                    //threads.emplace_back(new ThreadContainer());
+                    //cout << *driver << " threads.. " << endl;
+                    thread = new Thread(driver, descriptor);
+                    threads.emplace_back(thread);
+                    //ndc = new NewDriverContainer(driver, timeClock, descriptor);
+                    pthread_create(thread->getThread(), NULL, threadRun, (void *) thread);
                     threadsCounter++;
                 }
 
@@ -144,7 +147,17 @@ int main(int argc, char *argv[]) {
                 cin >> id;
                 //cout << *(center.getDriver(id)->getLocation()) << endl;
 
-                cout << *center.getDriver(id)->getLocation() << endl;
+                i = 0;
+
+                while (id != threads.at(i)->getDriver()->getId()) {
+                    i++;
+                }
+
+                while (timeClock != threads.at(i)->getLocalClock()) {
+                    usleep(50);
+                }
+
+                cout << "------" << *center.getDriver(id)->getLocation() << endl;
 
                 //delete lc;
                 //delete location;
@@ -157,7 +170,7 @@ int main(int argc, char *argv[]) {
 
             case Operation::ADVANCE:
                 //center.advanceAllDrivers();
-                cout << "advance" << endl;
+                //cout << "advance" << endl;
                 commands.push_back(new Command(Operation::ADVANCE));
                 timeClock++;
                 //lc = con.receive<LocationContainer>();
@@ -169,6 +182,13 @@ int main(int argc, char *argv[]) {
             case Operation::EXIT:
                 //cout << *command << endl;
                 //con.send(command);
+
+                for (unsigned int k = 0; k < threads.size(); ++k) {
+                    while (timeClock != threads.at(k)->getLocalClock()) {
+                        usleep(50);
+                    }
+                }
+
                 commands.push_back(new Command(Operation::EXIT));
                 timeClock++;
                 isRunning = false;
@@ -205,13 +225,13 @@ int main(int argc, char *argv[]) {
  * @return void.
  */
 void *threadRun(void *element) {
-    NewDriverContainer *ndc = (NewDriverContainer *) element;
+    Thread *thread = (Thread *) element;
 
-    cout << *ndc->getDriver() << endl;
+    //cout << *thread->getDriver() << endl;
 
     bool isRunning = true;
-    Driver *driver = ndc->getDriver();
-    int localClock = ndc->getJoiningTime();
+    Driver *driver = thread->getDriver();
+    //int localClock = ndc->getJoiningTime();
     Command *tripCommand = new Command(Operation::NEW_RIDE);
     Command *localCommand;
     char buffer[1024];
@@ -225,42 +245,43 @@ void *threadRun(void *element) {
     TripInfo *trip = NULL;
 
     Socket *socket = new Tcp(1, sock);
-    cout << "alive thread" << endl;
+    //cout << "alive thread" << endl;
     Connection con = Connection(socket);
-    con.setDescriptor(ndc->getDescriptor());
-    cout << "alive thread 2" << endl;
+    con.setDescriptor(thread->getDescriptor());
+    //cout << "alive thread 2" << endl;
 
     do {
-        while (localClock == timeClock) {
+        while (thread->getLocalClock() == timeClock) {
             //cout << localClock << " : " << timeClock << endl;
-            sleep(1);
+            usleep(50);
         }
-        localCommand = commands.at((unsigned int) localClock);
+        localCommand = commands.at((unsigned int) thread->getLocalClock());
         cout << *localCommand << endl;
-        localClock++;
-        cout << "localClock: " << localClock << endl;
+        //localClock++;
+        //thread->incClock();
+        cout << "localClock: " << thread->getLocalClock() + 1 << " of " << driver->getId() << endl;
 
         switch (localCommand->getOp()) {
             case Operation::ADVANCE:
                 //center.advanceAllDrivers();
-                cout << "advance" << endl;
+                //cout << "advance" << endl;
 
 
                 it = center.getLocations().find(*driver->getLocation()->getPoint());
-                cout << "in deque: " << it->second.size() << endl;
+                //cout << "in deque: " << it->second.size() << endl;
 
                 if (driver->isAvailable()) {
                     pthread_mutex_lock(&trip_locker);
-                    trip = center.getTripAt(localClock - 1, driver);
-                    if(trip != NULL) {
-                        cout << driver->getId() << " got here!" << endl;
+                    trip = center.getTripAt(thread->getLocalClock(), driver);
+                    if (trip != NULL) {
+                        //cout << driver->getId() << " got here!" << endl;
                         center.eraseDriver(driver);
                     }
                     pthread_mutex_unlock(&trip_locker);
 
                     if (trip != NULL) {
                         //command->setOp(Operation::NEW_RIDE);
-                        cout << "sending " << *localCommand << endl;
+                        //cout << "sending " << *localCommand << endl;
 
                         con.send(tripCommand);
 
@@ -293,7 +314,7 @@ void *threadRun(void *element) {
                 if ((*location == *driver->getLocation())) {
                     driver->setAvailable(true);
                     center.push(driver);
-                    cout << "KOKO" << endl;
+                    //cout << "KOKO" << endl;
                 }
 
                 driver->setLocation(location);
@@ -316,6 +337,8 @@ void *threadRun(void *element) {
             default:
                 break;
         }
+
+        thread->incClock();
         /*
         cout << "-----------------------" << endl
              << "CENTER:" << endl << center << endl
@@ -325,7 +348,7 @@ void *threadRun(void *element) {
 
 
     delete tripCommand;
-    delete ndc;
+    //delete ndc;
 
     return NULL;
 }

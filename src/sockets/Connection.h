@@ -55,17 +55,14 @@ public:
     T *receive() {
         T *ob;
         char buffer[130000];
-
         memset(buffer, 0, sizeof(buffer));
 
         socket->setDescriptorCommunicateClient(client);
         socket->reciveData(buffer, sizeof(buffer));
 
         std::string serial_str;
-        boost::iostreams::basic_array_source<char> device(buffer,
-                                                          sizeof(buffer));
-        boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(
-                device);
+        boost::iostreams::basic_array_source<char> device(buffer, sizeof(buffer));
+        boost::iostreams::stream<boost::iostreams::basic_array_source<char> > s2(device);
         boost::archive::binary_iarchive ia(s2);
         ia >> ob;
 

@@ -249,7 +249,7 @@ void TaxiCenter::push(Driver *driver) {
     Point p = *driver->getLocation()->getPoint();
     map<Point, deque<Driver *>>::iterator it = locations.find(p);
 
-    cout << "here " << *driver << endl;
+    //cout << "here " << *driver << endl;
     if (it == locations.end()) {
         deque<Driver *> d;
         d.emplace_back(driver);
@@ -344,7 +344,7 @@ TripInfo *TaxiCenter::getTripAt(int time) {
 TripInfo *TaxiCenter::getTripAt(int time, Point *start) {
     TripInfo *trip;
 
-    for (int i = 0; i < trips.size(); ++i) {
+    for (unsigned int i = 0; i < trips.size(); ++i) {
         trip = trips.at(i);
 
         if ((trip->getTime() == time) && (*trip->getStart()->getPoint() == *start)) {
@@ -362,7 +362,7 @@ int TaxiCenter::getTurn(Driver *driver) {
 
     for (unsigned int i = 0; i < it->second.size(); ++i) {
         if(*driver == *it->second.at(i)) {
-            cout << *driver << " turn: " << i+1 << endl;
+            //cout << *driver << " turn: " << i+1 << endl;
             return i + 1;
         }
     }
@@ -375,7 +375,7 @@ TripInfo *TaxiCenter::getTripAt(int time, Driver *driver) {
     int numOfTrips = numOfTripsAt(time, driver->getLocation()->getPoint());
     int turn = getTurn(driver);
 
-    cout << driver->getId() << " " << turn << " : " << numOfTrips << endl;
+    //cout << driver->getId() << " " << turn << " : " << numOfTrips << endl;
 
     if(turn > numOfTrips) {
         return NULL;
@@ -401,13 +401,17 @@ void TaxiCenter::eraseDriver(Driver *driver) {
     Driver* temp;
     for (unsigned int i = 0; i < it->second.size(); ++i) {
         temp = it->second.at(0);
-        if(*driver != *temp) {
-            it->second.push_back(temp);
-            cout<< "no i dont" << endl;
-        }else {
-            cout<< "i erase" << endl;
+        if (*driver == *temp) {
+            it->second.erase(it->second.begin() + i);
+            break;
         }
     }
+
+    cout << "DEQUEEEEEEEEEEEEEEEE: ";
+    for (unsigned int j = 0; j < it->second.size(); ++j) {
+        cout << it->second.at(j)->getId() << " ";
+    }
+    cout << endl;
 
 }
 

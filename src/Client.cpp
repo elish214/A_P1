@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
     do {
         //operation
-        cout << "im here" <<endl;
+        //cout << "im here" <<endl;
         c = con.receive<Command>();
         op = c->getOp();
         cout << *c << endl;
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
                 delete tc;
                 break;
             case Operation::ADVANCE:
-                cout << "i'm moving!" << endl;
+                //cout << "i'm moving!" << endl;
 
                 d->moveTaxiStep();
 
@@ -86,9 +86,9 @@ int main(int argc, char *argv[]) {
             case Operation::DRIVER_LOCATION:
                 //l = d->getLocation();
                 lc = d->getLocation()->getContainer();
-                cout << *lc << endl;
+                //cout << *lc << endl;
                 con.send(lc);
-                cout << "again" << *lc << endl;
+                //cout << "again" << *lc << endl;
                 delete lc;
                 break;
             case Operation::EXIT:
