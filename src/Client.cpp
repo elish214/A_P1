@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
     con.send(dc);
 
     taxi = con.receive<Taxi>();
-    cout << *taxi << endl;
+    //cout << *taxi << endl;
     d->setTaxi(taxi);
     con.sendString("OK");
 
@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
         //cout << "im here" <<endl;
         c = con.receive<Command>();
         op = c->getOp();
-        cout << *c << endl;
+        //cout << *c << endl;
 
         delete c;
 
@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
                 break;
         }
 
-        cout << *d->getLocation() << endl;
+        //cout << *d->getLocation() << endl;
     } while (isRunning);
 
     trip->deleteRoute();

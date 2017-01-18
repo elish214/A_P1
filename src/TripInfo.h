@@ -27,7 +27,7 @@ private:
     Grid *grid;
     vector<Node*> route;
     int time;
-    bool calced = false;
+    bool calced; // = false;
     pthread_t thread;
 
 public:

@@ -179,10 +179,20 @@ int Tcp::reciveData(char* buffer, int size) {
 	return read_bytes;
 }
 
+/**
+ * returns communication descriptor.
+ *
+ * @return communication descriptor.
+ */
 int Tcp::getDescriptorCommunicateClient() const {
     return descriptorCommunicateClient;
 }
 
+/**
+ * setting communication descriptor.
+ *
+ * @param descriptorCommunicateClient
+ */
 void Tcp::setDescriptorCommunicateClient(int descriptorCommunicateClient) {
     Tcp::descriptorCommunicateClient = descriptorCommunicateClient;
 }

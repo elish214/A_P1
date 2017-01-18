@@ -38,6 +38,7 @@ TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger, int time)
  */
 TripInfo::TripInfo() : totalMeters(0) {
     taarif = -1;
+    calced = false;
 }
 
 /**
@@ -67,6 +68,8 @@ TripInfo::TripInfo(TripContainer *tc) :
     for (unsigned int i = 0; i < tc->getRoute().size(); ++i) {
         route.emplace_back(new Location(tc->getRoute().at(i)));
     }
+
+    calced = true;
 
 }
 
@@ -159,6 +162,12 @@ void TripInfo::calcPath() {
     //findPath();
 }
 
+/**
+ * a static function for thread's operation.
+ *
+ * @param element an element.
+ * @return void.
+ */
 void *TripInfo::threadPath(void *element) {
     TripInfo * t = (TripInfo *) element;
 
@@ -339,14 +348,29 @@ void TripInfo::initPassenger() {
     passenger = new Passenger(new Location(start), new Location(end));
 }
 
+/**
+ * returns if route has been calculated.
+ *
+ * @return whether route has been calculated or not.
+ */
 bool TripInfo::isCalced() const {
     return calced;
 }
 
+/**
+ * setting a flag.
+ *
+ * @param calced a status.
+ */
 void TripInfo::setCalced(bool calced) {
     TripInfo::calced = calced;
 }
 
+/**
+ * returns trip's thread.
+ *
+ * @return trip's thread.
+ */
 pthread_t TripInfo::getThread() const {
     return thread;
 }

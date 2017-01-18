@@ -125,12 +125,26 @@ int Udp::reciveData(char *buffer, int size) {
     return bytes;
 }
 
+/**
+ * returns whether connected.
+ *
+ * @return whether connected.
+ */
 int Udp::initialRecieve() { return CORRECT; }
 
-int Udp::getDescriptorCommunicateClient() const {
+/**
+ * returns communication descriptor.
+ *
+ * @return communication descriptor.
+ */int Udp::getDescriptorCommunicateClient() const {
     return 0;
 }
 
+/**
+ * setting communication descriptor.
+ *
+ * @param descriptorCommunicateClient
+ */
 void Udp::setDescriptorCommunicateClient(int descriptorCommunicateClient) {
 
 }

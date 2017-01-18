@@ -65,9 +65,9 @@ public:
 
     int initialRecieve();
 
-    int getDescriptorCommunicateClient() const override;
+    int getDescriptorCommunicateClient() const;
 
-    void setDescriptorCommunicateClient(int descriptorCommunicateClient) override;
+    void setDescriptorCommunicateClient(int descriptorCommunicateClient);
 };
 
 #endif /* UDP_H_ */

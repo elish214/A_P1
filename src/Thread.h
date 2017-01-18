@@ -9,6 +9,9 @@
 #include <sys/types.h>
 #include "Driver.h"
 
+/**
+ * thread representing class.
+ */
 class Thread {
 private:
     pthread_t pthread;

@@ -34,6 +34,13 @@ void Command::setOp(Operation op) {
     Command::op = op;
 }
 
+/**
+ * method overloading for operator '<<'.
+ *
+ * @param os output stream.
+ * @param command a command.
+ * @return output stream.
+ */
 std::ostream &operator<<(std::ostream &os, const Command &command) {
     std::string s;
     os << "op: ";

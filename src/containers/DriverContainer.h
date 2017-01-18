@@ -41,8 +41,7 @@ public:
 
     int getExperience() const;
 
-    friend std::ostream &
-    operator<<(std::ostream &os, const DriverContainer &container);
+    friend std::ostream &operator<<(std::ostream &os, const DriverContainer &container);
 
     friend class boost::serialization::access;
 

@@ -93,6 +93,7 @@ public:
         s.flush();
 
         socket->setDescriptorCommunicateClient(client);
+
         return socket->sendData(serial_str, (int) serial_str.size());
     }
 };

@@ -309,6 +309,13 @@ int TaxiCenter::numOfTripsAt(int time) {
     return count;
 }
 
+/**
+ * return the number of trips in current starting point.
+ *
+ * @param time an integer.
+ * @param start a point.
+ * @return the number of trips in current starting point.
+ */
 int TaxiCenter::numOfTripsAt(int time, Point *start) {
     int count = 0;
 
@@ -341,6 +348,13 @@ TripInfo *TaxiCenter::getTripAt(int time) {
     return trip;
 }
 
+/**
+ * returns a trip that assigned to the specific time and point.
+ *
+ * @param time an integer.
+ * @param start a point.
+ * @return a trip that assigned to the specific time and point.
+ */
 TripInfo *TaxiCenter::getTripAt(int time, Point *start) {
     TripInfo *trip;
 
@@ -357,6 +371,12 @@ TripInfo *TaxiCenter::getTripAt(int time, Point *start) {
     return NULL;
 }
 
+/**
+ * returns the turn of the driver in the specific point.
+ *
+ * @param driver a driver.
+ * @return the turn of the driver in the specific point.
+ */
 int TaxiCenter::getTurn(Driver *driver) {
     map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
 
@@ -370,6 +390,13 @@ int TaxiCenter::getTurn(Driver *driver) {
     return -1;
 }
 
+/**
+ * returns a trip that assigned to the specific time and driver.
+ *
+ * @param time an integer.
+ * @param driver a driver.
+ * @return a trip that assigned to the specific time and point.
+ */
 TripInfo *TaxiCenter::getTripAt(int time, Driver *driver) {
     TripInfo *trip;
     int numOfTrips = numOfTripsAt(time, driver->getLocation()->getPoint());
@@ -396,6 +423,11 @@ TripInfo *TaxiCenter::getTripAt(int time, Driver *driver) {
     return NULL;
 }
 
+/**
+ * erase driver from a location.
+ *
+ * @param driver a driver.
+ */
 void TaxiCenter::eraseDriver(Driver *driver) {
     map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
     Driver* temp;
@@ -407,14 +439,20 @@ void TaxiCenter::eraseDriver(Driver *driver) {
         }
     }
 
-    cout << "DEQUEEEEEEEEEEEEEEEE: ";
+    /*
     for (unsigned int j = 0; j < it->second.size(); ++j) {
         cout << it->second.at(j)->getId() << " ";
     }
     cout << endl;
-
+    */
 }
 
+/**
+ * checks if a driver is in a location's deque.
+ *
+ * @param driver a driver.
+ * @return whether a driver is in a location's deque or not.
+ */
 bool TaxiCenter::isDriverIn(Driver *driver) {
     map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
 
@@ -427,6 +465,11 @@ bool TaxiCenter::isDriverIn(Driver *driver) {
     return false;
 }
 
+/**
+ * returns center's locations.
+ *
+ * @return center's locations.
+ */
 map<Point, deque<Driver *>> &TaxiCenter::getLocations() {
     return locations;
 }

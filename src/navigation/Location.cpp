@@ -116,14 +116,6 @@ vector<Node *> Location::neighbors() {
     if ((y > 0) && !(getGrid()->get(x, y - 1)->isObstacle())) //down
         neighbors.push_back(getGrid()->get(x, y - 1));
 
-    //cout << *getPoint() << " : ";
-//
-    //for (int j = 0; j < neighbors.size(); ++j) {
-    //    cout << *neighbors.at(j) << ", ";
-    //}
-//
-    //cout << endl;
-
     return neighbors;
 }
 
@@ -140,7 +132,8 @@ ostream &operator<<(ostream &os, Location &location) {
 }
 
 /**
- * == operator
+ * method overloading for operator '=='.
+ *
  * @param rhs to compare
  * @return true/false
  */
@@ -150,7 +143,8 @@ bool Location::operator==(const Location &rhs) const {
 }
 
 /**
- * != operator
+ * method overloading for operator '!='.
+ *
  * @param rhs to compare
  * @return true/false
  */
@@ -160,6 +154,7 @@ bool Location::operator!=(const Location &rhs) const {
 
 /**
  * << for sub class.
+ *
  * @param os ostream
  * @return ostream with location
  */
@@ -169,7 +164,8 @@ ostream &Location::toString(ostream &os) const {
 }
 
 /**
- * different == operator
+ * different method overloading for operator '=='.
+ *
  * @param rhs to compare
  * @return true/false
  */
