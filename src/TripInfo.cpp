@@ -146,6 +146,7 @@ void TripInfo::findPath() {
     BFS bfs;
     route = bfs.run(grid->get(*start->getPoint()), grid->get(*end->getPoint()));
 
+    cout<< "calced!" << endl;
     totalMeters = (int) route.size();
 
     //for (int i = 0; i < route.size(); ++i) {

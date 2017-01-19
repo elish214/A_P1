@@ -14,6 +14,7 @@
 #include "taxi/TaxiFactory.h"
 #include "sockets/Tcp.h"
 #include "Thread.h"
+#include "ThreadPool.h"
 
 using namespace std;
 
@@ -44,6 +45,10 @@ int main(int argc, char *argv[]) {
     sock = atoi(argv[1]);
     char buffer[1024];
     unsigned int i;
+
+    ThreadPool tp(5);
+
+    pthread_mutex_init(&trip_locker, 0);
 
     center = TaxiCenter();
     Driver *driver;
@@ -93,8 +98,9 @@ int main(int argc, char *argv[]) {
         switch (op) {
             case Operation::NEW_DRIVER:
                 cin >> numOfDrivers;
-                //cout << "waiting for drivers" << endl;
+                cout << "waiting for drivers" << endl;
                 for (int j = 0; j < numOfDrivers; ++j) {
+                    cout << "OK" << endl;
                     descriptor = con.accept();
                     dc = con.receive<DriverContainer>();
 
@@ -121,11 +127,15 @@ int main(int argc, char *argv[]) {
 
                 break;
             case Operation::NEW_RIDE:
-                //   cout << "new ride" << endl;
+                   cout << "new ride" << endl;
                 trip = new TripInfo();
                 cin >> *trip;
                 trip->setGrid(grid);
-                trip->calcPath();
+
+                cout << "alive" << endl;
+                //trip->calcPath();
+                tp.addTrip(trip);
+                cout << "still alive" << endl;
                 center.addTrip(trip);
                 break;
             case Operation::NEW_VEHICLE:
@@ -200,6 +210,8 @@ int main(int argc, char *argv[]) {
 
     threads.clear();
 
+    //pthread_mutex_destroy(&trip_locker);
+
     delete grid;
     delete command;
 
@@ -261,14 +273,19 @@ void *threadRun(void *element) {
 
                         con.send(tripCommand);
 
-                        pthread_join(trip->getThread(), NULL);
+                        //pthread_join(trip->getThread(), NULL);
+
+                        while(!trip->isCalced()){
+                            usleep(50);
+                        }
+
                         tc = trip->getContainer();
 
                         con.receiveString(buffer);
 
                         //cout << *trip << endl;
 
-                        usleep(100);
+                        usleep(300);
                         con.send(tc);
 
                         delete tc;
