@@ -6,6 +6,8 @@
 #include "navigation/Grid.h"
 #include "navigation/BFS.h"
 
+#define ERROR -1
+
 /**
  * constructor.
  *
@@ -146,7 +148,7 @@ void TripInfo::findPath() {
     BFS bfs;
     route = bfs.run(grid->get(*start->getPoint()), grid->get(*end->getPoint()));
 
-    cout<< "calced!" << endl;
+    //cout<< "calced!" << endl;
     totalMeters = (int) route.size();
 
     //for (int i = 0; i < route.size(); ++i) {
@@ -261,33 +263,104 @@ istream &operator>>(istream &is, TripInfo &trip) {
     string s;
     int x1, y1, x2, y2;
 
-    getline(is, s, ',');
-    trip.id = atoi(s.c_str());
+    try {
+        getline(is, s, ',');
+        trip.id = stoi(s.c_str());
+        if (trip.id < 0) {
+            trip.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        trip.id = ERROR;
+        return is;
+    }
 
-    getline(is, s, ',');
-    x1 = atoi(s.c_str());
+    try {
+        getline(is, s, ',');
+        x1 = stoi(s.c_str());
+        if (x1 < 0 || x1 >= trip.grid->getCols()) {
+            trip.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        trip.id = ERROR;
+        return is;
+    }
 
-    getline(is, s, ',');
-    y1 = atoi(s.c_str());
+    try {
+        getline(is, s, ',');
+        y1 = stoi(s.c_str());
+        if (y1 < 0 || y1 >= trip.grid->getRows()) {
+            trip.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        trip.id = ERROR;
+        return is;
+    }
+
+    try {
+        getline(is, s, ',');
+        x2 = stoi(s.c_str());
+        if (x2 < 0 || x2 >= trip.grid->getCols()) {
+            trip.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        trip.id = ERROR;
+        return is;
+    }
+
+    try {
+        getline(is, s, ',');
+        y2 = stoi(s.c_str());
+        if (y2 < 0 || y2 >= trip.grid->getRows()) {
+            trip.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        trip.id = ERROR;
+        return is;
+    }
 
     trip.start = new Location(x1, y1);
-
-    getline(is, s, ',');
-    x2 = atoi(s.c_str());
-
-    getline(is, s, ',');
-    y2 = atoi(s.c_str());
-
     trip.end = new Location(x2, y2);
 
-    getline(is, s, ',');
-    trip.numOfPassengers = atoi(s.c_str());
+    try {
+        getline(is, s, ',');
+        trip.numOfPassengers = stoi(s.c_str());
+        if (trip.numOfPassengers < 0) {
+            trip.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        trip.id = ERROR;
+        return is;
+    }
 
-    getline(is, s, ',');
-    trip.taarif = stod(s.c_str());
+    try {
+        getline(is, s, ',');
+        trip.taarif = stod(s.c_str());
+        if (trip.taarif < 0) {
+            trip.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        trip.id = ERROR;
+        return is;
+    }
 
-    getline(is, s, '\n');
-    trip.time = atoi(s.c_str());
+    try {
+        getline(is, s, '\n');
+        trip.time = stoi(s.c_str());
+        if (trip.time < 0) {
+            trip.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        trip.id = ERROR;
+        return is;
+    }
 
     return is;
 }

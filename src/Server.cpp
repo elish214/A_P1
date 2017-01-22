@@ -16,6 +16,9 @@
 #include "Thread.h"
 #include "ThreadPool.h"
 
+#define ERROR_MESSAGE -1
+#define ERROR -1
+
 using namespace std;
 
 // global variants:
@@ -58,14 +61,15 @@ int main(int argc, char *argv[]) {
     TaxiFactory factory;
     Taxi *taxi;
     bool isRunning = true;
-    int opNum, numOfObstacles, id, numOfDrivers, descriptor;
+    int opNum, id, numOfDrivers, descriptor;
     Operation op;
     command = new Command();
 
     //LocationContainer *lc;
     //TripContainer *tc;
     //Location *location;
-    int rows, cols;
+    int rows , cols;
+    int numOfObstacles;
     //Socket *socket = new Udp(1, sock);
     Socket *socket = new Tcp(1, sock);
     Connection con = Connection(socket);
@@ -75,8 +79,19 @@ int main(int argc, char *argv[]) {
     vector<Thread *> threads;
 
     cin >> rows >> cols;
-    grid = new Grid(rows, cols);
+    while (rows < 1 || cols < 1) {
+        cout << ERROR_MESSAGE << endl;
+        cin >> rows >> cols;
+    }
+
     cin >> numOfObstacles;
+    while (numOfObstacles < 0) {
+        cin >> numOfObstacles;
+        cout << ERROR_MESSAGE << endl;
+    }
+
+    grid = new Grid(rows, cols);
+
     for (int j = 0; j < numOfObstacles; ++j) {
         cin >> point;
         grid->get(point)->setObstacle(true);
@@ -98,11 +113,17 @@ int main(int argc, char *argv[]) {
         switch (op) {
             case Operation::NEW_DRIVER:
                 cin >> numOfDrivers;
-                cout << "waiting for drivers" << endl;
+                //cout << "waiting for drivers" << endl;
                 for (int j = 0; j < numOfDrivers; ++j) {
-                    cout << "OK" << endl;
                     descriptor = con.accept();
                     dc = con.receive<DriverContainer>();
+                    if (dc->getId() == ERROR) { // terminate all.
+                        commands.push_back(new Command(Operation::EXIT));
+                        timeClock++;
+                        isRunning = false;
+                        delete dc;
+                        break;
+                    }
 
                     driver = new Driver(*dc);
                     driver->setLocation(grid->get(0, 0));
@@ -127,15 +148,12 @@ int main(int argc, char *argv[]) {
 
                 break;
             case Operation::NEW_RIDE:
-                   cout << "new ride" << endl;
                 trip = new TripInfo();
-                cin >> *trip;
                 trip->setGrid(grid);
+                cin >> *trip;
 
-                cout << "alive" << endl;
                 //trip->calcPath();
                 tp.addTrip(trip);
-                cout << "still alive" << endl;
                 center.addTrip(trip);
                 break;
             case Operation::NEW_VEHICLE:
@@ -184,6 +202,9 @@ int main(int argc, char *argv[]) {
                 timeClock++;
                 isRunning = false;
                 break;
+            default:
+                cout << ERROR_MESSAGE << endl;
+                break;
         }
 
         /*
@@ -209,7 +230,6 @@ int main(int argc, char *argv[]) {
     }
 
     threads.clear();
-
     //pthread_mutex_destroy(&trip_locker);
 
     delete grid;

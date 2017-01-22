@@ -10,14 +10,15 @@ ThreadPool::ThreadPool(int poolSize) {
     for (int i = 0; i < poolSize; i++) {
         pthread_t thread;
         pthread_create(&thread, NULL, startRun, (void*) this);
+        threads.push_back(thread);
     }
-    cout << "cool" << endl;
     pthread_mutex_init(&run_lock, 0);
 }
 
 ThreadPool::~ThreadPool() {
-    for (int j = 0; j < size; j++) {
-        pthread_join(threads.at(j), NULL);
+    for (unsigned int j = 0; j < size; j++) {
+        pthread_cancel(threads.at(j));
+        cout << "dead" << endl;
     }
 
     pthread_mutex_destroy(&run_lock);
@@ -25,7 +26,6 @@ ThreadPool::~ThreadPool() {
 
 void *ThreadPool::startRun(void *element) {
     ThreadPool *tp = (ThreadPool*) element;
-    cout << "cool2" << endl;
     tp->executeThread();
 
     return NULL;

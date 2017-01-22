@@ -10,6 +10,8 @@
 #include "enums/Operation.h"
 #include "containers/Command.h"
 
+#define ERROR -1
+
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -31,10 +33,22 @@ int main(int argc, char *argv[]) {
     Command *c;
     bool isRunning = true;
     bool locationFlag = true;
-    cin >> *d;
-    dc = d->getContainer();
-
     con.initialize();
+    cin >> *d;
+    if (d->getId() == ERROR) {
+
+        trip->deleteRoute();
+        delete trip;
+
+        dc = d->getContainer();
+        con.send(dc);
+
+        delete d;
+        delete dc;
+        return 0;
+    }
+
+    dc = d->getContainer();
 
     con.send(dc);
 

@@ -3,6 +3,7 @@
 //
 
 #include "Driver.h"
+#define ERROR -1
 
 using namespace std;
 
@@ -174,20 +175,63 @@ double Driver::getSatisfaction() {
 istream &operator>>(istream &is, Driver &driver) {
     string s;
 
-    getline(is, s, ',');
-    driver.id = atoi(s.c_str());
+    try {
+        getline(is, s, ',');
+        driver.id = stoi(s.c_str());
+        if (driver.id < 0) {
+            driver.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        driver.id = ERROR;
+        return is;
+    }
 
+    try {
     getline(is, s, ',');
-    driver.age = atoi(s.c_str());
+    driver.age = stoi(s.c_str());
+    if (driver.age < 0) {
+        driver.id = ERROR;
+        return is;
+        }
+    } catch (exception e) {
+        driver.id = ERROR;
+        return is;
+    }
 
     getline(is, s, ',');
     driver.status = static_cast<MaritalStatus>(s[0]);
+    if (driver.status != MaritalStatus::DIVORCED ||
+        driver.status != MaritalStatus::WIDOWED ||
+        driver.status != MaritalStatus::MARRIED ||
+        driver.status != MaritalStatus::SINGLE) {
+        driver.id = ERROR;
+        return is;
+    }
 
-    getline(is, s, ',');
-    driver.experience = atoi(s.c_str());
+    try {
+        getline(is, s, ',');
+        driver.experience = stoi(s.c_str());
+        if (driver.experience < 0) {
+            driver.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        driver.id = ERROR;
+        return is;
+    }
 
-    getline(is, s, '\n');
-    driver.taxiID = atoi(s.c_str());
+    try {
+        getline(is, s, '\n');
+        driver.taxiID = stoi(s.c_str());
+        if (driver.taxiID < 0) {
+            driver.id = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        driver.id = ERROR;
+        return is;
+    }
 
     driver.satisfaction = Satisfaction(0, 0);
 
