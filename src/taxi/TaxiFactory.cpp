@@ -6,6 +6,8 @@
 #include "StandardTaxi.h"
 #include "LuxuryTaxi.h"
 
+#define ERROR -1
+
 /**
  * returns a taxi.
  *
@@ -29,17 +31,55 @@ istream &operator>>(istream &is, TaxiFactory &factory) {
     CarManufacturer m;
     Color color;
 
-    getline(is, s, ',');
-    id = atoi(s.c_str());
+    try {
+        getline(is, s, ',');
+        id = stoi(s.c_str());
+        if (id < 0) {
+            factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
+            return  is;
+        }
+    } catch (exception e) {
 
-    getline(is, s, ',');
-    type = atoi(s.c_str());
+        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
+        return  is;
+    }
+
+    try {
+        getline(is, s, ',');
+        type = stoi(s.c_str());
+        if (type != 1 && type != 2) {
+
+            factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
+            return  is;
+        }
+    } catch (exception e) {
+
+        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
+        return  is;
+    }
 
     getline(is, s, ',');
     m = static_cast<CarManufacturer>(s[0]);
+    if (m != CarManufacturer::FIAT &&
+        m != CarManufacturer::HONDA &&
+        m != CarManufacturer::SUBARU &&
+        m != CarManufacturer::TESLA) {
+        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
+        return  is;
+    }
 
     getline(is, s, '\n');
+    //cout << s << endl;
+    //cout << s[0] << " " << s[1] << endl;
     color = static_cast<Color>(s[0]);
+    if (color != Color::BLUE &&
+        color != Color::GREEN &&
+        color != Color::PINK &&
+        color != Color::RED &&
+        color != Color::WHITE) {
+        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
+        return  is;
+    }
 
     switch (type) {
         case 1:

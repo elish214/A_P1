@@ -33,7 +33,7 @@ void *ThreadPool::startRun(void *element) {
 
 void ThreadPool::executeThread() {
     TripInfo *t = NULL;
-    while (true){
+    while (true) {
         while (trips.empty()) {
             //cout << "waiting" << endl;
             sleep(1);

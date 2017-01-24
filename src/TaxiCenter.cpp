@@ -473,3 +473,21 @@ bool TaxiCenter::isDriverIn(Driver *driver) {
 map<Point, deque<Driver *>> &TaxiCenter::getLocations() {
     return locations;
 }
+
+/**
+ * returns whether driver is in database.
+ *
+ * @param id an integer.
+ * @return whether driver is in database.
+ */
+bool TaxiCenter::isDriverIn(int id) {
+    bool is = false;
+    for (unsigned int j = 0; j < employees.size(); ++j) {
+        if(employees.at(j)->getId() == id) {
+            is = true;
+            break;
+        }
+    }
+
+    return is;
+}

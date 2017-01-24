@@ -201,9 +201,9 @@ istream &operator>>(istream &is, Driver &driver) {
 
     getline(is, s, ',');
     driver.status = static_cast<MaritalStatus>(s[0]);
-    if (driver.status != MaritalStatus::DIVORCED ||
-        driver.status != MaritalStatus::WIDOWED ||
-        driver.status != MaritalStatus::MARRIED ||
+    if (driver.status != MaritalStatus::DIVORCED &&
+        driver.status != MaritalStatus::WIDOWED &&
+        driver.status != MaritalStatus::MARRIED &&
         driver.status != MaritalStatus::SINGLE) {
         driver.id = ERROR;
         return is;

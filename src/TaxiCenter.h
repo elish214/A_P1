@@ -77,6 +77,8 @@ public:
     void eraseDriver(Driver *driver);
 
     bool isDriverIn(Driver *driver);
+
+    bool isDriverIn(int id);
 };
 
 

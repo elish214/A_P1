@@ -70,6 +70,8 @@ int main(int argc, char *argv[]) {
     //Location *location;
     int rows , cols;
     int numOfObstacles;
+    bool valid = false;
+    bool gridValid = true;
     //Socket *socket = new Udp(1, sock);
     Socket *socket = new Tcp(1, sock);
     Connection con = Connection(socket);
@@ -78,23 +80,45 @@ int main(int argc, char *argv[]) {
     Thread *thread;
     vector<Thread *> threads;
 
-    cin >> rows >> cols;
-    while (rows < 1 || cols < 1) {
-        cout << ERROR_MESSAGE << endl;
+    while(!valid) {
         cin >> rows >> cols;
-    }
+        if (rows < 1 || cols < 1 || !cin.good()) {
+            cout << ERROR_MESSAGE << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            continue;
+        }
 
-    cin >> numOfObstacles;
-    while (numOfObstacles < 0) {
         cin >> numOfObstacles;
-        cout << ERROR_MESSAGE << endl;
-    }
+        if (numOfObstacles < 0 || !cin.good()) {
+            cout << ERROR_MESSAGE << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            continue;
+        }
 
-    grid = new Grid(rows, cols);
+        grid = new Grid(rows, cols);
 
-    for (int j = 0; j < numOfObstacles; ++j) {
-        cin >> point;
-        grid->get(point)->setObstacle(true);
+        for (int j = 0; j < numOfObstacles; ++j) {
+            cin >> point;
+            if (point.getX() == ERROR || !cin.good() ||
+                point.getX() >= grid->getCols() ||
+                point.getY() >= grid->getRows()) {
+                cout << ERROR_MESSAGE << endl;
+                cin.clear();
+                //cin.ignore(numeric_limits<streamsize>::max(),'\n');
+
+                gridValid = false;
+                delete grid;
+                j = numOfObstacles;
+                continue;
+            }
+            gridValid = true;
+            grid->get(point)->setObstacle(true);
+        }
+        if(gridValid) {
+            valid = true;
+        }
     }
     //cout << "alive" << endl;
     /*
@@ -105,7 +129,11 @@ int main(int argc, char *argv[]) {
 
     do {
         //operation
+        //cout << cin.get() << endl;
+        cin.clear();
+        //cin.ignore(numeric_limits<streamsize>::max(),'\n');
         cin >> opNum;
+        //cout<< "im dead" << endl;
         op = static_cast<Operation>(opNum);
         command->setOp(op);
         //cout << *command << endl;
@@ -151,21 +179,42 @@ int main(int argc, char *argv[]) {
                 trip = new TripInfo();
                 trip->setGrid(grid);
                 cin >> *trip;
+                //cout << trip->getId() << endl;
+                if(trip->getId() == ERROR) {
+                    //cout << ERROR_MESSAGE << endl;
 
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                    delete trip;
+                    break;
+                }
                 //trip->calcPath();
                 tp.addTrip(trip);
                 center.addTrip(trip);
                 break;
             case Operation::NEW_VEHICLE:
-                //   cout << "new vehicle" << endl;
-
+                //cout << "here" << endl;
                 cin >> factory;
+
+                if (factory.getTaxi()->getId() == ERROR) {
+                    cout << ERROR_MESSAGE << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                    delete factory.getTaxi();
+                    break;
+                }
+
+                //cout << *factory.getTaxi() << endl;
                 center.addTaxi(factory.getTaxi());
                 break;
             case Operation::DRIVER_LOCATION:
                 //   cout << "driver location" << endl;
 
                 cin >> id;
+                if (!center.isDriverIn(id)) {
+                    cout << ERROR_MESSAGE << endl;
+                    break;
+                }
 
                 i = 0;
 
@@ -271,31 +320,34 @@ void *threadRun(void *element) {
             //cout << localClock << " : " << timeClock << endl;
             usleep(50);
         }
+        cout << "AHH" << endl;
         localCommand = commands.at((unsigned int) thread->getLocalClock());
         //cout << *localCommand << endl;
-
+        cout << "AHH0" << endl;
         //cout << "localClock: " << thread->getLocalClock() + 1 << " of " << driver->getId() << endl;
 
         switch (localCommand->getOp()) {
             case Operation::ADVANCE:
                 //center.advanceAllDrivers();
                 //cout << "advance" << endl;
-
+                cout << "AHH1" << endl;
                 if (driver->isAvailable()) {
                     pthread_mutex_lock(&trip_locker);
                     trip = center.getTripAt(thread->getLocalClock(), driver);
+                    cout << "AHH2" << endl;
                     if (trip != NULL) {
                         center.eraseDriver(driver);
                     }
                     pthread_mutex_unlock(&trip_locker);
 
                     if (trip != NULL) {
-
+                        //cout << *trip << endl;
+                        cout << "AHH3" << endl;
                         con.send(tripCommand);
 
                         //pthread_join(trip->getThread(), NULL);
-
-                        while(!trip->isCalced()){
+                        //cout <<  *trip << endl;
+                        while(!trip->isCalced()) {
                             usleep(50);
                         }
 

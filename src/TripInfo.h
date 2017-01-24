@@ -28,6 +28,7 @@ private:
     vector<Node*> route;
     int time;
     bool calced; // = false;
+    bool isValid;
     pthread_t thread;
 
 public:
@@ -46,6 +47,8 @@ public:
     pthread_t getThread() const;
 
     bool isCalced() const;
+
+    bool isTValid() const;
 
     void setCalced(bool calced);
 

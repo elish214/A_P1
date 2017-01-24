@@ -146,14 +146,24 @@ int TripInfo::getTotalMeters() const {
  */
 void TripInfo::findPath() {
     BFS bfs;
+
     route = bfs.run(grid->get(*start->getPoint()), grid->get(*end->getPoint()));
 
+    if (grid->get(*start->getPoint()) != grid->get(*end->getPoint()) &&
+            route.front() == grid->get(*end->getPoint()) &&
+            route.size() == 1) {
+        isValid = false;
+    } else {
+        isValid = true;
+    }
     //cout<< "calced!" << endl;
+    //cout << isValid << endl;
     totalMeters = (int) route.size();
 
-    //for (int i = 0; i < route.size(); ++i) {
-    //    cout << *route.at(i) << endl;
-    //}
+    /*
+    for (int i = 0; i < route.size(); ++i) {
+        cout << *route.at(i) << endl;
+    }*/
 }
 
 /**
@@ -323,6 +333,11 @@ istream &operator>>(istream &is, TripInfo &trip) {
         return is;
     }
 
+    if(trip.grid->get(x2,y2)->isObstacle()) {
+        trip.id = ERROR;
+        return is;
+    }
+
     trip.start = new Location(x1, y1);
     trip.end = new Location(x2, y2);
 
@@ -447,4 +462,13 @@ void TripInfo::setCalced(bool calced) {
  */
 pthread_t TripInfo::getThread() const {
     return thread;
+}
+
+/**
+ * returns whether trip is valid or not.
+ *
+ * @return whether trip is valid or not.
+ */
+bool TripInfo::isTValid() const {
+    return isValid;
 }

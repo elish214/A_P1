@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Point.h"
 
+#define  ERROR -1
+
 using namespace std;
 
 /**
@@ -117,10 +119,28 @@ bool Point::operator!=(const Point &rhs) const {
 istream &operator>>(istream &is, Point &point) {
     string s;
 
-    getline(is, s, ',');
-    point.x = atoi(s.c_str());
-    getline(is, s, '\n');
-    point.y = atoi(s.c_str());
+    try {
+        getline(is, s, ',');
+        point.x = stoi(s.c_str());
+        if (point.x < 0) {
+            point.x = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        point.x = ERROR;
+        return is;
+    }
+    try {
+        getline(is, s, '\n');
+        point.y = stoi(s.c_str());
+        if (point.y < 0) {
+            point.x = ERROR;
+            return is;
+        }
+    } catch (exception e) {
+        point.x = ERROR;
+        return is;
+    }
 
     return is;
 }
