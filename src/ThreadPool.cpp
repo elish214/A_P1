@@ -9,7 +9,7 @@ ThreadPool::ThreadPool(int poolSize) {
 
     for (int i = 0; i < poolSize; i++) {
         pthread_t thread;
-        pthread_create(&thread, NULL, startRun, (void*) this);
+        pthread_create(&thread, NULL, startRun, (void *) this);
         threads.push_back(thread);
     }
     pthread_mutex_init(&run_lock, 0);
@@ -25,7 +25,7 @@ ThreadPool::~ThreadPool() {
 }
 
 void *ThreadPool::startRun(void *element) {
-    ThreadPool *tp = (ThreadPool*) element;
+    ThreadPool *tp = (ThreadPool *) element;
     tp->executeThread();
 
     return NULL;
@@ -34,20 +34,30 @@ void *ThreadPool::startRun(void *element) {
 void ThreadPool::executeThread() {
     TripInfo *t = NULL;
     while (true) {
-        while (trips.empty()) {
-            //cout << "waiting" << endl;
-            sleep(1);
-        }
         pthread_mutex_lock(&run_lock);
+
+        while (trips.empty()) {
+            usleep(100);
+        }
+
         t = trips.front();
         trips.pop_front();
+
         pthread_mutex_unlock(&run_lock);
 
+        cout << t->getId() << endl;
         t->findPath();
-        t->setCalced(true);
+        cout << "S:" << t->getRoute().size() << endl;
 
+        if (*t->getStart() != *t->getEnd() && t->getRoute().size() == 1) {
+            t->setValid(false);
+        } else {
+            t->setValid(true);
+        }
+
+
+        t->setCalced(true);
     }
-    
 }
 
 void ThreadPool::addTrip(TripInfo *trip) {

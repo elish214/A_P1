@@ -27,8 +27,8 @@ private:
     Grid *grid;
     vector<Node*> route;
     int time;
-    bool calced; // = false;
-    bool isValid;
+    bool calced = false;
+    bool valid = true;
     pthread_t thread;
 
 public:
@@ -48,7 +48,9 @@ public:
 
     bool isCalced() const;
 
-    bool isTValid() const;
+    bool isValid() const;
+
+    void setValid(bool valid);
 
     void setCalced(bool calced);
 

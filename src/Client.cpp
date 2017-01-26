@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
         //cout << "im here" <<endl;
         c = con.receive<Command>();
         op = c->getOp();
-        //cout << *c << endl;
+        cout << *c << endl;
 
         delete c;
 
@@ -78,8 +78,16 @@ int main(int argc, char *argv[]) {
                 con.sendString("OK");
 
                 tc = con.receive<TripContainer>();
+
+                sleep(1);
+
                 con.sendString("OK");
                 trip = new TripInfo(tc);
+
+                for (int i = 0; i < trip->getRoute().size(); ++i) {
+                    cout << *trip->getRoute().at(i);
+                }
+                cout << endl;
 
                 d->setRoute(trip->getRoute());
 

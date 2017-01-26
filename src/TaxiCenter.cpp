@@ -255,7 +255,7 @@ void TaxiCenter::push(Driver *driver) {
         d.emplace_back(driver);
         locations.insert(make_pair(*driver->getLocation()->getPoint(), d));
     } else {
-        if(!isDriverIn(driver)) {
+        if (!isDriverIn(driver)) {
             it->second.emplace_back(driver);
         }
     }
@@ -381,7 +381,7 @@ int TaxiCenter::getTurn(Driver *driver) {
     map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
 
     for (unsigned int i = 0; i < it->second.size(); ++i) {
-        if(*driver == *it->second.at(i)) {
+        if (*driver == *it->second.at(i)) {
             //cout << *driver << " turn: " << i+1 << endl;
             return i + 1;
         }
@@ -404,14 +404,15 @@ TripInfo *TaxiCenter::getTripAt(int time, Driver *driver) {
 
     //cout << driver->getId() << " " << turn << " : " << numOfTrips << endl;
 
-    if(turn > numOfTrips) {
+    if (turn > numOfTrips) {
         return NULL;
     }
 
     for (unsigned int i = 0; i < trips.size(); ++i) {
         trip = trips.at(i);
 
-        if ((trip->getTime() == time) && *trip->getStart()->getPoint() == *driver->getLocation()->getPoint()) {
+        if (trip->getTime() == time && trip->isValid()
+               && *trip->getStart()->getPoint() == *driver->getLocation()->getPoint()) {
             if (turn == 1) {
                 trips.erase(trips.begin() + i);
                 return trip;
@@ -430,7 +431,7 @@ TripInfo *TaxiCenter::getTripAt(int time, Driver *driver) {
  */
 void TaxiCenter::eraseDriver(Driver *driver) {
     map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
-    Driver* temp;
+    Driver *temp;
     for (unsigned int i = 0; i < it->second.size(); ++i) {
         temp = it->second.at(0);
         if (*driver == *temp) {
@@ -457,7 +458,7 @@ bool TaxiCenter::isDriverIn(Driver *driver) {
     map<Point, deque<Driver *>>::iterator it = locations.find(*driver->getLocation()->getPoint());
 
     for (unsigned int i = 0; i < it->second.size(); ++i) {
-        if(*driver == *it->second.at(i)) {
+        if (*driver == *it->second.at(i)) {
             return true;
         }
     }
@@ -483,7 +484,7 @@ map<Point, deque<Driver *>> &TaxiCenter::getLocations() {
 bool TaxiCenter::isDriverIn(int id) {
     bool is = false;
     for (unsigned int j = 0; j < employees.size(); ++j) {
-        if(employees.at(j)->getId() == id) {
+        if (employees.at(j)->getId() == id) {
             is = true;
             break;
         }

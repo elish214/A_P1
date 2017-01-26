@@ -111,16 +111,6 @@ Grid *TripInfo::getGrid() const {
  */
 void TripInfo::setGrid(Grid *g) {
     TripInfo::grid = g;
-
-    //Location *s = g->get(*start->getPoint());
-    //Location *e = g->get(*end->getPoint());
-
-    //delete start;
-    //delete end;
-
-    //start = s;
-    //end = e;
-
 }
 
 /**
@@ -149,13 +139,6 @@ void TripInfo::findPath() {
 
     route = bfs.run(grid->get(*start->getPoint()), grid->get(*end->getPoint()));
 
-    if (grid->get(*start->getPoint()) != grid->get(*end->getPoint()) &&
-            route.front() == grid->get(*end->getPoint()) &&
-            route.size() == 1) {
-        isValid = false;
-    } else {
-        isValid = true;
-    }
     //cout<< "calced!" << endl;
     //cout << isValid << endl;
     totalMeters = (int) route.size();
@@ -182,7 +165,7 @@ void TripInfo::calcPath() {
  * @return void.
  */
 void *TripInfo::threadPath(void *element) {
-    TripInfo * t = (TripInfo *) element;
+    TripInfo *t = (TripInfo *) element;
 
     t->findPath();
     t->setCalced(true);
@@ -333,7 +316,7 @@ istream &operator>>(istream &is, TripInfo &trip) {
         return is;
     }
 
-    if(trip.grid->get(x2,y2)->isObstacle()) {
+    if (trip.grid->get(x2, y2)->isObstacle()) {
         trip.id = ERROR;
         return is;
     }
@@ -392,6 +375,7 @@ ostream &operator<<(ostream &os, TripInfo &info) {
        << " start: " << info.getStartVal() << " end: " << info.getEndVal()
        << " numOfPassengers: " << info.numOfPassengers << " taarif: "
        << info.taarif << " time: " << info.time;
+
     return os;
 }
 
@@ -469,6 +453,10 @@ pthread_t TripInfo::getThread() const {
  *
  * @return whether trip is valid or not.
  */
-bool TripInfo::isTValid() const {
-    return isValid;
+bool TripInfo::isValid() const {
+    return valid;
+}
+
+void TripInfo::setValid(bool valid) {
+    TripInfo::valid = valid;
 }

@@ -71,7 +71,6 @@ public:
         ar & taarif;
         ar & source;
         ar & destination;
-        //ar & passenger;
         ar & route;
         ar & time;
     }

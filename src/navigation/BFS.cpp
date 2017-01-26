@@ -66,11 +66,16 @@ vector<Node *> BFS::run(Node *start, Node *end) {
     p = parents.find(p)->second;
 
     while (p != NULL) {
+        if(parents.find(p) == parents.end()) {
+            break;
+        }
         route.insert(route.begin(), p);
+
+
         p = parents.find(p)->second;
     }
 
-    delete p;
+    // delete p;
 
     return route;
 }
