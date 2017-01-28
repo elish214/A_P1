@@ -3,6 +3,11 @@
 //
 
 #include "Driver.h"
+#include "validation/Checker.h"
+#include "validation/Validator.h"
+#include "validation/PositiveNumericChecker.h"
+#include "validation/MaritalStatusChecker.h"
+
 #define ERROR -1
 
 using namespace std;
@@ -75,7 +80,7 @@ Driver::~Driver() {
 /**
  * client's use to delete itself.
  */
-void Driver::deleteLocation(){
+void Driver::deleteLocation() {
     delete location;
 }
 
@@ -174,64 +179,47 @@ double Driver::getSatisfaction() {
  */
 istream &operator>>(istream &is, Driver &driver) {
     string s;
+    bool valid;
+    vector<Checker *> checkers;
+    Validator v;
 
-    try {
-        getline(is, s, ',');
-        driver.id = stoi(s.c_str());
-        if (driver.id < 0) {
-            driver.id = ERROR;
-            return is;
-        }
-    } catch (exception e) {
+    checkers.emplace_back(new PositiveNumericChecker());
+    checkers.emplace_back(new PositiveNumericChecker());
+    checkers.emplace_back(new MaritalStatusChecker());
+    checkers.emplace_back(new PositiveNumericChecker());
+    checkers.emplace_back(new PositiveNumericChecker());
+
+    is >> s;
+
+    valid = v.validate(s, checkers, ',');
+
+    for (unsigned int k = 0; k < checkers.size(); k++) {
+        delete checkers[k];
+    }
+
+    checkers.clear();
+
+    if (!valid) {
         driver.id = ERROR;
         return is;
     }
 
-    try {
-    getline(is, s, ',');
+    istringstream ss(s);
+
+    getline(ss, s, ',');
+    driver.id = stoi(s.c_str());
+
+    getline(ss, s, ',');
     driver.age = stoi(s.c_str());
-    if (driver.age < 0) {
-        driver.id = ERROR;
-        return is;
-        }
-    } catch (exception e) {
-        driver.id = ERROR;
-        return is;
-    }
 
-    getline(is, s, ',');
+    getline(ss, s, ',');
     driver.status = static_cast<MaritalStatus>(s[0]);
-    if (driver.status != MaritalStatus::DIVORCED &&
-        driver.status != MaritalStatus::WIDOWED &&
-        driver.status != MaritalStatus::MARRIED &&
-        driver.status != MaritalStatus::SINGLE) {
-        driver.id = ERROR;
-        return is;
-    }
 
-    try {
-        getline(is, s, ',');
-        driver.experience = stoi(s.c_str());
-        if (driver.experience < 0) {
-            driver.id = ERROR;
-            return is;
-        }
-    } catch (exception e) {
-        driver.id = ERROR;
-        return is;
-    }
+    getline(ss, s, ',');
+    driver.experience = stoi(s.c_str());
 
-    try {
-        getline(is, s, '\n');
-        driver.taxiID = stoi(s.c_str());
-        if (driver.taxiID < 0) {
-            driver.id = ERROR;
-            return is;
-        }
-    } catch (exception e) {
-        driver.id = ERROR;
-        return is;
-    }
+    getline(ss, s, '\n');
+    driver.taxiID = stoi(s.c_str());
 
     driver.satisfaction = Satisfaction(0, 0);
 

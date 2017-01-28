@@ -7,7 +7,6 @@
 #include "Driver.h"
 #include "sockets/Udp.h"
 #include "sockets/Connection.h"
-#include "taxi/StandardTaxi.h"
 #include "enums/Operation.h"
 #include "containers/Command.h"
 #include "TaxiCenter.h"
@@ -22,20 +21,17 @@
 using namespace std;
 
 // global variants:
-int systemClock = 0;
 int timeClock = 0;
 int sock;
 TaxiCenter center;
 Command *command;
 int threadsCounter = 0;
-int finished = 0;
 
 vector<Command *> commands;
 Grid *grid;
 
 // mutex.
 pthread_mutex_t trip_locker;
-pthread_mutex_t _locker;
 
 static void *threadRun(void *element);
 
@@ -100,6 +96,7 @@ int main(int argc, char *argv[]) {
         grid = new Grid(rows, cols);
 
         for (int j = 0; j < numOfObstacles; ++j) {
+            //cout << "point number: " << j << endl;
             cin >> point;
             if (point.getX() == ERROR || !cin.good() ||
                 point.getX() >= grid->getCols() ||
@@ -181,19 +178,18 @@ int main(int argc, char *argv[]) {
                 cin >> *trip;
                 //cout << trip->getId() << endl;
                 if (trip->getId() == ERROR) {
-                    //cout << ERROR_MESSAGE << endl;
-
+                    cout << ERROR_MESSAGE << endl;
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    delete trip;
+                    //delete trip;
                     break;
                 }
+                //cout << *trip << endl;
                 //trip->calcPath();
                 tp.addTrip(trip);
                 center.addTrip(trip);
                 break;
             case Operation::NEW_VEHICLE:
-                //cout << "here" << endl;
                 cin >> factory;
 
                 if (factory.getTaxi()->getId() == ERROR) {
@@ -204,7 +200,7 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-                //cout << *factory.getTaxi() << endl;
+                cout << *factory.getTaxi() << endl;
                 center.addTaxi(factory.getTaxi());
                 break;
             case Operation::DRIVER_LOCATION:
@@ -318,17 +314,15 @@ void *threadRun(void *element) {
             //cout << localClock << " : " << timeClock << endl;
             usleep(50);
         }
-        cout << "AHH" << endl;
+
         localCommand = commands.at((unsigned int) thread->getLocalClock());
         //cout << *localCommand << endl;
-        cout << "AHH0" << endl;
         //cout << "localClock: " << thread->getLocalClock() + 1 << " of " << driver->getId() << endl;
 
         switch (localCommand->getOp()) {
             case Operation::ADVANCE:
                 //center.advanceAllDrivers();
                 //cout << "advance" << endl;
-                cout << "AHH1" << endl;
                 if (driver->isAvailable()) {
                     isTripRun = true;
 
@@ -339,7 +333,6 @@ void *threadRun(void *element) {
                     do { //looking for calculated valid trips
                         trys++;
                         trip = center.getTripAt(thread->getLocalClock(), driver);
-                        cout << "AHH2 - " << thread->getThread() << " - " << trys << endl;
                         //if (trip != NULL) {
                         //    center.eraseDriver(driver);
                         //}
@@ -348,15 +341,10 @@ void *threadRun(void *element) {
                             cout << *trip << endl;
 
                             while (!trip->isCalced()) {
-                                cout << "a";
                                 usleep(50);
                             }
 
-                            cout << "calced" << endl;
-                            cout << "valid: " << trip->isValid() << endl;
-
                             if (!trip->isValid()) {
-                                cout << "get outa here!" << endl;
                                 continue;
                             }
 
@@ -364,8 +352,6 @@ void *threadRun(void *element) {
                                 cout << *trip->getRoute().at(i);
                             }
                             cout << endl;
-
-                            cout << "AHH3" << endl;
 
                             center.eraseDriver(driver);
 
@@ -375,21 +361,17 @@ void *threadRun(void *element) {
 
                             con.receiveString(buffer);
 
-                            cout << "AHH4" << endl;
-
                             usleep(300);
                             con.send(tc);
 
                             delete tc;
                             //~~~~~~~~~~~~~~~~~~~~~~delete trip;
 
-                            cout << "AHH5" << endl;
                             con.receiveString(buffer);
                             driver->setAvailable(false);
 
                         }
 
-                        cout << "out" << endl;
                         isTripRun = false;
 
                     } while (isTripRun);

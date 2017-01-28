@@ -38,7 +38,7 @@ set(SOURCE_FILES src/navigation/Point.cpp src/navigation/BFS.cpp
         src/containers/DriverContainer.h src/containers/PassengerContainer.cpp
         src/containers/PassengerContainer.h src/containers/TripContainer.cpp
         src/containers/TripContainer.h src/enums/Operation.h src/containers/Command.cpp
-        src/containers/Command.h src/Thread.cpp src/Thread.h src/ThreadPool.cpp src/ThreadPool.h)
+        src/containers/Command.h src/Thread.cpp src/Thread.h src/ThreadPool.cpp src/ThreadPool.h src/validation/Checker.h src/validation/PositiveNumericChecker.cpp src/validation/PositiveNumericChecker.h src/validation/CarManufacturerChecker.cpp src/validation/CarManufacturerChecker.h src/validation/ColorChecker.cpp src/validation/ColorChecker.h src/validation/MaritalStatusChecker.cpp src/validation/MaritalStatusChecker.h src/validation/RangeNumericChecker.cpp src/validation/RangeNumericChecker.h src/validation/Validator.cpp src/validation/Validator.h)
 
 add_executable(Server ${SOURCE_FILES} src/Server.cpp)
 add_executable(Client ${SOURCE_FILES} src/Client.cpp)

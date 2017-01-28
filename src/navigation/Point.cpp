@@ -3,6 +3,9 @@
 //
 #include <iostream>
 #include "Point.h"
+#include "../validation/Checker.h"
+#include "../validation/Validator.h"
+#include "../validation/RangeNumericChecker.h"
 
 #define  ERROR -1
 
@@ -118,29 +121,35 @@ bool Point::operator!=(const Point &rhs) const {
  */
 istream &operator>>(istream &is, Point &point) {
     string s;
+    bool valid;
+    vector<Checker *> checkers;
+    Validator v;
 
-    try {
-        getline(is, s, ',');
-        point.x = stoi(s.c_str());
-        if (point.x < 0) {
-            point.x = ERROR;
-            return is;
-        }
-    } catch (exception e) {
+    checkers.emplace_back(new RangeNumericChecker(0, INT_MAX));
+    checkers.emplace_back(new RangeNumericChecker(0, INT_MAX));
+
+    is >> s;
+
+    valid = v.validate(s, checkers, ',');
+
+    for (unsigned int k = 0; k < checkers.size(); k++) {
+        delete checkers[k];
+    }
+
+    checkers.clear();
+
+    if (!valid) {
         point.x = ERROR;
         return is;
     }
-    try {
-        getline(is, s, '\n');
-        point.y = stoi(s.c_str());
-        if (point.y < 0) {
-            point.x = ERROR;
-            return is;
-        }
-    } catch (exception e) {
-        point.x = ERROR;
-        return is;
-    }
+
+    istringstream ss(s);
+
+    getline(ss, s, ',');
+    point.x = stoi(s.c_str());
+
+    getline(ss, s, '\n');
+    point.y = stoi(s.c_str());
 
     return is;
 }

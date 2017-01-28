@@ -5,6 +5,12 @@
 #include "TaxiFactory.h"
 #include "StandardTaxi.h"
 #include "LuxuryTaxi.h"
+#include "../validation/Checker.h"
+#include "../validation/Validator.h"
+#include "../validation/PositiveNumericChecker.h"
+#include "../validation/RangeNumericChecker.h"
+#include "../validation/CarManufacturerChecker.h"
+#include "../validation/ColorChecker.h"
 
 #define ERROR -1
 
@@ -26,60 +32,49 @@ Taxi *TaxiFactory::getTaxi() const {
  */
 istream &operator>>(istream &is, TaxiFactory &factory) {
     string s;
-    //char c;
+    bool valid;
+    vector<Checker *> checkers;
+    Validator v;
+
+    checkers.emplace_back(new PositiveNumericChecker());
+    checkers.emplace_back(new RangeNumericChecker(1, 2));
+    checkers.emplace_back(new CarManufacturerChecker());
+    checkers.emplace_back(new ColorChecker());
+
+    is >> s;
+
+    valid = v.validate(s, checkers, ',');
+
+    for (unsigned int k = 0; k < checkers.size(); k++) {
+        delete checkers[k];
+    }
+
+    checkers.clear();
+
+    if (!valid) {
+        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
+        return is;
+    }
+
+    istringstream ss(s);
+
     int id, type;
     CarManufacturer m;
     Color color;
 
-    try {
-        getline(is, s, ',');
-        id = stoi(s.c_str());
-        if (id < 0) {
-            factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
-            return  is;
-        }
-    } catch (exception e) {
+    getline(ss, s, ',');
+    id = stoi(s.c_str());
+    cout << id << endl;
 
-        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
-        return  is;
-    }
+    getline(ss, s, ',');
+    type = stoi(s.c_str());
 
-    try {
-        getline(is, s, ',');
-        type = stoi(s.c_str());
-        if (type != 1 && type != 2) {
-
-            factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
-            return  is;
-        }
-    } catch (exception e) {
-
-        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
-        return  is;
-    }
-
-    getline(is, s, ',');
+    getline(ss, s, ',');
     m = static_cast<CarManufacturer>(s[0]);
-    if (m != CarManufacturer::FIAT &&
-        m != CarManufacturer::HONDA &&
-        m != CarManufacturer::SUBARU &&
-        m != CarManufacturer::TESLA) {
-        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
-        return  is;
-    }
 
-    getline(is, s, '\n');
-    //cout << s << endl;
-    //cout << s[0] << " " << s[1] << endl;
+    getline(ss, s, '\n');
     color = static_cast<Color>(s[0]);
-    if (color != Color::BLUE &&
-        color != Color::GREEN &&
-        color != Color::PINK &&
-        color != Color::RED &&
-        color != Color::WHITE) {
-        factory.taxi = new StandardTaxi(ERROR, CarManufacturer::FIAT, Color::BLUE);
-        return  is;
-    }
+
 
     switch (type) {
         case 1:
