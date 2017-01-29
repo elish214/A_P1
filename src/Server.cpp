@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
                 point.getY() >= grid->getRows()) {
                 cout << ERROR_MESSAGE << endl;
                 cin.clear();
-                //cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
 
                 gridValid = false;
                 delete grid;
@@ -127,7 +127,7 @@ int main(int argc, char *argv[]) {
     do {
         //operation
         //cout << cin.get() << endl;
-        cin.clear();
+        //cin.clear();
         //cin.ignore(numeric_limits<streamsize>::max(),'\n');
         cin >> opNum;
         //cout<< "im dead" << endl;
@@ -138,11 +138,20 @@ int main(int argc, char *argv[]) {
         switch (op) {
             case Operation::NEW_DRIVER:
                 cin >> numOfDrivers;
+                if (numOfDrivers < 0 || !cin.good()) {
+                    cout << ERROR_MESSAGE << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    break;
+                }
+
                 //cout << "waiting for drivers" << endl;
                 for (int j = 0; j < numOfDrivers; ++j) {
                     descriptor = con.accept();
                     dc = con.receive<DriverContainer>();
                     if (dc->getId() == ERROR) { // terminate all.
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
                         commands.push_back(new Command(Operation::EXIT));
                         timeClock++;
                         isRunning = false;
@@ -200,7 +209,7 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-                cout << *factory.getTaxi() << endl;
+                //cout << *factory.getTaxi() << endl;
                 center.addTaxi(factory.getTaxi());
                 break;
             case Operation::DRIVER_LOCATION:
@@ -209,6 +218,8 @@ int main(int argc, char *argv[]) {
                 cin >> id;
                 if (!center.isDriverIn(id)) {
                     cout << ERROR_MESSAGE << endl;
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     break;
                 }
 
@@ -237,13 +248,14 @@ int main(int argc, char *argv[]) {
                 break;
 
             case Operation::EXIT:
-
                 commands.push_back(new Command(Operation::EXIT));
                 timeClock++;
                 isRunning = false;
                 break;
             default:
                 cout << ERROR_MESSAGE << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 break;
         }
 
@@ -338,7 +350,7 @@ void *threadRun(void *element) {
                         //}
 
                         if (trip != NULL) {
-                            cout << *trip << endl;
+                            //cout << *trip << endl;
 
                             while (!trip->isCalced()) {
                                 usleep(50);
@@ -348,10 +360,12 @@ void *threadRun(void *element) {
                                 continue;
                             }
 
+                            /*
                             for (int i = 0; i < trip->getRoute().size(); ++i) {
                                 cout << *trip->getRoute().at(i);
                             }
                             cout << endl;
+                            */
 
                             center.eraseDriver(driver);
 

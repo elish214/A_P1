@@ -45,6 +45,7 @@ TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger, int time)
 TripInfo::TripInfo() : totalMeters(0) {
     taarif = -1;
     calced = false;
+    valid = true;
 }
 
 /**
@@ -331,7 +332,7 @@ istream &operator>>(istream &is, TripInfo &trip) {
     getline(ss, s, ',');
     trip.taarif = stod(s.c_str());
 
-    getline(ss, s, '\0');
+    getline(ss, s, '\n');
     trip.time = stoi(s.c_str());
 
     return is;

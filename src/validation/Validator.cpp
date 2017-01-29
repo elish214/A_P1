@@ -9,7 +9,8 @@
 using namespace std;
 
 /**
- * validates the input using checkers
+ * validates the input using checkers.
+ * 
  * @param input input to validate
  * @param checkers criteria to check
  * @param separator to separate to input

@@ -18,7 +18,7 @@ ThreadPool::ThreadPool(int poolSize) {
 ThreadPool::~ThreadPool() {
     for (unsigned int j = 0; j < size; j++) {
         pthread_cancel(threads.at(j));
-        cout << "dead" << endl;
+        //cout << "dead" << endl;
     }
 
     pthread_mutex_destroy(&run_lock);
@@ -45,9 +45,9 @@ void ThreadPool::executeThread() {
 
         pthread_mutex_unlock(&run_lock);
 
-        cout << t->getId() << endl;
+        //cout << t->getId() << endl;
         t->findPath();
-        cout << "S:" << t->getRoute().size() << endl;
+        //cout << "S:" << t->getRoute().size() << endl;
 
         if (*t->getStart() != *t->getEnd() && t->getRoute().size() == 1) {
             t->setValid(false);

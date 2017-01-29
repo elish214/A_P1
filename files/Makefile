@@ -5,16 +5,16 @@
 
 all: server.out client.out
 
-server.out: Server.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Tcp.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o Thread.o TripInfo.o
-	g++ -g -o server.out Server.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Tcp.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o Thread.o TripInfo.o -lboost_serialization -pthread
+server.out: Server.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Tcp.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o CarManufacturerChecker.o ColorChecker.o MaritalStatusChecker.o PositiveNumericChecker.o RangeNumericChecker.o Validator.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o Thread.o TripInfo.o
+	g++ -g -o server.out Server.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Tcp.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o CarManufacturerChecker.o ColorChecker.o MaritalStatusChecker.o PositiveNumericChecker.o RangeNumericChecker.o Validator.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o Thread.o TripInfo.o -lboost_serialization -pthread
 
-client.out: Client.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Tcp.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o Thread.o TripInfo.o
-	g++ -g -o client.out Client.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Tcp.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o Thread.o TripInfo.o -lboost_serialization -pthread
+client.out: Client.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Tcp.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o CarManufacturerChecker.o ColorChecker.o MaritalStatusChecker.o PositiveNumericChecker.o RangeNumericChecker.o Validator.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o Thread.o TripInfo.o
+	g++ -g -o client.out Client.o Command.o DriverContainer.o LocationContainer.o PassengerContainer.o TripContainer.o AvailabilityListener.o SatisfactionListener.o BFS.o Grid.o Location.o Node.o Point.o Connection.o Socket.o Tcp.o Udp.o LuxuryTaxi.o StandardTaxi.o Taxi.o TaxiFactory.o CarManufacturerChecker.o ColorChecker.o MaritalStatusChecker.o PositiveNumericChecker.o RangeNumericChecker.o Validator.o Driver.o Passenger.o Satisfaction.o TaxiCenter.o Thread.o TripInfo.o -lboost_serialization -pthread
 
-Server.o: src/Server.cpp src/navigation/Node.h src/enums/CarManufacturer.h src/enums/Color.h src/enums/MaritalStatus.h src/listeners/EndTripListener.h
+Server.o: src/Server.cpp src/navigation/Node.h src/enums/CarManufacturer.h src/enums/Color.h src/enums/MaritalStatus.h src/listeners/EndTripListener.h src/validation/Checker.h
 	g++ -g -c -std=c++0x -Wall src/Server.cpp
 
-Client.o: src/Client.cpp src/navigation/Node.h src/enums/CarManufacturer.h src/enums/Color.h src/enums/MaritalStatus.h src/listeners/EndTripListener.h
+Client.o: src/Client.cpp src/navigation/Node.h src/enums/CarManufacturer.h src/enums/Color.h src/enums/MaritalStatus.h src/listeners/EndTripListener.h src/validation/Checker.h
 	g++ -g -c -std=c++0x -Wall src/Client.cpp
 
 Command.o: src/containers/Command.cpp src/containers/Command.h
@@ -76,6 +76,24 @@ Taxi.o: src/taxi/Taxi.cpp src/taxi/Taxi.h
 
 TaxiFactory.o: src/taxi/TaxiFactory.cpp src/taxi/TaxiFactory.h
 	g++ -c -std=c++0x -Wall src/taxi/TaxiFactory.cpp
+
+CarManufacturerChecker.o: src/validation/CarManufacturerChecker.cpp src/validation/CarManufacturerChecker.h
+    g++ -c -std=c++0x -Wall src/validation/CarManufacturerChecker.cpp
+
+ColorChecker.o: src/validation/ColorChecker.cpp src/validation/ColorChecker.h
+    g++ -c -std=c++0x -Wall src/validation/ColorChecker.cpp
+
+MaritalStatusChecker.o: src/validation/MaritalStatusChecker.cpp src/validation/MaritalStatusChecker.h
+    g++ -c -std=c++0x -Wall src/validation/MaritalStatusChecker.cpp
+
+PositiveNumericChecker.o: src/validation/PositiveNumericChecker.cpp src/validation/PositiveNumericChecker.h
+    g++ -c -std=c++0x -Wall src/validation/PositiveNumericChecker.cpp
+
+RangeNumericChecker.o: src/validation/RangeNumericChecker.cpp src/validation/RangeNumericChecker.h
+    g++ -c -std=c++0x -Wall src/validation/RangeNumericChecker.cpp
+
+Validator.o: src/validation/Validator.cpp src/validation/Validator.h
+    g++ -c -std=c++0x -Wall src/validation/Validator.cpp
 
 Driver.o: src/Driver.cpp src/Driver.h
 	g++ -c -std=c++0x -Wall src/Driver.cpp
