@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
     center = TaxiCenter();
     Driver *driver;
     DriverContainer *dc;
-    TripInfo *trip;
+    TripInfo *trip = new TripInfo();
     Point point = Point(-1, -1);
     TaxiFactory factory;
     Taxi *taxi;
@@ -182,7 +182,6 @@ int main(int argc, char *argv[]) {
 
                 break;
             case Operation::NEW_RIDE:
-                trip = new TripInfo();
                 trip->setGrid(grid);
                 cin >> *trip;
                 //cout << trip->getId() << endl;
@@ -197,6 +196,7 @@ int main(int argc, char *argv[]) {
                 //trip->calcPath();
                 tp.addTrip(trip);
                 center.addTrip(trip);
+                trip = new TripInfo();
                 break;
             case Operation::NEW_VEHICLE:
                 cin >> factory;
@@ -284,6 +284,7 @@ int main(int argc, char *argv[]) {
     threads.clear();
     //pthread_mutex_destroy(&trip_locker);
 
+    delete trip;
     delete grid;
     delete command;
 

@@ -4,6 +4,11 @@
 
 #include "ThreadPool.h"
 
+/**
+ * constructor.
+ *
+ * @param poolSize an integer.
+ */
 ThreadPool::ThreadPool(int poolSize) {
     size = poolSize;
 
@@ -15,8 +20,11 @@ ThreadPool::ThreadPool(int poolSize) {
     pthread_mutex_init(&run_lock, 0);
 }
 
+/**
+ * destructor.
+ */
 ThreadPool::~ThreadPool() {
-    for (unsigned int j = 0; j < size; j++) {
+    for (int j = 0; j < size; j++) {
         pthread_cancel(threads.at(j));
         //cout << "dead" << endl;
     }
@@ -24,6 +32,12 @@ ThreadPool::~ThreadPool() {
     pthread_mutex_destroy(&run_lock);
 }
 
+/**
+ * thread's start.
+ *
+ * @param element an element.
+ * @return void.
+ */
 void *ThreadPool::startRun(void *element) {
     ThreadPool *tp = (ThreadPool *) element;
     tp->executeThread();
@@ -31,6 +45,9 @@ void *ThreadPool::startRun(void *element) {
     return NULL;
 }
 
+/**
+ * thread's run.
+ */
 void ThreadPool::executeThread() {
     TripInfo *t = NULL;
     while (true) {
@@ -60,8 +77,11 @@ void ThreadPool::executeThread() {
     }
 }
 
+/**
+ * adding trip to threadpool's deque.
+ *
+ * @param trip a trip info.
+ */
 void ThreadPool::addTrip(TripInfo *trip) {
     trips.push_back(trip);
 }
-
-

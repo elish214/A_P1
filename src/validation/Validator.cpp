@@ -20,7 +20,7 @@ bool Validator::validate(string input, vector<Checker *> checkers, char separato
     istringstream ss(input);
     string s;
 
-    if (count(input.begin(), input.end(), separator) != checkers.size() - 1) {
+    if ((unsigned ) count(input.begin(), input.end(), separator) != checkers.size() - 1) {
         return false;
     }
 
