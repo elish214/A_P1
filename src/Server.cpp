@@ -380,7 +380,7 @@ void *threadRun(void *element) {
                             con.send(tc);
 
                             delete tc;
-                            //~~~~~~~~~~~~~~~~~~~~~~delete trip;
+                            delete trip;
 
                             con.receiveString(buffer);
                             driver->setAvailable(false);
