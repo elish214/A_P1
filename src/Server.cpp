@@ -42,10 +42,11 @@ static void *threadRun(void *element);
  */
 int main(int argc, char *argv[]) {
     sock = atoi(argv[1]);
-    char buffer[1024];
+    char buffer[120000];
     unsigned int i;
 
     ThreadPool tp(5);
+    int guiDescriptor;
 
     pthread_mutex_init(&trip_locker, 0);
 
@@ -61,11 +62,13 @@ int main(int argc, char *argv[]) {
     Operation op;
     command = new Command();
 
+    stringstream ss;
     //LocationContainer *lc;
     //TripContainer *tc;
     //Location *location;
     int rows, cols;
     int numOfObstacles;
+    vector<Point> obstacles;
     bool valid = false;
     bool gridValid = true;
     //Socket *socket = new Udp(1, sock);
@@ -112,11 +115,36 @@ int main(int argc, char *argv[]) {
             }
             gridValid = true;
             grid->get(point)->setObstacle(true);
+            obstacles.emplace_back(Point(point));
         }
         if (gridValid) {
             valid = true;
         }
     }
+
+    cin.clear();
+
+    guiDescriptor = con.accept();
+    con.setDescriptor(guiDescriptor);
+    con.receiveString(buffer);
+    cout << "from gui: " << buffer << endl;
+    cout << "before gui send" << endl;
+    con.sendString(to_string(rows) + "\n");
+    con.receiveString(buffer);
+    con.sendString(to_string(cols) + "\n");
+    cout << "after gui send" << endl;
+
+    con.sendString(to_string(numOfObstacles) + "\n");
+
+    for (int l = 0; l < numOfObstacles; ++l) {
+        cout << "send obs " << l << endl;
+        //con.receiveString(buffer);
+        con.sendString(to_string(obstacles.at(l).getX()) + "\n");
+        //con.receiveString(buffer);
+        con.sendString(to_string(obstacles.at(l).getY()) + "\n");
+    }
+
+
     //cout << "alive" << endl;
     /*
     cout << "-----------------------" << endl
@@ -126,6 +154,7 @@ int main(int argc, char *argv[]) {
 
     do {
         //operation
+/*
         //cout << cin.get() << endl;
         cin.clear();
         //cin.ignore(numeric_limits<streamsize>::max(),'\n');
@@ -134,6 +163,12 @@ int main(int argc, char *argv[]) {
         op = static_cast<Operation>(opNum);
         command->setOp(op);
         //cout << *command << endl;
+*/
+        cin.clear();
+        con.receiveString(buffer);
+        op = static_cast<Operation>(atoi(buffer));
+        command->setOp(op);
+        cout << *command << endl;
 
         switch (op) {
             case Operation::NEW_DRIVER:
@@ -173,10 +208,14 @@ int main(int argc, char *argv[]) {
 
                 break;
             case Operation::NEW_RIDE:
+                con.receiveJava(buffer);
+                cout << buffer << endl;
+                ss.str(buffer);
+
                 trip = new TripInfo();
                 trip->setGrid(grid);
-                cin >> *trip;
-                //cout << trip->getId() << endl;
+                ss >> *trip;
+                cout << trip->getId() << endl;
                 if (trip->getId() == ERROR) {
                     cout << ERROR_MESSAGE << endl;
                     cin.clear();
@@ -184,6 +223,9 @@ int main(int argc, char *argv[]) {
                     //delete trip;
                     break;
                 }
+
+                cout << "FFFFFFFFFFFFFFFFFFFFFFFFFFF" << endl;
+
                 //cout << *trip << endl;
                 //trip->calcPath();
                 tp.addTrip(trip);
@@ -230,7 +272,7 @@ int main(int argc, char *argv[]) {
 
             case Operation::ADVANCE:
                 //center.advanceAllDrivers();
-                //cout << "advance" << endl;
+                cout << "advance" << endl;
                 commands.push_back(new Command(Operation::ADVANCE));
                 timeClock++;
 
@@ -252,6 +294,7 @@ int main(int argc, char *argv[]) {
              << "CENTER:" << endl << center << endl
              << "-----------------------" << endl;
         */
+
 
     } while (isRunning);
 

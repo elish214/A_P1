@@ -46,6 +46,8 @@ public:
      */
     int receiveString(char *buffer);
 
+    int receiveJava(char *buffer);
+
     /**
      * receive and deserialize object
      * @tparam T object type
