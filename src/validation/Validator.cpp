@@ -9,7 +9,8 @@
 using namespace std;
 
 /**
- * validates the input using checkers
+ * validates the input using checkers.
+ * 
  * @param input input to validate
  * @param checkers criteria to check
  * @param separator to separate to input
@@ -19,7 +20,7 @@ bool Validator::validate(string input, vector<Checker *> checkers, char separato
     istringstream ss(input);
     string s;
 
-    if (count(input.begin(), input.end(), separator) != checkers.size() - 1) {
+    if ((unsigned ) count(input.begin(), input.end(), separator) != checkers.size() - 1) {
         return false;
     }
 

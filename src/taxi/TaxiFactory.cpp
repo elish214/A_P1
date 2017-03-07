@@ -64,7 +64,7 @@ istream &operator>>(istream &is, TaxiFactory &factory) {
 
     getline(ss, s, ',');
     id = stoi(s.c_str());
-    cout << id << endl;
+    //cout << id << endl;
 
     getline(ss, s, ',');
     type = stoi(s.c_str());

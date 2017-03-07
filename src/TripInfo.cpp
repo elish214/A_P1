@@ -43,8 +43,12 @@ TripInfo::TripInfo(int id, int numOfPassengers, Passenger *passenger, int time)
  * constructor.
  */
 TripInfo::TripInfo() : totalMeters(0) {
+    //cout << "created" << endl;
     taarif = -1;
     calced = false;
+    valid = true;
+    start = NULL;
+    end = NULL;
 }
 
 /**
@@ -83,9 +87,14 @@ TripInfo::TripInfo(TripContainer *tc) :
  * destructor.
  */
 TripInfo::~TripInfo() {
+    //cout << id << " deleted" << endl;
     //delete passenger;
-    delete start;
-    delete end;
+    if(start != NULL) {
+        delete start;
+    }
+    if(end != NULL) {
+        delete end;
+    }
 }
 
 /**
@@ -283,6 +292,7 @@ istream &operator>>(istream &is, TripInfo &trip) {
 
     if (!valid) {
         trip.id = ERROR;
+        //cout << trip.id << " get" << endl;
         return is;
     }
 
@@ -292,7 +302,6 @@ istream &operator>>(istream &is, TripInfo &trip) {
 
     getline(ss, s, ',');
     trip.id = stoi(s.c_str());
-
 
     getline(ss, s, ',');
     x1 = stoi(s.c_str());
@@ -331,7 +340,7 @@ istream &operator>>(istream &is, TripInfo &trip) {
     getline(ss, s, ',');
     trip.taarif = stod(s.c_str());
 
-    getline(ss, s, '\0');
+    getline(ss, s, '\n');
     trip.time = stoi(s.c_str());
 
     return is;
@@ -431,6 +440,11 @@ bool TripInfo::isValid() const {
     return valid;
 }
 
+/**
+ * setting validation.
+ *
+ * @param valid a bool.
+ */
 void TripInfo::setValid(bool valid) {
     TripInfo::valid = valid;
 }
